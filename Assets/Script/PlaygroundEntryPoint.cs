@@ -1,11 +1,23 @@
+using System;
+using R3;
+using Script;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class PlaygroundEntryPoint : MonoBehaviour {
-    [SerializeField] PlayerReference _playerReference;
+    [Required, SerializeField]
+    [InlineEditor(InlineEditorModes.FullEditor)]
+    PlayerReference _playerReference;
 
-    ActionMap _actionMap;
+
+    ActionMap        _actionMap;
+    PlayerController _playerController;
+    PlayerPresenter  _playerPresenter;
 
     void Awake() {
-        _actionMap = new ActionMap();
+        _actionMap        = new ActionMap();
+        _playerController = new PlayerController(_playerReference);
+
+        _playerPresenter = new PlayerPresenter(_actionMap, _playerController);
     }
 }

@@ -3147,8 +3147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd305af4fd46a254fae712a8a791b039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 0}
-  _collider: {fileID: 0}
+  _rigidbody: {fileID: 1215689216}
+  _collider: {fileID: 1215689217}
   _speed: 0
 --- !u!1 &1410382111
 GameObject:
@@ -3194,7 +3194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 121f2d8a10fec274c8970f7fc8fbc22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerReference: {fileID: 0}
+  _playerReference: {fileID: 1215689220}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
