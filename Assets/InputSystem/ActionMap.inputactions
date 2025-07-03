@@ -19,7 +19,7 @@
                 {
                     "name": "1D Axis",
                     "id": "6b660195-4f6e-4d7e-88d4-18d38d11e271",
-                    "path": "1DAxis(whichSideWins=1)",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

@@ -1,4 +1,5 @@
-﻿using UnityEngine.InputSystem;
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GeneralKeyMapActions : ActionMap.IGeneralKeymapActions {
     readonly PlayerController _playerController;
@@ -7,5 +8,11 @@ public class GeneralKeyMapActions : ActionMap.IGeneralKeymapActions {
         _playerController = playerController;
     }
 
-    public void OnMove(InputAction.CallbackContext context) { }
+    public void OnMove(InputAction.CallbackContext context) {
+        if (context.performed || context.canceled) {
+            var axis = context.ReadValue<float>();
+            _playerController.SetAxis(axis);
+        }
+        
+    }
 }

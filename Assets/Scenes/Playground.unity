@@ -3149,7 +3149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 1215689216}
   _collider: {fileID: 1215689217}
-  _speed: 0
+  _speed: 10
 --- !u!1 &1410382111
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,3 @@
-using System;
-using R3;
-using Script;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -18,6 +15,6 @@ public class PlaygroundEntryPoint : MonoBehaviour {
         _actionMap        = new ActionMap();
         _playerController = new PlayerController(_playerReference);
 
-        _playerPresenter = new PlayerPresenter(_actionMap, _playerController);
+        _playerPresenter = new PlayerPresenter(_actionMap, _playerController, _playerReference);
     }
 }
