@@ -1,0 +1,18 @@
+using Sirenix.OdinInspector;
+using UnityEngine;
+
+namespace Script.TheLostSpirit.Reference.PlayerReference {
+    public class PlayerReference : MonoBehaviour {
+        [SerializeField, Required, ChildGameObjectsOnly]
+        Rigidbody2D _rigidbody;
+
+        [SerializeField, Required, ChildGameObjectsOnly]
+        Collider2D _collider;
+
+        [SerializeField] float _speed;
+
+        public Rigidbody2D Rigidbody => _rigidbody;
+        public Collider2D Collider => _collider;
+        public float Speed => _speed;
+    }
+}

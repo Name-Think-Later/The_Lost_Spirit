@@ -1,9 +1,7 @@
 ﻿using System;
-using JetBrains.Annotations;
 using R3;
-using UnityEngine;
 
-namespace Script {
+namespace Script.TheLostSpirit.EventBus {
     public class EventBus {
         readonly Subject<DomainEvent> _subject = new Subject<DomainEvent>();
 
