@@ -5,12 +5,12 @@ using Script.TheLostSpirit.InputModule;
 using Script.TheLostSpirit.Reference.PlayerReference;
 
 namespace Script.TheLostSpirit.Presenter.PlayerPresenter {
-    public class PlayerPresenter {
+    public class PlayerManipulatePresenter {
         readonly ActionMap            _actionMap;
         readonly PlayerController     _playerController;
         readonly GeneralActions _generalActions;
 
-        public PlayerPresenter(
+        public PlayerManipulatePresenter(
             ActionMap        actionMap,
             PlayerController playerController,
             PlayerReference lifeTimeDependency

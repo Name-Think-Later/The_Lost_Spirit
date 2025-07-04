@@ -13,12 +13,12 @@ namespace Script.TheLostSpirit.EntryPoint.Playground {
 
         ActionMap        _actionMap;
         PlayerController _playerController;
-        PlayerPresenter  _playerPresenter;
 
         void Awake() {
             _actionMap        = new ActionMap();
             _playerController = new PlayerController(_playerReference);
-            _playerPresenter = new PlayerPresenter(_actionMap, _playerController, _playerReference);
+
+            _ = new PlayerManipulatePresenter(_actionMap, _playerController, _playerReference);
         }
     }
 }
