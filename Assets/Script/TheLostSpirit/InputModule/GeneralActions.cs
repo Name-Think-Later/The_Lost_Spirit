@@ -2,10 +2,10 @@
 using UnityEngine.InputSystem;
 
 namespace Script.TheLostSpirit.InputModule {
-    public class GeneralKeyMapActions : ActionMap.IGeneralKeymapActions {
+    public class GeneralActions : ActionMap.IGeneralActions {
         readonly PlayerController _playerController;
 
-        public GeneralKeyMapActions(PlayerController playerController) {
+        public GeneralActions(PlayerController playerController) {
             _playerController = playerController;
         }
 

@@ -88,7 +88,7 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
     ""name"": ""ActionMap"",
     ""maps"": [
         {
-            ""name"": ""GeneralKeymap"",
+            ""name"": ""General"",
             ""id"": ""575eb728-2ab4-4f55-a01e-f11a05e959d8"",
             ""actions"": [
                 {
@@ -140,14 +140,14 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // GeneralKeymap
-        m_GeneralKeymap = asset.FindActionMap("GeneralKeymap", throwIfNotFound: true);
-        m_GeneralKeymap_Move = m_GeneralKeymap.FindAction("Move", throwIfNotFound: true);
+        // General
+        m_General = asset.FindActionMap("General", throwIfNotFound: true);
+        m_General_Move = m_General.FindAction("Move", throwIfNotFound: true);
     }
 
     ~@ActionMap()
     {
-        UnityEngine.Debug.Assert(!m_GeneralKeymap.enabled, "This will cause a leak and performance issues, ActionMap.GeneralKeymap.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_General.enabled, "This will cause a leak and performance issues, ActionMap.General.Disable() has not been called.");
     }
 
     /// <summary>
@@ -220,29 +220,29 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // GeneralKeymap
-    private readonly InputActionMap m_GeneralKeymap;
-    private List<IGeneralKeymapActions> m_GeneralKeymapActionsCallbackInterfaces = new List<IGeneralKeymapActions>();
-    private readonly InputAction m_GeneralKeymap_Move;
+    // General
+    private readonly InputActionMap m_General;
+    private List<IGeneralActions> m_GeneralActionsCallbackInterfaces = new List<IGeneralActions>();
+    private readonly InputAction m_General_Move;
     /// <summary>
-    /// Provides access to input actions defined in input action map "GeneralKeymap".
+    /// Provides access to input actions defined in input action map "General".
     /// </summary>
-    public struct GeneralKeymapActions
+    public struct GeneralActions
     {
         private @ActionMap m_Wrapper;
 
         /// <summary>
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
-        public GeneralKeymapActions(@ActionMap wrapper) { m_Wrapper = wrapper; }
+        public GeneralActions(@ActionMap wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "GeneralKeymap/Move".
+        /// Provides access to the underlying input action "General/Move".
         /// </summary>
-        public InputAction @Move => m_Wrapper.m_GeneralKeymap_Move;
+        public InputAction @Move => m_Wrapper.m_General_Move;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_GeneralKeymap; }
+        public InputActionMap Get() { return m_Wrapper.m_General; }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
         public void Enable() { Get().Enable(); }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
@@ -250,9 +250,9 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
         public bool enabled => Get().enabled;
         /// <summary>
-        /// Implicitly converts an <see ref="GeneralKeymapActions" /> to an <see ref="InputActionMap" /> instance.
+        /// Implicitly converts an <see ref="GeneralActions" /> to an <see ref="InputActionMap" /> instance.
         /// </summary>
-        public static implicit operator InputActionMap(GeneralKeymapActions set) { return set.Get(); }
+        public static implicit operator InputActionMap(GeneralActions set) { return set.Get(); }
         /// <summary>
         /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
         /// </summary>
@@ -260,11 +260,11 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
         /// </remarks>
-        /// <seealso cref="GeneralKeymapActions" />
-        public void AddCallbacks(IGeneralKeymapActions instance)
+        /// <seealso cref="GeneralActions" />
+        public void AddCallbacks(IGeneralActions instance)
         {
-            if (instance == null || m_Wrapper.m_GeneralKeymapActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_GeneralKeymapActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_GeneralActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GeneralActionsCallbackInterfaces.Add(instance);
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
@@ -276,8 +276,8 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
         /// <remarks>
         /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
         /// </remarks>
-        /// <seealso cref="GeneralKeymapActions" />
-        private void UnregisterCallbacks(IGeneralKeymapActions instance)
+        /// <seealso cref="GeneralActions" />
+        private void UnregisterCallbacks(IGeneralActions instance)
         {
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
@@ -285,12 +285,12 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
         }
 
         /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="GeneralKeymapActions.UnregisterCallbacks(IGeneralKeymapActions)" />.
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="GeneralActions.UnregisterCallbacks(IGeneralActions)" />.
         /// </summary>
-        /// <seealso cref="GeneralKeymapActions.UnregisterCallbacks(IGeneralKeymapActions)" />
-        public void RemoveCallbacks(IGeneralKeymapActions instance)
+        /// <seealso cref="GeneralActions.UnregisterCallbacks(IGeneralActions)" />
+        public void RemoveCallbacks(IGeneralActions instance)
         {
-            if (m_Wrapper.m_GeneralKeymapActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_GeneralActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
@@ -300,27 +300,27 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
         /// </remarks>
-        /// <seealso cref="GeneralKeymapActions.AddCallbacks(IGeneralKeymapActions)" />
-        /// <seealso cref="GeneralKeymapActions.RemoveCallbacks(IGeneralKeymapActions)" />
-        /// <seealso cref="GeneralKeymapActions.UnregisterCallbacks(IGeneralKeymapActions)" />
-        public void SetCallbacks(IGeneralKeymapActions instance)
+        /// <seealso cref="GeneralActions.AddCallbacks(IGeneralActions)" />
+        /// <seealso cref="GeneralActions.RemoveCallbacks(IGeneralActions)" />
+        /// <seealso cref="GeneralActions.UnregisterCallbacks(IGeneralActions)" />
+        public void SetCallbacks(IGeneralActions instance)
         {
-            foreach (var item in m_Wrapper.m_GeneralKeymapActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_GeneralActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_GeneralKeymapActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_GeneralActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
     /// <summary>
-    /// Provides a new <see cref="GeneralKeymapActions" /> instance referencing this action map.
+    /// Provides a new <see cref="GeneralActions" /> instance referencing this action map.
     /// </summary>
-    public GeneralKeymapActions @GeneralKeymap => new GeneralKeymapActions(this);
+    public GeneralActions @General => new GeneralActions(this);
     /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "GeneralKeymap" which allows adding and removing callbacks.
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "General" which allows adding and removing callbacks.
     /// </summary>
-    /// <seealso cref="GeneralKeymapActions.AddCallbacks(IGeneralKeymapActions)" />
-    /// <seealso cref="GeneralKeymapActions.RemoveCallbacks(IGeneralKeymapActions)" />
-    public interface IGeneralKeymapActions
+    /// <seealso cref="GeneralActions.AddCallbacks(IGeneralActions)" />
+    /// <seealso cref="GeneralActions.RemoveCallbacks(IGeneralActions)" />
+    public interface IGeneralActions
     {
         /// <summary>
         /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.

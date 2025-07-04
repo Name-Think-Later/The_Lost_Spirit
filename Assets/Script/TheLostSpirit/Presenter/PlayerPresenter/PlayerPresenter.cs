@@ -8,7 +8,7 @@ namespace Script.TheLostSpirit.Presenter.PlayerPresenter {
     public class PlayerPresenter {
         readonly ActionMap            _actionMap;
         readonly PlayerController     _playerController;
-        readonly GeneralKeyMapActions _generalKeyMapActions;
+        readonly GeneralActions _generalActions;
 
         public PlayerPresenter(
             ActionMap        actionMap,
@@ -17,7 +17,8 @@ namespace Script.TheLostSpirit.Presenter.PlayerPresenter {
         ) {
             _actionMap            = actionMap;
             _playerController     = playerController;
-            _generalKeyMapActions = new GeneralKeyMapActions(playerController);
+            _generalActions = new GeneralActions(playerController);
+            
             ActionBinding();
             _actionMap.Enable();
 
@@ -30,8 +31,8 @@ namespace Script.TheLostSpirit.Presenter.PlayerPresenter {
 
         private void ActionBinding() {
             _actionMap
-                .GeneralKeymap
-                .SetCallbacks(_generalKeyMapActions);
+                .General
+                .SetCallbacks(_generalActions);
         }
 
         private IDisposable PlayerMovementUpdateBinding() {

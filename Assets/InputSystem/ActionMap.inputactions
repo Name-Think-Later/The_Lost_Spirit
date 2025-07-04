@@ -2,7 +2,7 @@
     "name": "ActionMap",
     "maps": [
         {
-            "name": "GeneralKeymap",
+            "name": "General",
             "id": "575eb728-2ab4-4f55-a01e-f11a05e959d8",
             "actions": [
                 {
