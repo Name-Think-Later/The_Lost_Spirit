@@ -19,54 +19,6 @@ namespace Script.Circuit {
             _memory      = memory;
             _adjacencies = new AdjacencyList(this, adjacencyCount);
         }
-/*
-    /// <summary>
-    /// 與目標節點取消連結
-    /// </summary>
-    /// <param name="target">目標節點</param>
-    /// <returns>動作的成功與否</returns>
-    public bool TryDisconnectOneWay(CircuitNode target) {
-        var mySynapse =
-            AdjacencyOut.SingleOrDefault(item => target.Equals(item.Value));
-
-        if (mySynapse.Equals(default(KeyValuePair<int, CircuitNode>))) return false;
-
-        var targetSynapse =
-            target.AdjacencyIn
-                  .SingleOrDefault(item => this.Equals(item.Value));
-
-        if (targetSynapse.Equals(default(KeyValuePair<int, CircuitNode>))) return false;
-
-
-        _adjacencyOut.Remove(mySynapse.Key);
-        _adjacencyIn.Add(mySynapse.Key, null);
-        target.AdjacencyIn[targetSynapse.Key] = null;
-
-        return true;
-    }
-
-    public bool TryDisconnect(CircuitNode target) {
-        if (TryDisconnectOneWay(target)) return true;
-
-        return target.TryDisconnectOneWay(this);
-    }
-
-    /// <summary>
-    /// 從自身突觸取消連結
-    /// </summary>
-    /// <param name="myIndex">自身突觸</param>
-    /// <returns>動作的成功與否</returns>
-    public bool TryDisconnect(int myIndex) {
-        //索引是否存在
-        if (!AdjacencyEmpty.ContainsKey(myIndex)) return false;
-
-        return TryDisconnect(AdjacencyEmpty[myIndex]);
-    }
-
-    public bool TryDisconnectAll() {
-        return AdjacencyEmpty.Values.All(cell => TryDisconnect(cell));
-    }
-*/
 
         public override string ToString() {
             StringBuilder stringBuilder = new StringBuilder();
@@ -87,7 +39,7 @@ namespace Script.Circuit {
 
             void PrintEachAdjance(AdjacencyList adjacencyList) {
                 foreach (var item in adjacencyList) {
-                    var name = item.Opposite == null ? "null" : item.Opposite._memory.Name;
+                    var name = item.Opposite == null ? "null" : item.Opposite.Owner._memory.Name;
                     stringBuilder.AppendFormat($" -> [{name} | {item.State}]");
                 }
             }

@@ -31,7 +31,7 @@ namespace Script.Circuit {
 
             public int IndexOf(CircuitNode node) => _adjacencies.FindIndex(a => a.Opposite.Equals(node));
 
-            public bool Contains(CircuitNode node) => _adjacencies.Select(a => a.Opposite).Contains(node);
+            public bool Contains(CircuitNode node) => _adjacencies.Select(a => a.Opposite.Owner).Contains(node);
 
 
             #region IList operation

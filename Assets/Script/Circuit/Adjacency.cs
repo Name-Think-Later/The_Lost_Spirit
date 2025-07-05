@@ -11,7 +11,7 @@ namespace Script.Circuit {
             }
 
             public void Set(
-                CircuitNode    opposite,
+                Adjacency      opposite,
                 AdjacencyState state = AdjacencyState.In
             ) {
                 Opposite = opposite;
@@ -19,7 +19,7 @@ namespace Script.Circuit {
             }
 
             public CircuitNode Owner => _owner;
-            public CircuitNode Opposite { get; private set; }
+            public Adjacency Opposite { get; private set; }
             public AdjacencyState State { get; private set; }
             public bool IsExist => Opposite != null;
             public bool IsEmpty => Opposite == null;
@@ -27,7 +27,7 @@ namespace Script.Circuit {
             public bool IsOut => IsExist && State == AdjacencyState.Out;
 
 
-            public void Connect(Adjacency target) {
+            public void To(Adjacency target) {
                 /*
                 //target是否為自身
                 if (this.Equals(target)) return false;
@@ -47,8 +47,13 @@ namespace Script.Circuit {
                 if (!target._adjacencies[targetIndex].IsExist) return false;
 
                 */
-                Set(_owner, AdjacencyState.Out);
-                target.Set(target.Owner, AdjacencyState.In);
+                Set(target, AdjacencyState.Out);
+                target.Set(this, AdjacencyState.In);
+            }
+
+            public void Cut() {
+                Opposite.Set(null);
+                Set(null);
             }
         }
     }
