@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Script.Extension.ZLinq;
 using ZLinq;
 
 namespace Script.Circuit {
@@ -25,13 +26,14 @@ namespace Script.Circuit {
             public bool IsReadOnly => false;
 
             public void Remove(CircuitNode node) {
-                var adjacency = _adjacencies.Find(a => a.Opposite.Equals(node));
-                adjacency.Set(null);
+                var adjacency = _adjacencies[IndexOf(node)];
+                adjacency.Cut();
+                _adjacencies.Remove(adjacency);
             }
 
-            public int IndexOf(CircuitNode node) => _adjacencies.FindIndex(a => a.Opposite.Equals(node));
+            public int IndexOf(CircuitNode node) => TargetNodes().FindIndex(n => n.Equals(node));
 
-            public bool Contains(CircuitNode node) => _adjacencies.Select(a => a.Opposite.Owner).Contains(node);
+            public bool Contains(CircuitNode node) => TargetNodes().Contains(node);
 
 
             #region IList operation
@@ -67,6 +69,8 @@ namespace Script.Circuit {
             public static implicit operator AdjacencyList(List<Adjacency> adjacencies) {
                 return new AdjacencyList(adjacencies);
             }
+
+            public List<CircuitNode> TargetNodes() => _adjacencies.Select(a => a.Opposite.Owner).ToList();
         }
     }
 }

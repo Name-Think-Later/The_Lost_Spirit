@@ -24,7 +24,7 @@ namespace Script.TheLostSpirit.EntryPoint.Playground {
             var c1 = new CircuitNode(new Memory("c1"));
             var c2 = new CircuitNode(new Memory("c2"));
             c1.Adjacencies[0].To(c2.Adjacencies[1]);
-            c1.Adjacencies[0].Cut();
+            c2.Adjacencies[1].Cut();
             Debug.Log(c1.ToString());
             Debug.Log(c2.ToString());
         }

@@ -28,25 +28,6 @@ namespace Script.Circuit {
 
 
             public void To(Adjacency target) {
-                /*
-                //target是否為自身
-                if (this.Equals(target)) return false;
-
-                //是否已連接target
-                //if (AdjacencyEmpty.ContainsValue(target)) return false;
-                if (_adjacencies.Exist.Contains(target))
-
-                    //索引是否正在被使用
-                    //if (!AdjacencyExist.ContainsKey(myIndex))
-                    if (_adjacencies[myIndex].IsExist)
-                        return false;
-
-                //target索引突觸是否可用
-                //if (!target.AdjacencyExist.ContainsKey(targetIndex)) return false;
-
-                if (!target._adjacencies[targetIndex].IsExist) return false;
-
-                */
                 Set(target, AdjacencyState.Out);
                 target.Set(this, AdjacencyState.In);
             }
