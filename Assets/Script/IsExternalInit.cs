@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace System.Runtime.CompilerServices {
+namespace Script {
     [EditorBrowsable(EditorBrowsableState.Never)]
     internal class IsExternalInit { }
 }
