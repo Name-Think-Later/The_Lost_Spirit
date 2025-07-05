@@ -11,9 +11,9 @@ namespace Script.Circuit {
                 _adjacencies = adjacencies;
             }
 
-            public AdjacencyList(int count) {
+            public AdjacencyList(CircuitNode owner, int count) {
                 for (int i = 0; i < count; i++) {
-                    _adjacencies.Add(new Adjacency());
+                    _adjacencies.Add(new Adjacency(owner));
                 }
             }
 
@@ -24,14 +24,15 @@ namespace Script.Circuit {
             public int Count => _adjacencies.Count;
             public bool IsReadOnly => false;
 
-            public void Remove(CircuitNode item) {
-                var adjacency = _adjacencies.Find(a => a.Node.Equals(item));
+            public void Remove(CircuitNode node) {
+                var adjacency = _adjacencies.Find(a => a.Opposite.Equals(node));
                 adjacency.Set(null);
             }
 
-            public int IndexOf(CircuitNode item) => _adjacencies.FindIndex(a => a.Node.Equals(item));
+            public int IndexOf(CircuitNode node) => _adjacencies.FindIndex(a => a.Opposite.Equals(node));
 
-            public bool Contains(CircuitNode item) => _adjacencies.Select(a => a.Node).Contains(item);
+            public bool Contains(CircuitNode node) => _adjacencies.Select(a => a.Opposite).Contains(node);
+
 
             #region IList operation
 

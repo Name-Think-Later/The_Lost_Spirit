@@ -5,7 +5,6 @@ using ZLinq;
 
 namespace Script.Circuit {
     public partial class CircuitNode {
-
         readonly Memory        _memory;
         readonly AdjacencyList _adjacencies;
 
@@ -18,34 +17,7 @@ namespace Script.Circuit {
         /// <param name="adjacencyCount">枝度，預設為2</param>
         public CircuitNode(Memory memory, int adjacencyCount = 2) {
             _memory      = memory;
-            _adjacencies = new AdjacencyList(adjacencyCount);
-        }
-
-        public bool TryConnect(CircuitNode target, int myIndex, int targetIndex) {
-            /*
-        //target是否為自身
-        if (this.Equals(target)) return false;
-
-        //是否已連接target
-        //if (AdjacencyEmpty.ContainsValue(target)) return false;
-        if (_adjacencies.Exist.Contains(target))
-
-            //索引是否正在被使用
-            //if (!AdjacencyExist.ContainsKey(myIndex))
-            if (_adjacencies[myIndex].IsExist)
-                return false;
-
-        //target索引突觸是否可用
-        //if (!target.AdjacencyExist.ContainsKey(targetIndex)) return false;
-
-        if (!target._adjacencies[targetIndex].IsExist) return false;
-
-*/
-            _adjacencies[myIndex].Set(target, AdjacencyState.Out);
-
-            target.Adjacencies[targetIndex].Set(this, AdjacencyState.In);
-
-            return true;
+            _adjacencies = new AdjacencyList(this, adjacencyCount);
         }
 /*
     /// <summary>
@@ -107,7 +79,7 @@ namespace Script.Circuit {
             stringBuilder.Append("In |");
             PrintEachAdjance(_adjacencies.In);
             stringBuilder.Append("\n");
-        
+
             stringBuilder.Append("Out |");
             PrintEachAdjance(_adjacencies.Out);
 
@@ -115,7 +87,7 @@ namespace Script.Circuit {
 
             void PrintEachAdjance(AdjacencyList adjacencyList) {
                 foreach (var item in adjacencyList) {
-                    var name = item.Node == null ? "null" : item.Node._memory.Name;
+                    var name = item.Opposite == null ? "null" : item.Opposite._memory.Name;
                     stringBuilder.AppendFormat($" -> [{name} | {item.State}]");
                 }
             }
