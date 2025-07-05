@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using ZLinq;
+﻿using System.Text;
 
-namespace Script.Circuit {
+namespace Script.TheLostSpirit.Circuit {
     public partial class CircuitNode {
-        readonly Memory        _memory;
+        readonly Skill        _skill;
         readonly AdjacencyList _adjacencies;
 
 
@@ -13,17 +10,17 @@ namespace Script.Circuit {
         public int InDegree => _adjacencies.In.Count;
         public int OutDegree => _adjacencies.Out.Count;
 
-        /// <param name="memory">乘載的記憶</param>
+        /// <param name="skill">乘載的記憶</param>
         /// <param name="adjacencyCount">枝度，預設為2</param>
-        public CircuitNode(Memory memory, int adjacencyCount = 2) {
-            _memory      = memory;
+        public CircuitNode(Skill skill, int adjacencyCount = 2) {
+            _skill      = skill;
             _adjacencies = new AdjacencyList(this, adjacencyCount);
         }
 
         public override string ToString() {
             StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.AppendFormat($"{_memory.Name} |");
+            stringBuilder.AppendFormat($"{_skill.Name} |");
             PrintEachAdjance(_adjacencies);
 
             stringBuilder.Append("\n");
@@ -39,7 +36,7 @@ namespace Script.Circuit {
 
             void PrintEachAdjance(AdjacencyList adjacencyList) {
                 foreach (var item in adjacencyList) {
-                    var name = item.Opposite == null ? "null" : item.Opposite.Owner._memory.Name;
+                    var name = item.Opposite == null ? "null" : item.Opposite.Owner._skill.Name;
                     stringBuilder.AppendFormat($" -> [{name} | {item.State}]");
                 }
             }

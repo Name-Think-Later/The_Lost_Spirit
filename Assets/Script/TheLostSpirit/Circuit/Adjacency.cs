@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Script.Circuit {
+﻿namespace Script.TheLostSpirit.Circuit {
     public partial class CircuitNode {
         public class Adjacency {
             readonly CircuitNode _owner;

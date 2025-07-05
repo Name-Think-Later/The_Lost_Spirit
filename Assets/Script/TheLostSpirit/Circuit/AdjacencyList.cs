@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Script.Extension.ZLinq;
 using ZLinq;
 
-namespace Script.Circuit {
+namespace Script.TheLostSpirit.Circuit {
     public partial class CircuitNode {
         public class AdjacencyList : IList<Adjacency> {
             readonly List<Adjacency> _adjacencies = new List<Adjacency>();

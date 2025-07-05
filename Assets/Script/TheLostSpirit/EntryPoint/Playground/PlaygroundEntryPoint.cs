@@ -1,4 +1,4 @@
-using Script.Circuit;
+using Script.TheLostSpirit.Circuit;
 using Script.TheLostSpirit.Controller.PlayerController;
 using Script.TheLostSpirit.Presenter.PlayerPresenter;
 using Script.TheLostSpirit.Reference.PlayerReference;
@@ -21,8 +21,8 @@ namespace Script.TheLostSpirit.EntryPoint.Playground {
 
             _ = new PlayerManipulatePresenter(_actionMap, _playerController, _playerReference);
 
-            var c1 = new CircuitNode(new Memory("c1"));
-            var c2 = new CircuitNode(new Memory("c2"));
+            var c1 = new CircuitNode(new Skill("c1"));
+            var c2 = new CircuitNode(new Skill("c2"));
             c1.Adjacencies[0].To(c2.Adjacencies[1]);
             c2.Adjacencies[1].Cut();
             Debug.Log(c1.ToString());
