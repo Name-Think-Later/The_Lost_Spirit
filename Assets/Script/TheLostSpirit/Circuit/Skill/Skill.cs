@@ -1,9 +1,11 @@
 ﻿namespace Script.TheLostSpirit.Circuit {
     public class Skill {
-        public string Name;
+        readonly string _name;
 
         public Skill(string name) {
-            Name = name;
+            _name = name;
         }
+
+        public string Name => _name;
     }
 }

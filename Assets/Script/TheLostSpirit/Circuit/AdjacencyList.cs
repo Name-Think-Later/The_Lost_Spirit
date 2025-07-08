@@ -25,9 +25,8 @@ namespace Script.TheLostSpirit.Circuit {
             public bool IsReadOnly => false;
 
             public void Remove(CircuitNode node) {
-                var adjacency = _adjacencies[IndexOf(node)];
-                adjacency.Cut();
-                _adjacencies.Remove(adjacency);
+                var index = IndexOf(node);
+                RemoveAt(index);
             }
 
             public int IndexOf(CircuitNode node) => TargetNodes().FindIndex(n => n.Equals(node));
@@ -49,14 +48,18 @@ namespace Script.TheLostSpirit.Circuit {
 
             public void CopyTo(Adjacency[] array, int arrayIndex) => _adjacencies.CopyTo(array, arrayIndex);
 
-            public bool Remove(Adjacency item) => _adjacencies.Remove(item);
+            public bool Remove(Adjacency item) {
+                item.Cut();
+
+                return _adjacencies.Remove(item);
+            }
 
 
             public int IndexOf(Adjacency item) => _adjacencies.IndexOf(item);
 
             public void Insert(int index, Adjacency item) => _adjacencies.Insert(index, item);
 
-            public void RemoveAt(int index) => _adjacencies.RemoveAt(index);
+            public void RemoveAt(int index) => Remove(_adjacencies[index]);
 
             public Adjacency this[int index] {
                 get => _adjacencies[index];
