@@ -8,24 +8,24 @@
 
             public void Set(
                 Adjacency      opposite,
-                AdjacencyState state = AdjacencyState.In
+                AdjacencyType type = AdjacencyType.In
             ) {
                 Opposite = opposite;
-                State    = state;
+                Type    = type;
             }
 
             public CircuitNode Owner { get; }
             public Adjacency Opposite { get; private set; }
-            public AdjacencyState State { get; private set; }
+            public AdjacencyType Type { get; private set; }
             public bool IsExist => Opposite != null;
             public bool IsEmpty => Opposite == null;
-            public bool IsIn => IsExist && State == AdjacencyState.In;
-            public bool IsOut => IsExist && State == AdjacencyState.Out;
+            public bool IsIn => IsExist && Type == AdjacencyType.In;
+            public bool IsOut => IsExist && Type == AdjacencyType.Out;
 
 
             public void To(Adjacency target) {
-                Set(target, AdjacencyState.Out);
-                target.Set(this, AdjacencyState.In);
+                Set(target, AdjacencyType.Out);
+                target.Set(this, AdjacencyType.In);
             }
 
             public void Cut() {
@@ -35,7 +35,7 @@
         }
     }
 
-    public enum AdjacencyState {
+    public enum AdjacencyType {
         In,
         Out
     }

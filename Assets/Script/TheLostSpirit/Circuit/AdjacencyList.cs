@@ -23,12 +23,7 @@ namespace Script.TheLostSpirit.Circuit {
             public AdjacencyList Empty => _adjacencies.AsValueEnumerable().Where(a => a.IsEmpty).ToList();
             public int Count => _adjacencies.Count;
             public bool IsReadOnly => false;
-
-            public void Remove(CircuitNode node) {
-                var index = IndexOf(node);
-                RemoveAt(index);
-            }
-
+            
             public int IndexOf(CircuitNode node) => TargetNodes().FindIndex(n => n.Equals(node));
 
             public bool Contains(CircuitNode node) => TargetNodes().Contains(node);

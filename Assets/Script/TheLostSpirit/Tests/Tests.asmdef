@@ -1,10 +1,14 @@
 {
-    "name": "CircuitNodeTest",
+    "name": "Tests",
     "rootNamespace": "",
     "references": [
-        "GUID:7ba2dc487a03aab49854c96ce99aebee"
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "Circuit"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
@@ -12,8 +16,10 @@
         "nunit.framework.dll",
         "NSubstitute.dll"
     ],
-    "autoReferenced": true,
-    "defineConstraints": [],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
     "versionDefines": [],
     "noEngineReferences": false
 }

@@ -37,7 +37,7 @@ namespace Script.TheLostSpirit.Circuit {
             void PrintEachAdjance(AdjacencyList adjacencyList) {
                 foreach (var item in adjacencyList) {
                     var name = item.Opposite == null ? "null" : item.Opposite.Owner._skill.Name;
-                    stringBuilder.AppendFormat($" -> [{name} | {item.State}]");
+                    stringBuilder.AppendFormat($" -> [{name} | {item.Type}]");
                 }
             }
         }
