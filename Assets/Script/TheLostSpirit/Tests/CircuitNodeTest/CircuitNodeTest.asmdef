@@ -1,0 +1,19 @@
+{
+    "name": "CircuitNodeTest",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7ba2dc487a03aab49854c96ce99aebee"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "NSubstitute.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

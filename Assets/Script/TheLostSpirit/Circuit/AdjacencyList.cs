@@ -17,10 +17,10 @@ namespace Script.TheLostSpirit.Circuit {
                 }
             }
 
-            public AdjacencyList In => _adjacencies.Where(a => a.IsIn).ToList();
-            public AdjacencyList Out => _adjacencies.Where(a => a.IsOut).ToList();
-            public AdjacencyList Exist => _adjacencies.Where(a => a.IsExist).ToList();
-            public AdjacencyList Empty => _adjacencies.Where(a => a.IsEmpty).ToList();
+            public AdjacencyList In => _adjacencies.AsValueEnumerable().Where(a => a.IsIn).ToList();
+            public AdjacencyList Out => _adjacencies.AsValueEnumerable().Where(a => a.IsOut).ToList();
+            public AdjacencyList Exist => _adjacencies.AsValueEnumerable().Where(a => a.IsExist).ToList();
+            public AdjacencyList Empty => _adjacencies.AsValueEnumerable().Where(a => a.IsEmpty).ToList();
             public int Count => _adjacencies.Count;
             public bool IsReadOnly => false;
 
@@ -72,7 +72,8 @@ namespace Script.TheLostSpirit.Circuit {
                 return new AdjacencyList(adjacencies);
             }
 
-            public List<CircuitNode> TargetNodes() => _adjacencies.Select(a => a.Opposite.Owner).ToList();
+            public List<CircuitNode> TargetNodes() =>
+                _adjacencies.AsValueEnumerable().Select(a => a.Opposite.Owner).ToList();
         }
     }
 }

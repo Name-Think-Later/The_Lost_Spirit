@@ -6,19 +6,19 @@ using Script.TheLostSpirit.Reference.PlayerReference;
 
 namespace Script.TheLostSpirit.Presenter.PlayerPresenter {
     public class PlayerManipulatePresenter {
-        readonly ActionMap            _actionMap;
-        readonly PlayerController     _playerController;
-        readonly GeneralActions _generalActions;
+        readonly ActionMap        _actionMap;
+        readonly PlayerController _playerController;
+        readonly GeneralActions   _generalActions;
 
         public PlayerManipulatePresenter(
             ActionMap        actionMap,
             PlayerController playerController,
-            PlayerReference lifeTimeDependency
+            PlayerReference  lifeTimeDependency
         ) {
-            _actionMap            = actionMap;
-            _playerController     = playerController;
-            _generalActions = new GeneralActions(playerController);
-            
+            _actionMap        = actionMap;
+            _playerController = playerController;
+            _generalActions   = new GeneralActions(playerController);
+
             ActionBinding();
             _actionMap.Enable();
 
@@ -41,7 +41,6 @@ namespace Script.TheLostSpirit.Presenter.PlayerPresenter {
                    .Subscribe(_ => {
                        _playerController.ApplyVelocity();
                    });
-            
         }
     }
 }

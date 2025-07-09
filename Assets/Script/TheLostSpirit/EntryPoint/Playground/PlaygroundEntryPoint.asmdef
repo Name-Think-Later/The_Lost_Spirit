@@ -1,0 +1,20 @@
+{
+    "name": "PlaygroundEntryPoint",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b718c887ae72a2c40a87b3ef7f84cdef",
+        "GUID:3a2a9eb20f4a3b24f932ae1336d186b6",
+        "GUID:45e1221ad0d9a0945841e9960f12c57b",
+        "GUID:5d8be093962f2a144b80228f70b9b11c",
+        "GUID:7ba2dc487a03aab49854c96ce99aebee"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

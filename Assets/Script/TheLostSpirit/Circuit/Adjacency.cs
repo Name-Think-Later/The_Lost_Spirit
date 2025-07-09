@@ -1,10 +1,8 @@
 ﻿namespace Script.TheLostSpirit.Circuit {
     public partial class CircuitNode {
         public class Adjacency {
-            readonly CircuitNode _owner;
-
             public Adjacency(CircuitNode owner) {
-                _owner = owner;
+                Owner = owner;
                 Set(null);
             }
 
@@ -16,7 +14,7 @@
                 State    = state;
             }
 
-            public CircuitNode Owner => _owner;
+            public CircuitNode Owner { get; }
             public Adjacency Opposite { get; private set; }
             public AdjacencyState State { get; private set; }
             public bool IsExist => Opposite != null;

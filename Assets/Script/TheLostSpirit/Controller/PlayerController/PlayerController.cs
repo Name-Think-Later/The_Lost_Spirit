@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using Script.Extension.Unity;
 using Script.TheLostSpirit.Reference.PlayerReference;
 namespace Script.TheLostSpirit.Controller.PlayerController {
