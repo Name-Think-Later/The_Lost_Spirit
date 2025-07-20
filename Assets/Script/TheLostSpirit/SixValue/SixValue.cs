@@ -1,12 +1,28 @@
 ﻿namespace Script.TheLostSpirit.SixValue {
-    public record SixValue(
-        Effective  @Effective,
-        Flux       @Flux,
-        Complexity @Complexity,
-        Stability  @Stability,
-        Existence  @Existence,
-        Control    @Control
-    );
+    public class SixValue {
+        public SixValue(
+            Effective  effective,
+            Flux       flux,
+            Complexity complexity,
+            Stability  stability,
+            Existence  existence,
+            Control    control
+        ) {
+            Effective  = effective;
+            Flux       = flux;
+            Complexity = complexity;
+            Stability  = stability;
+            Existence  = existence;
+            Control    = control;
+        }
+
+        public Effective Effective { get; }
+        public Flux Flux { get; }
+        public Complexity Complexity { get; }
+        public Stability Stability { get; }
+        public Existence Existence { get; }
+        public Control Control { get; }
+    }
 
     public class Control { }
 

@@ -3,8 +3,7 @@ using Script.TheLostSpirit.Circuit.Skill;
 
 namespace Script.TheLostSpirit.Circuit {
     public partial class CircuitNode {
-        
-        readonly SkillBase        _skill;
+        readonly SkillBase     _skill;
         readonly AdjacencyList _adjacencies;
 
 
@@ -15,7 +14,7 @@ namespace Script.TheLostSpirit.Circuit {
         /// <param name="skill">乘載的記憶</param>
         /// <param name="adjacencyCount">枝度，預設為2</param>
         public CircuitNode(SkillBase skill, int adjacencyCount = 2) {
-            _skill      = skill;
+            _skill       = skill;
             _adjacencies = new AdjacencyList(this, adjacencyCount);
         }
 
