@@ -1,4 +1,4 @@
-﻿namespace Script.TheLostSpirit.Circuit {
+﻿namespace Script.TheLostSpirit.Circuit.CircuitNode {
     public partial class CircuitNode {
         public class Adjacency {
             public Adjacency(CircuitNode owner) {
@@ -7,11 +7,11 @@
             }
 
             public void Set(
-                Adjacency      opposite,
+                Adjacency     opposite,
                 AdjacencyType type = AdjacencyType.In
             ) {
                 Opposite = opposite;
-                Type    = type;
+                Type     = type;
             }
 
             public CircuitNode Owner { get; }

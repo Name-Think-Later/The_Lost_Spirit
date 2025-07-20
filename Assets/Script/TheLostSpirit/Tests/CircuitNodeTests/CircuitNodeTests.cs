@@ -1,27 +1,21 @@
-using Script.TheLostSpirit.Circuit;
 using NUnit.Framework;
-using NSubstitute;
-using Script.TheLostSpirit.Circuit.Skill;
-using UnityEngine;
+using Script.TheLostSpirit.Circuit.CircuitNode;
 
-
-namespace Script.TheLostSpirit.Tests {
+namespace Script.TheLostSpirit.Tests.CircuitNodeTests {
     public class CircuitNodeTest {
         CircuitNode _nodeLeft, _nodeRight;
-        SkillBase       _skill;
 
         [SetUp]
         public void Setup() {
-            _skill     = new SkillBase("");
-            _nodeLeft  = new CircuitNode(_skill);
-            _nodeRight = new CircuitNode(_skill);
+            _nodeLeft  = new CircuitNode(null);
+            _nodeRight = new CircuitNode(null);
         }
 
         [Test(Description = "不指定支度正確地建立一個節點")]
         public void Node_DefaultInitialize_ShouldHave_DefaultNumberOfAdjacency() {
             const int defaultAdjacencyCount = 2;
 
-            CircuitNode node = new CircuitNode(_skill);
+            CircuitNode node = new CircuitNode(null);
             Assert.AreEqual(node.Adjacencies.Count, defaultAdjacencyCount);
         }
 
@@ -30,13 +24,13 @@ namespace Script.TheLostSpirit.Tests {
         [TestCase(1)]
         [TestCase(99)]
         public void Node_InitializeWithCount_ShouldHave_CorrectNumberOfAdjacency(int count) {
-            CircuitNode node = new CircuitNode(_skill, count);
+            CircuitNode node = new CircuitNode(null, count);
             Assert.AreEqual(node.Adjacencies.Count, count);
         }
 
         [Test(Description = "建立節點時接口是否正確地建立並初始化")]
         public void Adjacency_InNode_Should_InitializeCorrectly() {
-            CircuitNode node = new CircuitNode(_skill, 3);
+            CircuitNode node = new CircuitNode(null, 3);
             foreach (var adjacency in node.Adjacencies) {
                 Assert.NotNull(adjacency);
                 Assert.AreEqual(adjacency.Owner, node);
@@ -119,9 +113,9 @@ namespace Script.TheLostSpirit.Tests {
             Assert.IsTrue(adjacencyLeft.IsOut);
             Assert.IsTrue(adjacencyRight.IsIn);
             Assert.IsFalse(adjacencyRight.IsOut);
-            
+
             adjacencyLeft.Cut();
-            
+
             Assert.IsFalse(adjacencyLeft.IsIn);
             Assert.IsFalse(adjacencyLeft.IsOut);
             Assert.IsFalse(adjacencyRight.IsIn);

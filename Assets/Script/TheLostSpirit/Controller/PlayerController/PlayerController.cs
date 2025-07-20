@@ -19,7 +19,7 @@ namespace Script.TheLostSpirit.Controller.PlayerController {
 
         public void ApplyVelocity() {
             var rigidbody = _reference.Rigidbody;
-            
+
             var velocity = rigidbody.velocity.WithX(_axis * _reference.Speed);
             _reference.Rigidbody.velocity = velocity;
         }

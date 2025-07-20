@@ -1,5 +1,5 @@
 ﻿namespace Script.TheLostSpirit.Circuit.Skill {
     public class Manifest : SkillBase {
-        public Manifest(string name) : base(name) { }
+        public Manifest(SkillInfo info) : base(info) { }
     }
 }

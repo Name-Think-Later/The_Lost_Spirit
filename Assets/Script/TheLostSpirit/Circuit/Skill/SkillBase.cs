@@ -1,11 +1,15 @@
-﻿namespace Script.TheLostSpirit.Circuit.Skill {
-    public class SkillBase {
-        readonly string _name;
+﻿using UnityEngine;
 
-        public SkillBase(string name) {
-            _name = name;
+namespace Script.TheLostSpirit.Circuit.Skill {
+    public class SkillBase {
+        public SkillBase(SkillInfo info) {
+            Info = info;
         }
 
-        public string Name => _name;
+        public SkillInfo Info { get; }
+
+        public void Activate() {
+            Debug.Log($"{Info.Name}");
+        }
     }
 }

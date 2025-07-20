@@ -14,7 +14,6 @@ namespace Script.TheLostSpirit.InputModule {
                 var axis = context.ReadValue<float>();
                 _playerController.SetAxis(axis);
             }
-        
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System.Text;
 using Script.TheLostSpirit.Circuit.Skill;
 
-namespace Script.TheLostSpirit.Circuit {
+namespace Script.TheLostSpirit.Circuit.CircuitNode {
     public partial class CircuitNode {
-        readonly SkillBase     _skill;
+        readonly SkillBase        _skill;
         readonly AdjacencyList _adjacencies;
 
 
@@ -21,7 +21,7 @@ namespace Script.TheLostSpirit.Circuit {
         public override string ToString() {
             StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.AppendFormat($"{_skill.Name} |");
+            stringBuilder.AppendFormat($"{_skill.Info.Name} |");
             PrintEachAdjance(_adjacencies);
 
             stringBuilder.Append("\n");
@@ -37,7 +37,7 @@ namespace Script.TheLostSpirit.Circuit {
 
             void PrintEachAdjance(AdjacencyList adjacencyList) {
                 foreach (var item in adjacencyList) {
-                    var name = item.Opposite == null ? "null" : item.Opposite.Owner._skill.Name;
+                    var name = item.Opposite == null ? "null" : item.Opposite.Owner._skill.Info.Name;
                     stringBuilder.AppendFormat($" -> [{name} | {item.Type}]");
                 }
             }
