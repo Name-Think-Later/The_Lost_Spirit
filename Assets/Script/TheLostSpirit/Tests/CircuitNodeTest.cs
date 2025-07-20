@@ -1,17 +1,18 @@
 using Script.TheLostSpirit.Circuit;
 using NUnit.Framework;
 using NSubstitute;
+using Script.TheLostSpirit.Circuit.Skill;
 using UnityEngine;
 
 
 namespace Script.TheLostSpirit.Tests {
     public class CircuitNodeTest {
         CircuitNode _nodeLeft, _nodeRight;
-        Skill       _skill;
+        SkillBase       _skill;
 
         [SetUp]
         public void Setup() {
-            _skill     = new Skill("");
+            _skill     = new SkillBase("");
             _nodeLeft  = new CircuitNode(_skill);
             _nodeRight = new CircuitNode(_skill);
         }

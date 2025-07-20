@@ -1,5 +1,6 @@
 using Script.Extension.Unity;
 using Script.TheLostSpirit.Reference.PlayerReference;
+
 namespace Script.TheLostSpirit.Controller.PlayerController {
     public class PlayerController {
         readonly PlayerReference _reference;
@@ -18,7 +19,7 @@ namespace Script.TheLostSpirit.Controller.PlayerController {
 
         public void ApplyVelocity() {
             var rigidbody = _reference.Rigidbody;
-
+            
             var velocity = rigidbody.velocity.WithX(_axis * _reference.Speed);
             _reference.Rigidbody.velocity = velocity;
         }

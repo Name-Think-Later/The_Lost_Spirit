@@ -1,11 +1,7 @@
 {
     "name": "TheLostSpirit",
     "rootNamespace": "",
-    "references": [
-        "GUID:fcf1d739563ef70428cd258c68758840",
-        "GUID:c71612acbe346a344abbc0dcfdf4f0bd",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

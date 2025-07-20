@@ -1,6 +1,6 @@
-﻿namespace Script.TheLostSpirit.Circuit {
+﻿namespace Script.TheLostSpirit.Circuit.Skill {
     
-    public class Enhance : Skill {
+    public class Enhance : SkillBase {
         public Enhance(string name) : base(name) { }
     }
 }
