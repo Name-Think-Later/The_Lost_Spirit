@@ -23,12 +23,13 @@ namespace Script.TheLostSpirit.EntryPoint.Playground {
 
             _ = new PlayerManipulatePresenter(_actionMap, _playerController, _playerReference);
 
-            var c1 = new CircuitNode(new Core(new SkillInfo("c1")));
-            var c2 = new CircuitNode(new Weave(new SkillInfo("c2")));
-            c1.Adjacencies[0].To(c2.Adjacencies[1]);
-            c2.Adjacencies[1].Cut();
-            Debug.Log(c1.ToString());
-            Debug.Log(c2.ToString());
+            var c1 = new CircuitNode(new SkillBase(new SkillInfo("c1")));
+            var c2 = new CircuitNode(new SkillBase(new SkillInfo("c2")));
+            var c3 = new CircuitNode(new SkillBase(new SkillInfo("c3")));
+            c1.Adjacencies[0].To(c2.Adjacencies[0]);
+            c1.Adjacencies[1].To(c3.Adjacencies[0]);
+            
+            c1.ActivateSkill().Forget();
         }
     }
 }

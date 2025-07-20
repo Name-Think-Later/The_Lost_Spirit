@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace Script.TheLostSpirit.Circuit.Skill {
     public class SkillBase {
@@ -8,8 +9,9 @@ namespace Script.TheLostSpirit.Circuit.Skill {
 
         public SkillInfo Info { get; }
 
-        public void Activate() {
+        public async UniTask Activate() {
             Debug.Log($"{Info.Name}");
+            await UniTask.Delay(1000);
         }
     }
 }
