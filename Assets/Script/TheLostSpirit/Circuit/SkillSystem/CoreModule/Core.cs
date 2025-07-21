@@ -1,12 +1,16 @@
-﻿using Script.TheLostSpirit.Circuit.SkillSystem.SkillBase;
+﻿using Cysharp.Threading.Tasks;
+using Script.TheLostSpirit.Circuit.SkillSystem.SkillBase;
 
 namespace Script.TheLostSpirit.Circuit.SkillSystem.CoreModule {
-    public partial class Core : SkillBase.Skill {
-        Core.Config _config;
+    public partial class Core : Skill {
+        Core.BehaviourData _behaviourData;
 
-        public Core(Skill.Info info, Core.Config config) : base(info) {
-            _config = config;
+        public Core(Core.Model model) : base(model.Info) {
+            _behaviourData = model.BehaviourData;
         }
-        
+
+        public override async UniTask Activate() {
+            await base.Activate();
+        }
     }
 }

@@ -5,7 +5,7 @@ using Script.TheLostSpirit.Circuit.SkillSystem.SkillBase;
 
 namespace Script.TheLostSpirit.Circuit.NodeSystem {
     public partial class CircuitNode {
-        readonly Skill     _skill;
+        readonly Skill         _skill;
         readonly AdjacencyList _adjacencies;
 
 
@@ -13,17 +13,22 @@ namespace Script.TheLostSpirit.Circuit.NodeSystem {
         public int InDegree => _adjacencies.In.Count;
         public int OutDegree => _adjacencies.Out.Count;
 
-        /// <param name="skill">乘載的記憶</param>
+        /// <param name="skill">乘載的技能</param>
         /// <param name="adjacencyCount">枝度，預設為2</param>
         public CircuitNode(Skill skill, int adjacencyCount = 2) {
             _skill       = skill;
             _adjacencies = new AdjacencyList(this, adjacencyCount);
         }
 
-        public async UniTaskVoid Traversal() {
+
+        public void Traversal() {
+            TraversalAsync().Forget();
+        }
+
+        private async UniTaskVoid TraversalAsync() {
             await _skill.Activate();
             _adjacencies.Out.ForEach(a => {
-                a.Opposite.Owner.Traversal().Forget();
+                a.Opposite.Owner.Traversal();
             });
         }
 

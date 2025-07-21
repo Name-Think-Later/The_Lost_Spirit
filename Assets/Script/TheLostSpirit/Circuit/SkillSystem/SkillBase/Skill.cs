@@ -9,7 +9,7 @@ namespace Script.TheLostSpirit.Circuit.SkillSystem.SkillBase {
 
         public Skill.Info GetInfo { get; }
 
-        public async UniTask Activate() {
+        public virtual async UniTask Activate() {
             Debug.Log($"{GetInfo.Name}");
             await UniTask.Delay(1000);
         }

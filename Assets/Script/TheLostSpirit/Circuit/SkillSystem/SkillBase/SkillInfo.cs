@@ -1,14 +1,23 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Script.TheLostSpirit.Circuit.SkillSystem.SkillBase {
     public partial class Skill {
         [Serializable]
         public class Info {
+            [SerializeField]
+            string _name;
+
+            [SerializeField, Multiline]
+            string _description;
+
+
             public Info(string name) {
-                Name = name;
+                _name = name;
             }
 
-            public string Name { get; }
+            public string Name => _name;
+            public string Description => _description;
         }
     }
 }

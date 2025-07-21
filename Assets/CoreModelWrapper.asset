@@ -9,8 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 123939bd0dc44afaa16353b834a4b0d6, type: 3}
-  m_Name: TestScriptableObject
+  m_Script: {fileID: 11500000, guid: c930995952cc481e83031f80221d7be0, type: 3}
+  m_Name: CoreModelWrapper
   m_EditorClassIdentifier: 
-  _config:
-    t: 0
+  _coreModel:
+    _info:
+      _name: 
+      _description: 
+    _behaviourData:
+      _handleCap: 0
+      _recoverAmount: 0
+      _recoverInterval: 0
+      _rechargeCooldown: 0

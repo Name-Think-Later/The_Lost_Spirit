@@ -1,5 +1,7 @@
-﻿namespace Script.TheLostSpirit.Circuit.SkillSystem.WeaveModule {
-    public class Weave : SkillBase.Skill {
-        public Weave(Info info) : base(info) { }
+﻿using Script.TheLostSpirit.Circuit.SkillSystem.SkillBase;
+
+namespace Script.TheLostSpirit.Circuit.SkillSystem.WeaveModule {
+    public class Weave : Skill {
+        public Weave(Skill.Info info) : base(info) { }
     }
 }

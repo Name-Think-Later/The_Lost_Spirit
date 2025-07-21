@@ -1,5 +1,7 @@
-﻿namespace Script.TheLostSpirit.Circuit.SkillSystem.EnchanceModule {
-    public class Enhance : SkillBase.Skill {
-        public Enhance(Info getInfo) : base(getInfo) { }
+﻿using Script.TheLostSpirit.Circuit.SkillSystem.SkillBase;
+
+namespace Script.TheLostSpirit.Circuit.SkillSystem.EnchanceModule {
+    public class Enhance : Skill {
+        public Enhance(Skill.Info info) : base(info) { }
     }
 }

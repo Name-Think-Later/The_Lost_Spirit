@@ -19,7 +19,7 @@ namespace Script.TheLostSpirit.EntryPoint.Playground {
         void Awake() {
             _actionMap        = new ActionMap();
             _playerController = new PlayerController(_playerReference);
-
+            
             _ = new PlayerManipulatePresenter(_actionMap, _playerController, _playerReference);
 
             var c1 = new CircuitNode(new Skill(new Skill.Info("c1")));
@@ -27,8 +27,8 @@ namespace Script.TheLostSpirit.EntryPoint.Playground {
             var c3 = new CircuitNode(new Skill(new Skill.Info("c3")));
             c1.Adjacencies[0].To(c2.Adjacencies[0]);
             c1.Adjacencies[1].To(c3.Adjacencies[0]);
-            
-            c1.Traversal().Forget();
+
+            c1.Traversal();
         }
     }
 }
