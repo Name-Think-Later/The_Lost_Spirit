@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ZLinq;
 
-namespace Script.TheLostSpirit.Circuit.CircuitNode {
+namespace Script.TheLostSpirit.Circuit.NodeSystem {
     public partial class CircuitNode {
         public class AdjacencyList : IList<Adjacency> {
             readonly List<Adjacency> _adjacencies = new List<Adjacency>();

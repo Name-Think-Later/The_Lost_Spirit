@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using Script.TheLostSpirit.Circuit.CircuitNode;
+using Script.TheLostSpirit.Circuit.NodeSystem;
 
 namespace Script.TheLostSpirit.Tests.CircuitNodeTests {
     public class CircuitNodeTest {
