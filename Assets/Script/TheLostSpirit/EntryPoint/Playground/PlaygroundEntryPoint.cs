@@ -12,7 +12,6 @@ namespace Script.TheLostSpirit.EntryPoint.Playground {
         [InlineEditor(InlineEditorModes.FullEditor)]
         PlayerReference _playerReference;
 
-
         ActionMap        _actionMap;
         PlayerController _playerController;
 
