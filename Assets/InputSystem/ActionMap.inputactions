@@ -13,6 +13,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "TraversalCircuit",
+                    "type": "Button",
+                    "id": "d1742e37-ac27-4a40-801e-69b26a4a6f13",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -48,6 +57,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "2e55f32a-6345-479a-aaa8-96a41a611814",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TraversalCircuit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

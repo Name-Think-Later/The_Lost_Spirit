@@ -1,5 +1,5 @@
 {
-    "name": "CircuitNode",
+    "name": "Circuit",
     "rootNamespace": "",
     "references": [
         "GUID:2797dfce734b3ae499298818626cfe35",

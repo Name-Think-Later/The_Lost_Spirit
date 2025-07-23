@@ -1,9 +1,9 @@
 ﻿using System;
-using Script.TheLostSpirit.Circuit.SkillSystem.SkillBase;
+using Script.TheLostSpirit.SkillSystem.SkillBase;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Script.TheLostSpirit.Circuit.SkillSystem.CoreModule {
+namespace Script.TheLostSpirit.SkillSystem.CoreModule {
     public partial class Core : Skill {
         [Serializable, HideLabel]
         public class Model {

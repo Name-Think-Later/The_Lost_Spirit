@@ -1,21 +1,21 @@
 using NUnit.Framework;
-using Script.TheLostSpirit.Circuit.NodeSystem;
+using Script.TheLostSpirit.CircuitSystem;
 
 namespace Script.TheLostSpirit.Tests.CircuitNodeTests {
     public class CircuitNodeTest {
-        CircuitNode _nodeLeft, _nodeRight;
+        Circuit.Node _nodeLeft, _nodeRight;
 
         [SetUp]
         public void Setup() {
-            _nodeLeft  = new CircuitNode(null);
-            _nodeRight = new CircuitNode(null);
+            _nodeLeft  = new Circuit.Node(null);
+            _nodeRight = new Circuit.Node(null);
         }
 
         [Test(Description = "不指定支度正確地建立一個節點")]
         public void Node_DefaultInitialize_ShouldHave_DefaultNumberOfAdjacency() {
             const int defaultAdjacencyCount = 2;
 
-            CircuitNode node = new CircuitNode(null);
+            Circuit.Node node = new Circuit.Node(null);
             Assert.AreEqual(node.Adjacencies.Count, defaultAdjacencyCount);
         }
 
@@ -24,18 +24,18 @@ namespace Script.TheLostSpirit.Tests.CircuitNodeTests {
         [TestCase(1)]
         [TestCase(99)]
         public void Node_InitializeWithCount_ShouldHave_CorrectNumberOfAdjacency(int count) {
-            CircuitNode node = new CircuitNode(null, count);
+            Circuit.Node node = new Circuit.Node(null, count);
             Assert.AreEqual(node.Adjacencies.Count, count);
         }
 
         [Test(Description = "建立節點時接口是否正確地建立並初始化")]
         public void Adjacency_InNode_Should_InitializeCorrectly() {
-            CircuitNode node = new CircuitNode(null, 3);
+            Circuit.Node node = new Circuit.Node(null, 3);
             foreach (var adjacency in node.Adjacencies) {
                 Assert.NotNull(adjacency);
                 Assert.AreEqual(adjacency.Owner, node);
                 Assert.IsNull(adjacency.Opposite);
-                Assert.AreEqual(adjacency.Type, AdjacencyType.In);
+                Assert.AreEqual(adjacency.GetDirection, Circuit.Node.Adjacency.Direction.In);
             }
         }
 
@@ -48,8 +48,8 @@ namespace Script.TheLostSpirit.Tests.CircuitNodeTests {
             Assert.AreEqual(adjacencyLeft.Opposite, adjacencyRight);
             Assert.AreEqual(adjacencyRight.Opposite, adjacencyLeft);
 
-            Assert.AreEqual(adjacencyLeft.Type, AdjacencyType.Out);
-            Assert.AreEqual(adjacencyRight.Type, AdjacencyType.In);
+            Assert.AreEqual(adjacencyLeft.GetDirection, Circuit.Node.Adjacency.Direction.Out);
+            Assert.AreEqual(adjacencyRight.GetDirection, Circuit.Node.Adjacency.Direction.In);
         }
 
         [Test(Description = "接口間是否正確地切斷")]

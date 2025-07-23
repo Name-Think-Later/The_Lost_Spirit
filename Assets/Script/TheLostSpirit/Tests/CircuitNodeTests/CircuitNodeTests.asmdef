@@ -4,8 +4,8 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "CircuitNode",
-        "Skill"
+        "Skill",
+        "Circuit"
     ],
     "includePlatforms": [
         "Editor"

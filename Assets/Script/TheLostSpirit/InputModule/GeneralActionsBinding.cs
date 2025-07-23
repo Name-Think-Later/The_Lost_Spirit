@@ -1,6 +1,5 @@
 ﻿using System;
 using Script.TheLostSpirit.Controller.PlayerController;
-using UnityEngine.InputSystem;
 using R3;
 using ReactiveInputSystem;
 
@@ -36,7 +35,7 @@ namespace Script.TheLostSpirit.InputModule {
                        _playerController.SetAxis(axis);
                    });
         }
-
+        
         public void Dispose() {
             _disposable.Dispose();
         }

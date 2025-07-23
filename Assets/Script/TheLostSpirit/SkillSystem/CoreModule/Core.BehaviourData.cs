@@ -1,8 +1,8 @@
 ﻿using System;
-using Script.TheLostSpirit.Circuit.SkillSystem.SkillBase;
+using Script.TheLostSpirit.SkillSystem.SkillBase;
 using UnityEngine;
 
-namespace Script.TheLostSpirit.Circuit.SkillSystem.CoreModule {
+namespace Script.TheLostSpirit.SkillSystem.CoreModule {
     public partial class Core : Skill {
         [Serializable]
         public class BehaviourData {

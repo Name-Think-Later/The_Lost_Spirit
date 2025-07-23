@@ -1,13 +1,13 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Script.TheLostSpirit.Circuit.SkillSystem.SkillBase {
+namespace Script.TheLostSpirit.SkillSystem.SkillBase {
     public partial class Skill {
-        public Skill(Skill.Info info) {
+        public Skill(Info info) {
             GetInfo = info;
         }
 
-        public Skill.Info GetInfo { get; }
+        public Info GetInfo { get; }
 
         public virtual async UniTask Activate() {
             Debug.Log($"{GetInfo.Name}");
