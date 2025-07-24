@@ -9,6 +9,10 @@ namespace Script.TheLostSpirit.EventBusModule {
             return _subject.OfType<DomainEvent, T>().Subscribe(callback);
         }
 
+        public static IDisposable Subscribe<T>(Subject<T> subject) where T : DomainEvent {
+            return _subject.OfType<DomainEvent, T>().Subscribe(subject.AsObserver());
+        }
+
 
         public static void Publish<T>() where T : DomainEvent, new() {
             _subject.OnNext(new T());

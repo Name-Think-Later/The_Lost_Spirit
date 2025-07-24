@@ -1,5 +1,10 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Codice.Client.BaseCommands.BranchExplorer;
+using Cysharp.Threading.Tasks;
+using R3;
+using Script.TheLostSpirit.EventBusModule;
 using Script.TheLostSpirit.SkillSystem.SkillBase;
+using UnityEngine;
 
 namespace Script.TheLostSpirit.SkillSystem.CoreModule {
     public partial class Core : Skill {
@@ -10,7 +15,8 @@ namespace Script.TheLostSpirit.SkillSystem.CoreModule {
         }
 
         public void Initialize(ICoreControllable node) {
-            
+            var subject = new Subject<TraversalInputEvent>();
+            EventBus.Subscribe(subject);
         }
 
         public override async UniTask Activate() {

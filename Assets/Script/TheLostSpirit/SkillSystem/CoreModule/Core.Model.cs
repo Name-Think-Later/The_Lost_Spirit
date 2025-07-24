@@ -13,6 +13,11 @@ namespace Script.TheLostSpirit.SkillSystem.CoreModule {
             [SerializeField]
             Core.BehaviourData _behaviourData;
 
+            public Model(Skill.Info info, Core.BehaviourData behaviourData) {
+                _info          = info;
+                _behaviourData = behaviourData;
+            }
+
             public Skill.Info Info => _info;
             public Core.BehaviourData BehaviourData => _behaviourData;
         }

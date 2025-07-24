@@ -67,7 +67,10 @@ namespace Script.TheLostSpirit.CircuitSystem {
                 }
             }
 
-            public void CoreActivate() { }
+            public void CoreActivate() 
+            {
+                Activate();
+            }
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Script.TheLostSpirit.EntryPoint.Playground {
             _actionMap.Enable();
 
 
-            var core = new Core(new Core.Model());
+            var core = new Core(new Core.Model(new Skill.Info("c1"), new Core.BehaviourData()));
             var c1   = new Circuit.Node<Core>(core);
             var c2   = new Circuit.Node<Skill>(new Skill(new Skill.Info("c2")));
             var c3   = new Circuit.Node<Skill>(new Skill(new Skill.Info("c3")));
