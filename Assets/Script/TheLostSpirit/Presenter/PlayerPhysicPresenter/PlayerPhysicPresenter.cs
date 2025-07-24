@@ -1,15 +1,13 @@
 using System;
 using R3;
 using Script.TheLostSpirit.Controller.PlayerController;
-using Script.TheLostSpirit.InputModule;
 using Script.TheLostSpirit.Reference.PlayerReference;
 
-namespace Script.TheLostSpirit.Presenter.PlayerPresenter {
-    public class PlayerManipulatePresenter {
+namespace Script.TheLostSpirit.Presenter.PlayerPhysicPresenter {
+    public class PlayerPhysicPresenter {
         readonly PlayerController _playerController;
 
-        public PlayerManipulatePresenter(
-            ActionMap        actionMap,
+        public PlayerPhysicPresenter(
             PlayerController playerController,
             PlayerReference  lifeTimeDependency
         ) {
@@ -17,15 +15,13 @@ namespace Script.TheLostSpirit.Presenter.PlayerPresenter {
 
             var disposableBuilder = Disposable.CreateBuilder();
             {
-                _ = new GeneralActionsBinding(playerController, actionMap.General).AddTo(ref disposableBuilder);
-                PlayerMovementUpdateBinding().AddTo(ref disposableBuilder);
+                
+                ApplyMovementUpdate().AddTo(ref disposableBuilder);
             }
             disposableBuilder.Build().AddTo(lifeTimeDependency);
-
-            actionMap.Enable();
         }
 
-        private IDisposable PlayerMovementUpdateBinding() {
+        private IDisposable ApplyMovementUpdate() {
             return Observable
                    .EveryUpdate(UnityFrameProvider.FixedUpdate)
                    .Subscribe(_ => {

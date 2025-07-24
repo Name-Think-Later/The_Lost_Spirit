@@ -1,0 +1,21 @@
+{
+    "name": "GeneralActionPresenter",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b718c887ae72a2c40a87b3ef7f84cdef",
+        "GUID:45e1221ad0d9a0945841e9960f12c57b",
+        "GUID:bce6a0deb4c5c4a0bb93ee5baf4bb944",
+        "GUID:77221876cc6b8244180b96e320b1bcd4",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:5d8be093962f2a144b80228f70b9b11c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

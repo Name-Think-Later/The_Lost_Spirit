@@ -13,6 +13,10 @@ namespace Script.TheLostSpirit.Controller.PlayerController {
             _reference = reference;
         }
 
+        
+        /// <summary>
+        /// Remember to apply velocity
+        /// </summary>
         public void SetAxis(float axis) {
             _axis = axis;
         }

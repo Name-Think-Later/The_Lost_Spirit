@@ -1,32 +1,33 @@
 ﻿using System;
-using Script.TheLostSpirit.Controller.PlayerController;
 using R3;
 using ReactiveInputSystem;
+using Script.TheLostSpirit.Controller.PlayerController;
+using Script.TheLostSpirit.Reference.PlayerReference;
 
-namespace Script.TheLostSpirit.InputModule {
-    public class GeneralActionsBinding : IDisposable {
+namespace Script.TheLostSpirit.Presenter.GeneralActionPresenter {
+    public class GeneralActionsPresenter {
         readonly PlayerController         _playerController;
         readonly ActionMap.GeneralActions _general;
 
-        readonly IDisposable _disposable;
-
-        public GeneralActionsBinding(
+        public GeneralActionsPresenter(
             PlayerController         playerController,
-            ActionMap.GeneralActions general
+            ActionMap.GeneralActions general,
+            PlayerReference          lifetimeDependency
         ) {
             _playerController = playerController;
             _general          = general;
 
             var disposableBuilder = Disposable.CreateBuilder();
             {
-                MoveBinding().AddTo(ref disposableBuilder);
+                ApplyMoveAction().AddTo(ref disposableBuilder);
             }
-            _disposable = disposableBuilder.Build();
+            disposableBuilder.Build().AddTo(lifetimeDependency);
         }
 
-        IDisposable MoveBinding() {
-            var movePerformed = _general.Move.PerformedAsObservable();
-            var moveCanceled  = _general.Move.CanceledAsObservable();
+        IDisposable ApplyMoveAction() {
+            var moveAction    = _general.Move;
+            var movePerformed = moveAction.PerformedAsObservable();
+            var moveCanceled  = moveAction.CanceledAsObservable();
 
             return Observable
                    .Merge(movePerformed, moveCanceled)
@@ -34,10 +35,6 @@ namespace Script.TheLostSpirit.InputModule {
                        var axis = context.ReadValue<float>();
                        _playerController.SetAxis(axis);
                    });
-        }
-        
-        public void Dispose() {
-            _disposable.Dispose();
         }
     }
 }

@@ -11,9 +11,9 @@ namespace Script.TheLostSpirit.CircuitSystem {
 
                 public void Set(
                     Adjacency opposite,
-                    Direction      direction = Direction.In
+                    Direction direction = Direction.In
                 ) {
-                    Opposite      = opposite;
+                    Opposite     = opposite;
                     GetDirection = direction;
                 }
 

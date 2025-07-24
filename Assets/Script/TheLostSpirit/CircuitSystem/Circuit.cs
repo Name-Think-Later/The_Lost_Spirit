@@ -5,7 +5,10 @@ namespace Script.TheLostSpirit.CircuitSystem {
     public partial class Circuit : IList<Circuit.Node> {
         readonly List<Node> _circuit = new List<Node>();
 
-        #region IList
+        #region IList operator
+
+        public int Count => _circuit.Count;
+        public bool IsReadOnly => false;
 
         public IEnumerator<Node> GetEnumerator() => _circuit.GetEnumerator();
 
@@ -21,8 +24,6 @@ namespace Script.TheLostSpirit.CircuitSystem {
 
         public bool Remove(Node item) => _circuit.Remove(item);
 
-        public int Count => _circuit.Count;
-        public bool IsReadOnly => false;
 
         public int IndexOf(Node item) => _circuit.IndexOf(item);
 
@@ -35,6 +36,6 @@ namespace Script.TheLostSpirit.CircuitSystem {
             set => _circuit[index] = value;
         }
 
-        #endregion
+        #endregion 
     }
 }

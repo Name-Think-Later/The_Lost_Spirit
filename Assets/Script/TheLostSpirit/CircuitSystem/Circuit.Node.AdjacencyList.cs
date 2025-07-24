@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using ZLinq;
+using ZLinq.Linq;
 
 namespace Script.TheLostSpirit.CircuitSystem {
     public partial class Circuit : IList<Circuit.Node> {
@@ -22,15 +23,14 @@ namespace Script.TheLostSpirit.CircuitSystem {
                 public AdjacencyList Out => _adjacencies.AsValueEnumerable().Where(a => a.IsOut).ToList();
                 public AdjacencyList Exist => _adjacencies.AsValueEnumerable().Where(a => a.IsExist).ToList();
                 public AdjacencyList Empty => _adjacencies.AsValueEnumerable().Where(a => a.IsEmpty).ToList();
-                public int Count => _adjacencies.Count;
-                public bool IsReadOnly => false;
-
-                public int IndexOf(Node node) => GetConnectedNodes().FindIndex(n => n.Equals(node));
 
                 public bool Contains(Node node) => GetConnectedNodes().Contains(node);
 
 
                 #region IList operation
+
+                public int Count => _adjacencies.Count;
+                public bool IsReadOnly => false;
 
                 public IEnumerator<Adjacency> GetEnumerator() => _adjacencies.GetEnumerator();
 
@@ -67,8 +67,8 @@ namespace Script.TheLostSpirit.CircuitSystem {
                     return new AdjacencyList(adjacencies);
                 }
 
-                public List<Node> GetConnectedNodes() =>
-                    _adjacencies.AsValueEnumerable().Select(a => a.Opposite.Owner).ToList();
+                public ValueEnumerable<ListSelect<Adjacency, Node>, Node> GetConnectedNodes() =>
+                    _adjacencies.AsValueEnumerable().Select(a => a.Opposite.Owner);
             }
         }
     }
