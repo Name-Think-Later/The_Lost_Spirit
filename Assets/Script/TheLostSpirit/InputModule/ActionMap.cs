@@ -101,9 +101,18 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""TraversalCircuit"",
+                    ""name"": ""FirstCircuit"",
                     ""type"": ""Button"",
                     ""id"": ""d1742e37-ac27-4a40-801e-69b26a4a6f13"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SecondCircuit"",
+                    ""type"": ""Button"",
+                    ""id"": ""eaad8c56-77f7-4121-9b56-d09693a271e6"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -151,7 +160,18 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""TraversalCircuit"",
+                    ""action"": ""FirstCircuit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e3c34aff-ba9b-4bad-8b34-d114811ae80e"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondCircuit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -163,7 +183,8 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
         // General
         m_General = asset.FindActionMap("General", throwIfNotFound: true);
         m_General_Move = m_General.FindAction("Move", throwIfNotFound: true);
-        m_General_TraversalCircuit = m_General.FindAction("TraversalCircuit", throwIfNotFound: true);
+        m_General_FirstCircuit = m_General.FindAction("FirstCircuit", throwIfNotFound: true);
+        m_General_SecondCircuit = m_General.FindAction("SecondCircuit", throwIfNotFound: true);
     }
 
     ~@ActionMap()
@@ -245,7 +266,8 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_General;
     private List<IGeneralActions> m_GeneralActionsCallbackInterfaces = new List<IGeneralActions>();
     private readonly InputAction m_General_Move;
-    private readonly InputAction m_General_TraversalCircuit;
+    private readonly InputAction m_General_FirstCircuit;
+    private readonly InputAction m_General_SecondCircuit;
     /// <summary>
     /// Provides access to input actions defined in input action map "General".
     /// </summary>
@@ -262,9 +284,13 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Move => m_Wrapper.m_General_Move;
         /// <summary>
-        /// Provides access to the underlying input action "General/TraversalCircuit".
+        /// Provides access to the underlying input action "General/FirstCircuit".
         /// </summary>
-        public InputAction @TraversalCircuit => m_Wrapper.m_General_TraversalCircuit;
+        public InputAction @FirstCircuit => m_Wrapper.m_General_FirstCircuit;
+        /// <summary>
+        /// Provides access to the underlying input action "General/SecondCircuit".
+        /// </summary>
+        public InputAction @SecondCircuit => m_Wrapper.m_General_SecondCircuit;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -294,9 +320,12 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @TraversalCircuit.started += instance.OnTraversalCircuit;
-            @TraversalCircuit.performed += instance.OnTraversalCircuit;
-            @TraversalCircuit.canceled += instance.OnTraversalCircuit;
+            @FirstCircuit.started += instance.OnFirstCircuit;
+            @FirstCircuit.performed += instance.OnFirstCircuit;
+            @FirstCircuit.canceled += instance.OnFirstCircuit;
+            @SecondCircuit.started += instance.OnSecondCircuit;
+            @SecondCircuit.performed += instance.OnSecondCircuit;
+            @SecondCircuit.canceled += instance.OnSecondCircuit;
         }
 
         /// <summary>
@@ -311,9 +340,12 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @TraversalCircuit.started -= instance.OnTraversalCircuit;
-            @TraversalCircuit.performed -= instance.OnTraversalCircuit;
-            @TraversalCircuit.canceled -= instance.OnTraversalCircuit;
+            @FirstCircuit.started -= instance.OnFirstCircuit;
+            @FirstCircuit.performed -= instance.OnFirstCircuit;
+            @FirstCircuit.canceled -= instance.OnFirstCircuit;
+            @SecondCircuit.started -= instance.OnSecondCircuit;
+            @SecondCircuit.performed -= instance.OnSecondCircuit;
+            @SecondCircuit.canceled -= instance.OnSecondCircuit;
         }
 
         /// <summary>
@@ -362,11 +394,18 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "TraversalCircuit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "FirstCircuit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnTraversalCircuit(InputAction.CallbackContext context);
+        void OnFirstCircuit(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SecondCircuit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSecondCircuit(InputAction.CallbackContext context);
     }
 }

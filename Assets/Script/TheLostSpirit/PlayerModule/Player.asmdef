@@ -1,13 +1,13 @@
 {
-    "name": "GeneralActionPresenter",
+    "name": "Player",
     "rootNamespace": "",
     "references": [
-        "GUID:b718c887ae72a2c40a87b3ef7f84cdef",
-        "GUID:45e1221ad0d9a0945841e9960f12c57b",
-        "GUID:bce6a0deb4c5c4a0bb93ee5baf4bb944",
         "GUID:77221876cc6b8244180b96e320b1bcd4",
         "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:5d8be093962f2a144b80228f70b9b11c"
+        "GUID:bce6a0deb4c5c4a0bb93ee5baf4bb944",
+        "GUID:b523910db0e2f1a44b9ef73bebd1f50d",
+        "GUID:5d8be093962f2a144b80228f70b9b11c",
+        "GUID:23689c5d70bc8af41a7661a525dcd330"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -4,8 +4,8 @@ using ZLinq;
 using ZLinq.Linq;
 
 namespace Script.TheLostSpirit.CircuitSystem {
-    public partial class Circuit : IList<Circuit.Node> {
-        public partial class Node {
+    public partial class Circuit : IList<Circuit.INode> {
+        public partial interface INode {
             public class AdjacencyList : IList<Adjacency> {
                 readonly List<Adjacency> _adjacencies = new List<Adjacency>();
 
@@ -13,7 +13,7 @@ namespace Script.TheLostSpirit.CircuitSystem {
                     _adjacencies = adjacencies;
                 }
 
-                public AdjacencyList(Node owner, int count) {
+                public AdjacencyList(INode owner, int count) {
                     for (int i = 0; i < count; i++) {
                         _adjacencies.Add(new Adjacency(owner));
                     }
@@ -24,7 +24,7 @@ namespace Script.TheLostSpirit.CircuitSystem {
                 public AdjacencyList Exist => _adjacencies.AsValueEnumerable().Where(a => a.IsExist).ToList();
                 public AdjacencyList Empty => _adjacencies.AsValueEnumerable().Where(a => a.IsEmpty).ToList();
 
-                public bool Contains(Node node) => GetConnectedNodes().Contains(node);
+                public bool Contains(INode node) => GetConnectedNodes().Contains(node);
 
 
                 #region IList operation
@@ -67,7 +67,7 @@ namespace Script.TheLostSpirit.CircuitSystem {
                     return new AdjacencyList(adjacencies);
                 }
 
-                public ValueEnumerable<ListSelect<Adjacency, Node>, Node> GetConnectedNodes() =>
+                public ValueEnumerable<ListSelect<Adjacency, INode>, INode> GetConnectedNodes() =>
                     _adjacencies.AsValueEnumerable().Select(a => a.Opposite.Owner);
             }
         }

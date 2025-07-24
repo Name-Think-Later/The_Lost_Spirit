@@ -2,7 +2,8 @@
     "name": "Skill",
     "rootNamespace": "",
     "references": [
-        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:b523910db0e2f1a44b9ef73bebd1f50d"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

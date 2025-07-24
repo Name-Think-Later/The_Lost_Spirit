@@ -1,7 +1,6 @@
 using Script.Extension.Unity;
-using Script.TheLostSpirit.Reference.PlayerReference;
 
-namespace Script.TheLostSpirit.Controller.PlayerController {
+namespace Script.TheLostSpirit.PlayerModule {
     public class PlayerController {
         readonly PlayerReference _reference;
 

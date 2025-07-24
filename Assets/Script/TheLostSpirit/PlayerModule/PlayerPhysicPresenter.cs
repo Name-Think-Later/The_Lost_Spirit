@@ -1,9 +1,7 @@
 using System;
 using R3;
-using Script.TheLostSpirit.Controller.PlayerController;
-using Script.TheLostSpirit.Reference.PlayerReference;
 
-namespace Script.TheLostSpirit.Presenter.PlayerPhysicPresenter {
+namespace Script.TheLostSpirit.PlayerModule {
     public class PlayerPhysicPresenter {
         readonly PlayerController _playerController;
 

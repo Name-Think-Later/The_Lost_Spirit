@@ -1,10 +1,10 @@
 ﻿using System;
 using R3;
 using ReactiveInputSystem;
-using Script.TheLostSpirit.Controller.PlayerController;
-using Script.TheLostSpirit.Reference.PlayerReference;
+using Script.TheLostSpirit.EventBusModule;
+using UnityEngine.InputSystem;
 
-namespace Script.TheLostSpirit.Presenter.GeneralActionPresenter {
+namespace Script.TheLostSpirit.PlayerModule {
     public class GeneralActionsPresenter {
         readonly PlayerController         _playerController;
         readonly ActionMap.GeneralActions _general;
@@ -17,9 +17,18 @@ namespace Script.TheLostSpirit.Presenter.GeneralActionPresenter {
             _playerController = playerController;
             _general          = general;
 
+            var traversalActions = new[] {
+                _general.FirstCircuit,
+                _general.SecondCircuit
+            };
+
             var disposableBuilder = Disposable.CreateBuilder();
             {
                 ApplyMoveAction().AddTo(ref disposableBuilder);
+
+                for (int i = 0; i < traversalActions.Length; i++) {
+                    ApplyTraversalAction(traversalActions[i], i).AddTo(ref disposableBuilder);
+                }
             }
             disposableBuilder.Build().AddTo(lifetimeDependency);
         }
@@ -34,6 +43,22 @@ namespace Script.TheLostSpirit.Presenter.GeneralActionPresenter {
                    .Subscribe(context => {
                        var axis = context.ReadValue<float>();
                        _playerController.SetAxis(axis);
+                   });
+        }
+
+        IDisposable ApplyTraversalAction(InputAction traversalAction, int index) {
+            var traversalPerformed = traversalAction.PerformedAsObservable();
+            var traversalCancel    = traversalAction.CanceledAsObservable();
+
+            var performedIsTrue = traversalPerformed.Select(_ => true);
+            var cancelIsFalse   = traversalCancel.Select(_ => false);
+
+
+            return Observable
+                   .Merge(performedIsTrue, cancelIsFalse)
+                   .Subscribe(isPress => {
+                       var traversalInputEvent = new TraversalInputEvent(index, isPress);
+                       EventBus.Publish(traversalInputEvent);
                    });
         }
     }

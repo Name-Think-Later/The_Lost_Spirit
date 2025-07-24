@@ -1,7 +1,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Script.TheLostSpirit.Reference.PlayerReference {
+namespace Script.TheLostSpirit.PlayerModule {
     public class PlayerReference : MonoBehaviour {
         [SerializeField, Required, ChildGameObjectsOnly]
         Rigidbody2D _rigidbody;

@@ -2,35 +2,43 @@
 using System.Text;
 using Cysharp.Threading.Tasks;
 using MoreLinq;
+using Script.TheLostSpirit.SkillSystem.CoreModule;
 using Script.TheLostSpirit.SkillSystem.SkillBase;
+using UnityEngine.WSA;
 
 namespace Script.TheLostSpirit.CircuitSystem {
-    public partial class Circuit : IList<Circuit.Node> {
-        public partial class Node {
-            readonly Skill         _skill;
-            readonly AdjacencyList _adjacencies;
+    public partial class Circuit : IList<Circuit.INode> {
+        public class Node<T> : INode, Core.ICoreControllable where T : Skill {
+            readonly T                   _skill;
+            readonly INode.AdjacencyList _adjacencies;
 
 
-            public AdjacencyList Adjacencies => _adjacencies;
-            public int InDegree => _adjacencies.In.Count;
-            public int OutDegree => _adjacencies.Out.Count;
+            public Skill Skill => _skill;
+            public INode.AdjacencyList Adjacencies => _adjacencies;
 
             /// <param name="skill">乘載的技能</param>
             /// <param name="adjacencyCount">枝度，預設為2</param>
-            public Node(Skill skill, int adjacencyCount = 2) {
+            public Node(T skill, int adjacencyCount = 2) {
                 _skill       = skill;
-                _adjacencies = new AdjacencyList(this, adjacencyCount);
+                _adjacencies = new INode.AdjacencyList(this, adjacencyCount);
             }
 
-
-            public void Traversal() {
-                TraversalAsync().Forget();
+            /// <summary>
+            /// Core specialize
+            /// </summary>
+            public Node(Core core, int adjacencyCount = 2)
+                : this((T)(Skill)core, adjacencyCount) {
+                core.Initialize(this);
             }
 
-            private async UniTaskVoid TraversalAsync() {
+            public void Activate() {
+                ActivateAsync().Forget();
+            }
+
+            private async UniTaskVoid ActivateAsync() {
                 await _skill.Activate();
                 _adjacencies.Out.ForEach(a => {
-                    a.Opposite.Owner.Traversal();
+                    a.Opposite.Owner.Activate();
                 });
             }
 
@@ -51,13 +59,15 @@ namespace Script.TheLostSpirit.CircuitSystem {
 
                 return stringBuilder.ToString();
 
-                void PrintEachAdjance(AdjacencyList adjacencyList) {
+                void PrintEachAdjance(INode.AdjacencyList adjacencyList) {
                     foreach (var item in adjacencyList) {
-                        var name = item.Opposite == null ? "null" : item.Opposite.Owner._skill.GetInfo.Name;
+                        var name = item.Opposite == null ? "null" : item.Opposite.Owner.Skill.GetInfo.Name;
                         stringBuilder.AppendFormat($" -> [{name} | {item.GetDirection}]");
                     }
                 }
             }
+
+            public void CoreActivate() { }
         }
     }
 }
