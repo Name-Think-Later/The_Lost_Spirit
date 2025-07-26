@@ -28,7 +28,6 @@ namespace Script.TheLostSpirit.CircuitSystem {
             /// </summary>
             public Node(Core core, int adjacencyCount = 2)
                 : this((T)(Skill)core, adjacencyCount) {
-                core.Initialize(this);
             }
 
             public void Activate() {

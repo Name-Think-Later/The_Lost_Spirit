@@ -1,6 +1,4 @@
-﻿using System;
-using Codice.Client.BaseCommands.BranchExplorer;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using R3;
 using Script.TheLostSpirit.EventBusModule;
 using Script.TheLostSpirit.SkillSystem.SkillBase;
@@ -14,13 +12,16 @@ namespace Script.TheLostSpirit.SkillSystem.CoreModule {
             _behaviourData = model.BehaviourData;
         }
 
-        public void Initialize(ICoreControllable node) {
+        public void Initialize() {
 
+            //process TraversalInputEvent
             EventBus
-                .ObservableEvent<TraversalInputEvent>()
-                .Subscribe(_ => {
-                    Debug.Log("test");
+                .ObservableEvent<TraversalInputEvent.PerformedEvent>()
+                .Subscribe(e  => {
+                    EventBus.Publish(new CircuitTraversalEvent(e.Index));
                 });
+
+
         }
 
         public override async UniTask Activate() {

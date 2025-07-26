@@ -1,6 +1,7 @@
 ﻿using System;
 using R3;
 using ReactiveInputSystem;
+using Script.TheLostSpirit.CircuitSystem;
 using Script.TheLostSpirit.EventBusModule;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,7 @@ namespace Script.TheLostSpirit.PlayerModule {
     public class GeneralActionsPresenter {
         readonly PlayerController         _playerController;
         readonly ActionMap.GeneralActions _general;
+        readonly Circuit[]                _circuits;
 
         public GeneralActionsPresenter(
             PlayerController         playerController,
@@ -50,14 +52,20 @@ namespace Script.TheLostSpirit.PlayerModule {
             var traversalPerformed = traversalAction.PerformedAsObservable();
             var traversalCancel    = traversalAction.CanceledAsObservable();
 
-            var performedEvent =
-                traversalPerformed.Do(_ => EventBus.Publish<TraversalInputEvent.PerformedEvent>());
+            var performedToEvent =
+                traversalPerformed.Do(_ => {
+                    var performedEvent = new TraversalInputEvent.PerformedEvent(index);
+                    EventBus.Publish(performedEvent);
+                });
 
-            var cancelEvent =
-                traversalCancel.Do(_ => EventBus.Publish<TraversalInputEvent.CancelEvent>());
+            var cancelToEvent =
+                traversalCancel.Do(_ => {
+                    var cancelEvent = new TraversalInputEvent.CancelEvent(index);
+                    EventBus.Publish(cancelEvent);
+                });
 
             return Observable
-                   .Merge(performedEvent, cancelEvent)
+                   .Merge(performedToEvent, cancelToEvent)
                    .Subscribe();
         }
     }

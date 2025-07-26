@@ -5,6 +5,12 @@ namespace Script.TheLostSpirit.CircuitSystem {
     public partial class Circuit : IList<Circuit.INode> {
         readonly List<INode> _circuit = new List<INode>();
 
+        public INode Head { get; set; }
+
+        public void Traverse() {
+            Head.Activate();
+        }
+
         #region IList operator
 
         public int Count => _circuit.Count;
@@ -36,6 +42,6 @@ namespace Script.TheLostSpirit.CircuitSystem {
             set => _circuit[index] = value;
         }
 
-        #endregion 
+        #endregion
     }
 }
