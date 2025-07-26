@@ -15,8 +15,12 @@ namespace Script.TheLostSpirit.SkillSystem.CoreModule {
         }
 
         public void Initialize(ICoreControllable node) {
-            var subject = new Subject<TraversalInputEvent>();
-            EventBus.Subscribe(subject);
+
+            EventBus
+                .ObservableEvent<TraversalInputEvent>()
+                .Subscribe(_ => {
+                    Debug.Log("test");
+                });
         }
 
         public override async UniTask Activate() {

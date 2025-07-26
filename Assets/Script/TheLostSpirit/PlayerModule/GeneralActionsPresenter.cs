@@ -50,16 +50,15 @@ namespace Script.TheLostSpirit.PlayerModule {
             var traversalPerformed = traversalAction.PerformedAsObservable();
             var traversalCancel    = traversalAction.CanceledAsObservable();
 
-            var performedIsTrue = traversalPerformed.Select(_ => true);
-            var cancelIsFalse   = traversalCancel.Select(_ => false);
+            var performedEvent =
+                traversalPerformed.Do(_ => EventBus.Publish<TraversalInputEvent.PerformedEvent>());
 
+            var cancelEvent =
+                traversalCancel.Do(_ => EventBus.Publish<TraversalInputEvent.CancelEvent>());
 
             return Observable
-                   .Merge(performedIsTrue, cancelIsFalse)
-                   .Subscribe(isPress => {
-                       var traversalInputEvent = new TraversalInputEvent(index, isPress);
-                       EventBus.Publish(traversalInputEvent);
-                   });
+                   .Merge(performedEvent, cancelEvent)
+                   .Subscribe();
         }
     }
 }

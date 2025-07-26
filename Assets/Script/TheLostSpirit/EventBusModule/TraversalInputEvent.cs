@@ -1,11 +1,7 @@
 ﻿namespace Script.TheLostSpirit.EventBusModule {
     public class TraversalInputEvent : DomainEvent {
-        public TraversalInputEvent(int index, bool isPress) {
-            Index   = index;
-            IsPress = isPress;
-        }
+        public class PerformedEvent : TraversalInputEvent { }
 
-        public int Index { get; }
-        public bool IsPress { get; }
+        public class CancelEvent : TraversalInputEvent { }
     }
 }
