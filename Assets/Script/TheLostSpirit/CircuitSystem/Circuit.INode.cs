@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Script.TheLostSpirit.SkillSystem.SkillBase;
 
 namespace Script.TheLostSpirit.CircuitSystem {
-    public partial class Circuit : IList<Circuit.INode> {
+    partial class Circuit {
         public partial interface INode {
-            public Skill Skill { get; }
-            public Circuit.INode.AdjacencyList Adjacencies { get; }
-            public void Activate();
+            public AdjacencyList Adjacencies { get; }
+            public UniTaskVoid AsyncActivate();
         }
     }
 }

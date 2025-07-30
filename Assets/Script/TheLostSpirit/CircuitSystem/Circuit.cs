@@ -1,17 +1,44 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using R3;
+using ReactiveInputSystem;
+using Script.TheLostSpirit.SkillSystem.CoreModule;
+using UnityEngine.InputSystem;
+using Core = Script.TheLostSpirit.SkillSystem.CoreModule.Core;
 
 namespace Script.TheLostSpirit.CircuitSystem {
-    public partial class Circuit : IList<Circuit.INode> {
-        readonly List<INode> _circuit = new List<INode>();
+    public partial class Circuit : ICollection<Circuit.INode>, Core.ICoreControllable {
+        readonly Collection<INode> _circuit;
+        readonly InputAction       _activeInput;
 
-        public INode Head { get; set; }
+        SkillNode<Core> _head;
 
-        public void Traverse() {
-            Head.Activate();
+        public Circuit(InputAction activeInput) {
+            _circuit     = new Collection<INode>();
+            _activeInput = activeInput;
         }
 
-        #region IList operator
+        public InputAction GetActiveInput() => _activeInput;
+
+        public IDisposable ApplyActivator(Observable<Unit> observable) {
+            return observable.Subscribe(_ => {
+                Traverse();
+            });
+        }
+
+        public void Traverse() {
+            _head.AsyncActivate().Forget();
+        }
+
+        public void Add(SkillNode<Core> coreSkillNode) {
+            Add(coreSkillNode as INode);
+            _head = coreSkillNode;
+            _head.Skill.Initialize(this);
+        }
+
+        #region ICollection operator
 
         public int Count => _circuit.Count;
         public bool IsReadOnly => false;
@@ -29,18 +56,6 @@ namespace Script.TheLostSpirit.CircuitSystem {
         public void CopyTo(INode[] array, int arrayIndex) => _circuit.CopyTo(array, arrayIndex);
 
         public bool Remove(INode item) => _circuit.Remove(item);
-
-
-        public int IndexOf(INode item) => _circuit.IndexOf(item);
-
-        public void Insert(int index, INode item) => _circuit.Insert(index, item);
-
-        public void RemoveAt(int index) => _circuit.RemoveAt(index);
-
-        public INode this[int index] {
-            get => _circuit[index];
-            set => _circuit[index] = value;
-        }
 
         #endregion
     }

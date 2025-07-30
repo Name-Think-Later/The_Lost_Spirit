@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 
 namespace Script.TheLostSpirit.CircuitSystem {
-    public partial class Circuit : IList<Circuit.INode> {
-        public partial interface INode {
-            public partial class Adjacency {
+    partial class Circuit {
+        partial interface INode {
+            partial class Adjacency {
                 public enum Direction {
                     In,
                     Out

@@ -1,9 +1,12 @@
-﻿using Script.TheLostSpirit.SkillSystem.SkillBase;
+﻿using System;
+using R3;
+using UnityEngine.InputSystem;
 
 namespace Script.TheLostSpirit.SkillSystem.CoreModule {
-    public partial class Core : Skill {
+    partial class Core{
         public interface ICoreControllable {
-            public void CoreActivate();
+            public InputAction GetActiveInput();
+            public IDisposable ApplyActivator(Observable<Unit> observable);
         }
     }
 }

@@ -1,10 +1,9 @@
-﻿using System;
-using R3;
+﻿using R3;
 
 namespace Script.TheLostSpirit.EventBusModule {
     public static class EventBus {
         static readonly Subject<DomainEvent> _subject = new Subject<DomainEvent>();
-        
+
         public static Observable<T> ObservableEvent<T>() {
             return _subject.OfType<DomainEvent, T>();
         }

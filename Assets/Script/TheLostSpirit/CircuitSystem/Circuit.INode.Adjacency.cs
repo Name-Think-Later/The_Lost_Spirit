@@ -1,20 +1,12 @@
 ﻿using System.Collections.Generic;
 
 namespace Script.TheLostSpirit.CircuitSystem {
-    public partial class Circuit : IList<Circuit.INode> {
-        public partial interface INode {
+    partial class Circuit {
+        partial interface INode {
             public partial class Adjacency {
                 public Adjacency(INode owner) {
                     Owner = owner;
                     Set(null);
-                }
-
-                public void Set(
-                    Adjacency opposite,
-                    Direction direction = Direction.In
-                ) {
-                    Opposite     = opposite;
-                    GetDirection = direction;
                 }
 
                 public INode Owner { get; }
@@ -25,6 +17,13 @@ namespace Script.TheLostSpirit.CircuitSystem {
                 public bool IsIn => IsExist && GetDirection == Direction.In;
                 public bool IsOut => IsExist && GetDirection == Direction.Out;
 
+                void Set(
+                    Adjacency opposite,
+                    Direction direction = Direction.In
+                ) {
+                    Opposite     = opposite;
+                    GetDirection = direction;
+                }
 
                 public void To(Adjacency target) {
                     Set(target, Direction.Out);

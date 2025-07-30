@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Script.TheLostSpirit.SkillSystem.SkillBase {
@@ -11,7 +12,7 @@ namespace Script.TheLostSpirit.SkillSystem.SkillBase {
 
         public virtual async UniTask Activate() {
             Debug.Log($"{GetInfo.Name}");
-            await UniTask.Delay(1000);
+            await UniTask.Delay(TimeSpan.FromSeconds(1));
         }
     }
 }

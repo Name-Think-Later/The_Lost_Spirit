@@ -1,12 +1,10 @@
 ﻿using System;
-using Script.TheLostSpirit.SkillSystem.SkillBase;
 using UnityEngine;
 
 namespace Script.TheLostSpirit.SkillSystem.CoreModule {
-    public partial class Core : Skill {
+    partial class Core {
         [Serializable]
-        public class BehaviourData {
-            
+        public partial class BehaviourData {
             [SerializeField]
             float _handleCap;
 
@@ -18,6 +16,14 @@ namespace Script.TheLostSpirit.SkillSystem.CoreModule {
 
             [SerializeField]
             float _rechargeCooldown;
+
+            [SerializeReference]
+            ICircuitActivator _circuitActivator;
+
+            public ICircuitActivator CircuitActivator {
+                get => _circuitActivator;
+                set => _circuitActivator = value;
+            }
         }
     }
 }

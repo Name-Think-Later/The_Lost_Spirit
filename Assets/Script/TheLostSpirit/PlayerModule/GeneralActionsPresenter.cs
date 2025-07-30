@@ -1,15 +1,11 @@
 ﻿using System;
 using R3;
 using ReactiveInputSystem;
-using Script.TheLostSpirit.CircuitSystem;
-using Script.TheLostSpirit.EventBusModule;
-using UnityEngine.InputSystem;
 
 namespace Script.TheLostSpirit.PlayerModule {
     public class GeneralActionsPresenter {
         readonly PlayerController         _playerController;
         readonly ActionMap.GeneralActions _general;
-        readonly Circuit[]                _circuits;
 
         public GeneralActionsPresenter(
             PlayerController         playerController,
@@ -27,10 +23,6 @@ namespace Script.TheLostSpirit.PlayerModule {
             var disposableBuilder = Disposable.CreateBuilder();
             {
                 ApplyMoveAction().AddTo(ref disposableBuilder);
-
-                for (int i = 0; i < traversalActions.Length; i++) {
-                    ApplyTraversalAction(traversalActions[i], i).AddTo(ref disposableBuilder);
-                }
             }
             disposableBuilder.Build().AddTo(lifetimeDependency);
         }
@@ -47,26 +39,6 @@ namespace Script.TheLostSpirit.PlayerModule {
                        _playerController.SetAxis(axis);
                    });
         }
-
-        IDisposable ApplyTraversalAction(InputAction traversalAction, int index) {
-            var traversalPerformed = traversalAction.PerformedAsObservable();
-            var traversalCancel    = traversalAction.CanceledAsObservable();
-
-            var performedToEvent =
-                traversalPerformed.Do(_ => {
-                    var performedEvent = new TraversalInputEvent.PerformedEvent(index);
-                    EventBus.Publish(performedEvent);
-                });
-
-            var cancelToEvent =
-                traversalCancel.Do(_ => {
-                    var cancelEvent = new TraversalInputEvent.CancelEvent(index);
-                    EventBus.Publish(cancelEvent);
-                });
-
-            return Observable
-                   .Merge(performedToEvent, cancelToEvent)
-                   .Subscribe();
-        }
+        
     }
 }

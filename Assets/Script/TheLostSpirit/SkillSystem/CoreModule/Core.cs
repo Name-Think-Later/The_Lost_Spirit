@@ -1,31 +1,23 @@
-﻿using Cysharp.Threading.Tasks;
-using R3;
-using Script.TheLostSpirit.EventBusModule;
+﻿using System;
 using Script.TheLostSpirit.SkillSystem.SkillBase;
-using UnityEngine;
 
 namespace Script.TheLostSpirit.SkillSystem.CoreModule {
     public partial class Core : Skill {
-        readonly Core.BehaviourData _behaviourData;
+        readonly BehaviourData _behaviourData;
 
-        public Core(Core.Model model) : base(model.Info) {
+        IDisposable _disposable;
+
+        public Core(Model model) : base(model.Info) {
             _behaviourData = model.BehaviourData;
         }
 
-        public void Initialize() {
+        public void Initialize(ICoreControllable controllable) {
+            var circuitActivator = _behaviourData.CircuitActivator;
+            var activeInput      = controllable.GetActiveInput();
 
-            //process TraversalInputEvent
-            EventBus
-                .ObservableEvent<TraversalInputEvent.PerformedEvent>()
-                .Subscribe(e  => {
-                    EventBus.Publish(new CircuitTraversalEvent(e.Index));
-                });
+            var activateObservable = circuitActivator.GetObservableActivator(activeInput);
 
-
-        }
-
-        public override async UniTask Activate() {
-            await base.Activate();
+            _disposable = controllable.ApplyActivator(activateObservable);
         }
     }
 }

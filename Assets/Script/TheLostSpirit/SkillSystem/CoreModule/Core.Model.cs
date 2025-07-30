@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Script.TheLostSpirit.SkillSystem.CoreModule {
-    public partial class Core : Skill {
+    partial class Core {
         [Serializable, HideLabel]
         public class Model {
             [SerializeField]
@@ -13,13 +13,15 @@ namespace Script.TheLostSpirit.SkillSystem.CoreModule {
             [SerializeField]
             Core.BehaviourData _behaviourData;
 
-            public Model(Skill.Info info, Core.BehaviourData behaviourData) {
-                _info          = info;
-                _behaviourData = behaviourData;
+            public Skill.Info Info {
+                get => _info;
+                set => _info = value;
             }
 
-            public Skill.Info Info => _info;
-            public Core.BehaviourData BehaviourData => _behaviourData;
+            public BehaviourData BehaviourData {
+                get => _behaviourData;
+                set => _behaviourData = value;
+            }
         }
     }
 }

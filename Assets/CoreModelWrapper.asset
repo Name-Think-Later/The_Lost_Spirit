@@ -21,3 +21,11 @@ MonoBehaviour:
       _recoverAmount: 0
       _recoverInterval: 0
       _rechargeCooldown: 0
+      _traversalCondition:
+        rid: 8457240650379689984
+  references:
+    version: 2
+    RefIds:
+    - rid: 8457240650379689984
+      type: {class: SingleClick, ns: Script.TheLostSpirit.SkillSystem.CoreModule, asm: Skill}
+      data: 

@@ -1,12 +1,12 @@
 {
-    "name": "Circuit",
+    "name": "Core",
     "rootNamespace": "",
     "references": [
         "GUID:2797dfce734b3ae499298818626cfe35",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:bce6a0deb4c5c4a0bb93ee5baf4bb944",
         "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:f0e5926d085746142870b91bd4ec07e6"
+        "GUID:bce6a0deb4c5c4a0bb93ee5baf4bb944",
+        "GUID:77221876cc6b8244180b96e320b1bcd4",
+        "GUID:b523910db0e2f1a44b9ef73bebd1f50d"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

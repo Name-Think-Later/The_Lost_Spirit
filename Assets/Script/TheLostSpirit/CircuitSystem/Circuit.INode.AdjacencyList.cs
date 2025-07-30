@@ -4,12 +4,12 @@ using ZLinq;
 using ZLinq.Linq;
 
 namespace Script.TheLostSpirit.CircuitSystem {
-    public partial class Circuit : IList<Circuit.INode> {
-        public partial interface INode {
+    partial class Circuit {
+        partial interface INode {
             public class AdjacencyList : IList<Adjacency> {
                 readonly List<Adjacency> _adjacencies = new List<Adjacency>();
 
-                private AdjacencyList(List<Adjacency> adjacencies) {
+                AdjacencyList(List<Adjacency> adjacencies) {
                     _adjacencies = adjacencies;
                 }
 
