@@ -1,5 +1,6 @@
 ﻿using System;
 using Script.TheLostSpirit.SkillSystem.SkillBase;
+using R3;
 
 namespace Script.TheLostSpirit.SkillSystem.CoreModule {
     public partial class Core : Skill {
@@ -11,13 +12,15 @@ namespace Script.TheLostSpirit.SkillSystem.CoreModule {
             _behaviourData = model.BehaviourData;
         }
 
-        public void Initialize(ICoreControllable controllable) {
-            var circuitActivator = _behaviourData.CircuitActivator;
-            var activeInput      = controllable.GetActiveInput();
+        public void Initialize(ICoreControllable circuit) {
+            var inputHandler  = _behaviourData.InputHandler;
+            var outputHandler = _behaviourData.OutputHandler;
+            var activeInput   = circuit.GetActiveInput();
 
-            var activateObservable = circuitActivator.GetObservableActivator(activeInput);
+            var activateObservable = inputHandler.CreateObservableActivator(activeInput);
+            outputHandler.OutputAction = circuit.Activate;
 
-            _disposable = controllable.ApplyActivator(activateObservable);
+            activateObservable.Subscribe(_ => outputHandler.HandleOutput());
         }
     }
 }

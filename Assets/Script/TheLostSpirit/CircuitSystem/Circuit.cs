@@ -22,10 +22,8 @@ namespace Script.TheLostSpirit.CircuitSystem {
 
         public InputAction GetActiveInput() => _activeInput;
 
-        public IDisposable ApplyActivator(Observable<Unit> observable) {
-            return observable.Subscribe(_ => {
-                Traverse();
-            });
+        public void Activate() {
+            Traverse();
         }
 
         public void Traverse() {

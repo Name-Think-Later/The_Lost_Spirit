@@ -18,11 +18,19 @@ namespace Script.TheLostSpirit.SkillSystem.CoreModule {
             float _rechargeCooldown;
 
             [SerializeReference]
-            ICircuitActivator _circuitActivator;
+            IInputHandler _inputHandler;
 
-            public ICircuitActivator CircuitActivator {
-                get => _circuitActivator;
-                set => _circuitActivator = value;
+            [SerializeReference]
+            IOutputHandler _outputHandler;
+
+            public IInputHandler InputHandler {
+                get => _inputHandler;
+                set => _inputHandler = value;
+            }
+
+            public IOutputHandler OutputHandler {
+                get => _outputHandler;
+                set => _outputHandler = value;
             }
         }
     }

@@ -2,10 +2,10 @@ using System;
 using R3;
 
 namespace Script.TheLostSpirit.PlayerModule {
-    public class PlayerPhysicPresenter {
+    public class PlayerUpdateEventHandler {
         readonly PlayerController _playerController;
 
-        public PlayerPhysicPresenter(
+        public PlayerUpdateEventHandler(
             PlayerController playerController,
             PlayerReference  lifeTimeDependency
         ) {
@@ -13,7 +13,6 @@ namespace Script.TheLostSpirit.PlayerModule {
 
             var disposableBuilder = Disposable.CreateBuilder();
             {
-                
                 ApplyMovementUpdate().AddTo(ref disposableBuilder);
             }
             disposableBuilder.Build().AddTo(lifeTimeDependency);

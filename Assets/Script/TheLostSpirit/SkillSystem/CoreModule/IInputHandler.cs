@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 namespace Script.TheLostSpirit.SkillSystem.CoreModule {
     partial class Core {
         partial class BehaviourData {
-            public interface ICircuitActivator {
-                public Observable<Unit> GetObservableActivator(InputAction input);
+            public interface IInputHandler {
+                public Observable<Unit> CreateObservableActivator(InputAction input);
             }
         }
     }

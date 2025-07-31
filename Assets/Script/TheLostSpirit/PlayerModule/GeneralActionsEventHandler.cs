@@ -1,24 +1,20 @@
 ﻿using System;
 using R3;
 using ReactiveInputSystem;
+using Script.TheLostSpirit.CircuitSystem;
 
 namespace Script.TheLostSpirit.PlayerModule {
-    public class GeneralActionsPresenter {
-        readonly PlayerController         _playerController;
+    public class GeneralActionsEventHandler {
         readonly ActionMap.GeneralActions _general;
+        readonly PlayerController         _playerController;
 
-        public GeneralActionsPresenter(
-            PlayerController         playerController,
+        public GeneralActionsEventHandler(
             ActionMap.GeneralActions general,
+            PlayerController         playerController,
             PlayerReference          lifetimeDependency
         ) {
-            _playerController = playerController;
             _general          = general;
-
-            var traversalActions = new[] {
-                _general.FirstCircuit,
-                _general.SecondCircuit
-            };
+            _playerController = playerController;
 
             var disposableBuilder = Disposable.CreateBuilder();
             {
@@ -39,6 +35,5 @@ namespace Script.TheLostSpirit.PlayerModule {
                        _playerController.SetAxis(axis);
                    });
         }
-        
     }
 }

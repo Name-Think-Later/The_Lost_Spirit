@@ -11,13 +11,15 @@ namespace Script.TheLostSpirit.SkillSystem.SkillBase {
             [SerializeField, Multiline]
             string _description;
 
-
-            public Info(string name) {
-                _name = name;
+            public string Name {
+                get => _name;
+                set => _name = value;
             }
 
-            public string Name => _name;
-            public string Description => _description;
+            public string Description {
+                get => _description;
+                set => _description = value;
+            }
         }
     }
 }
