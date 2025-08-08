@@ -12,15 +12,15 @@ namespace Script.TheLostSpirit.SkillSystem.CoreModule {
             _behaviourData = model.BehaviourData;
         }
 
-        public void Initialize(ICoreControllable circuit) {
+        public void Initialize(ICoreControllable formula) {
             var inputHandler  = _behaviourData.InputHandler;
             var outputHandler = _behaviourData.OutputHandler;
-            var activeInput   = circuit.GetActiveInput();
+            var activeInput   = formula.GetActiveInput;
 
             var activateObservable = inputHandler.CreateObservableActivator(activeInput);
-            outputHandler.OutputAction = circuit.Activate;
+            outputHandler.OutputAction = formula.Activate;
 
-            activateObservable.Subscribe(_ => outputHandler.HandleOutput());
+            _disposable = activateObservable.Subscribe(_ => outputHandler.HandleOutput());
         }
     }
 }

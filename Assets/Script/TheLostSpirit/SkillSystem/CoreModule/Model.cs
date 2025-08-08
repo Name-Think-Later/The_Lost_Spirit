@@ -8,12 +8,12 @@ namespace Script.TheLostSpirit.SkillSystem.CoreModule {
         [Serializable, HideLabel]
         public class Model {
             [SerializeField]
-            Skill.Info _info;
+            Info _info;
 
             [SerializeField]
             Core.BehaviourData _behaviourData;
 
-            public Skill.Info Info {
+            public Info Info {
                 get => _info;
                 set => _info = value;
             }

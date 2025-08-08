@@ -1,33 +1,24 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using R3;
-using ReactiveInputSystem;
+using Script.TheLostSpirit.FormulaSystem.NodeModule;
 using Script.TheLostSpirit.SkillSystem.CoreModule;
 using UnityEngine.InputSystem;
-using Core = Script.TheLostSpirit.SkillSystem.CoreModule.Core;
 
-namespace Script.TheLostSpirit.CircuitSystem {
-    public partial class Circuit : ICollection<Circuit.INode>, Core.ICoreControllable {
-        readonly Collection<INode> _circuit;
-        readonly InputAction       _activeInput;
+namespace Script.TheLostSpirit.FormulaSystem {
+    public class Formula : ICollection<INode>, Core.ICoreControllable {
+        readonly Collection<INode> _circuit = new Collection<INode>();
 
+        InputAction     _activeInput;
         SkillNode<Core> _head;
+        public InputAction GetActiveInput => _activeInput;
 
-        public Circuit(InputAction activeInput) {
-            _circuit     = new Collection<INode>();
-            _activeInput = activeInput;
+        public void SetDefaultActiveInput(InputAction inputAction) {
+            _activeInput = inputAction;
         }
-
-        public InputAction GetActiveInput() => _activeInput;
 
         public void Activate() {
-            Traverse();
-        }
-
-        public void Traverse() {
-            _head.AsyncActivate().Forget();
+            _head.AsyncableVisited().Forget();
         }
 
         public void Add(SkillNode<Core> coreSkillNode) {

@@ -2,6 +2,6 @@
 
 namespace Script.TheLostSpirit.SkillSystem.EnchanceModule {
     public class Enhance : Skill {
-        public Enhance(Skill.Info info) : base(info) { }
+        public Enhance(Info info) : base(info) { }
     }
 }

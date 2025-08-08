@@ -1,14 +1,13 @@
 ﻿using System;
 using R3;
 using ReactiveInputSystem;
-using Script.TheLostSpirit.CircuitSystem;
 
 namespace Script.TheLostSpirit.PlayerModule {
-    public class GeneralActionsEventHandler {
+    public class PlayerControlInputEventHandler {
         readonly ActionMap.GeneralActions _general;
         readonly PlayerController         _playerController;
 
-        public GeneralActionsEventHandler(
+        public PlayerControlInputEventHandler(
             ActionMap.GeneralActions general,
             PlayerController         playerController,
             PlayerReference          lifetimeDependency
@@ -19,6 +18,7 @@ namespace Script.TheLostSpirit.PlayerModule {
             var disposableBuilder = Disposable.CreateBuilder();
             {
                 ApplyMoveAction().AddTo(ref disposableBuilder);
+                ApplyMovementUpdate().AddTo(ref disposableBuilder);
             }
             disposableBuilder.Build().AddTo(lifetimeDependency);
         }
@@ -33,6 +33,14 @@ namespace Script.TheLostSpirit.PlayerModule {
                    .Subscribe(context => {
                        var axis = context.ReadValue<float>();
                        _playerController.SetAxis(axis);
+                   });
+        }
+
+        private IDisposable ApplyMovementUpdate() {
+            return Observable
+                   .EveryUpdate(UnityFrameProvider.FixedUpdate)
+                   .Subscribe(_ => {
+                       _playerController.ApplyVelocity();
                    });
         }
     }

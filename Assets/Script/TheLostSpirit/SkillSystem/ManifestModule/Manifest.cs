@@ -2,6 +2,6 @@
 
 namespace Script.TheLostSpirit.SkillSystem.ManifestModule {
     public class Manifest : Skill {
-        public Manifest(Skill.Info info) : base(info) { }
+        public Manifest(Info info) : base(info) { }
     }
 }

@@ -2,6 +2,6 @@
 
 namespace Script.TheLostSpirit.SkillSystem.WeaveModule {
     public class Weave : Skill {
-        public Weave(Skill.Info info) : base(info) { }
+        public Weave(Info info) : base(info) { }
     }
 }

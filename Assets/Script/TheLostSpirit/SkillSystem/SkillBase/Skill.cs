@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Script.TheLostSpirit.SkillSystem.SkillBase {
-    public partial class Skill {
+    public class Skill {
         public Skill(Info info) {
             GetInfo = info;
         }
@@ -12,7 +12,7 @@ namespace Script.TheLostSpirit.SkillSystem.SkillBase {
 
         public virtual async UniTask Activate() {
             Debug.Log($"{GetInfo.Name}");
-            await UniTask.Delay(TimeSpan.FromSeconds(1));
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
         }
     }
 }
