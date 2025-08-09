@@ -11,7 +11,7 @@ namespace Script.TheLostSpirit.FormulaSystem.NodeModule {
             _adjacencies = adjacencies;
         }
 
-        public AdjacencyList(INode owner, int count) {
+        public AdjacencyList(Node owner, int count) {
             for (int i = 0; i < count; i++) {
                 _adjacencies.Add(new Adjacency(owner));
             }
@@ -22,7 +22,7 @@ namespace Script.TheLostSpirit.FormulaSystem.NodeModule {
         public AdjacencyList Exist => _adjacencies.AsValueEnumerable().Where(a => a.IsExist).ToList();
         public AdjacencyList Empty => _adjacencies.AsValueEnumerable().Where(a => a.IsEmpty).ToList();
 
-        public bool Contains(INode node) => GetConnectedNodes().Contains(node);
+        public bool Contains(Node node) => GetConnectedNodes().Contains(node);
 
 
         #region IList operation
@@ -65,7 +65,7 @@ namespace Script.TheLostSpirit.FormulaSystem.NodeModule {
             return new AdjacencyList(adjacencies);
         }
 
-        public ValueEnumerable<ListSelect<Adjacency, INode>, INode> GetConnectedNodes() =>
+        public ValueEnumerable<ListSelect<Adjacency, Node>, Node> GetConnectedNodes() =>
             _adjacencies.AsValueEnumerable().Select(a => a.Opposite.Owner);
     }
 }

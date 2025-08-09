@@ -33,7 +33,7 @@ namespace Script.TheLostSpirit.EntryPoint.Playground {
 
             //Test code
             var inputHandler  = new SingleClick();
-            var outputHandler = new Repeat { RepeatTimes = 3, Interval = 0.5f };
+            var outputHandler = new Once();
 
             var coreInfo = new Info { Name = "c1" };
 
@@ -49,7 +49,7 @@ namespace Script.TheLostSpirit.EntryPoint.Playground {
             var c4 = new SkillNode<Skill>(new Skill(new Info { Name = "c4" }));
             c1.Adjacencies[0].To(c2.Adjacencies[0]);
             c1.Adjacencies[1].To(c3.Adjacencies[0]);
-
+            
             c2.Adjacencies[0].To(c4.Adjacencies[0]);
 
             _formulas[0].Add(c1);

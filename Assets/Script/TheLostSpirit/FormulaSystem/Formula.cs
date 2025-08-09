@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Cysharp.Threading.Tasks;
 using Script.TheLostSpirit.FormulaSystem.NodeModule;
 using Script.TheLostSpirit.SkillSystem.CoreModule;
 using UnityEngine.InputSystem;
 
 namespace Script.TheLostSpirit.FormulaSystem {
-    public class Formula : ICollection<INode>, Core.ICoreControllable {
-        readonly Collection<INode> _circuit = new Collection<INode>();
+    public class Formula : ICollection<Node>, Core.ICoreControllable {
+        readonly Collection<Node> _circuit = new Collection<Node>();
 
         InputAction     _activeInput;
         SkillNode<Core> _head;
@@ -18,11 +19,12 @@ namespace Script.TheLostSpirit.FormulaSystem {
         }
 
         public void Activate() {
-            _head.AsyncableVisited().Forget();
+            _head.AsyncVisited().Forget();
         }
 
+
         public void Add(SkillNode<Core> coreSkillNode) {
-            Add(coreSkillNode as INode);
+            Add(coreSkillNode as Node);
             _head = coreSkillNode;
             _head.Skill.Initialize(this);
         }
@@ -32,19 +34,19 @@ namespace Script.TheLostSpirit.FormulaSystem {
         public int Count => _circuit.Count;
         public bool IsReadOnly => false;
 
-        public IEnumerator<INode> GetEnumerator() => _circuit.GetEnumerator();
+        public IEnumerator<Node> GetEnumerator() => _circuit.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public void Add(INode item) => _circuit.Add(item);
+        public void Add(Node item) => _circuit.Add(item);
 
         public void Clear() => _circuit.Clear();
 
-        public bool Contains(INode item) => _circuit.Contains(item);
+        public bool Contains(Node item) => _circuit.Contains(item);
 
-        public void CopyTo(INode[] array, int arrayIndex) => _circuit.CopyTo(array, arrayIndex);
+        public void CopyTo(Node[] array, int arrayIndex) => _circuit.CopyTo(array, arrayIndex);
 
-        public bool Remove(INode item) => _circuit.Remove(item);
+        public bool Remove(Node item) => _circuit.Remove(item);
 
         #endregion
     }

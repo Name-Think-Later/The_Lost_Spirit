@@ -9,10 +9,8 @@ namespace Script.TheLostSpirit.Tests.FormulaTests {
 
         [SetUp]
         public void SetUp() {
-            var fakeNodeLeft  = Substitute.For<INode>();
-            var fakeNodeRight = Substitute.For<INode>();
-            _left  = new Adjacency(fakeNodeLeft);
-            _right = new Adjacency(fakeNodeRight);
+            _left  = new Node(1).Adjacencies[0];
+            _right = new Node(1).Adjacencies[0];
         }
 
         [Test(Description = "接口間是否正確地連接")]

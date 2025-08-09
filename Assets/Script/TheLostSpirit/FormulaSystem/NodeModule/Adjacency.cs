@@ -1,11 +1,11 @@
 ﻿namespace Script.TheLostSpirit.FormulaSystem.NodeModule {
     public class Adjacency {
-        public Adjacency(INode owner) {
+        public Adjacency(Node owner) {
             Owner = owner;
             Set(null);
         }
 
-        public INode Owner { get; }
+        public Node Owner { get; }
         public Adjacency Opposite { get; private set; }
         public Direction GetDirection { get; private set; }
         public bool IsExist => Opposite != null;
