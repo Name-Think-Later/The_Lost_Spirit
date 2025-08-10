@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace Script.TheLostSpirit.FormulaSystem.NodeModule {
     public class Node {
