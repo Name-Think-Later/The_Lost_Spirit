@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
 using NSubstitute;
 using NUnit.Framework;
 using Script.TheLostSpirit.FormulaSystem.NodeModule;
-using UnityEngine;
 
 namespace Script.TheLostSpirit.Tests.FormulaTests {
     public class NodeTests {
         [Test]
-        public async Task SkillNode_Should_ActivateCorrectly() {
+        public async Task Should_Traversal_With_DeepFirst() {
             var nodeCount = 7;
 
             var verifyArray = new Queue<int>();
@@ -28,7 +25,6 @@ namespace Script.TheLostSpirit.Tests.FormulaTests {
                         return fakeNode;
                     })
                     .ToArray();
-
             /*
              *            ↱ n4
              *   ↱ n1 ➝ n3

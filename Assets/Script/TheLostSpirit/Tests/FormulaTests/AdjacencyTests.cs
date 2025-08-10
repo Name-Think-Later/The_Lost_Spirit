@@ -13,7 +13,7 @@ namespace Script.TheLostSpirit.Tests.FormulaTests {
         }
 
         [Test(Description = "接口間是否正確地連接")]
-        public void Adjacency_Should_ConnectCorrectly() {
+        public void Should_Connect() {
             _left.To(_right);
 
             Assert.AreEqual(_left.Opposite, _right);
@@ -24,7 +24,7 @@ namespace Script.TheLostSpirit.Tests.FormulaTests {
         }
 
         [Test(Description = "接口間是否正確地切斷")]
-        public void Adjacency_Should_DisconnectCorrectly() {
+        public void Should_Disconnect() {
             _left.To(_right);
             _left.Cut();
 
@@ -40,7 +40,7 @@ namespace Script.TheLostSpirit.Tests.FormulaTests {
         }
 
         [Test(Description = "接口是否正確回傳占用狀態")]
-        public void Adjacency_ExistStatus_Should_ReturnCorrectly() {
+        public void Should_Return_Correct_ExistStatus() {
             Assert.IsFalse(_left.IsExist);
             Assert.IsFalse(_right.IsExist);
             Assert.IsTrue(_left.IsEmpty);
@@ -62,7 +62,7 @@ namespace Script.TheLostSpirit.Tests.FormulaTests {
         }
 
         [Test(Description = "接口是否正確回傳出入狀態")]
-        public void Adjacency_DirectedStatus_Should_ReturnCorrectly() {
+        public void Should_Return_Correct_DirectedStatus() {
             Assert.IsFalse(_left.IsIn);
             Assert.IsFalse(_left.IsOut);
             Assert.IsFalse(_right.IsIn);
