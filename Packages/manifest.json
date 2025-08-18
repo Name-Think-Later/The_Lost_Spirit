@@ -6,6 +6,7 @@
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.cysharp.zlinq": "https://github.com/Cysharp/ZLinq.git?path=src/ZLinq.Unity/Assets/ZLinq.Unity/#main",
     "com.github-glitchenzo.nugetforunity": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=src/NuGetForUnity/#v4.4.0",
+    "com.lbg.subclassselector": "https://github.com/spiney199/Subclass-Selector.git?path=Assets/Subclass-Selector/Subclass-Selector/#main",
     "com.singularitygroup.hotreload": "https://gitlab.hotreload.net/root/hot-reload-releases.git#1.13.7",
     "com.unity.cinemachine": "2.10.4",
     "com.unity.collab-proxy": "2.7.1",

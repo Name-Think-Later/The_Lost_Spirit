@@ -3,13 +3,13 @@ using Script.TheLostSpirit.SkillSystem.SkillBase;
 using R3;
 
 namespace Script.TheLostSpirit.SkillSystem.CoreModule {
-    public partial class Core : Skill {
-        readonly BehaviourData _behaviourData;
+    public class Core : Skill {
+        readonly CoreBehaviourData _behaviourData;
 
         IDisposable _disposable;
 
-        public Core(Model model) : base(model.Info) {
-            _behaviourData = model.BehaviourData;
+        public Core(CoreModel coreModel) : base(coreModel.Info) {
+            _behaviourData = coreModel.BehaviourData;
         }
 
         public void Initialize(ICoreControllable formula) {

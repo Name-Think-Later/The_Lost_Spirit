@@ -22,17 +22,17 @@ MonoBehaviour:
       _recoverInterval: 0
       _rechargeCooldown: 0
       _inputHandler:
-        rid: 8457240751642247170
+        rid: 4637466687461654534
       _outputHandler:
-        rid: 8457240751642247169
+        rid: 4637466687461654533
   references:
     version: 2
     RefIds:
-    - rid: 8457240751642247169
+    - rid: 4637466687461654533
       type: {class: Repeat, ns: Script.TheLostSpirit.SkillSystem.CoreModule.OutputHandler, asm: Core}
       data:
         _repeatTimes: 0
         _interval: 0
-    - rid: 8457240751642247170
+    - rid: 4637466687461654534
       type: {class: SingleClick, ns: Script.TheLostSpirit.SkillSystem.CoreModule.InputHandler, asm: Core}
       data: 

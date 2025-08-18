@@ -7,7 +7,7 @@ using Script.TheLostSpirit.SkillSystem.CoreModule;
 using UnityEngine.InputSystem;
 
 namespace Script.TheLostSpirit.FormulaSystem {
-    public class Formula : ICollection<Node>, Core.ICoreControllable {
+    public class Formula : ICollection<Node>, ICoreControllable {
         readonly Collection<Node> _circuit = new Collection<Node>();
 
         InputAction     _activeInput;

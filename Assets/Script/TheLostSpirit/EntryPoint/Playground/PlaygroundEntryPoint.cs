@@ -37,9 +37,9 @@ namespace Script.TheLostSpirit.EntryPoint.Playground {
 
             var coreInfo = new Info { Name = "c1" };
 
-            var coreBehaviour = new Core.BehaviourData { InputHandler = inputHandler, OutputHandler = outputHandler };
+            var coreBehaviour = new CoreBehaviourData { InputHandler = inputHandler, OutputHandler = outputHandler };
 
-            var coreModel = new Core.Model { Info = coreInfo, BehaviourData = coreBehaviour };
+            var coreModel = new CoreModel { Info = coreInfo, BehaviourData = coreBehaviour };
             var core      = new Core(coreModel);
 
 

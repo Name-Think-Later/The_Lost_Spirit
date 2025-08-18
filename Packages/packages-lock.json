@@ -47,6 +47,13 @@
       "dependencies": {},
       "hash": "f8f1902ebec77284fd4ac83d043e0ef664d31831"
     },
+    "com.lbg.subclassselector": {
+      "version": "https://github.com/spiney199/Subclass-Selector.git?path=Assets/Subclass-Selector/Subclass-Selector/#main",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "bc44c417df76cb730c53f80211d9f5ed06b85741"
+    },
     "com.singularitygroup.hotreload": {
       "version": "https://gitlab.hotreload.net/root/hot-reload-releases.git#1.13.7",
       "depth": 0,

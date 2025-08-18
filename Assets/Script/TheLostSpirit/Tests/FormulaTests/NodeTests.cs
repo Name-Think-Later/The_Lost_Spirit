@@ -11,7 +11,7 @@ namespace Script.TheLostSpirit.Tests.FormulaTests {
         public async Task Should_Traversal_With_DeepFirst() {
             var nodeCount = 7;
 
-            var verifyArray = new Queue<int>();
+            var sequence = new Queue<int>();
 
             var nodes =
                 Enumerable
@@ -19,12 +19,13 @@ namespace Script.TheLostSpirit.Tests.FormulaTests {
                     .Select(index => {
                         var fakeNode = Substitute.ForPartsOf<Node>(3);
                         fakeNode
-                            .When(async n => await n.AsyncVisited())
-                            .Do(c => verifyArray.Enqueue(index));
+                            .When(async node => await node.AsyncVisited())
+                            .Do(c => sequence.Enqueue(index));
 
                         return fakeNode;
                     })
                     .ToArray();
+            
             /*
              *            ↱ n4
              *   ↱ n1 ➝ n3
@@ -45,7 +46,7 @@ namespace Script.TheLostSpirit.Tests.FormulaTests {
             await nodes[0].AsyncVisited();
 
             var excepted = new int[] { 0, 1, 3, 4, 5, 6, 2 };
-            Assert.AreEqual(excepted, verifyArray);
+            Assert.AreEqual(excepted, sequence);
         }
     }
 }

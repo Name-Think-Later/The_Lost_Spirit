@@ -1,14 +1,16 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using LBG;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Script.TheLostSpirit.SkillSystem.CoreModule.OutputHandler {
     [Serializable]
-    public class Repeat : Core.BehaviourData.IOutputHandler {
-        [SerializeField]
+    public class Repeat : IOutputHandler {
+        [BoxGroup, SerializeField]
         int _repeatTimes;
 
-        [SerializeField]
+        [BoxGroup, SerializeField]
         float _interval;
 
         public int RepeatTimes {
