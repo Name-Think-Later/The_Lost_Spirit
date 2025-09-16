@@ -24,7 +24,7 @@ namespace Script.TheLostSpirit.PlayerModule {
             var rigidbody = _reference.Rigidbody;
 
             var velocity = rigidbody.velocity.WithX(_axis * _reference.Speed);
-            _reference.Rigidbody.velocity = velocity;
+            rigidbody.velocity = velocity;
         }
     }
 }

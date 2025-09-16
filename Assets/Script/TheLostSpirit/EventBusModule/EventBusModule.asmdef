@@ -1,14 +1,14 @@
 {
-    "name": "TheLostSpirit",
+    "name": "EvenBusModule",
     "rootNamespace": "",
-    "references": ["GUID:7ba2dc487a03aab49854c96ce99aebee","GUID:b523910db0e2f1a44b9ef73bebd1f50d"],
+    "references": [
+        "GUID:77221876cc6b8244180b96e320b1bcd4"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
-    "precompiledReferences": [
-        "ZLinq.dll"
-    ],
+    "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],

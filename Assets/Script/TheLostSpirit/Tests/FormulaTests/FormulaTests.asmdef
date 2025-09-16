@@ -6,7 +6,8 @@
         "UnityEditor.TestRunner",
         "Skill",
         "Formula",
-        "UniTask"
+        "UniTask",
+        "FormulaSystem"
     ],
     "includePlatforms": [
         "Editor"

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c930995952cc481e83031f80221d7be0, type: 3}
   m_Name: CoreModelWrapper
   m_EditorClassIdentifier: 
-  _coreModel:
+  _model:
     _info:
       _name: 
       _description: 
@@ -22,17 +22,15 @@ MonoBehaviour:
       _recoverInterval: 0
       _rechargeCooldown: 0
       _inputHandler:
-        rid: 4637466687461654534
+        rid: 4637466687461654548
       _outputHandler:
-        rid: 4637466687461654533
+        rid: 4637466687461654550
   references:
     version: 2
     RefIds:
-    - rid: 4637466687461654533
-      type: {class: Repeat, ns: Script.TheLostSpirit.SkillSystem.CoreModule.OutputHandler, asm: Core}
-      data:
-        _repeatTimes: 0
-        _interval: 0
-    - rid: 4637466687461654534
+    - rid: 4637466687461654548
       type: {class: SingleClick, ns: Script.TheLostSpirit.SkillSystem.CoreModule.InputHandler, asm: Core}
+      data: 
+    - rid: 4637466687461654550
+      type: {class: Once, ns: Script.TheLostSpirit.SkillSystem.CoreModule.OutputHandler, asm: Core}
       data: 
