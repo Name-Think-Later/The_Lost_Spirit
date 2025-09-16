@@ -15,40 +15,59 @@ namespace Script.TheLostSpirit.MapSystem {
         }
 
         public void Generate() {
-            var horizontalOffset = 0f;
+            RoomCreation();
+
+            RoomConnection();
+
+            RoomArrangement();
+        }
+
+        void RoomCreation() {
             for (int i = 0; i < _setting.GenerateAmount; i++) {
                 var index          = Random.Range(0, _setting.RoomPattern.Length);
                 var pattern        = _setting.RoomPattern[index];
                 var roomReference  = InstantiateRoomReference(pattern);
                 var roomController = new RoomController(roomReference);
                 _roomControllers.Add(roomController);
+            }
+        }
 
+        void RoomArrangement() {
+            var horizontalOffset = 0f;
+            _roomControllers.ForEach(roomController => {
                 var vectorOffset = Vector2.right * horizontalOffset;
                 roomController.SetPosition(vectorOffset);
                 horizontalOffset += _setting.Offset;
-            }
+            });
+        }
 
-            _roomControllers
-                .Where(roomLeft => roomLeft.InactivePortals.Any())
-                .ForEach(roomLeft => {
-                    var portalLeft = roomLeft.InactivePortals.First();
+        void RoomConnection() {
+            _roomControllers.ForEach(roomLeft => {
+                var tryGetPortalLeft = roomLeft.InactivePortals.Take(1);
 
-                    _roomControllers
-                        .Where(roomRight => roomRight != roomLeft)
-                        .Where(roomRight => roomRight.InactivePortals.Any())
-                        .Where(roomRight => {
-                            return roomRight
-                                   .ActivePortals
-                                   .Select(portal => portal.Destination.Room)
-                                   .All(room => room != roomLeft);
-                        })
-                        .Shuffle()
-                        .Take(1)
-                        .ForEach(roomRight => {
-                            var portalRight = roomRight.InactivePortals.First();
-                            portalLeft.Connect(portalRight);
+                tryGetPortalLeft.ForEach(portalLeft => {
+                    var roomFilter =
+                        _roomControllers.Where(roomRight => {
+                            var notSameRoom = roomRight != roomLeft;
+
+                            var notConnectToEachOther =
+                                roomRight
+                                    .ActivePortals
+                                    .Select(portal => portal.Destination.Room)
+                                    .All(room => room != roomLeft);
+
+                            return notSameRoom && notConnectToEachOther;
                         });
+
+                    var tryGetRandomRoom = roomFilter.Shuffle().Take(1);
+
+                    tryGetRandomRoom.ForEach(roomRight => {
+                        var tryGetPortalRight = roomRight.InactivePortals.Take(1);
+
+                        tryGetPortalRight.ForEach(portalLeft.Connect);
+                    });
                 });
+            });
         }
 
         RoomReference InstantiateRoomReference(RoomReference pattern) {

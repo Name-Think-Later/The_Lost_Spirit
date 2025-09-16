@@ -289,7 +289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapGenerationSetting:
     _roomDrawingGrid: {fileID: 389059681}
-    _generateAmount: 100
+    _generateAmount: 3
     _offset: 50
     _roomPattern:
     - {fileID: 6083444059758139990, guid: de5850051e973e84689ac5e221d4a465, type: 3}
