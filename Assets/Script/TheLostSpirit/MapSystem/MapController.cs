@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreLinq;
 using UnityEngine;
-using ZLinq.Linq;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace Script.TheLostSpirit.MapSystem {
     public class MapController {

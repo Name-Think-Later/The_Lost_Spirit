@@ -5,7 +5,6 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Script.TheLostSpirit.EntryPoint.MainScene {
-
     public class MainSceneEntryPoint : MonoBehaviour {
         EventBus _eventBus = new EventBus();
 
@@ -14,8 +13,8 @@ namespace Script.TheLostSpirit.EntryPoint.MainScene {
 
 
         MapController _mapController;
-        
-        
+
+
         void Awake() {
             _mapController = new MapController(_mapGenerationSetting);
 
