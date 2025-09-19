@@ -33,20 +33,36 @@ namespace Script.TheLostSpirit.MapSystem {
             }
         }
 
-        void RoomArrangement() {
-            var horizontalOffset = 0f;
-            _roomControllers.ForEach(roomController => {
-                var vectorOffset = Vector2.right * horizontalOffset;
-                roomController.SetPosition(vectorOffset);
-                horizontalOffset += _setting.Offset;
-            });
+        void RoomConnection() {
+            
+            MainConnection();
+            
+            BranchConnection();
         }
 
-        void RoomConnection() {
-            _roomControllers.ForEach(roomLeft => {
-                var tryGetPortalLeft = roomLeft.InactivePortals.Take(1);
+        void MainConnection() {
+            _roomControllers
+                .Window(2)
+                .ForEach(pair => {
+                    var current = pair[0];
+                    var next    = pair[1];
 
-                tryGetPortalLeft.ForEach(portalLeft => {
+                    var currentPortal = current.InactivePortals.Shuffle().First();
+                    var nextPortal    = next.InactivePortals.Shuffle().First();
+                    currentPortal.Connect(nextPortal);
+                });
+        }
+
+        void BranchConnection() {
+            _roomControllers.ForEach(roomLeft => {
+                var inactivePortalCount = roomLeft.InactivePortals.Count();
+                var cdfSampler          = new CdfSampler(inactivePortalCount + 1);
+                var branchAmount        = cdfSampler.Next();
+
+                
+                var tryGetPortalLefts = roomLeft.InactivePortals.Take(branchAmount);
+
+                tryGetPortalLefts.ForEach(portalLeft => {
                     var roomFilter =
                         _roomControllers.Where(roomRight => {
                             var notSameRoom = roomRight != roomLeft;
@@ -60,6 +76,7 @@ namespace Script.TheLostSpirit.MapSystem {
                             return notSameRoom && notConnectToEachOther;
                         });
 
+                    
                     var tryGetRandomRoom = roomFilter.Shuffle().Take(1);
 
                     tryGetRandomRoom.ForEach(roomRight => {
@@ -70,6 +87,17 @@ namespace Script.TheLostSpirit.MapSystem {
                 });
             });
         }
+
+
+        void RoomArrangement() {
+            var horizontalOffset = 0f;
+            _roomControllers.ForEach(roomController => {
+                var vectorOffset = Vector2.right * horizontalOffset;
+                roomController.SetPosition(vectorOffset);
+                horizontalOffset += _setting.Offset;
+            });
+        }
+
 
         RoomReference InstantiateRoomReference(RoomReference pattern) {
             var original = pattern.gameObject;

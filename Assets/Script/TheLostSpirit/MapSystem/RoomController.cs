@@ -12,7 +12,7 @@ namespace Script.TheLostSpirit.MapSystem {
 
         public RoomController(RoomReference roomReference) {
             _roomReference = roomReference;
-            
+
             _portalControllers =
                 _roomReference
                     .PortalReferences
