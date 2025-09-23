@@ -1,13 +1,16 @@
-﻿using R3;
+﻿using JetBrains.Annotations;
+using R3;
 using UnityEngine;
 
 namespace Script.TheLostSpirit.MapSystem {
     public class PortalController {
         readonly PortalReference _portalReference;
 
+        public Transform Anchor => _portalReference.transform;
 
-        public Transform Anchor { get; }
+        [CanBeNull]
         public RoomController Room { get; private set; }
+
         public bool IsActive { get; private set; }
         public PortalController Destination { get; private set; }
 
@@ -16,7 +19,6 @@ namespace Script.TheLostSpirit.MapSystem {
             RoomController  roomController = null
         ) {
             _portalReference = portalReference;
-            Anchor           = portalReference.transform;
             Room             = roomController;
             IsActive         = false;
 
@@ -32,6 +34,9 @@ namespace Script.TheLostSpirit.MapSystem {
 
             this.IsActive    = true;
             another.IsActive = true;
+
+            this._portalReference.gameObject.SetActive(true);
+            another._portalReference.gameObject.SetActive(true);
         }
 
         public void Disconnect() {
@@ -42,13 +47,16 @@ namespace Script.TheLostSpirit.MapSystem {
 
             this.IsActive    = false;
             another.IsActive = false;
+
+            this._portalReference.gameObject.SetActive(false);
+            another._portalReference.gameObject.SetActive(false);
         }
 
         public void Teleport(Transform target) {
             target.position = Destination.Anchor.position;
         }
 
-        public void DebugPortal() {
+        void DebugPortal() {
             if (Destination == null) return;
             Debug.DrawLine(Anchor.position, Destination.Anchor.position);
         }

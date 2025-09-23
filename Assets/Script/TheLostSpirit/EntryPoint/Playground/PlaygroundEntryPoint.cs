@@ -1,5 +1,7 @@
 using System;
+using Cysharp.Threading.Tasks;
 using R3;
+using R3.Triggers;
 using Script.TheLostSpirit.FormulaSystem;
 using Script.TheLostSpirit.MapSystem;
 using Script.TheLostSpirit.PlayerModule;
@@ -27,19 +29,25 @@ namespace Script.TheLostSpirit.EntryPoint.Playground {
 
         ActionMap        _actionMap;
         PlayerController _playerController;
+        PlayerViewModel  _playerViewModel;
         Formula[]        _formulas;
 
         void Awake() {
             _actionMap        = new ActionMap();
             _playerController = new PlayerController(_playerReference);
+            _playerViewModel  = new PlayerViewModel(_playerController);
 
             _formulas = new[] {
                 new Formula(),
                 new Formula()
             };
 
-            _ = new PlayerControlInputEventHandler(_actionMap.General, _playerController, _playerReference);
-            _ = new FormulaDefaultInputBinding(_actionMap.General, _formulas);
+            var generalActions = _actionMap.General;
+            _ = new PlayerInputBinding(generalActions, _playerViewModel).AddTo(_playerReference);
+            _ = new FormulaDefaultInputBinding(generalActions, _formulas);
+
+            _ = new PlayerUpdateBinding(_playerController).AddTo(_playerReference);
+
 
             _actionMap.Enable();
 
@@ -73,12 +81,55 @@ namespace Script.TheLostSpirit.EntryPoint.Playground {
             var portalControllerRight = new PortalController(_rightPortal);
             portalControllerLeft.Connect(portalControllerRight);
 
-            Observable
-                .EveryUpdate()
-                .Subscribe(_ => {
-                    portalControllerLeft.DebugPortal();
-                    portalControllerRight.DebugPortal();
+            var portalViewModelLeft  = new PortalViewModel(portalControllerLeft);
+            var portalViewModelRight = new PortalViewModel(portalControllerRight);
+
+            _ = new PortalInteractedBinding(_leftPortal, portalViewModelLeft);
+            _ = new PortalInteractedBinding(_rightPortal, portalViewModelRight);
+        }
+    }
+
+    public class PortalInteractedBinding {
+        readonly PortalReference _portalReference;
+        readonly PortalViewModel _portalViewModel;
+
+        public PortalInteractedBinding(
+            PortalReference portalReference,
+            PortalViewModel portalViewModel
+        ) {
+            _portalReference = portalReference;
+            _portalViewModel = portalViewModel;
+
+            _portalReference
+                .OnInteractAsObservable
+                .Subscribe(_portalViewModel.OnInteracted);
+        }
+    }
+
+    public class InteractDetectorTriggerBinding : IDisposable {
+        readonly Collider2D       _interactDetector;
+        readonly PlayerController _playerController;
+
+        readonly IDisposable _disposable;
+
+        public InteractDetectorTriggerBinding(
+            Collider2D       interactDetector,
+            PlayerController playerController
+        ) {
+            _interactDetector = interactDetector;
+            _playerController = playerController;
+
+            _interactDetector
+                .OnTriggerEnter2DAsObservable()
+                .Subscribe(collider => {
+                    Debug.Log("Enter");
+
+                    _playerController.SetInteractedTarget(collider);
                 });
+        }
+
+        public void Dispose() {
+            _disposable.Dispose();
         }
     }
 }

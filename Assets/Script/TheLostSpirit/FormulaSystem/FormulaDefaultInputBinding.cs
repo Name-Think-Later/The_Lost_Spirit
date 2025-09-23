@@ -5,7 +5,7 @@ namespace Script.TheLostSpirit.FormulaSystem {
         readonly ActionMap.GeneralActions _general;
         readonly Formula[]                _formulas;
 
-        IDisposable _disposable;
+        readonly IDisposable _disposable;
 
         public FormulaDefaultInputBinding(
             ActionMap.GeneralActions general,

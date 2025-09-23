@@ -9,7 +9,10 @@ namespace Script.TheLostSpirit.PlayerModule {
         [SerializeField, Required, ChildGameObjectsOnly]
         Collider2D _collider;
 
-        [SerializeField] 
+        [SerializeField, Required, ChildGameObjectsOnly]
+        Collider2D _interactDetector;
+
+        [SerializeField]
         float _speed;
 
         public Rigidbody2D Rigidbody => _rigidbody;

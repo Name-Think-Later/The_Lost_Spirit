@@ -1,30 +1,41 @@
-using Script.Extension.Unity;
+using UnityEngine;
 
 namespace Script.TheLostSpirit.PlayerModule {
     public class PlayerController {
-        readonly PlayerReference _reference;
+        readonly PlayerReference _playerReference;
+        readonly MoveService     _moveService;
+        readonly InteractService _interactService;
 
-        float _axis = 0;
+        int _moveAxis;
+
 
         public PlayerController(
-            PlayerReference reference
+            PlayerReference playerReference
         ) {
-            _reference = reference;
+            _playerReference = playerReference;
+            _moveService     = new MoveService(_playerReference.Rigidbody);
+
+            var layerMaskAll = 31;
+            _interactService = new InteractService(_playerReference.Collider, layerMaskAll);
         }
 
-        
+
         /// <summary>
         /// Remember to apply velocity
         /// </summary>
-        public void SetAxis(float axis) {
-            _axis = axis;
+        public void SetAxis(int axis) {
+            _moveAxis = axis;
         }
 
-        public void ApplyVelocity() {
-            var rigidbody = _reference.Rigidbody;
-
-            var velocity = rigidbody.velocity.WithX(_axis * _reference.Speed);
-            rigidbody.velocity = velocity;
+        public void UpdateVelocity() {
+            _moveService.ApplyVelocity(_moveAxis, _playerReference.Speed);
         }
+
+
+        public void SetInteractedTarget(Collider2D collider) {
+        }
+
+
+        public void Interact() { }
     }
 }

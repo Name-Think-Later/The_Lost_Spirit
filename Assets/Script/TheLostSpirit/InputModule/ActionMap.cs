@@ -118,6 +118,15 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""04a89e44-5bf4-427f-b122-27524b923164"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -175,6 +184,17 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
                     ""action"": ""SecondCircuit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1304741a-e0f8-40e2-99d0-d6e2d4b5968a"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -186,6 +206,7 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
         m_General_Move = m_General.FindAction("Move", throwIfNotFound: true);
         m_General_FirstCircuit = m_General.FindAction("FirstCircuit", throwIfNotFound: true);
         m_General_SecondCircuit = m_General.FindAction("SecondCircuit", throwIfNotFound: true);
+        m_General_Interact = m_General.FindAction("Interact", throwIfNotFound: true);
     }
 
     ~@ActionMap()
@@ -269,6 +290,7 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
     private readonly InputAction m_General_Move;
     private readonly InputAction m_General_FirstCircuit;
     private readonly InputAction m_General_SecondCircuit;
+    private readonly InputAction m_General_Interact;
     /// <summary>
     /// Provides access to input actions defined in input action map "General".
     /// </summary>
@@ -292,6 +314,10 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "General/SecondCircuit".
         /// </summary>
         public InputAction @SecondCircuit => m_Wrapper.m_General_SecondCircuit;
+        /// <summary>
+        /// Provides access to the underlying input action "General/Interact".
+        /// </summary>
+        public InputAction @Interact => m_Wrapper.m_General_Interact;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -327,6 +353,9 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
             @SecondCircuit.started += instance.OnSecondCircuit;
             @SecondCircuit.performed += instance.OnSecondCircuit;
             @SecondCircuit.canceled += instance.OnSecondCircuit;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         /// <summary>
@@ -347,6 +376,9 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
             @SecondCircuit.started -= instance.OnSecondCircuit;
             @SecondCircuit.performed -= instance.OnSecondCircuit;
             @SecondCircuit.canceled -= instance.OnSecondCircuit;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         /// <summary>
@@ -408,5 +440,12 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSecondCircuit(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

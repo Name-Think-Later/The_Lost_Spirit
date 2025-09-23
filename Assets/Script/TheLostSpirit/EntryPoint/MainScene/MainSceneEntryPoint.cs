@@ -16,6 +16,7 @@ namespace Script.TheLostSpirit.EntryPoint.MainScene {
 
 
         void Awake() {
+
             _mapController = new MapController(_mapGenerationSetting);
 
             _mapController.Generate();
