@@ -1,10 +1,10 @@
-using System;
-using Script.TheLostSpirit.EventBusModule;
-using Script.TheLostSpirit.MapSystem;
 using Sirenix.OdinInspector;
+using TheLostSpirit.Infrastructure;
+using TheLostSpirit.Infrastructure.EventDriven;
+using TheLostSpirit.MapSystem;
 using UnityEngine;
 
-namespace Script.TheLostSpirit.EntryPoint.MainScene {
+namespace TheLostSpirit.EntryPoint.MainScene {
     public class MainSceneEntryPoint : MonoBehaviour {
         EventBus _eventBus = new EventBus();
 

@@ -2,7 +2,7 @@
 using LBG;
 using UnityEngine;
 
-namespace Script.TheLostSpirit.SkillSystem.CoreModule {
+namespace TheLostSpirit.SkillSystem.CoreModule {
     [Serializable]
     public class CoreBehaviourData {
         [SerializeField]

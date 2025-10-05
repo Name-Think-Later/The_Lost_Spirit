@@ -1,6 +1,6 @@
-﻿using Script.TheLostSpirit.SkillSystem.SkillBase;
+﻿using TheLostSpirit.SkillSystem.SkillBase;
 
-namespace Script.TheLostSpirit.SkillSystem.WeaveModule {
+namespace TheLostSpirit.SkillSystem.WeaveModule {
     public class Weave : Skill {
         public Weave(Info info) : base(info) { }
     }

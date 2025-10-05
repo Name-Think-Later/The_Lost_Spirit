@@ -1,11 +1,10 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using Script.TheLostSpirit.FormulaSystem.NodeModule;
-using Script.TheLostSpirit.SkillSystem.SkillBase;
-using Script.TheLostSpirit.SkillSystem.WeaveModule;
-using UnityEngine;
+using TheLostSpirit.FormulaSystem.NodeModule;
+using TheLostSpirit.SkillSystem.SkillBase;
+using TheLostSpirit.SkillSystem.WeaveModule;
 
-namespace Script.TheLostSpirit.FormulaSystem {
+namespace TheLostSpirit.FormulaSystem {
     public class SkillNode<T> : Node where T : Skill {
         readonly T    _skill;
         Func<UniTask> _visitorStrategy;

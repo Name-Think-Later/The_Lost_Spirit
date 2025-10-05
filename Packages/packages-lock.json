@@ -204,7 +204,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.feature.2d": {
-      "version": "2.0.0",
+      "version": "2.0.1",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
@@ -308,6 +308,13 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
+    },
+    "uk.co.britishexospace.moderncsbridge": {
+      "version": "https://github.com/Braneloc/ModernCSBridgeUnity.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "5092518e6b3612fcf29ca91c975341e9b93fe736"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

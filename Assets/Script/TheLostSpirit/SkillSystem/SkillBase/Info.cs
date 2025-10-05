@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Script.TheLostSpirit.SkillSystem.SkillBase {
+namespace TheLostSpirit.SkillSystem.SkillBase {
     [Serializable]
     public class Info {
         [SerializeField]

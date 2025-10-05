@@ -3007,7 +3007,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1176812225}
   - component: {fileID: 1176812224}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: InteractDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3048,7 +3048,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!4 &1176812225
 Transform:
   m_ObjectHideFlags: 0
@@ -3229,7 +3229,6 @@ MonoBehaviour:
   _rigidbody: {fileID: 1215689216}
   _collider: {fileID: 1215689217}
   _interactDetector: {fileID: 1176812224}
-  _speed: 10
 --- !u!1 &1410382111
 GameObject:
   m_ObjectHideFlags: 0
@@ -3274,8 +3273,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 121f2d8a10fec274c8970f7fc8fbc22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerReference: {fileID: 1215689220}
-  _portalReference: {fileID: 386020166}
+  _playerConfig: {fileID: 11400000, guid: 225177bc3c827094eb028dd5ef5ba7d4, type: 2}
+  _playerMono: {fileID: 1215689220}
+  _portalMono: {fileID: 386020166}
   _leftPortal: {fileID: 386020166}
   _rightPortal: {fileID: 1809641457}
 --- !u!1001 &1568607140
@@ -3333,6 +3333,71 @@ PrefabInstance:
     - target: {fileID: 8284585077161183178, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
+--- !u!1001 &1602318530
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 974853503637968347, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 974853503637968347, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 974853503637968347, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 974853503637968347, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 974853503637968347, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 974853503637968347, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 974853503637968347, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 974853503637968347, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 974853503637968347, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 974853503637968347, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8284585077161183178, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
+      propertyPath: m_Name
+      value: Portal (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8284585077161183178, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8284585077161183178, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3417,3 +3482,4 @@ SceneRoots:
   - {fileID: 819428843}
   - {fileID: 2092287907}
   - {fileID: 1568607140}
+  - {fileID: 1602318530}

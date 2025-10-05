@@ -1,57 +1,92 @@
-using System;
-using Cysharp.Threading.Tasks;
-using R3;
-using R3.Triggers;
-using Script.TheLostSpirit.FormulaSystem;
-using Script.TheLostSpirit.MapSystem;
-using Script.TheLostSpirit.PlayerModule;
-using Script.TheLostSpirit.SkillSystem.CoreModule;
-using Script.TheLostSpirit.SkillSystem.CoreModule.InputHandler;
-using Script.TheLostSpirit.SkillSystem.CoreModule.OutputHandler;
-using Script.TheLostSpirit.SkillSystem.SkillBase;
+using Script.TheLostSpirit.Application.UseCase.Input;
+using TheLostSpirit.Application.UseCase.Input;
 using Sirenix.OdinInspector;
+using TheLostSpirit.Application.EventHandler.Portal;
+using TheLostSpirit.Domain.Interactable;
+using TheLostSpirit.Domain.Player;
+using TheLostSpirit.Domain.Portal;
+using TheLostSpirit.FormulaSystem;
+using TheLostSpirit.SkillSystem.CoreModule;
+using TheLostSpirit.SkillSystem.CoreModule.InputHandler;
+using TheLostSpirit.SkillSystem.CoreModule.OutputHandler;
+using TheLostSpirit.SkillSystem.SkillBase;
+using TheLostSpirit.ViewModel;
 using UnityEngine;
 
-namespace Script.TheLostSpirit.EntryPoint.Playground {
+namespace TheLostSpirit.EntryPoint.Playground {
     public class PlaygroundEntryPoint : MonoBehaviour {
+        [SerializeField]
+        [InlineEditor]
+        PlayerConfig _playerConfig;
+
         [Required, SerializeField]
         [InlineEditor(InlineEditorModes.FullEditor)]
-        PlayerReference _playerReference;
+        PlayerMono _playerMono;
 
         [SerializeField]
-        PortalReference _portalReference;
+        PortalMono _portalMono;
 
         [SerializeField]
-        PortalReference _leftPortal;
+        PortalMono _leftPortal;
 
         [SerializeField]
-        PortalReference _rightPortal;
+        PortalMono _rightPortal;
 
-        ActionMap        _actionMap;
-        PlayerController _playerController;
-        PlayerViewModel  _playerViewModel;
-        Formula[]        _formulas;
+        ActionMap       _actionMap;
+        Player          _player;
+        PlayerEntity    _playerEntity;
+        PlayerViewModel _playerViewModel;
+
+        PortalRepository       _portalRepository;
+        InteractableRepository _interactableRepository;
+
+        Formula[] _formulas;
 
         void Awake() {
-            _actionMap        = new ActionMap();
-            _playerController = new PlayerController(_playerReference);
-            _playerViewModel  = new PlayerViewModel(_playerController);
+            _actionMap = new ActionMap();
 
-            _formulas = new[] {
-                new Formula(),
-                new Formula()
-            };
+            _interactableRepository = new InteractableRepository();
+
+            _playerEntity = new PlayerEntity(_playerConfig, _playerMono);
+
+            _playerViewModel = new PlayerViewModel(
+                new MoveInputUseCase(_playerEntity),
+                new InteractInputUseCase(_playerEntity, _interactableRepository)
+            );
+
 
             var generalActions = _actionMap.General;
-            _ = new PlayerInputBinding(generalActions, _playerViewModel).AddTo(_playerReference);
-            _ = new FormulaDefaultInputBinding(generalActions, _formulas);
-
-            _ = new PlayerUpdateBinding(_playerController).AddTo(_playerReference);
+            _ = new PlayerInputBinding(generalActions, _playerViewModel);
 
 
             _actionMap.Enable();
 
-            //Test code
+            //FormulaTest(generalActions);
+
+            _portalRepository = new PortalRepository();
+
+            var leftPortal  = new PortalEntity(_leftPortal);
+            var rightPortal = new PortalEntity(_rightPortal);
+            leftPortal.LinkTo(rightPortal.ID);
+            rightPortal.LinkTo(leftPortal.ID);
+
+            _portalRepository.Add(leftPortal);
+            _portalRepository.Add(rightPortal);
+
+
+            _ = new PortalInRangeEventHandler(_portalRepository, _interactableRepository);
+            _ = new PortalOutOfRangeEventHandler(_portalRepository, _interactableRepository);
+            _ = new PortalTeleportEventHandler(_portalRepository, _playerEntity);
+        }
+
+        void FormulaTest(ActionMap.GeneralActions generalActions) {
+            _formulas = new[] {
+                new Formula(),
+                new Formula()
+            };
+            _ = new FormulaDefaultInputBinding(generalActions, _formulas);
+
+
             var inputHandler  = new SingleClick();
             var outputHandler = new Once();
 
@@ -74,62 +109,6 @@ namespace Script.TheLostSpirit.EntryPoint.Playground {
 
             _formulas[0].Add(c1);
             _formulas[1].Add(c1);
-
-
-            //portalTest
-            var portalControllerLeft  = new PortalController(_leftPortal);
-            var portalControllerRight = new PortalController(_rightPortal);
-            portalControllerLeft.Connect(portalControllerRight);
-
-            var portalViewModelLeft  = new PortalViewModel(portalControllerLeft);
-            var portalViewModelRight = new PortalViewModel(portalControllerRight);
-
-            _ = new PortalInteractedBinding(_leftPortal, portalViewModelLeft);
-            _ = new PortalInteractedBinding(_rightPortal, portalViewModelRight);
-        }
-    }
-
-    public class PortalInteractedBinding {
-        readonly PortalReference _portalReference;
-        readonly PortalViewModel _portalViewModel;
-
-        public PortalInteractedBinding(
-            PortalReference portalReference,
-            PortalViewModel portalViewModel
-        ) {
-            _portalReference = portalReference;
-            _portalViewModel = portalViewModel;
-
-            _portalReference
-                .OnInteractAsObservable
-                .Subscribe(_portalViewModel.OnInteracted);
-        }
-    }
-
-    public class InteractDetectorTriggerBinding : IDisposable {
-        readonly Collider2D       _interactDetector;
-        readonly PlayerController _playerController;
-
-        readonly IDisposable _disposable;
-
-        public InteractDetectorTriggerBinding(
-            Collider2D       interactDetector,
-            PlayerController playerController
-        ) {
-            _interactDetector = interactDetector;
-            _playerController = playerController;
-
-            _interactDetector
-                .OnTriggerEnter2DAsObservable()
-                .Subscribe(collider => {
-                    Debug.Log("Enter");
-
-                    _playerController.SetInteractedTarget(collider);
-                });
-        }
-
-        public void Dispose() {
-            _disposable.Dispose();
         }
     }
 }

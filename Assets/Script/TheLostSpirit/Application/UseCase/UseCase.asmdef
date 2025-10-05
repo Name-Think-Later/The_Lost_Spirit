@@ -1,0 +1,17 @@
+{
+    "name": "Application.UseCase",
+    "rootNamespace": "",
+    "references": [
+        "GUID:bafdf1b0b22bd4b408956c5eda2d3e4a",
+        "GUID:915e5ff71c354504ebd9da8be4928c25"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

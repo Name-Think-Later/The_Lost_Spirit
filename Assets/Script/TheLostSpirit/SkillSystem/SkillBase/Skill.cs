@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Script.TheLostSpirit.SkillSystem.SkillBase {
+namespace TheLostSpirit.SkillSystem.SkillBase {
     public class Skill {
         public Skill(Info info) {
             GetInfo = info;

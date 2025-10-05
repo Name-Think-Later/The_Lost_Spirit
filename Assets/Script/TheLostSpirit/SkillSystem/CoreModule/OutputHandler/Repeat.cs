@@ -1,10 +1,9 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using LBG;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Script.TheLostSpirit.SkillSystem.CoreModule.OutputHandler {
+namespace TheLostSpirit.SkillSystem.CoreModule.OutputHandler {
     [Serializable]
     public class Repeat : IOutputHandler {
         [BoxGroup, SerializeField]

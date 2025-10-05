@@ -1,22 +1,21 @@
-using System;
-using System.Runtime.Serialization;
 using Sirenix.OdinInspector;
+using TheLostSpirit.Domain.Portal;
 using UnityEngine;
 using ZLinq;
 
-namespace Script.TheLostSpirit.MapSystem {
+namespace TheLostSpirit.MapSystem {
     public class RoomReference : MonoBehaviour {
         [SerializeField, DisableIn(PrefabKind.All)]
-        PortalReference[] _portalReferences;
+        PortalMono[] _portalReferences;
 
-        public PortalReference[] PortalReferences => _portalReferences;
+        public PortalMono[] PortalReferences => _portalReferences;
         
 #if UNITY_EDITOR
         
         
         [Button (ButtonSizes.Medium), DisableInPlayMode]
         void AutoGetPortals() {
-            _portalReferences = transform.Children().OfComponent<PortalReference>().ToArray();
+            _portalReferences = transform.Children().OfComponent<PortalMono>().ToArray();
         }
 #endif
     }

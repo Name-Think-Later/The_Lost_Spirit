@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MoreLinq;
 using ZLinq;
 
-namespace Script.Extension.ZLinq {
+namespace Extension.ZLinq {
     public static class ZLinqExtensions
     {
         public static IEnumerable<T> AsEnumerable<TEnumerator, T>(this ValueEnumerable<TEnumerator, T> valueEnumerable)
