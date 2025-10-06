@@ -1,9 +1,8 @@
 ﻿using R3;
-using TheLostSpirit.IDentify;
+using TheLostSpirit.Identify;
 using TheLostSpirit.Infrastructure;
-using TheLostSpirit.Infrastructure.DomainDriven;
 
-namespace TheLostSpirit.ViewModel {
+namespace TheLostSpirit.ViewModel.Portal {
     public class PortalViewModel : IViewModel<PortalID>{
         readonly ReactiveProperty<bool> _inFocus;
 

@@ -1,6 +1,7 @@
 ﻿using TheLostSpirit.Domain.Portal;
-using TheLostSpirit.IDentify;
-using TheLostSpirit.ViewModel;
+using TheLostSpirit.Identify;
+using TheLostSpirit.Infrastructure;
+using TheLostSpirit.ViewModel.Portal;
 
 namespace TheLostSpirit {
     public class PortalFactory {

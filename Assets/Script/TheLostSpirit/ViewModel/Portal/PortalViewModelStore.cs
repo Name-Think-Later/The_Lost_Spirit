@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using MoreLinq;
-using TheLostSpirit.IDentify;
+using TheLostSpirit.Identify;
 using TheLostSpirit.Infrastructure;
 
-namespace TheLostSpirit.ViewModel {
+namespace TheLostSpirit.ViewModel.Portal {
     public class PortalViewModelStore : IViewModelStore<PortalID, PortalViewModel> {
         readonly Dictionary<PortalID, PortalViewModel> _dictionary = new();
 

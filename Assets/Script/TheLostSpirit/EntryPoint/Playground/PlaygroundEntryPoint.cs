@@ -5,12 +5,14 @@ using TheLostSpirit.Domain.Interactable;
 using TheLostSpirit.Domain.Player;
 using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.FormulaSystem;
-using TheLostSpirit.IDentify;
+using TheLostSpirit.Identify;
 using TheLostSpirit.SkillSystem.CoreModule;
 using TheLostSpirit.SkillSystem.CoreModule.InputHandler;
 using TheLostSpirit.SkillSystem.CoreModule.OutputHandler;
 using TheLostSpirit.SkillSystem.SkillBase;
+using TheLostSpirit.View;
 using TheLostSpirit.ViewModel;
+using TheLostSpirit.ViewModel.Portal;
 using UnityEngine;
 
 namespace TheLostSpirit.EntryPoint.Playground {

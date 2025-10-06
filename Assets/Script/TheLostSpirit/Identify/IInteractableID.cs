@@ -1,5 +1,5 @@
 ﻿using TheLostSpirit.Infrastructure.DomainDriven;
 
-namespace TheLostSpirit.Domain.Interactable {
+namespace TheLostSpirit.Identify {
     public interface IInteractableID : IEntityID { }
 }

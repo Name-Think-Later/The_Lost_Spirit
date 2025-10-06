@@ -1,4 +1,5 @@
-﻿using TheLostSpirit.Infrastructure.DomainDriven;
+﻿using TheLostSpirit.Identify;
+using TheLostSpirit.Infrastructure.DomainDriven;
 
 namespace TheLostSpirit.Domain.Interactable {
     public interface IInteractable :

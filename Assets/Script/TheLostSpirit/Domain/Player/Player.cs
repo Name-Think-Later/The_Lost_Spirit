@@ -1,4 +1,4 @@
-using TheLostSpirit.Domain.Interactable;
+using TheLostSpirit.Identify;
 
 namespace TheLostSpirit.Domain.Player {
     public class Player {

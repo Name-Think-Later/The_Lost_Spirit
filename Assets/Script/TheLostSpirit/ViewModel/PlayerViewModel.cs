@@ -1,6 +1,6 @@
 ﻿using System;
 using TheLostSpirit.Application.UseCase.Input;
-using TheLostSpirit.IDentify;
+using TheLostSpirit.Identify;
 using TheLostSpirit.Infrastructure;
 using UnityEngine.InputSystem;
 

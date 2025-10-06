@@ -1,7 +1,6 @@
-﻿using Sirenix.OdinInspector;
-using TheLostSpirit.Domain.Interactable;
+﻿using TheLostSpirit.Domain.Interactable;
 using TheLostSpirit.Domain.Portal.Event;
-using TheLostSpirit.IDentify;
+using TheLostSpirit.Identify;
 using TheLostSpirit.Infrastructure;
 using TheLostSpirit.Infrastructure.DomainDriven;
 using TheLostSpirit.Infrastructure.EventDriven;

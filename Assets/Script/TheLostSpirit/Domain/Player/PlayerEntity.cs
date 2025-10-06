@@ -1,5 +1,5 @@
 ﻿using TheLostSpirit.Domain.Interactable;
-using TheLostSpirit.IDentify;
+using TheLostSpirit.Identify;
 using TheLostSpirit.Infrastructure.DomainDriven;
 using UnityEngine;
 

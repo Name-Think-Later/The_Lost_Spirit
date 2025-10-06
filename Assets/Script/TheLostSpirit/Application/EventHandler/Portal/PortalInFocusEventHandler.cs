@@ -1,9 +1,9 @@
 ﻿using MoreLinq;
-using TheLostSpirit.Domain.Portal;
+using TheLostSpirit.Domain.Portal.Event;
 using TheLostSpirit.Infrastructure.EventDriven;
-using TheLostSpirit.ViewModel;
+using TheLostSpirit.ViewModel.Portal;
 
-namespace TheLostSpirit.EntryPoint.Playground {
+namespace TheLostSpirit.Application.EventHandler.Portal {
     public class PortalInFocusEventHandler : DomainEventHandler<PortalInFocusEvent> {
         readonly PortalViewModelStore _portalViewModelStore;
 

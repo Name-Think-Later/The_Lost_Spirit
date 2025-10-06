@@ -1,7 +1,8 @@
-﻿using TheLostSpirit.Infrastructure;
-using TheLostSpirit.Infrastructure.DomainDriven;
+﻿using TheLostSpirit.Infrastructure.DomainDriven;
 
-public interface IView<in T>
-    where T : IViewModel<IEntityID>{
-    public void Bind(T viewModel);
+namespace TheLostSpirit.Infrastructure {
+    public interface IView<in T>
+        where T : IViewModel<IEntityID>{
+        public void Bind(T viewModel);
+    }
 }

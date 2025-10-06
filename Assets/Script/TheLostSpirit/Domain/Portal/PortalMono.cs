@@ -1,7 +1,7 @@
 using R3;
 using R3.Triggers;
 using TheLostSpirit.Domain.Portal.Event;
-using TheLostSpirit.IDentify;
+using TheLostSpirit.Identify;
 using TheLostSpirit.Infrastructure;
 using TheLostSpirit.Infrastructure.EventDriven;
 using UnityEngine;

@@ -1,4 +1,4 @@
-﻿using TheLostSpirit.IDentify;
+﻿using TheLostSpirit.Identify;
 
 namespace TheLostSpirit.Domain.Portal {
     public class Portal {

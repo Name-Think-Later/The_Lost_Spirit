@@ -1,5 +1,5 @@
 ﻿using TheLostSpirit.Infrastructure.DomainDriven;
 
-namespace TheLostSpirit.IDentify {
+namespace TheLostSpirit.Identify {
     public class PlayerID : IEntityID { }
 }
