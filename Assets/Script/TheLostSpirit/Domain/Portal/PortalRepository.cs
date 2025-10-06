@@ -1,25 +1,35 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using TheLostSpirit.IDentify;
 using TheLostSpirit.Infrastructure.DomainDriven;
 
 namespace TheLostSpirit.Domain.Portal {
     public class PortalRepository : IRepository<PortalID, PortalEntity> {
-        readonly Dictionary<PortalID, PortalEntity> _repository = new();
+        readonly Dictionary<PortalID, PortalEntity> _dictionary = new();
 
         public void Add(PortalEntity portalEntity) {
             var id = portalEntity.ID;
-            _repository[id] = portalEntity;
+            _dictionary[id] = portalEntity;
         }
 
         public void Remove(PortalID id) {
-            _repository.Remove(id);
+            _dictionary.Remove(id);
         }
 
         public PortalEntity GetByID(PortalID id) {
-            return _repository[id];
+            return _dictionary[id];
         }
 
         public bool HasID(PortalID id) {
-            return _repository.ContainsKey(id);
+            return _dictionary.ContainsKey(id);
+        }
+
+        public IEnumerator<KeyValuePair<PortalID, PortalEntity>> GetEnumerator() {
+            return _dictionary.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
         }
     }
 }

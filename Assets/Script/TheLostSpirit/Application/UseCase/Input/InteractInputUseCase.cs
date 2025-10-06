@@ -15,8 +15,11 @@ namespace TheLostSpirit.Application.UseCase.Input {
         }
 
         public void Execute() {
-            var interactable = _interactableRepository.GetNearest(_playerEntity);
-            interactable?.Interacted();
+            var interactableID = _playerEntity.InteractableTarget;
+
+            if (interactableID == null) return;
+            var interactable = _interactableRepository.GetByID(interactableID);
+            interactable.Interacted();
         }
     }
 }

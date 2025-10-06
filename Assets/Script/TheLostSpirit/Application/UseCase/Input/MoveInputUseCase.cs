@@ -1,6 +1,6 @@
 ﻿using TheLostSpirit.Domain.Player;
 
-namespace Script.TheLostSpirit.Application.UseCase.Input {
+namespace TheLostSpirit.Application.UseCase.Input {
     public class MoveInputUseCase {
         readonly PlayerEntity _playerEntity;
 

@@ -1,6 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using TheLostSpirit.Domain.Interactable;
 using TheLostSpirit.Domain.Portal.Event;
+using TheLostSpirit.IDentify;
 using TheLostSpirit.Infrastructure;
 using TheLostSpirit.Infrastructure.DomainDriven;
 using TheLostSpirit.Infrastructure.EventDriven;
@@ -12,10 +13,10 @@ namespace TheLostSpirit.Domain.Portal {
         readonly Portal      _portal;
         readonly IPortalMono _portalMono;
 
-        public PortalEntity(IPortalMono portalMono) {
+        public PortalEntity(PortalID id, IPortalMono portalMono) {
             _eventBus = AppScope.EventBus;
 
-            ID = new PortalID();
+            ID = id;
 
             _portal = new Portal();
 
@@ -25,22 +26,29 @@ namespace TheLostSpirit.Domain.Portal {
 
         public PortalID ID { get; }
         IInteractableID IEntity<IInteractableID>.ID => ID;
+        
+        public Vector2 Position => _portalMono.Transform.position;
 
         public void LinkTo(PortalID destinationID) {
             _portal.DestinationID = destinationID;
+        }
+
+        public void InFocus() {
+            var inFocus = new PortalInFocusEvent(ID);
+            _eventBus.Publish(inFocus);
+        }
+
+        public void OutOfFocus() {
+            var outOfFocus = new PortalOutOfFocusEvent(ID);
+            _eventBus.Publish(outOfFocus);
         }
 
         public void Interacted() {
             var destinationID = _portal.DestinationID;
 
             if (destinationID == null) return;
-            Debug.Log(destinationID);
             var portalTeleport = new PortalTeleportEvent(destinationID);
             _eventBus.Publish(portalTeleport);
-        }
-
-        public Vector2 GetPosition() {
-            return _portalMono.Transform.position;
         }
     }
 }

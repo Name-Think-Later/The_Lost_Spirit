@@ -1,3 +1,5 @@
+using TheLostSpirit.Domain.Interactable;
+
 namespace TheLostSpirit.Domain.Player {
     public class Player {
         readonly PlayerConfig _config;
@@ -5,6 +7,8 @@ namespace TheLostSpirit.Domain.Player {
         public int Axis { get; set; }
 
         public float FinalSpeed => Axis * _config.BaseSpeed;
+
+        public IInteractableID InteractableTarget { get; set; }
 
 
         public Player(PlayerConfig config) {

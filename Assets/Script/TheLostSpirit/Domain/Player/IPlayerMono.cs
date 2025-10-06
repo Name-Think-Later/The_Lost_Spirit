@@ -1,4 +1,5 @@
-﻿using TheLostSpirit.Infrastructure.DomainDriven;
+﻿using TheLostSpirit.IDentify;
+using TheLostSpirit.Infrastructure.DomainDriven;
 
 namespace TheLostSpirit.Domain.Player {
     public interface IPlayerMono : IEntityMono<PlayerID> {

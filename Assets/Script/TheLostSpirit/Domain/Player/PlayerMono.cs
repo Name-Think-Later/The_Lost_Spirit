@@ -1,6 +1,7 @@
 using Extension.Unity;
 using R3;
 using Sirenix.OdinInspector;
+using TheLostSpirit.IDentify;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
@@ -12,24 +13,13 @@ namespace TheLostSpirit.Domain.Player {
         [SerializeField, Required, ChildGameObjectsOnly]
         Collider2D _collider;
 
-        [SerializeField, Required, ChildGameObjectsOnly]
-        Collider2D _interactDetector;
-
-
-        float           _moveSpeed;
-        ContactFilter2D _filter;
+        float _moveSpeed;
 
         public PlayerID ID { get; private set; }
         public Transform Transform => transform;
 
         public void Initialize(PlayerID id) {
             ID = id;
-
-            _filter = new ContactFilter2D {
-                useTriggers  = true,
-                useLayerMask = true,
-                layerMask    = _interactDetector.includeLayers
-            };
 
             FixedUpdateBinding();
         }

@@ -1,7 +1,9 @@
 using R3;
 using R3.Triggers;
 using TheLostSpirit.Domain.Portal.Event;
+using TheLostSpirit.IDentify;
 using TheLostSpirit.Infrastructure;
+using TheLostSpirit.Infrastructure.EventDriven;
 using UnityEngine;
 
 namespace TheLostSpirit.Domain.Portal {
@@ -9,12 +11,15 @@ namespace TheLostSpirit.Domain.Portal {
         [SerializeField]
         Collider2D _collider;
 
+        EventBus _eventBus;
+
         public PortalID ID { get; private set; }
         public Transform Transform => transform;
 
-
         public void Initialize(PortalID id) {
             ID = id;
+
+            _eventBus = AppScope.EventBus;
 
             BindTriggerEnter();
 
@@ -28,7 +33,7 @@ namespace TheLostSpirit.Domain.Portal {
             triggerEnter
                 .Subscribe(_ => {
                     var portalInRange = new PortalInRangeEvent(ID);
-                    AppScope.EventBus.Publish(portalInRange);
+                    _eventBus.Publish(portalInRange);
                 })
                 .AddTo(this);
         }
@@ -40,7 +45,7 @@ namespace TheLostSpirit.Domain.Portal {
             triggerExit
                 .Subscribe(_ => {
                     var portalOutOfRange = new PortalOutOfRangeEvent(ID);
-                    AppScope.EventBus.Publish(portalOutOfRange);
+                    _eventBus.Publish(portalOutOfRange);
                 })
                 .AddTo(this);
         }

@@ -1,4 +1,3 @@
-using Script.TheLostSpirit.Application.UseCase.Input;
 using TheLostSpirit.Application.UseCase.Input;
 using Sirenix.OdinInspector;
 using TheLostSpirit.Application.EventHandler.Portal;
@@ -6,6 +5,7 @@ using TheLostSpirit.Domain.Interactable;
 using TheLostSpirit.Domain.Player;
 using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.FormulaSystem;
+using TheLostSpirit.IDentify;
 using TheLostSpirit.SkillSystem.CoreModule;
 using TheLostSpirit.SkillSystem.CoreModule.InputHandler;
 using TheLostSpirit.SkillSystem.CoreModule.OutputHandler;
@@ -24,13 +24,16 @@ namespace TheLostSpirit.EntryPoint.Playground {
         PlayerMono _playerMono;
 
         [SerializeField]
-        PortalMono _portalMono;
-
-        [SerializeField]
         PortalMono _leftPortal;
 
         [SerializeField]
+        PortalView _leftPortalView;
+
+        [SerializeField]
         PortalMono _rightPortal;
+
+        [SerializeField]
+        PortalView _rightPortalView;
 
         ActionMap       _actionMap;
         Player          _player;
@@ -38,6 +41,7 @@ namespace TheLostSpirit.EntryPoint.Playground {
         PlayerViewModel _playerViewModel;
 
         PortalRepository       _portalRepository;
+        PortalViewModelStore   _portalViewModelStore;
         InteractableRepository _interactableRepository;
 
         Formula[] _formulas;
@@ -47,9 +51,12 @@ namespace TheLostSpirit.EntryPoint.Playground {
 
             _interactableRepository = new InteractableRepository();
 
-            _playerEntity = new PlayerEntity(_playerConfig, _playerMono);
+            var playerID = new PlayerID();
+
+            _playerEntity = new PlayerEntity(playerID, _playerConfig, _playerMono);
 
             _playerViewModel = new PlayerViewModel(
+                playerID,
                 new MoveInputUseCase(_playerEntity),
                 new InteractInputUseCase(_playerEntity, _interactableRepository)
             );
@@ -63,19 +70,34 @@ namespace TheLostSpirit.EntryPoint.Playground {
 
             //FormulaTest(generalActions);
 
-            _portalRepository = new PortalRepository();
+            _portalRepository     = new PortalRepository();
+            _portalViewModelStore = new PortalViewModelStore();
 
-            var leftPortal  = new PortalEntity(_leftPortal);
-            var rightPortal = new PortalEntity(_rightPortal);
-            leftPortal.LinkTo(rightPortal.ID);
-            rightPortal.LinkTo(leftPortal.ID);
 
+            var leftPortalID  = new PortalID();
+            var rightPortalID = new PortalID();
+
+            var leftPortal  = new PortalEntity(leftPortalID, _leftPortal);
+            var rightPortal = new PortalEntity(rightPortalID, _rightPortal);
             _portalRepository.Add(leftPortal);
             _portalRepository.Add(rightPortal);
 
+            var leftPortalViewModel  = new PortalViewModel(leftPortalID);
+            var rightPortalViewModel = new PortalViewModel(rightPortalID);
+            _portalViewModelStore.Add(leftPortalViewModel);
+            _portalViewModelStore.Add(rightPortalViewModel);
 
-            _ = new PortalInRangeEventHandler(_portalRepository, _interactableRepository);
-            _ = new PortalOutOfRangeEventHandler(_portalRepository, _interactableRepository);
+
+            _leftPortalView.Bind(leftPortalViewModel);
+            _rightPortalView.Bind(rightPortalViewModel);
+
+            leftPortal.LinkTo(rightPortal.ID);
+            rightPortal.LinkTo(leftPortal.ID);
+
+            _ = new PortalInRangeEventHandler(_portalRepository, _interactableRepository, _playerEntity);
+            _ = new PortalOutOfRangeEventHandler(_portalRepository, _interactableRepository, _playerEntity);
+            _ = new PortalInFocusEventHandler(_portalViewModelStore);
+            _ = new PortalOutOfFocusEventHandler(_portalViewModelStore);
             _ = new PortalTeleportEventHandler(_portalRepository, _playerEntity);
         }
 

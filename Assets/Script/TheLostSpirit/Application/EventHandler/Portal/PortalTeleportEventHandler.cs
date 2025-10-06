@@ -17,10 +17,9 @@ namespace TheLostSpirit.Application.EventHandler.Portal {
         }
 
         protected override void Handle(PortalTeleportEvent domainEvent) {
-            var portalId       = domainEvent.DestinationID;
-            var portal         = _portalRepository.GetByID(portalId);
-            var portalPosition = portal.GetPosition();
-            _playerEntity.SetPosition(portalPosition);
+            var portalId = domainEvent.DestinationID;
+            var portal   = _portalRepository.GetByID(portalId);
+            _playerEntity.Position = portal.Position;
         }
     }
 }
