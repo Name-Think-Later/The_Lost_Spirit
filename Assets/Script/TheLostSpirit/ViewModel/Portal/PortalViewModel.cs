@@ -1,9 +1,10 @@
 ﻿using R3;
 using TheLostSpirit.IDentify;
 using TheLostSpirit.Infrastructure;
+using TheLostSpirit.Infrastructure.DomainDriven;
 
 namespace TheLostSpirit.ViewModel {
-    public class PortalViewModel : IViewModel<PortalID> {
+    public class PortalViewModel : IViewModel<PortalID>{
         readonly ReactiveProperty<bool> _inFocus;
 
         public PortalID ID { get; }

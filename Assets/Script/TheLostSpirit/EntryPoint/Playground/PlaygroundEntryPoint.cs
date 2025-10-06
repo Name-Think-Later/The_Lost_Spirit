@@ -35,26 +35,51 @@ namespace TheLostSpirit.EntryPoint.Playground {
         [SerializeField]
         PortalView _rightPortalView;
 
-        ActionMap       _actionMap;
-        Player          _player;
-        PlayerEntity    _playerEntity;
-        PlayerViewModel _playerViewModel;
-
-        PortalRepository       _portalRepository;
-        PortalViewModelStore   _portalViewModelStore;
+        ActionMap              _actionMap;
+        PlayerEntity           _playerEntity;
+        PlayerViewModel        _playerViewModel;
         InteractableRepository _interactableRepository;
+
+        PortalRepository     _portalRepository;
+        PortalViewModelStore _portalViewModelStore;
+        PortalFactory        _portalFactory;
 
         Formula[] _formulas;
 
         void Awake() {
+            InitPlayer();
+
+            InitPortal();
+
+            _portalFactory = new PortalFactory(_portalRepository, _portalViewModelStore);
+            var leftID  = _portalFactory.Create(_leftPortal, _leftPortalView);
+            var rightID = _portalFactory.Create(_rightPortal, _leftPortalView);
+
+            var leftPortal  = _portalRepository.GetByID(leftID);
+            var rightPortal = _portalRepository.GetByID(rightID);
+            leftPortal.LinkTo(rightPortal.ID);
+            rightPortal.LinkTo(leftPortal.ID);
+        }
+
+        void InitPortal() {
+            _portalRepository     = new PortalRepository();
+            _portalViewModelStore = new PortalViewModelStore();
+
+            _ = new PortalInRangeEventHandler(_portalRepository, _interactableRepository, _playerEntity);
+            _ = new PortalOutOfRangeEventHandler(_portalRepository, _interactableRepository, _playerEntity);
+            _ = new PortalInFocusEventHandler(_portalViewModelStore);
+            _ = new PortalOutOfFocusEventHandler(_portalViewModelStore);
+            _ = new PortalTeleportEventHandler(_portalRepository, _playerEntity);
+        }
+
+        void InitPlayer() {
             _actionMap = new ActionMap();
+            _actionMap.Enable();
 
             _interactableRepository = new InteractableRepository();
 
             var playerID = new PlayerID();
-
             _playerEntity = new PlayerEntity(playerID, _playerConfig, _playerMono);
-
             _playerViewModel = new PlayerViewModel(
                 playerID,
                 new MoveInputUseCase(_playerEntity),
@@ -64,41 +89,6 @@ namespace TheLostSpirit.EntryPoint.Playground {
 
             var generalActions = _actionMap.General;
             _ = new PlayerInputBinding(generalActions, _playerViewModel);
-
-
-            _actionMap.Enable();
-
-            //FormulaTest(generalActions);
-
-            _portalRepository     = new PortalRepository();
-            _portalViewModelStore = new PortalViewModelStore();
-
-
-            var leftPortalID  = new PortalID();
-            var rightPortalID = new PortalID();
-
-            var leftPortal  = new PortalEntity(leftPortalID, _leftPortal);
-            var rightPortal = new PortalEntity(rightPortalID, _rightPortal);
-            _portalRepository.Add(leftPortal);
-            _portalRepository.Add(rightPortal);
-
-            var leftPortalViewModel  = new PortalViewModel(leftPortalID);
-            var rightPortalViewModel = new PortalViewModel(rightPortalID);
-            _portalViewModelStore.Add(leftPortalViewModel);
-            _portalViewModelStore.Add(rightPortalViewModel);
-
-
-            _leftPortalView.Bind(leftPortalViewModel);
-            _rightPortalView.Bind(rightPortalViewModel);
-
-            leftPortal.LinkTo(rightPortal.ID);
-            rightPortal.LinkTo(leftPortal.ID);
-
-            _ = new PortalInRangeEventHandler(_portalRepository, _interactableRepository, _playerEntity);
-            _ = new PortalOutOfRangeEventHandler(_portalRepository, _interactableRepository, _playerEntity);
-            _ = new PortalInFocusEventHandler(_portalViewModelStore);
-            _ = new PortalOutOfFocusEventHandler(_portalViewModelStore);
-            _ = new PortalTeleportEventHandler(_portalRepository, _playerEntity);
         }
 
         void FormulaTest(ActionMap.GeneralActions generalActions) {
