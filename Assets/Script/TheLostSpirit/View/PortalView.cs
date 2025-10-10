@@ -13,11 +13,13 @@ namespace TheLostSpirit.View {
 
             inFocus
                 .Where(b => b)
-                .Subscribe(_ => _spriteRenderer.color = Color.green);
+                .Subscribe(_ => _spriteRenderer.color = Color.green)
+                .AddTo(this);
 
             inFocus
                 .Where(b => !b)
-                .Subscribe(_ => _spriteRenderer.color = Color.white);
+                .Subscribe(_ => _spriteRenderer.color = Color.white)
+                .AddTo(this);
         }
     }
 }

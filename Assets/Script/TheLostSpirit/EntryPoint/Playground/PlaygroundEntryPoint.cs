@@ -55,7 +55,7 @@ namespace TheLostSpirit.EntryPoint.Playground {
 
             _portalFactory = new PortalFactory(_portalRepository, _portalViewModelStore);
             var leftID  = _portalFactory.Create(_leftPortal, _leftPortalView);
-            var rightID = _portalFactory.Create(_rightPortal, _leftPortalView);
+            var rightID = _portalFactory.Create(_rightPortal, _rightPortalView);
 
             var leftPortal  = _portalRepository.GetByID(leftID);
             var rightPortal = _portalRepository.GetByID(rightID);
