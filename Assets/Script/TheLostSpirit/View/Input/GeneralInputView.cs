@@ -61,18 +61,21 @@ namespace TheLostSpirit {
             var press   = jumpAction.PerformedAsObservable();
             var release = jumpAction.CanceledAsObservable();
 
-            var unitObservableRelease = release.AsUnitObservable();
-            var pressTimeOutOrRelease =
+            var unitRelease = release.AsUnitObservable();
+
+            var holdingTime = TimeSpan.FromSeconds(0.5f);
+
+            var holdingTimeoutOrRelease =
                 press
                     .Select(_ => {
-                            var timer = Observable.Timer(TimeSpan.FromSeconds(0.5f));
+                            var holdingTimer = Observable.Timer(holdingTime);
 
-                            return Observable.Amb(timer, unitObservableRelease);
+                            return Observable.Amb(holdingTimer, unitRelease);
                         }
                     )
                     .Switch();
 
-            return pressTimeOutOrRelease.Subscribe(_ => _viewModel.ReleaseJumpInput());
+            return holdingTimeoutOrRelease.Subscribe(_ => _viewModel.ReleaseJumpInput());
         }
 
         IDisposable InteractInputBinding() {
