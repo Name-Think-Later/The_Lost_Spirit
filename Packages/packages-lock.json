@@ -309,6 +309,13 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "uk.co.britishexospace.moderncsbridge": {
+      "version": "https://github.com/Braneloc/ModernCSBridgeUnity.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "5092518e6b3612fcf29ca91c975341e9b93fe736"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

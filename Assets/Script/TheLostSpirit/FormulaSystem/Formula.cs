@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Cysharp.Threading.Tasks;
-using Script.TheLostSpirit.FormulaSystem.NodeModule;
-using Script.TheLostSpirit.SkillSystem.CoreModule;
+using TheLostSpirit.FormulaSystem.NodeModule;
+using TheLostSpirit.SkillSystem.CoreModule;
 using UnityEngine.InputSystem;
 
-namespace Script.TheLostSpirit.FormulaSystem {
+namespace TheLostSpirit.FormulaSystem {
     public class Formula : ICollection<Node>, ICoreControllable {
         readonly Collection<Node> _circuit = new Collection<Node>();
 

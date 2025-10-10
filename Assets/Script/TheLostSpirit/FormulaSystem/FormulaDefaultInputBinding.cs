@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Script.TheLostSpirit.FormulaSystem {
+namespace TheLostSpirit.FormulaSystem {
     public class FormulaDefaultInputBinding {
         readonly ActionMap.GeneralActions _general;
         readonly Formula[]                _formulas;

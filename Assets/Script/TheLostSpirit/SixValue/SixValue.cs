@@ -1,4 +1,4 @@
-﻿namespace Script.TheLostSpirit.SixValue {
+﻿namespace TheLostSpirit.SixValue {
     public class SixValue {
         public SixValue(
             Effective  effective,

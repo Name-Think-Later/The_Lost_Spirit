@@ -1,7 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
-using UnityEngine;
 
-namespace Script.TheLostSpirit.FormulaSystem.NodeModule {
+namespace TheLostSpirit.FormulaSystem.NodeModule {
     public class Node {
         readonly AdjacencyList _adjacencies;
         public AdjacencyList Adjacencies => _adjacencies;

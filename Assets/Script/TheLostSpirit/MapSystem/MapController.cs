@@ -5,7 +5,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace Script.TheLostSpirit.MapSystem {
+namespace TheLostSpirit.MapSystem {
     public class MapController {
         readonly MapGenerationSetting _setting;
         readonly List<RoomController> _roomControllers;
@@ -49,11 +49,12 @@ namespace Script.TheLostSpirit.MapSystem {
 
                     var currentPortal = current.InactivePortals.Shuffle().First();
                     var nextPortal    = next.InactivePortals.Shuffle().First();
-                    currentPortal.Connect(nextPortal);
+                    //currentPortal.Connect(nextPortal);
                 });
         }
 
         void BranchConnection() {
+            /*
             _roomControllers.ForEach(roomLeft => {
                 var inactivePortalCount = roomLeft.InactivePortals.Count();
                 var cdfSampler          = new CdfSampler(inactivePortalCount + 1);
@@ -86,6 +87,7 @@ namespace Script.TheLostSpirit.MapSystem {
                     });
                 });
             });
+            */
         }
 
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using ZLinq;
 using ZLinq.Linq;
 
-namespace Script.TheLostSpirit.FormulaSystem.NodeModule {
+namespace TheLostSpirit.FormulaSystem.NodeModule {
     public class AdjacencyList : IList<Adjacency> {
         readonly List<Adjacency> _adjacencies = new List<Adjacency>();
 

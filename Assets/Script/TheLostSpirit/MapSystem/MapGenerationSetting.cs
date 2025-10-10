@@ -2,7 +2,7 @@ using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Script.TheLostSpirit.MapSystem {
+namespace TheLostSpirit.MapSystem {
     [Serializable]
     public class MapGenerationSetting {
         [SerializeField]

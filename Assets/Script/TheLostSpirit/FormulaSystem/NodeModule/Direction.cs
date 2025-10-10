@@ -1,4 +1,4 @@
-﻿namespace Script.TheLostSpirit.FormulaSystem.NodeModule {
+﻿namespace TheLostSpirit.FormulaSystem.NodeModule {
     public enum Direction {
         In,
         Out

@@ -1,6 +1,6 @@
-﻿using Script.TheLostSpirit.SkillSystem.SkillBase;
+﻿using TheLostSpirit.SkillSystem.SkillBase;
 
-namespace Script.TheLostSpirit.SkillSystem.ManifestModule {
+namespace TheLostSpirit.SkillSystem.ManifestModule {
     public class Manifest : Skill {
         public Manifest(Info info) : base(info) { }
     }

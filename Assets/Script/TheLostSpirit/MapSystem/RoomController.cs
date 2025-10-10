@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TheLostSpirit.Domain.Portal;
 using UnityEngine;
 
-namespace Script.TheLostSpirit.MapSystem {
+namespace TheLostSpirit.MapSystem {
     public class RoomController {
-        readonly RoomReference          _roomReference;
-        readonly List<PortalController> _portalControllers;
+        readonly RoomReference _roomReference;
+        readonly List<Portal>  _portalControllers;
 
-        public IEnumerable<PortalController> ActivePortals => _portalControllers.Where(p => p.IsActive);
-        public IEnumerable<PortalController> InactivePortals => _portalControllers.Where(p => !p.IsActive);
+        public IEnumerable<Portal> ActivePortals => _portalControllers.Where(p => p.IsActive);
+        public IEnumerable<Portal> InactivePortals => _portalControllers.Where(p => !p.IsActive);
 
         public RoomController(RoomReference roomReference) {
             _roomReference = roomReference;
@@ -16,7 +17,7 @@ namespace Script.TheLostSpirit.MapSystem {
             _portalControllers =
                 _roomReference
                     .PortalReferences
-                    .Select(p => new PortalController(p, this))
+                    .Select(p => new Portal())
                     .ToList();
         }
 

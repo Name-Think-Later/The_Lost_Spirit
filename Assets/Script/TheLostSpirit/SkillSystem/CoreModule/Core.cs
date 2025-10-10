@@ -1,8 +1,8 @@
 ﻿using System;
-using Script.TheLostSpirit.SkillSystem.SkillBase;
 using R3;
+using TheLostSpirit.SkillSystem.SkillBase;
 
-namespace Script.TheLostSpirit.SkillSystem.CoreModule {
+namespace TheLostSpirit.SkillSystem.CoreModule {
     public class Core : Skill {
         readonly CoreBehaviourData _behaviourData;
 
