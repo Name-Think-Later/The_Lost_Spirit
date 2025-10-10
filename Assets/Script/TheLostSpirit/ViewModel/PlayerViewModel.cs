@@ -2,33 +2,46 @@
 using TheLostSpirit.Application.UseCase.Input;
 using TheLostSpirit.Identify;
 using TheLostSpirit.Infrastructure;
-using UnityEngine.InputSystem;
 
 namespace TheLostSpirit.ViewModel {
     public class PlayerViewModel : IViewModel<PlayerID> {
-        readonly MoveInputUseCase     _moveInputUseCase;
-        readonly InteractInputUseCase _interactInputUseCase;
-
-        public PlayerViewModel(
-            PlayerID             id,
-            MoveInputUseCase     moveInputUseCase,
-            InteractInputUseCase interactInputUseCase
-        ) {
-            ID = id;
-
-            _moveInputUseCase     = moveInputUseCase;
-            _interactInputUseCase = interactInputUseCase;
-        }
+        readonly MoveInputUseCase        _moveInputUseCase;
+        readonly DoJumpInputUseCase      _doJumpInputUseCase;
+        readonly ReleaseJumpInputUseCase _releaseJumpInputUseCase;
+        readonly InteractInputUseCase    _interactInputUseCase;
 
         public PlayerID ID { get; }
 
-        public void AxisInput(InputAction.CallbackContext context) {
-            var value = context.ReadValue<float>();
-            var axis  = Math.Sign(value);
+        public PlayerViewModel(
+            PlayerID                id,
+            MoveInputUseCase        moveInputUseCase,
+            DoJumpInputUseCase      doJumpInputUseCase,
+            ReleaseJumpInputUseCase releaseJumpInputUseCase,
+            InteractInputUseCase    interactInputUseCase
+        ) {
+            ID = id;
+
+            _moveInputUseCase        = moveInputUseCase;
+            _doJumpInputUseCase      = doJumpInputUseCase;
+            _releaseJumpInputUseCase = releaseJumpInputUseCase;
+            _interactInputUseCase    = interactInputUseCase;
+        }
+
+
+        public void MoveInput(float value) {
+            var axis = Math.Sign(value);
             _moveInputUseCase.Execute(axis);
         }
 
-        public void InteractInput(InputAction.CallbackContext context) {
+        public void DoJumpInput() {
+            _doJumpInputUseCase.Execute();
+        }
+
+        public void ReleaseJumpInput() {
+            _releaseJumpInputUseCase.Execute();
+        }
+
+        public void InteractInput() {
             _interactInputUseCase.Execute();
         }
     }

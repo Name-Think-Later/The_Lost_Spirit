@@ -6,7 +6,10 @@ namespace TheLostSpirit.Domain.Player {
 
         public int Axis { get; set; }
 
-        public float FinalSpeed => Axis * _config.BaseSpeed;
+        public float FinalSpeed => Axis * _config.baseSpeed;
+
+        public float FinalJumpForce => _config.baseJumpForce;
+        public float JumpingGravityScale => _config.jumpingGravityScale;
 
         public IInteractableID InteractableTarget { get; set; }
 

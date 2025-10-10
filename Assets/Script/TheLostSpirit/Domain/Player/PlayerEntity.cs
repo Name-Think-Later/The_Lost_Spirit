@@ -35,7 +35,19 @@ namespace TheLostSpirit.Domain.Player {
 
         public void MoveByAxis(int axis) {
             _player.Axis = axis;
-            _playerMono.SetMoveSpeed(_player.FinalSpeed);
+
+            var finalSpeed = _player.FinalSpeed;
+            _playerMono.SetMoveSpeed(finalSpeed);
+        }
+
+        public void DoJump() {
+            var finalJumpForce      = _player.FinalJumpForce;
+            var jumpingGravityScale = _player.JumpingGravityScale;
+            _playerMono.Jump(finalJumpForce, jumpingGravityScale);
+        }
+
+        public void ReleaseJump() {
+            _playerMono.RestoreGravityScale();
         }
     }
 }

@@ -85,12 +85,15 @@ namespace TheLostSpirit.EntryPoint.Playground {
             _playerViewModel = new PlayerViewModel(
                 playerID,
                 new MoveInputUseCase(_playerEntity),
+                new DoJumpInputUseCase(_playerEntity),
+                new ReleaseJumpInputUseCase(_playerEntity),
                 new InteractInputUseCase(_playerEntity, _interactableRepository)
             );
 
 
-            var generalActions = _actionMap.General;
-            _ = new PlayerInputBinding(generalActions, _playerViewModel);
+            var generalActions   = _actionMap.General;
+            var generalInputView = new GeneralInputView(generalActions);
+            generalInputView.Bind(_playerViewModel);
         }
 
         void FormulaTest(ActionMap.GeneralActions generalActions) {

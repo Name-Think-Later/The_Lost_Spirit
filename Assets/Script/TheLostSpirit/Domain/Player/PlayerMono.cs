@@ -13,6 +13,7 @@ namespace TheLostSpirit.Domain.Player {
         Collider2D _collider;
 
         float _moveSpeed;
+        float _originalGravityScale;
 
         public PlayerID ID { get; private set; }
         public Transform Transform => transform;
@@ -34,12 +35,25 @@ namespace TheLostSpirit.Domain.Player {
                 .AddTo(this);
         }
 
-        public void SetMoveSpeed(float x) {
-            _moveSpeed = x;
-        }
-        
         void ApplyVelocity() {
             _rigidbody.velocity = _rigidbody.velocity.WithX(_moveSpeed);
+        }
+
+
+        public void SetMoveSpeed(float speed) {
+            _moveSpeed = speed;
+        }
+
+        public void Jump(float force, float jumpingGravityScale) {
+            _originalGravityScale   = _rigidbody.gravityScale;
+            _rigidbody.gravityScale = jumpingGravityScale;
+
+            var vector = Vector2.up * force;
+            _rigidbody.AddForce(vector, ForceMode2D.Impulse);
+        }
+
+        public void RestoreGravityScale() {
+            _rigidbody.gravityScale = _originalGravityScale;
         }
     }
 }

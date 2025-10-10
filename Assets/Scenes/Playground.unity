@@ -3160,7 +3160,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 1215689216}
   _collider: {fileID: 1215689217}
-  _interactDetector: {fileID: 0}
 --- !u!114 &1332864642 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6223627850243852192, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
@@ -3315,7 +3314,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 974853503637968347, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.33
+      value: -1.29
       objectReference: {fileID: 0}
     - target: {fileID: 974853503637968347, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
       propertyPath: m_LocalPosition.y
