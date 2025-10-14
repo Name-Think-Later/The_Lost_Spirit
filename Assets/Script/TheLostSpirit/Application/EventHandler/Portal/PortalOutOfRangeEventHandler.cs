@@ -1,4 +1,5 @@
-﻿using TheLostSpirit.Domain.Interactable;
+﻿using System.Linq;
+using TheLostSpirit.Domain.Interactable;
 using TheLostSpirit.Domain.Player;
 using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Domain.Portal.Event;
@@ -7,35 +8,31 @@ using UnityEngine;
 
 namespace TheLostSpirit.Application.EventHandler.Portal {
     public class PortalOutOfRangeEventHandler : DomainEventHandler<PortalOutOfRangeEvent> {
-        readonly PortalRepository       _portalRepository;
         readonly InteractableRepository _interactableRepository;
-        readonly PlayerEntity           _playerEntity;
 
         public PortalOutOfRangeEventHandler(
-            PortalRepository       portalRepository,
-            InteractableRepository interactableRepository,
-            PlayerEntity           playerEntity
+            InteractableRepository interactableRepository
         ) {
-            _portalRepository       = portalRepository;
             _interactableRepository = interactableRepository;
-            _playerEntity           = playerEntity;
         }
 
         protected override void Handle(PortalOutOfRangeEvent domainEvent) {
-            var portalId = domainEvent.ID;
+            var portalID = domainEvent.ID;
 
-            var target = _interactableRepository.GetByID(portalId);
-            target.OutOfFocus();
+            if (_interactableRepository.HasID(portalID)) {
+                var target = _interactableRepository.GetByID(portalID);
+                target.OutOfFocus();
+                _interactableRepository.Remove(portalID);
+            }
 
-            _interactableRepository.Remove(portalId);
-
-            var nearest = _interactableRepository.GetNearest(_playerEntity);
+            var playerEntity = PlayerEntity.Get();
+            var nearest      = _interactableRepository.GetNearest(playerEntity);
 
             if (nearest == null) {
-                _playerEntity.InteractableTarget = null;
+                playerEntity.InteractableTarget = null;
             }
             else {
-                _playerEntity.InteractableTarget = nearest.ID;
+                playerEntity.InteractableTarget = nearest.ID;
                 nearest.InFocus();
             }
         }

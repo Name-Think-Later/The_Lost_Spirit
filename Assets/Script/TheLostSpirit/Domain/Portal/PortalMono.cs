@@ -22,7 +22,6 @@ namespace TheLostSpirit.Domain.Portal {
             _eventBus = AppScope.EventBus;
 
             BindTriggerEnter();
-
             BindTriggerExit();
         }
 

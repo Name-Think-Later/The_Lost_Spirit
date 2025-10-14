@@ -1,5 +1,5 @@
-﻿using TheLostSpirit.Infrastructure.DomainDriven;
+﻿using TheLostSpirit.Infrastructure;
 
 namespace TheLostSpirit.Identify {
-    public interface IInteractableID : IEntityID { }
+    public interface IInteractableID : IIdentity { }
 }

@@ -1,13 +1,33 @@
-﻿using TheLostSpirit.Domain.Interactable;
+﻿using TheLostSpirit.Exception;
 using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure.DomainDriven;
+using TheLostSpirit.Infrastructure.Domain;
 using UnityEngine;
 
 namespace TheLostSpirit.Domain.Player {
     public class PlayerEntity : IEntity<PlayerID>, IPositionProvider {
+        #region Static member
+
+        static PlayerEntity _instance;
+
+        public static PlayerEntity Construct(
+            PlayerID     id,
+            PlayerConfig config,
+            IPlayerMono  mono
+        ) {
+            _instance = new PlayerEntity(id, config, mono);
+
+            return _instance;
+        }
+
+
+        public static PlayerEntity Get() {
+            return _instance ?? throw new PlayerEntityNotCreatedException();
+        }
+
+        #endregion
+
         readonly Player      _player;
         readonly IPlayerMono _playerMono;
-
         public PlayerID ID { get; }
 
         public IInteractableID InteractableTarget {
@@ -15,23 +35,20 @@ namespace TheLostSpirit.Domain.Player {
             set => _player.InteractableTarget = value;
         }
 
-        public Vector2 Position {
-            get => _playerMono.Transform.position;
-            set => _playerMono.Transform.position = value;
-        }
+        public Vector2 Position => _playerMono.Transform.position;
 
-        public PlayerEntity(
+        PlayerEntity(
             PlayerID     id,
             PlayerConfig config,
-            IPlayerMono  playerMono
+            IPlayerMono  mono
         ) {
-            ID = id;
+            ID      = id;
+            _player = new Player(config);
 
-            _player     = new Player(config);
-            _playerMono = playerMono;
-
-            playerMono.Initialize(ID);
+            _playerMono = mono;
+            mono.Initialize(ID);
         }
+
 
         public void MoveByAxis(int axis) {
             _player.Axis = axis;
@@ -48,6 +65,10 @@ namespace TheLostSpirit.Domain.Player {
 
         public void ReleaseJump() {
             _playerMono.RestoreGravityScale();
+        }
+
+        public void SetPosition(IPositionProvider positionProvider) {
+            _playerMono.Transform.position = positionProvider.Position;
         }
     }
 }

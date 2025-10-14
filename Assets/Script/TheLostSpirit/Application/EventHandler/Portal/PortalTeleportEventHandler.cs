@@ -6,20 +6,18 @@ using TheLostSpirit.Infrastructure.EventDriven;
 namespace TheLostSpirit.Application.EventHandler.Portal {
     public class PortalTeleportEventHandler : DomainEventHandler<PortalTeleportEvent> {
         readonly PortalRepository _portalRepository;
-        readonly PlayerEntity     _playerEntity;
 
         public PortalTeleportEventHandler(
-            PortalRepository portalRepository,
-            PlayerEntity     playerEntity
+            PortalRepository portalRepository
         ) {
             _portalRepository = portalRepository;
-            _playerEntity     = playerEntity;
         }
 
         protected override void Handle(PortalTeleportEvent domainEvent) {
-            var portalId = domainEvent.DestinationID;
-            var portal   = _portalRepository.GetByID(portalId);
-            _playerEntity.Position = portal.Position;
+            var portalId     = domainEvent.Destination;
+            var portalEntity = _portalRepository.GetByID(portalId);
+            var playerEntity = PlayerEntity.Get();
+            playerEntity.SetPosition(portalEntity);
         }
     }
 }

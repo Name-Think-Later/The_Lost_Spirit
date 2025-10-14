@@ -2,6 +2,8 @@
 using TheLostSpirit.Application.UseCase.Input;
 using TheLostSpirit.Identify;
 using TheLostSpirit.Infrastructure;
+using TheLostSpirit.Infrastructure.UseCase;
+using TheLostSpirit.Infrastructure.ViewModel;
 
 namespace TheLostSpirit.ViewModel {
     public class PlayerViewModel : IViewModel<PlayerID> {
@@ -30,7 +32,9 @@ namespace TheLostSpirit.ViewModel {
 
         public void MoveInput(float value) {
             var axis = Math.Sign(value);
-            _moveInputUseCase.Execute(axis);
+
+            var input = new MoveInputUseCase.Input(axis);
+            _moveInputUseCase.Execute(input);
         }
 
         public void DoJumpInput() {

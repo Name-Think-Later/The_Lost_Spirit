@@ -2,6 +2,7 @@
 using TheLostSpirit.Domain.Player;
 using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Domain.Portal.Event;
+using TheLostSpirit.Infrastructure;
 using TheLostSpirit.Infrastructure.EventDriven;
 using UnityEngine;
 
@@ -9,27 +10,26 @@ namespace TheLostSpirit.Application.EventHandler.Portal {
     public class PortalInRangeEventHandler : DomainEventHandler<PortalInRangeEvent> {
         readonly PortalRepository       _portalRepository;
         readonly InteractableRepository _interactableRepository;
-        readonly PlayerEntity           _playerEntity;
 
         public PortalInRangeEventHandler(
             PortalRepository       portalRepository,
-            InteractableRepository interactableRepository,
-            PlayerEntity           playerEntity
+            InteractableRepository interactableRepository
         ) {
             _portalRepository       = portalRepository;
             _interactableRepository = interactableRepository;
-            _playerEntity           = playerEntity;
         }
 
         protected override void Handle(PortalInRangeEvent domainEvent) {
-            var portalId     = domainEvent.ID;
-            var portalEntity = _portalRepository.GetByID(portalId);
+            var portalID = domainEvent.ID;
 
-            _interactableRepository.Add(portalEntity);
+            var entity = _portalRepository.GetByID(portalID);
 
-            var nearest = _interactableRepository.GetNearest(_playerEntity);
+            if (!entity.CanInteract) return;
+            _interactableRepository.Add(entity);
 
-            _playerEntity.InteractableTarget = nearest.ID;
+            var playerEntity = PlayerEntity.Get();
+            var nearest      = _interactableRepository.GetNearest(playerEntity);
+            playerEntity.InteractableTarget = nearest.ID;
             nearest.InFocus();
         }
     }

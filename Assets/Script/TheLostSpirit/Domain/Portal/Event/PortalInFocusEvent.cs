@@ -2,5 +2,5 @@
 using TheLostSpirit.Infrastructure.EventDriven;
 
 namespace TheLostSpirit.Domain.Portal.Event {
-    public record PortalInFocusEvent(PortalID ID) : DomainEvent;
+    public record struct PortalInFocusEvent(PortalID ID) : IDomainEvent;
 }

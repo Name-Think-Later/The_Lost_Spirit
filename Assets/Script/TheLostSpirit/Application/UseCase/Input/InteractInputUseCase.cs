@@ -1,25 +1,28 @@
 ﻿using TheLostSpirit.Domain.Interactable;
 using TheLostSpirit.Domain.Player;
+using TheLostSpirit.Infrastructure;
+using TheLostSpirit.Infrastructure.EventDriven;
+using TheLostSpirit.Infrastructure.UseCase;
 
 namespace TheLostSpirit.Application.UseCase.Input {
-    public class InteractInputUseCase {
-        readonly PlayerEntity           _playerEntity;
+    public class InteractInputUseCase : IUseCase<Void, Void> {
         readonly InteractableRepository _interactableRepository;
 
         public InteractInputUseCase(
-            PlayerEntity           playerEntity,
             InteractableRepository interactableRepository
         ) {
-            _playerEntity           = playerEntity;
             _interactableRepository = interactableRepository;
         }
 
-        public void Execute() {
-            var interactableID = _playerEntity.InteractableTarget;
+        public Void Execute(Void input) {
+            var interactableID = PlayerEntity.Get().InteractableTarget;
 
-            if (interactableID == null) return;
-            var interactable = _interactableRepository.GetByID(interactableID);
-            interactable.Interacted();
+            if (interactableID != null) {
+                var interactable = _interactableRepository.GetByID(interactableID);
+                interactable.Interacted();
+            }
+
+            return Void.Default;
         }
     }
 }

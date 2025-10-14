@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure.DomainDriven;
+using TheLostSpirit.Infrastructure.Domain;
 
 namespace TheLostSpirit.Domain.Portal {
     public class PortalRepository : IRepository<PortalID, PortalEntity> {

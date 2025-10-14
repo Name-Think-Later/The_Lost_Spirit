@@ -1,15 +1,12 @@
 using TheLostSpirit.Domain.Player;
+using TheLostSpirit.Infrastructure.UseCase;
 
-namespace TheLostSpirit.ViewModel {
-    public class ReleaseJumpInputUseCase {
-        readonly PlayerEntity _playerEntity;
+namespace TheLostSpirit.Application.UseCase.Input {
+    public class ReleaseJumpInputUseCase : IUseCase<Void, Void> {
+        public Void Execute(Void input) {
+            PlayerEntity.Get().ReleaseJump();
 
-        public ReleaseJumpInputUseCase(PlayerEntity playerEntity) {
-            _playerEntity = playerEntity;
-        }
-
-        public void Execute() {
-            _playerEntity.ReleaseJump();
+            return Void.Default;
         }
     }
 }

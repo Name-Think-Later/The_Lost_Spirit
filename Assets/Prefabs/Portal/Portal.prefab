@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 8340827649220138587}
   - component: {fileID: 1642576407720944918}
   - component: {fileID: 6223627850243852192}
+  - component: {fileID: 7100668301698211380}
+  - component: {fileID: 549563771459830459}
+  - component: {fileID: 4272845352777764395}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -148,3 +151,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 1289643343392802539}
+--- !u!114 &7100668301698211380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8284585077161183178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af1a595f0a97a4d44ae50d53301e3997, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mono: {fileID: 1642576407720944918}
+  _view: {fileID: 6223627850243852192}
+--- !u!114 &549563771459830459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8284585077161183178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07c75deb315dfb144954da7e85ab9ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4272845352777764395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8284585077161183178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49e9c678e8ad14d4094fc444a5148949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

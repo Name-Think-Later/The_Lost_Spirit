@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using MoreLinq;
 using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure.DomainDriven;
+using TheLostSpirit.Infrastructure.Domain;
 using UnityEngine;
 
 namespace TheLostSpirit.Domain.Interactable {

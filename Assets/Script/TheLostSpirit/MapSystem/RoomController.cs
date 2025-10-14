@@ -8,8 +8,8 @@ namespace TheLostSpirit.MapSystem {
         readonly RoomReference _roomReference;
         readonly List<Portal>  _portalControllers;
 
-        public IEnumerable<Portal> ActivePortals => _portalControllers.Where(p => p.IsActive);
-        public IEnumerable<Portal> InactivePortals => _portalControllers.Where(p => !p.IsActive);
+        public IEnumerable<Portal> ActivePortals => _portalControllers.Where(p => p.IsEnable);
+        public IEnumerable<Portal> InactivePortals => _portalControllers.Where(p => !p.IsEnable);
 
         public RoomController(RoomReference roomReference) {
             _roomReference = roomReference;

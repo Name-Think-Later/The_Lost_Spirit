@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TheLostSpirit.Identify;
 using TheLostSpirit.Infrastructure;
+using TheLostSpirit.Infrastructure.ViewModel;
 
 namespace TheLostSpirit.ViewModel.Portal {
     public class PortalViewModelStore : IViewModelStore<PortalID, PortalViewModel> {
