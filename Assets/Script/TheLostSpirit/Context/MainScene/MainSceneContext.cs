@@ -53,14 +53,14 @@ namespace TheLostSpirit.Context.MainScene {
         void TheLostSpirits() {
             _playerObjectContext.Produce();
 
-            _generateMapUseCase.Execute(new(5));
+            _generateMapUseCase.Execute(new(3));
         }
 
         [DisableInEditorMode]
         [Button(ButtonSizes.Medium)]
         public void GenerateMap() {
             _clearMapUseCase.Execute();
-            _generateMapUseCase.Execute(new(5));
+            _generateMapUseCase.Execute(new(3));
         }
     }
 }

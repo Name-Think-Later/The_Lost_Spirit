@@ -1,5 +1,6 @@
 ﻿using R3;
 using TheLostSpirit.Identify;
+using TheLostSpirit.Infrastructure;
 using TheLostSpirit.Infrastructure.ViewModel;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace TheLostSpirit.ViewModel.Portal {
         public PortalID ID { get; }
         public ReadOnlyReactiveProperty<bool> InFocus => _inFocus;
 
-        public Vector2 DebugLineDestination { get; set; }
+        public ReadOnlyTransform DebugLineDestinationTarget { get; set; }
 
 
         public PortalViewModel(PortalID id) {

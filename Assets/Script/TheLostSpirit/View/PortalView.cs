@@ -24,8 +24,8 @@ namespace TheLostSpirit.View {
             Observable
                 .EveryUpdate()
                 .Subscribe(_ => {
-                    if (viewModel.DebugLineDestination == Vector2.zero) return;
-                    Debug.DrawLine(transform.position, viewModel.DebugLineDestination);
+                    if (viewModel.DebugLineDestinationTarget == null) return;
+                    Debug.DrawLine(transform.position, viewModel.DebugLineDestinationTarget.Position);
                 })
                 .AddTo(this);
         }

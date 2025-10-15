@@ -12,19 +12,6 @@ namespace TheLostSpirit.Domain.Portal {
         readonly Portal      _portal;
         readonly IPortalMono _portalMono;
         readonly EventBus    _eventBus;
-
-
-        public PortalEntity(PortalID id, IPortalMono mono) {
-            ID = id;
-
-            _portal = new Portal();
-
-            _portalMono = mono;
-            _portalMono.Initialize(ID);
-
-            _eventBus = AppScope.EventBus;
-        }
-
         public PortalID ID { get; }
         IInteractableID IEntity<IInteractableID>.ID => ID;
 
@@ -32,7 +19,24 @@ namespace TheLostSpirit.Domain.Portal {
 
         public bool HasAssociate => _portal.HasAssociated;
 
+        public ReadOnlyTransform ReadOnlyTransform { get; private set; }
+
         public Vector2 Position => _portalMono.Transform.position;
+
+
+        public PortalEntity(PortalID id, IPortalMono mono) {
+            ID = id;
+
+            _eventBus = AppScope.EventBus;
+
+            _portal = new Portal();
+
+            _portalMono = mono;
+            _portalMono.Initialize(ID);
+
+            ReadOnlyTransform = new ReadOnlyTransform(_portalMono.Transform);
+        }
+
 
         public void Associate(PortalID other) {
             _portal.AssociatedPortal = other;

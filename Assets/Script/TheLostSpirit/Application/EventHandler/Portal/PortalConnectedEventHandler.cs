@@ -5,8 +5,8 @@ using TheLostSpirit.ViewModel.Portal;
 
 namespace TheLostSpirit.Application.EventHandler.Portal {
     public class PortalConnectedEventHandler : DomainEventHandler<PortalConnectedEvent> {
-        PortalRepository     _repository;
-        PortalViewModelStore _viewModelStore;
+        readonly PortalRepository     _repository;
+        readonly PortalViewModelStore _viewModelStore;
 
         public PortalConnectedEventHandler(
             PortalRepository     repository,
@@ -27,8 +27,8 @@ namespace TheLostSpirit.Application.EventHandler.Portal {
             var leftViewModel  = _viewModelStore.GetByID(leftID);
             var rightViewModel = _viewModelStore.GetByID(rightID);
 
-            leftViewModel.DebugLineDestination  = rightEntity.Position;
-            rightViewModel.DebugLineDestination = leftEntity.Position;
+            leftViewModel.DebugLineDestinationTarget  = rightEntity.ReadOnlyTransform;
+            rightViewModel.DebugLineDestinationTarget = leftEntity.ReadOnlyTransform;
         }
     }
 }

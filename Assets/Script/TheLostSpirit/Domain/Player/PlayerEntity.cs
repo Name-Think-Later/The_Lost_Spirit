@@ -1,10 +1,10 @@
 ﻿using TheLostSpirit.Exception;
 using TheLostSpirit.Identify;
+using TheLostSpirit.Infrastructure;
 using TheLostSpirit.Infrastructure.Domain;
-using UnityEngine;
 
 namespace TheLostSpirit.Domain.Player {
-    public class PlayerEntity : IEntity<PlayerID>, IPositionProvider {
+    public class PlayerEntity : IEntity<PlayerID>, ITransformProvider {
         #region Static member
 
         static PlayerEntity _instance;
@@ -35,7 +35,7 @@ namespace TheLostSpirit.Domain.Player {
             set => _player.InteractableTarget = value;
         }
 
-        public Vector2 Position => _playerMono.Transform.position;
+        public ReadOnlyTransform ReadOnlyTransform { get; private set; }
 
         PlayerEntity(
             PlayerID     id,
@@ -47,6 +47,8 @@ namespace TheLostSpirit.Domain.Player {
 
             _playerMono = mono;
             mono.Initialize(ID);
+
+            ReadOnlyTransform = new ReadOnlyTransform(_playerMono.Transform);
         }
 
 
@@ -67,8 +69,8 @@ namespace TheLostSpirit.Domain.Player {
             _playerMono.RestoreGravityScale();
         }
 
-        public void SetPosition(IPositionProvider positionProvider) {
-            _playerMono.Transform.position = positionProvider.Position;
+        public void SetPosition(ITransformProvider transformProvider) {
+            _playerMono.Transform.position = transformProvider.ReadOnlyTransform.Position;
         }
     }
 }
