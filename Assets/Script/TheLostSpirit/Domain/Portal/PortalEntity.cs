@@ -1,4 +1,5 @@
-﻿using TheLostSpirit.Domain.Interactable;
+﻿using System;
+using TheLostSpirit.Domain.Interactable;
 using TheLostSpirit.Domain.Portal.Event;
 using TheLostSpirit.Identify;
 using TheLostSpirit.Infrastructure;
@@ -7,7 +8,7 @@ using TheLostSpirit.Infrastructure.EventDriven;
 using UnityEngine;
 
 namespace TheLostSpirit.Domain.Portal {
-    public class PortalEntity : IEntity<PortalID>, IInteractable {
+    public class PortalEntity : IEntity<PortalID>, IInteractable, IDisposable {
         readonly Portal      _portal;
         readonly IPortalMono _portalMono;
         readonly EventBus    _eventBus;
@@ -56,6 +57,10 @@ namespace TheLostSpirit.Domain.Portal {
             var portalTeleport = new PortalTeleportEvent(destination);
 
             _eventBus.Publish(portalTeleport);
+        }
+
+        public void Dispose() {
+            _portalMono.Destroy();
         }
     }
 }

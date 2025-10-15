@@ -1,6 +1,5 @@
-using System;
 using Sirenix.OdinInspector;
-using TheLostSpirit.Application.UseCase.Room;
+using TheLostSpirit.Application.UseCase.Map;
 using TheLostSpirit.Context.Portal;
 using TheLostSpirit.Context.Room;
 using TheLostSpirit.Infrastructure.UseCase;
@@ -19,8 +18,9 @@ namespace TheLostSpirit.Context.MainScene {
         PlayerObjectContext _playerObjectContext;
 
 
-        ActionMap _actionMap;
-
+        ActionMap          _actionMap;
+        GenerateMapUseCase _generateMapUseCase;
+        ClearMapUseCase    _clearMapUseCase;
 
         void Awake() {
             Construct();
@@ -39,16 +39,28 @@ namespace TheLostSpirit.Context.MainScene {
             _playerObjectContext.Construct(generalInputView);
             _portalContext.Construct(_playerObjectContext);
             _roomContext.Construct(_portalContext);
+
+            _generateMapUseCase =
+                new GenerateMapUseCase(
+                    _roomContext.RoomFactory,
+                    _roomContext.RoomRepository,
+                    _portalContext.PortalRepository,
+                    _roomContext.ConnectRoomUseCase
+                );
+            _clearMapUseCase = new ClearMapUseCase(_roomContext.RoomRepository);
         }
 
         void TheLostSpirits() {
             _playerObjectContext.Produce();
-            var r1 = _roomContext.RoomFactory.CreateRandom();
-            var r2 = _roomContext.RoomFactory.CreateRandom();
-            var r3 = _roomContext.RoomFactory.CreateRandom();
 
-            _roomContext.ConnectRoomUseCase.Execute(new(r1, r2));
-            _roomContext.ConnectRoomUseCase.Execute(new(r2, r3));
+            _generateMapUseCase.Execute(new(5));
+        }
+
+        [DisableInEditorMode]
+        [Button(ButtonSizes.Medium)]
+        public void GenerateMap() {
+            _clearMapUseCase.Execute();
+            _generateMapUseCase.Execute(new(5));
         }
     }
 }

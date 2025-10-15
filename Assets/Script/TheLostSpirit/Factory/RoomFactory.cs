@@ -54,5 +54,9 @@ namespace TheLostSpirit.Factory {
 
             return instance.Produce();
         }
+
+        public void ResetCounter() {
+            _counter = 0;
+        }
     }
 }

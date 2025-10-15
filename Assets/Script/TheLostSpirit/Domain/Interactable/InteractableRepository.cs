@@ -24,8 +24,12 @@ namespace TheLostSpirit.Domain.Interactable {
         public bool HasID(IInteractableID id) {
             return _dictionary.ContainsKey(id);
         }
-        
-        
+
+        public void Clear() {
+            _dictionary.Clear();
+        }
+
+
         /// <summary>
         /// if repository is empty then return null
         /// </summary>
@@ -43,14 +47,6 @@ namespace TheLostSpirit.Domain.Interactable {
                        return Vector2.Distance(interactablePos, relativePos);
                    })
                    .First();
-        }
-
-        public IEnumerator<KeyValuePair<IInteractableID, IInteractable>> GetEnumerator() {
-            return _dictionary.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() {
-            return GetEnumerator();
         }
     }
 }

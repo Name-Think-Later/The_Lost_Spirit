@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace TheLostSpirit.Infrastructure.Domain {
-    public interface IRepository<T, U> : IEnumerable<KeyValuePair<T, U>>
+    public interface IRepository<in T, U>
         where U : IEntity<T> where T : IIdentity {
         void Add(U entity);
 
@@ -10,5 +10,7 @@ namespace TheLostSpirit.Infrastructure.Domain {
         U GetByID(T id);
 
         bool HasID(T id);
+
+        void Clear();
     }
 }

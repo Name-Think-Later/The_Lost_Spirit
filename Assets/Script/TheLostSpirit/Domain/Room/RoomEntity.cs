@@ -1,17 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure;
 using TheLostSpirit.Infrastructure.Domain;
-using TheLostSpirit.Infrastructure.EventDriven;
 
 namespace TheLostSpirit.Domain.Room {
-    public class RoomEntity : IEntity<RoomID> {
+    public class RoomEntity : IEntity<RoomID>, IDisposable {
         readonly Room      _room;
         readonly IRoomMono _roomMono;
 
         public RoomID ID { get; }
 
         public IReadOnlyList<PortalID> IncludedPortal => _room.IncludedPortal;
+        public IReadOnlyList<PortalID> AvailablePortal => _room.AvailablePortal;
+        public IReadOnlyList<PortalID> UnavailablePortal => _room.UnavailablePortal;
 
         public RoomEntity(RoomID id, IRoomMono mono) {
             ID = id;
@@ -24,7 +25,17 @@ namespace TheLostSpirit.Domain.Room {
 
 
         public void IncludePortal(PortalID portal) {
-            _room.IncludedPortal.Add(portal);
+            _room.AvailablePortal.Add(portal);
+        }
+
+        public void TurnPortalToUnavailable(PortalID portal) {
+            _room.AvailablePortal.Remove(portal);
+            _room.UnavailablePortal.Add(portal);
+        }
+
+        public void TurnPortalToAvailable(PortalID portal) {
+            _room.UnavailablePortal.Remove(portal);
+            _room.AvailablePortal.Add(portal);
         }
 
         public void Associate(RoomID other) {
@@ -33,6 +44,10 @@ namespace TheLostSpirit.Domain.Room {
 
         public bool IsAssociate(RoomID other) {
             return _room.AssociatedRoom.Contains(other);
+        }
+
+        public void Dispose() {
+            _roomMono.Destroy();
         }
     }
 }

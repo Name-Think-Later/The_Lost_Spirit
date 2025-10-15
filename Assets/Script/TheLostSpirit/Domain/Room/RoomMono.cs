@@ -10,5 +10,6 @@ namespace TheLostSpirit.Domain.Room {
         }
 
         public Transform Transform => transform;
+        public void Destroy() => Destroy(gameObject);
     }
 }

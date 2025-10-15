@@ -26,7 +26,8 @@ namespace TheLostSpirit.View {
                 .Subscribe(_ => {
                     if (viewModel.DebugLineDestination == Vector2.zero) return;
                     Debug.DrawLine(transform.position, viewModel.DebugLineDestination);
-                });
+                })
+                .AddTo(this);
         }
     }
 }

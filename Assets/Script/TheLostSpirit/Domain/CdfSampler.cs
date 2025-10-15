@@ -5,7 +5,7 @@ using MoreLinq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace TheLostSpirit.MapSystem {
+namespace TheLostSpirit.Domain {
     /// <summary>
     /// 機率分布函數採樣， 在此預設各分部變化量為1/(n^2)
     /// </summary>
@@ -37,7 +37,7 @@ namespace TheLostSpirit.MapSystem {
             if (idx < 0) idx            = ~idx;            // 第一個 ≥ u 的位置
             if (idx >= _cdf.Length) idx = _cdf.Length - 1; // u==1 時回最後一格
 
-            Debug.Log(idx);
+            Debug.Log($"idx: {idx}");
 
             return idx;
         }

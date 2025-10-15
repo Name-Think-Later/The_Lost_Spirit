@@ -48,5 +48,7 @@ namespace TheLostSpirit.Domain.Portal {
                 })
                 .AddTo(this);
         }
+
+        public void Destroy() => Destroy(gameObject);
     }
 }

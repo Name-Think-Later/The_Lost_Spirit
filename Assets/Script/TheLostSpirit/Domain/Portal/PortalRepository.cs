@@ -24,12 +24,8 @@ namespace TheLostSpirit.Domain.Portal {
             return _dictionary.ContainsKey(id);
         }
 
-        public IEnumerator<KeyValuePair<PortalID, PortalEntity>> GetEnumerator() {
-            return _dictionary.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() {
-            return GetEnumerator();
+        public void Clear() {
+            _dictionary.Clear();
         }
     }
 }
