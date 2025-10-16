@@ -1,15 +1,15 @@
 ﻿using TheLostSpirit.Domain.Player;
+using TheLostSpirit.Infrastructure.UseCase;
 
 namespace TheLostSpirit.Application.UseCase.Input {
-    public class MoveInputUseCase {
-        readonly PlayerEntity _playerEntity;
+    public class MoveInputUseCase : IUseCase<Void, MoveInputUseCase.Input> {
+        public Void Execute(Input input) {
+            var axis = input.Axis;
+            PlayerEntity.Get().MoveByAxis(axis);
 
-        public MoveInputUseCase(PlayerEntity playerEntity) {
-            _playerEntity = playerEntity;
+            return Void.Default;
         }
 
-        public void Execute(int axis) {
-            _playerEntity.MoveByAxis(axis);
-        }
+        public record struct Input(int Axis) : IInput;
     }
 }

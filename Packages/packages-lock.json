@@ -34,18 +34,18 @@
       "hash": "8042b29ff87dd5506d7aad72bd6d8d7405985f27"
     },
     "com.cysharp.zlinq": {
-      "version": "https://github.com/Cysharp/ZLinq.git?path=src/ZLinq.Unity/Assets/ZLinq.Unity/#main",
+      "version": "https://github.com/Cysharp/ZLinq.git?path=src/ZLinq.Unity/Assets/ZLinq.Unity/#1.5.3",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "ffaaf440162da1c9c2b600c703ea0dec135cc89e"
+      "hash": "c3d18e4e99f9848e019ef50d0ae2d94f7a7cc820"
     },
     "com.github-glitchenzo.nugetforunity": {
-      "version": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=src/NuGetForUnity/#v4.4.0",
+      "version": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=src/NuGetForUnity/#v4.5.0",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "f8f1902ebec77284fd4ac83d043e0ef664d31831"
+      "hash": "a7c6b49a0141a5bff9b1983e38137522ef61977d"
     },
     "com.lbg.subclassselector": {
       "version": "https://github.com/spiney199/Subclass-Selector.git?path=Assets/Subclass-Selector/Subclass-Selector/#main",
@@ -171,7 +171,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.cinemachine": {
-      "version": "2.10.4",
+      "version": "2.10.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -219,7 +219,7 @@
       }
     },
     "com.unity.ide.rider": {
-      "version": "3.0.36",
+      "version": "3.0.38",
       "depth": 0,
       "source": "registry",
       "dependencies": {

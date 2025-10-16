@@ -10,13 +10,6 @@ namespace TheLostSpirit.MapSystem {
 
         public PortalMono[] PortalReferences => _portalReferences;
         
-#if UNITY_EDITOR
-        
-        
-        [Button (ButtonSizes.Medium), DisableInPlayMode]
-        void AutoGetPortals() {
-            _portalReferences = transform.Children().OfComponent<PortalMono>().ToArray();
-        }
-#endif
+
     }
 }

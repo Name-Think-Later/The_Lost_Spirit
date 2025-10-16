@@ -2,5 +2,5 @@
 using TheLostSpirit.Infrastructure.EventDriven;
 
 namespace TheLostSpirit.Domain.Portal.Event {
-    public record PortalTeleportEvent(PortalID DestinationID) : DomainEvent;
+    public record struct PortalTeleportEvent(PortalID Destination) : IDomainEvent;
 }

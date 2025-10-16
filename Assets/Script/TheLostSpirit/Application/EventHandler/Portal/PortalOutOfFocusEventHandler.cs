@@ -16,9 +16,9 @@ namespace TheLostSpirit.Application.EventHandler.Portal {
         }
 
         protected override void Handle(PortalOutOfFocusEvent domainEvent) {
-            var portalID        = domainEvent.ID;
-            var portalViewModel = _portalViewModelStore.GetByID(portalID);
-            portalViewModel.SetFocus(false);
+            var portalID  = domainEvent.ID;
+            var viewModel = _portalViewModelStore.GetByID(portalID);
+            viewModel.SetFocus(false);
         }
     }
 }

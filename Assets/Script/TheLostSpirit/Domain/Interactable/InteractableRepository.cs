@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MoreLinq;
 using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure.DomainDriven;
+using TheLostSpirit.Infrastructure.Domain;
 using UnityEngine;
 
 namespace TheLostSpirit.Domain.Interactable {
@@ -24,33 +23,29 @@ namespace TheLostSpirit.Domain.Interactable {
         public bool HasID(IInteractableID id) {
             return _dictionary.ContainsKey(id);
         }
-        
-        
+
+        public void Clear() {
+            _dictionary.Clear();
+        }
+
+
         /// <summary>
         /// if repository is empty then return null
         /// </summary>
         /// <param name="relative"></param>
         /// <returns></returns>
-        public IInteractable GetNearest(IPositionProvider relative) {
+        public IInteractable GetNearest(ITransformProvider relative) {
             if (_dictionary.Count == 0) return null;
 
             return _dictionary
                    .Values
                    .Minima(interactable => {
-                       var interactablePos = interactable.Position;
-                       var relativePos     = relative.Position;
+                       var interactablePos = interactable.ReadOnlyTransform.Position;
+                       var relativePos     = relative.ReadOnlyTransform.Position;
 
                        return Vector2.Distance(interactablePos, relativePos);
                    })
                    .First();
-        }
-
-        public IEnumerator<KeyValuePair<IInteractableID, IInteractable>> GetEnumerator() {
-            return _dictionary.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() {
-            return GetEnumerator();
         }
     }
 }

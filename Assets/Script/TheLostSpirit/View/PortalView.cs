@@ -20,6 +20,14 @@ namespace TheLostSpirit.View {
                 .Where(b => !b)
                 .Subscribe(_ => _spriteRenderer.color = Color.white)
                 .AddTo(this);
+
+            Observable
+                .EveryUpdate()
+                .Subscribe(_ => {
+                    if (viewModel.DebugLineDestinationTarget == null) return;
+                    Debug.DrawLine(transform.position, viewModel.DebugLineDestinationTarget.Position);
+                })
+                .AddTo(this);
         }
     }
 }

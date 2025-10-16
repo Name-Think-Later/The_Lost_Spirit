@@ -3,9 +3,8 @@ using R3;
 using ReactiveInputSystem;
 using TheLostSpirit.Infrastructure;
 using TheLostSpirit.ViewModel;
-using UnityEngine;
 
-namespace TheLostSpirit {
+namespace TheLostSpirit.View.Input {
     public class GeneralInputView : IDisposable, IView<PlayerViewModel> {
         readonly ActionMap.GeneralActions _general;
 

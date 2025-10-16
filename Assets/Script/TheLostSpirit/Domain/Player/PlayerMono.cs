@@ -55,5 +55,7 @@ namespace TheLostSpirit.Domain.Player {
         public void RestoreGravityScale() {
             _rigidbody.gravityScale = _originalGravityScale;
         }
+
+        public void Destroy() => Destroy(gameObject);
     }
 }

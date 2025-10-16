@@ -22,7 +22,6 @@ namespace TheLostSpirit.Domain.Portal {
             _eventBus = AppScope.EventBus;
 
             BindTriggerEnter();
-
             BindTriggerExit();
         }
 
@@ -49,5 +48,7 @@ namespace TheLostSpirit.Domain.Portal {
                 })
                 .AddTo(this);
         }
+
+        public void Destroy() => Destroy(gameObject);
     }
 }

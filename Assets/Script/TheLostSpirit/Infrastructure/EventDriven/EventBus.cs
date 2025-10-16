@@ -2,17 +2,17 @@
 
 namespace TheLostSpirit.Infrastructure.EventDriven {
     public class EventBus {
-        readonly Subject<DomainEvent> _subject = new Subject<DomainEvent>();
+        readonly Subject<IDomainEvent> _subject = new Subject<IDomainEvent>();
 
         public Observable<T> ObservableEvent<T>() {
-            return _subject.OfType<DomainEvent, T>();
+            return _subject.OfType<IDomainEvent, T>();
         }
 
-        public void Publish<T>() where T : DomainEvent, new() {
+        public void Publish<T>() where T : IDomainEvent, new() {
             _subject.OnNext(new T());
         }
 
-        public void Publish<T>(T domainEvent) where T : DomainEvent {
+        public void Publish<T>(T domainEvent) where T : IDomainEvent {
             _subject.OnNext(domainEvent);
         }
     }
