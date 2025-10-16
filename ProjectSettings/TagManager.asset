@@ -6,6 +6,8 @@ TagManager:
   tags:
   - NodeContainer
   - Backpack
+  - slot
+  - main_nodeC
   layers:
   - Default
   - TransparentFX

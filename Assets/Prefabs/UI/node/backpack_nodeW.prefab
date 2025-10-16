@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 5979717217228074704}
   - component: {fileID: 8107172952161985578}
   - component: {fileID: 1856395073156304061}
+  - component: {fileID: 7028090671565598944}
   m_Layer: 5
   m_Name: backpack_nodeW
   m_TagString: Untagged
@@ -155,3 +156,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7028090671565598944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4226786386567776563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fdd76417039f14fa7bde519e91a498, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowDropTags:
+  - Backpack
+  - NodeContainer
+  - slot
+  mainNodePrefab: {fileID: 452193259156821359, guid: 9ea6b8fa98c9a7344a142a23f5a3a14e, type: 3}
+  backpackNodePrefab: {fileID: 4226786386567776563}
