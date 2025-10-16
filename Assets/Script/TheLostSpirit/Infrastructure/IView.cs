@@ -5,4 +5,5 @@ namespace TheLostSpirit.Infrastructure {
         where T : IViewModel<IIdentity>{
         public void Bind(T viewModel);
     }
+
 }

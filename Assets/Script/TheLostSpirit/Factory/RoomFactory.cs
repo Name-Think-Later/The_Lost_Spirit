@@ -1,11 +1,10 @@
-﻿using TheLostSpirit.Domain.Portal;
+﻿using TheLostSpirit.Identify;
+using TheLostSpirit.Context.Room;
+using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Domain.Room;
-using TheLostSpirit.Identify;
-using TheLostSpirit.MapSystem;
 using TheLostSpirit.ViewModel.Portal;
 using TheLostSpirit.ViewModel.Room;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace TheLostSpirit.Factory {
     public class RoomFactory : IRoomFactory {

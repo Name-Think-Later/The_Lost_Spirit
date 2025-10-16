@@ -1,5 +1,4 @@
 ﻿using TheLostSpirit.Context.Portal;
-using TheLostSpirit.Domain;
 using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Identify;
 using TheLostSpirit.ViewModel.Portal;
@@ -7,12 +6,12 @@ using UnityEngine;
 
 namespace TheLostSpirit.Factory {
     public class PortalFactory : IPortalFactory {
-        readonly PortalObjectContext     _origin;
+        readonly PortalObjectContext  _origin;
         readonly PortalRepository     _portalRepository;
         readonly PortalViewModelStore _viewModelStore;
 
         public PortalFactory(
-            PortalObjectContext     origin,
+            PortalObjectContext  origin,
             PortalRepository     portalRepository,
             PortalViewModelStore viewModelStore
         ) {

@@ -1,10 +1,10 @@
 using MoreLinq;
 using TheLostSpirit.Context.Portal;
-using TheLostSpirit.FormulaSystem;
-using TheLostSpirit.SkillSystem.CoreModule;
-using TheLostSpirit.SkillSystem.CoreModule.InputHandler;
-using TheLostSpirit.SkillSystem.CoreModule.OutputHandler;
-using TheLostSpirit.SkillSystem.SkillBase;
+using TheLostSpirit.Others.FormulaSystem;
+using TheLostSpirit.Others.SkillSystem.CoreModule;
+using TheLostSpirit.Others.SkillSystem.CoreModule.InputHandler;
+using TheLostSpirit.Others.SkillSystem.CoreModule.OutputHandler;
+using TheLostSpirit.Others.SkillSystem.SkillBase;
 using TheLostSpirit.View.Input;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;

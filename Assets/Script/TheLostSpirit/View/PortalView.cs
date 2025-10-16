@@ -1,3 +1,4 @@
+using System;
 using R3;
 using TheLostSpirit.Infrastructure;
 using TheLostSpirit.ViewModel.Portal;
@@ -29,5 +30,7 @@ namespace TheLostSpirit.View {
                 })
                 .AddTo(this);
         }
+        
     }
+    
 }
