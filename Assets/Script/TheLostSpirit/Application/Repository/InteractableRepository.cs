@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using MoreLinq;
+using TheLostSpirit.Domain;
+using TheLostSpirit.Domain.Interactable;
 using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure.Domain;
 using UnityEngine;
 
-namespace TheLostSpirit.Domain.Interactable {
+namespace TheLostSpirit.Application.Repository {
     public class InteractableRepository : IRepository<IInteractableID, IInteractable> {
         readonly Dictionary<IInteractableID, IInteractable> _dictionary = new();
 

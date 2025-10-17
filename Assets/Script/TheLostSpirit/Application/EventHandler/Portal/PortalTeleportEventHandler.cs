@@ -1,7 +1,6 @@
-﻿using TheLostSpirit.Domain.Player;
-using TheLostSpirit.Domain.Portal;
+﻿using TheLostSpirit.Application.Repository;
+using TheLostSpirit.Domain.Player;
 using TheLostSpirit.Domain.Portal.Event;
-using TheLostSpirit.Infrastructure.EventDriven;
 
 namespace TheLostSpirit.Application.EventHandler.Portal {
     public class PortalTeleportEventHandler : DomainEventHandler<PortalTeleportEvent> {

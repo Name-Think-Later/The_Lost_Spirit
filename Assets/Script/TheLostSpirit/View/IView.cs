@@ -1,6 +1,7 @@
-﻿using TheLostSpirit.Infrastructure.ViewModel;
+﻿using TheLostSpirit.Identify;
+using TheLostSpirit.ViewModel;
 
-namespace TheLostSpirit.Infrastructure {
+namespace TheLostSpirit.View {
     public interface IView<in T>
         where T : IViewModel<IIdentity>{
         public void Bind(T viewModel);

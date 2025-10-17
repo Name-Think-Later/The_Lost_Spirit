@@ -1,5 +1,7 @@
 ﻿using MoreLinq;
 using Sirenix.OdinInspector;
+using TheLostSpirit.Application.Repository;
+using TheLostSpirit.Application.ViewModelStore;
 using TheLostSpirit.Context.Portal;
 using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Domain.Room;

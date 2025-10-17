@@ -1,7 +1,7 @@
-﻿using UnityEditor;
+﻿using TheLostSpirit.Identify;
 using UnityEngine;
 
-namespace TheLostSpirit.Infrastructure.Domain {
+namespace TheLostSpirit.Domain {
     public interface IEntityMono<T> where T : IIdentity {
         public T ID { get; }
         public void Initialize(T id);

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TheLostSpirit.Infrastructure {
+namespace TheLostSpirit.Identify {
     public interface IIdentity {
         public Guid Value => Guid.NewGuid();
     }

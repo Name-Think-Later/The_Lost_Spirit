@@ -1,9 +1,7 @@
 ﻿using System;
+using TheLostSpirit.Application.UseCase;
 using TheLostSpirit.Application.UseCase.Input;
 using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure;
-using TheLostSpirit.Infrastructure.UseCase;
-using TheLostSpirit.Infrastructure.ViewModel;
 
 namespace TheLostSpirit.ViewModel {
     public class PlayerViewModel : IViewModel<PlayerID> {

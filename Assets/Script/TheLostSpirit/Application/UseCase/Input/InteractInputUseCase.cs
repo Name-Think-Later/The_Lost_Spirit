@@ -1,8 +1,5 @@
-﻿using TheLostSpirit.Domain.Interactable;
+﻿using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Domain.Player;
-using TheLostSpirit.Infrastructure;
-using TheLostSpirit.Infrastructure.EventDriven;
-using TheLostSpirit.Infrastructure.UseCase;
 
 namespace TheLostSpirit.Application.UseCase.Input {
     public class InteractInputUseCase : IUseCase<Void, Void> {

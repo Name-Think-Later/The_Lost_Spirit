@@ -1,5 +1,4 @@
 ﻿using TheLostSpirit.Domain.Player;
-using TheLostSpirit.Infrastructure.UseCase;
 
 namespace TheLostSpirit.Application.UseCase.Input {
     public class DoJumpInputUseCase : IUseCase<Void, Void> {

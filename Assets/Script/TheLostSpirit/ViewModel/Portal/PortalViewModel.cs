@@ -1,7 +1,6 @@
 ﻿using R3;
 using TheLostSpirit.Identify;
 using TheLostSpirit.Infrastructure;
-using TheLostSpirit.Infrastructure.ViewModel;
 using UnityEngine;
 
 namespace TheLostSpirit.ViewModel.Portal {

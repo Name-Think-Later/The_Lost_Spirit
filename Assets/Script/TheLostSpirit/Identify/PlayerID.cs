@@ -1,5 +1,3 @@
-﻿using TheLostSpirit.Infrastructure;
-
-namespace TheLostSpirit.Identify {
+﻿namespace TheLostSpirit.Identify {
     public class PlayerID : IIdentity { }
 }

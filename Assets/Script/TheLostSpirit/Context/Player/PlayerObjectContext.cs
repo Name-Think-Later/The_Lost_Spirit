@@ -1,6 +1,6 @@
 ﻿using Sirenix.OdinInspector;
+using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Input;
-using TheLostSpirit.Context.Portal;
 using TheLostSpirit.Domain.Interactable;
 using TheLostSpirit.Domain.Player;
 using TheLostSpirit.Identify;
@@ -8,7 +8,7 @@ using TheLostSpirit.View.Input;
 using TheLostSpirit.ViewModel;
 using UnityEngine;
 
-namespace TheLostSpirit.Context {
+namespace TheLostSpirit.Context.Player {
     public class PlayerObjectContext : MonoBehaviour, IObjectContext<PlayerID> {
         [SerializeField]
         PlayerConfig _playerConfig;

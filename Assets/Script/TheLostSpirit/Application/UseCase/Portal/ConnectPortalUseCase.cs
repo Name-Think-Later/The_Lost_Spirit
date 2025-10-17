@@ -1,7 +1,5 @@
-﻿using TheLostSpirit.Domain.Portal;
+﻿using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure.UseCase;
-using UnityEngine;
 
 namespace TheLostSpirit.Application.UseCase.Portal {
     public class ConnectPortalUseCase : IUseCase<Void, ConnectPortalUseCase.Input> {

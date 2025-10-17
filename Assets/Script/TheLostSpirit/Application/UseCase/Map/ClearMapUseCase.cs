@@ -1,6 +1,5 @@
 ﻿using MoreLinq;
-using TheLostSpirit.Domain.Room;
-using TheLostSpirit.Infrastructure.UseCase;
+using TheLostSpirit.Application.Repository;
 
 namespace TheLostSpirit.Application.UseCase.Map {
     public class ClearMapUseCase : IUseCase<Void, Void> {

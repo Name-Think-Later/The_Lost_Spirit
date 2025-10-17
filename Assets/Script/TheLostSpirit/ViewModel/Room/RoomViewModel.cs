@@ -1,5 +1,4 @@
 ﻿using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure.ViewModel;
 
 namespace TheLostSpirit.ViewModel.Room {
     public class RoomViewModel : IViewModel<RoomID> {

@@ -3,7 +3,6 @@ using TheLostSpirit.Domain.Interactable;
 using TheLostSpirit.Domain.Portal.Event;
 using TheLostSpirit.Identify;
 using TheLostSpirit.Infrastructure;
-using TheLostSpirit.Infrastructure.Domain;
 using TheLostSpirit.Infrastructure.EventDriven;
 using UnityEngine;
 

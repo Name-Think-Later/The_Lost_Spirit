@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure.Domain;
 
 namespace TheLostSpirit.Domain.Room {
     public class RoomEntity : IEntity<RoomID>, IDisposable {

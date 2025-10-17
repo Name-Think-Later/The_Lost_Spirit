@@ -1,4 +1,4 @@
-﻿namespace TheLostSpirit.Infrastructure.UseCase {
+﻿namespace TheLostSpirit.Application.UseCase {
     public interface IUseCase<out T, in U>
         where T : IOutput
         where U : IInput {

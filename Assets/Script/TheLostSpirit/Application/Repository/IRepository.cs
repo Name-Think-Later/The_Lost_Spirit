@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using TheLostSpirit.Domain;
+using TheLostSpirit.Identify;
 
-namespace TheLostSpirit.Infrastructure.Domain {
+namespace TheLostSpirit.Application.Repository {
     public interface IRepository<in T, U>
         where U : IEntity<T> where T : IIdentity {
         void Add(U entity);

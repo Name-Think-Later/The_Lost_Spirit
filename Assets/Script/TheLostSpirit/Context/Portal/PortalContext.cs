@@ -1,6 +1,9 @@
 ﻿using Sirenix.OdinInspector;
 using TheLostSpirit.Application.EventHandler.Portal;
+using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Portal;
+using TheLostSpirit.Application.ViewModelStore;
+using TheLostSpirit.Context.Player;
 using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Factory;
 using TheLostSpirit.ViewModel.Portal;

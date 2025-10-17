@@ -1,7 +1,6 @@
 ﻿using TheLostSpirit.Exception;
 using TheLostSpirit.Identify;
 using TheLostSpirit.Infrastructure;
-using TheLostSpirit.Infrastructure.Domain;
 
 namespace TheLostSpirit.Domain.Player {
     public class PlayerEntity : IEntity<PlayerID>, ITransformProvider {

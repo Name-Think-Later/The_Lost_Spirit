@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure;
-using TheLostSpirit.Infrastructure.ViewModel;
+using TheLostSpirit.ViewModel.Portal;
 
-namespace TheLostSpirit.ViewModel.Portal {
-    public class PortalViewModelStore : IViewModelStore<PortalID, PortalViewModel> {
+namespace TheLostSpirit.Application.ViewModelStore {
+    public class PortalViewModelStore : IViewModelStore<PortalID, PortalViewModel>,
+                                        IEnumerable<KeyValuePair<PortalID, PortalViewModel>> {
         readonly Dictionary<PortalID, PortalViewModel> _dictionary = new();
 
 

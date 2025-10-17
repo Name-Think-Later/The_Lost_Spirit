@@ -1,3 +1,5 @@
+using TheLostSpirit.Application.Repository;
+using TheLostSpirit.Application.ViewModelStore;
 using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Identify;
 using TheLostSpirit.View;

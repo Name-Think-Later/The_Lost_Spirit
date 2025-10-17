@@ -1,7 +1,6 @@
-﻿using TheLostSpirit.Domain.Portal;
+﻿using TheLostSpirit.Application.Repository;
+using TheLostSpirit.Application.ViewModelStore;
 using TheLostSpirit.Domain.Portal.Event;
-using TheLostSpirit.Infrastructure.EventDriven;
-using TheLostSpirit.ViewModel.Portal;
 
 namespace TheLostSpirit.Application.EventHandler.Portal {
     public class PortalConnectedEventHandler : DomainEventHandler<PortalConnectedEvent> {

@@ -1,6 +1,8 @@
 ﻿using R3;
+using TheLostSpirit.Infrastructure;
+using TheLostSpirit.Infrastructure.EventDriven;
 
-namespace TheLostSpirit.Infrastructure.EventDriven {
+namespace TheLostSpirit.Application.EventHandler {
     public abstract class DomainEventHandler<T> where T : IDomainEvent {
         protected DomainEventHandler() {
             AppScope

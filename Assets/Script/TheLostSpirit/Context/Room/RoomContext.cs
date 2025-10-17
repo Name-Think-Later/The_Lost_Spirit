@@ -1,8 +1,9 @@
-﻿using TheLostSpirit.Application.UseCase.Room;
+﻿using TheLostSpirit.Application;
+using TheLostSpirit.Application.Repository;
+using TheLostSpirit.Application.UseCase.Room;
+using TheLostSpirit.Application.ViewModelStore;
 using TheLostSpirit.Context.Portal;
-using TheLostSpirit.Domain.Room;
 using TheLostSpirit.Factory;
-using TheLostSpirit.ViewModel.Room;
 using UnityEngine;
 
 namespace TheLostSpirit.Context.Room {

@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure.ViewModel;
+using TheLostSpirit.ViewModel.Room;
 
-namespace TheLostSpirit.ViewModel.Room {
+namespace TheLostSpirit.Application.ViewModelStore {
     public class RoomViewModelStore : IViewModelStore<RoomID, RoomViewModel> {
         readonly Dictionary<RoomID, RoomViewModel> _dictionary = new();
 

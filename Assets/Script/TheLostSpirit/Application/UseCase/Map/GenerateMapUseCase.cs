@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 using MoreLinq;
+using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Room;
 using TheLostSpirit.Domain;
-using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Domain.Room;
-using TheLostSpirit.Infrastructure.UseCase;
 
 namespace TheLostSpirit.Application.UseCase.Map {
     public class GenerateMapUseCase : IUseCase<Void, GenerateMapUseCase.Input> {

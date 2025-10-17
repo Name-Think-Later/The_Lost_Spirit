@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure.Domain;
 
-namespace TheLostSpirit.Domain.Portal {
+namespace TheLostSpirit.Application.Repository {
     public class PortalRepository : IRepository<PortalID, PortalEntity> {
         readonly Dictionary<PortalID, PortalEntity> _dictionary = new();
 

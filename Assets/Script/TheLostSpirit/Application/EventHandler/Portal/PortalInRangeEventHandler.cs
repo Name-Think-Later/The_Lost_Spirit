@@ -1,10 +1,6 @@
-﻿using TheLostSpirit.Domain.Interactable;
+﻿using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Domain.Player;
-using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Domain.Portal.Event;
-using TheLostSpirit.Infrastructure;
-using TheLostSpirit.Infrastructure.EventDriven;
-using UnityEngine;
 
 namespace TheLostSpirit.Application.EventHandler.Portal {
     public class PortalInRangeEventHandler : DomainEventHandler<PortalInRangeEvent> {

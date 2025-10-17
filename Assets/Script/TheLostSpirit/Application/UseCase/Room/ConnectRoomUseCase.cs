@@ -1,11 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using MoreLinq;
+﻿using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Portal;
-using TheLostSpirit.Domain.Portal;
-using TheLostSpirit.Domain.Room;
 using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure.UseCase;
 
 namespace TheLostSpirit.Application.UseCase.Room {
     public class ConnectRoomUseCase : IUseCase<Void, ConnectRoomUseCase.Input> {
