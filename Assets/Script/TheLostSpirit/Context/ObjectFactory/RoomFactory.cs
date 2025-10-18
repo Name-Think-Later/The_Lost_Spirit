@@ -1,14 +1,10 @@
-﻿using TheLostSpirit.Application.Repository;
+﻿using TheLostSpirit.Application.ObjectFactoryContract;
+using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.ViewModelStore;
 using TheLostSpirit.Identify;
-using TheLostSpirit.Context.Room;
-using TheLostSpirit.Domain.Portal;
-using TheLostSpirit.Domain.Room;
-using TheLostSpirit.ViewModel.Portal;
-using TheLostSpirit.ViewModel.Room;
 using UnityEngine;
 
-namespace TheLostSpirit.Factory {
+namespace TheLostSpirit.Context.ObjectFactory {
     public class RoomFactory : IRoomFactory {
         readonly RoomFactoryConfig    _config;
         readonly RoomRepository       _roomRepository;
@@ -32,7 +28,7 @@ namespace TheLostSpirit.Factory {
             _portalViewModelStore = portalViewModelStore;
         }
 
-        public RoomID CreateRandom() {
+        public RoomID CreateRandomAndRegister() {
             var length = _config.RoomPattern.Length;
             var index  = Random.Range(0, length);
             var target = _config.RoomPattern[index];
@@ -44,7 +40,7 @@ namespace TheLostSpirit.Factory {
 
             var instance = Object.Instantiate(target, position, Quaternion.identity, parent);
 
-            instance.Initialize(
+            instance.Construct(
                 _roomRepository,
                 _roomViewModelStore,
                 _portalRepository,

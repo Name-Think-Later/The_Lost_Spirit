@@ -1,12 +1,11 @@
-﻿using TheLostSpirit.Application.Repository;
+﻿using TheLostSpirit.Application.ObjectFactoryContract;
+using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.ViewModelStore;
 using TheLostSpirit.Context.Portal;
-using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Identify;
-using TheLostSpirit.ViewModel.Portal;
 using UnityEngine;
 
-namespace TheLostSpirit.Factory {
+namespace TheLostSpirit.Context.ObjectFactory {
     public class PortalFactory : IPortalFactory {
         readonly PortalObjectContext  _origin;
         readonly PortalRepository     _portalRepository;
@@ -22,7 +21,7 @@ namespace TheLostSpirit.Factory {
             _viewModelStore   = viewModelStore;
         }
 
-        public PortalID Create() {
+        public PortalID CreateAndRegister() {
             var instance = Object.Instantiate(_origin);
             instance.Construct(_portalRepository, _viewModelStore);
 

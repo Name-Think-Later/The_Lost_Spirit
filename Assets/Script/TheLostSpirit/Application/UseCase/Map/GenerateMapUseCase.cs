@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using MoreLinq;
+using TheLostSpirit.Application.ObjectFactoryContract;
 using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Room;
 using TheLostSpirit.Domain;
-using TheLostSpirit.Domain.Room;
 
 namespace TheLostSpirit.Application.UseCase.Map {
     public class GenerateMapUseCase : IUseCase<Void, GenerateMapUseCase.Input> {
@@ -38,7 +38,7 @@ namespace TheLostSpirit.Application.UseCase.Map {
             _roomFactory.ResetCounter();
 
             for (int i = 0; i < amount; i++) {
-                _roomFactory.CreateRandom();
+                _roomFactory.CreateRandomAndRegister();
             }
         }
 

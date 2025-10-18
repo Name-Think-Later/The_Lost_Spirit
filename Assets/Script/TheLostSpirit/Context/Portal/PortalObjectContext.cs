@@ -7,7 +7,7 @@ using TheLostSpirit.ViewModel.Portal;
 using UnityEngine;
 
 namespace TheLostSpirit.Context.Portal {
-    public class PortalObjectContext : MonoBehaviour, IObjectContext<PortalID> {
+    public class PortalObjectContext : MonoBehaviour {
         [SerializeField]
         PortalMono _mono;
 

@@ -1,8 +1,9 @@
 using System;
 using Sirenix.OdinInspector;
+using TheLostSpirit.Context.Room;
 using UnityEngine;
 
-namespace TheLostSpirit.Context.Room {
+namespace TheLostSpirit.Context.ObjectFactory {
     [Serializable, HideLabel, Indent(2)]
     [FoldoutGroup("Factory Config")]
     public class RoomFactoryConfig {
@@ -13,7 +14,7 @@ namespace TheLostSpirit.Context.Room {
         [Space]
         [SerializeField, SceneObjectsOnly]
         Grid _roomDrawingGrid;
-        
+
         [SerializeField]
         float _offset;
 

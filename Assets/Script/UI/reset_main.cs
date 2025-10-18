@@ -1,20 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class reset_main : MonoBehaviour
-{
-    public RectTransform nodeContainer;
-    public Vector2 resetPosition = Vector2.zero;
-    public Vector2 resetSize = new Vector2(1850, 1950);
-
-    // 可綁定到 UI Button 的 OnClick 事件
-    public void ResetNodeContainer()
+namespace UI {
+    public class reset_main : MonoBehaviour
     {
-        if (nodeContainer != null)
+        public RectTransform nodeContainer;
+        public Vector2       resetPosition = Vector2.zero;
+        public Vector2       resetSize     = new Vector2(1850, 1950);
+
+        // 可綁定到 UI Button 的 OnClick 事件
+        public void ResetNodeContainer()
         {
-            nodeContainer.anchoredPosition = resetPosition;
-            nodeContainer.sizeDelta = resetSize;
+            if (nodeContainer != null)
+            {
+                nodeContainer.anchoredPosition = resetPosition;
+                nodeContainer.sizeDelta        = resetSize;
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ using UnityEngine;
 using ZLinq;
 
 namespace TheLostSpirit.Context.Room {
-    public class RoomObjectContext : MonoBehaviour, IObjectContext<RoomID> {
+    public class RoomObjectContext : MonoBehaviour {
         [SerializeField]
         RoomMono _mono;
 
@@ -26,7 +26,7 @@ namespace TheLostSpirit.Context.Room {
         PortalRepository     _portalRepository;
         PortalViewModelStore _portalViewModelStore;
 
-        public void Initialize(
+        public void Construct(
             RoomRepository       roomRepository,
             RoomViewModelStore   roomViewModelStore,
             PortalRepository     portalRepository,
