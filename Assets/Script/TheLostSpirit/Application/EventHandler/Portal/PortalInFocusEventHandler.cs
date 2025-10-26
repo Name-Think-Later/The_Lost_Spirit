@@ -1,6 +1,7 @@
 ﻿using MoreLinq;
 using TheLostSpirit.Application.ViewModelStore;
 using TheLostSpirit.Domain.Portal.Event;
+using TheLostSpirit.Presentation.ViewModel.Portal;
 
 namespace TheLostSpirit.Application.EventHandler.Portal {
     public class PortalInFocusEventHandler : DomainEventHandler<PortalInFocusEvent> {
@@ -15,12 +16,11 @@ namespace TheLostSpirit.Application.EventHandler.Portal {
         protected override void Handle(PortalInFocusEvent domainEvent) {
             var portalID = domainEvent.ID;
 
-            _portalViewModelStore.ForEach(pair => {
-                var eachID  = pair.Key;
+            _portalViewModelStore.ForEach(portalViewModel => {
+                var eachID  = portalViewModel.ID;
                 var isFocus = eachID == portalID;
 
-                var viewModel = pair.Value;
-                viewModel.SetFocus(isFocus);
+                portalViewModel.TransformToViewModel().SetFocus(isFocus);
             });
         }
     };

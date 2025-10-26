@@ -21,7 +21,7 @@ namespace TheLostSpirit.Application.EventHandler.Portal {
             var entity = _portalRepository.GetByID(portalID);
 
             if (!entity.CanInteract) return;
-            _interactableRepository.Add(entity);
+            _interactableRepository.Save(entity);
 
             var playerEntity = PlayerEntity.Get();
             var nearest      = _interactableRepository.GetNearest(playerEntity);

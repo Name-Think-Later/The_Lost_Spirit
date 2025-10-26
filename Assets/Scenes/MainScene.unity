@@ -317,13 +317,13 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 2fd8067059e498d489fda3181bb15100, type: 3}
 --- !u!114 &1806422527 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 360734103291685783, guid: 2fd8067059e498d489fda3181bb15100, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1243164083139634435, guid: 2fd8067059e498d489fda3181bb15100, type: 3}
   m_PrefabInstance: {fileID: 1806422526}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33fd87373dab4776a84b88f542b0dee6, type: 3}
+  m_Script: {fileID: 11500000, guid: 50b8ba7abb8f40a89719af5b78c01cee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2002748011
@@ -388,11 +388,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _config:
-    _roomPattern:
+    roomObjectContexts:
     - {fileID: 8915207926065271016, guid: de5850051e973e84689ac5e221d4a465, type: 3}
     - {fileID: 9162487530992632617, guid: c430e9e8b6cc6634db1abc8dc3f75c45, type: 3}
-    _roomDrawingGrid: {fileID: 389059681}
-    _offset: 50
+    roomDrawingGrid: {fileID: 389059681}
+    horizontalOffset: 100
 --- !u!114 &2002748015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,7 +405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cb00448a7684fad96d692c355b32b34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _portalObjectContext: {fileID: 7100668301698211380, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
+  _portalObjectContext: {fileID: 8096155481020612927, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

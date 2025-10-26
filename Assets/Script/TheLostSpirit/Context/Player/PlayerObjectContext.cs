@@ -1,14 +1,21 @@
-﻿using Sirenix.OdinInspector;
+﻿using R3;
+using Script.TheLostSpirit.Application.ObjectContextContract;
+using Sirenix.OdinInspector;
 using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Input;
 using TheLostSpirit.Domain.Player;
 using TheLostSpirit.Identify;
-using TheLostSpirit.View.Input;
-using TheLostSpirit.ViewModel;
+using TheLostSpirit.Presentation.IDOnlyViewModel;
+using TheLostSpirit.Presentation.View.Input;
+using TheLostSpirit.Presentation.ViewModel.Player;
 using UnityEngine;
 
-namespace TheLostSpirit.Context.Player {
-    public class PlayerObjectContext : MonoBehaviour {
+namespace TheLostSpirit.Context.Player
+{
+    public class PlayerObjectContext
+        : MonoBehaviour,
+          IObjectContext<PlayerID, PlayerEntity, IViewModelOnlyID<PlayerID>>
+    {
         [SerializeField]
         PlayerConfig _playerConfig;
 
@@ -16,36 +23,51 @@ namespace TheLostSpirit.Context.Player {
         PlayerMono _mono;
 
         public InteractableRepository InteractableRepository { get; private set; }
-        public PlayerViewModel PlayerViewModel { get; private set; }
+
+        public PlayerEntity Entity { get; private set; }
+        public IViewModelOnlyID<PlayerID> ViewModelOnlyID { get; private set; }
+
+
+        public PlayerMoveUseCase PlayerMoveUseCase { get; private set; }
+        public PlayerDoJumpUseCase PlayerDoJumpUseCase { get; private set; }
+        public PlayerReleaseJumpUseCase PlayerReleaseJumpUseCase { get; private set; }
+        public PlayerInteractUseCase PlayerInteractUseCase { get; private set; }
 
 
         GeneralInputView _generalInputView;
 
-        public void Construct(
-            GeneralInputView generalInputView
-        ) {
+        public void Construct(GeneralInputView generalInputView) {
             _generalInputView = generalInputView;
+            _generalInputView.AddTo(this);
 
             InteractableRepository = new InteractableRepository();
+
+            PlayerMoveUseCase        = new PlayerMoveUseCase();
+            PlayerDoJumpUseCase      = new PlayerDoJumpUseCase();
+            PlayerReleaseJumpUseCase = new PlayerReleaseJumpUseCase();
+            PlayerInteractUseCase    = new PlayerInteractUseCase(InteractableRepository);
         }
 
-        public PlayerID Produce() {
+
+        public PlayerObjectContext Instantiate() {
             var id = new PlayerID();
 
-            PlayerEntity.Construct(id, _playerConfig, _mono);
+            Entity = PlayerEntity.Construct(id, _playerConfig, _mono);
 
-            PlayerViewModel =
+            var viewModel =
                 new PlayerViewModel(
                     id,
-                    new MoveInputUseCase(),
-                    new DoJumpInputUseCase(),
-                    new ReleaseJumpInputUseCase(),
-                    new InteractInputUseCase(InteractableRepository)
+                    PlayerMoveUseCase,
+                    PlayerDoJumpUseCase,
+                    PlayerReleaseJumpUseCase,
+                    PlayerInteractUseCase
                 );
 
-            _generalInputView.Bind(PlayerViewModel);
+            ViewModelOnlyID = viewModel;
 
-            return id;
+            _generalInputView.Bind(viewModel);
+
+            return this;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using TheLostSpirit.Application.ViewModelStore;
 using TheLostSpirit.Domain.Portal.Event;
+using TheLostSpirit.Presentation.ViewModel.Portal;
 
 namespace TheLostSpirit.Application.EventHandler.Portal {
     public class PortalOutOfFocusEventHandler : DomainEventHandler<PortalOutOfFocusEvent> {
@@ -13,7 +14,7 @@ namespace TheLostSpirit.Application.EventHandler.Portal {
 
         protected override void Handle(PortalOutOfFocusEvent domainEvent) {
             var portalID  = domainEvent.ID;
-            var viewModel = _portalViewModelStore.GetByID(portalID);
+            var viewModel = _portalViewModelStore.GetByID(portalID).TransformToViewModel();
             viewModel.SetFocus(false);
         }
     }

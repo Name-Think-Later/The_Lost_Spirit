@@ -1,0 +1,54 @@
+﻿using MoreLinq;
+using Script.TheLostSpirit.Application.ObjectContextContract;
+using TheLostSpirit.Application.Repository;
+using TheLostSpirit.Application.UseCase.Contract;
+using TheLostSpirit.Application.UseCase.Portal;
+using TheLostSpirit.Application.ViewModelStore;
+using TheLostSpirit.Identify;
+
+namespace TheLostSpirit.Application.UseCase.Room
+{
+    public class CreateRoomByInstanceUseCase
+        : IUseCase<CreateRoomByInstanceUseCase.Output, CreateRoomByInstanceUseCase.Input>
+    {
+        readonly RoomRepository                _roomRepository;
+        readonly RoomViewModelStore            _roomViewModelStore;
+        readonly CreatePortalByInstanceUseCase _createPortalByInstanceUseCase;
+
+        public CreateRoomByInstanceUseCase(
+            RoomRepository                roomRepository,
+            RoomViewModelStore            roomViewModelStore,
+            CreatePortalByInstanceUseCase createPortalByInstanceUseCase
+        ) {
+            _roomRepository                = roomRepository;
+            _roomViewModelStore            = roomViewModelStore;
+            _createPortalByInstanceUseCase = createPortalByInstanceUseCase;
+        }
+
+        public Output Execute(Input input) {
+            var roomEntity    = input.RoomObjectContext.Entity;
+            var roomViewModel = input.RoomObjectContext.ViewModelOnlyID;
+
+            _roomRepository.Save(roomEntity);
+            _roomViewModelStore.Save(roomViewModel);
+
+
+            var portalObjectContexts = input.RoomObjectContext.Portals;
+            portalObjectContexts.ForEach(ctx => {
+                var createPortalByInstanceInput  = new CreatePortalByInstanceUseCase.Input(ctx);
+                var createPortalByInstanceOutput = _createPortalByInstanceUseCase.Execute(createPortalByInstanceInput);
+
+                var portalID = createPortalByInstanceOutput.PortalID;
+                roomEntity.IncludePortal(portalID);
+            });
+
+            var roomID = roomEntity.ID;
+
+            return new Output(roomID);
+        }
+
+        public record struct Input(IRoomObjectContext RoomObjectContext) : IInput;
+
+        public record struct Output(RoomID RoomID) : IOutput;
+    }
+}

@@ -4,7 +4,7 @@ using TheLostSpirit.Identify;
 namespace TheLostSpirit.Application.Repository {
     public interface IRepository<in T, U>
         where U : IEntity<T> where T : IIdentity {
-        void Add(U entity);
+        void Save(U entity);
 
         void Remove(T id);
 

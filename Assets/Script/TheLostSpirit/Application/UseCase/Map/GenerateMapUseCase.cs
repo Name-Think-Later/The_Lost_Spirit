@@ -1,26 +1,27 @@
 ﻿using System.Linq;
+using Extension.Linq;
 using MoreLinq;
-using TheLostSpirit.Application.ObjectFactoryContract;
 using TheLostSpirit.Application.Repository;
+using TheLostSpirit.Application.UseCase.Contract;
 using TheLostSpirit.Application.UseCase.Room;
 using TheLostSpirit.Domain;
 
-namespace TheLostSpirit.Application.UseCase.Map {
-    public class GenerateMapUseCase : IUseCase<Void, GenerateMapUseCase.Input> {
-        readonly IRoomFactory       _roomFactory;
+namespace TheLostSpirit.Application.UseCase.Map
+{
+    public class GenerateMapUseCase : IUseCase<Void, GenerateMapUseCase.Input>
+    {
         readonly RoomRepository     _roomRepository;
-        readonly PortalRepository   _portalRepository;
+        readonly CreateRoomUseCase  _createRoomUseCase;
         readonly ConnectRoomUseCase _connectRoomUseCase;
 
+
         public GenerateMapUseCase(
-            IRoomFactory       roomFactory,
             RoomRepository     roomRepository,
-            PortalRepository   portalRepository,
+            CreateRoomUseCase  createRoomUseCase,
             ConnectRoomUseCase connectRoomUseCase
         ) {
-            _roomFactory        = roomFactory;
             _roomRepository     = roomRepository;
-            _portalRepository   = portalRepository;
+            _createRoomUseCase  = createRoomUseCase;
             _connectRoomUseCase = connectRoomUseCase;
         }
 
@@ -31,19 +32,17 @@ namespace TheLostSpirit.Application.UseCase.Map {
 
             BranchConnection();
 
+
             return Void.Default;
-        }
-
-        void RoomCreation(int amount) {
-            _roomFactory.ResetCounter();
-
-            for (int i = 0; i < amount; i++) {
-                _roomFactory.CreateRandomAndRegister();
-            }
         }
 
         public record struct Input(int Amount) : IInput;
 
+        void RoomCreation(int amount) {
+            for (int i = 0; i < amount; i++) {
+                _createRoomUseCase.Execute();
+            }
+        }
 
         void MainConnection() {
             _roomRepository
@@ -52,8 +51,8 @@ namespace TheLostSpirit.Application.UseCase.Map {
                     var leftRoomEntity  = selector[0];
                     var rightRoomEntity = selector[1];
 
-                    var leftPortalID  = leftRoomEntity.AvailablePortal.Shuffle().First();
-                    var rightPortalID = rightRoomEntity.AvailablePortal.Shuffle().First();
+                    var leftPortalID  = leftRoomEntity.AvailablePortal.GetRandom();
+                    var rightPortalID = rightRoomEntity.AvailablePortal.GetRandom();
 
                     var connectRoomInput =
                         new ConnectRoomUseCase.Input(
@@ -72,7 +71,7 @@ namespace TheLostSpirit.Application.UseCase.Map {
                 var availablePortalCount = leftRoomEntity.AvailablePortal.Count;
                 var branchAmount         = new CdfSampler(availablePortalCount + 1).Next();
 
-                var tryGetLeftPortalID = leftRoomEntity.AvailablePortal.Shuffle().Take(branchAmount);
+                var tryGetLeftPortalID = leftRoomEntity.AvailablePortal.TakeRandom(branchAmount);
 
                 tryGetLeftPortalID.ForEach(leftPortalID => {
                     var roomFilter =
@@ -94,7 +93,7 @@ namespace TheLostSpirit.Application.UseCase.Map {
                         .SkipUntil(rightRoomEntity => {
                             if (!rightRoomEntity.AvailablePortal.Any()) return false;
 
-                            var rightPortalID = rightRoomEntity.AvailablePortal.Shuffle().First();
+                            var rightPortalID = rightRoomEntity.AvailablePortal.GetRandom();
 
                             var connectRoomInput =
                                 new ConnectRoomUseCase.Input(

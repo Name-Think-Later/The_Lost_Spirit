@@ -1,42 +1,35 @@
-using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Application.ViewModelStore;
+﻿using Script.TheLostSpirit.Application.ObjectContextContract;
 using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Identify;
-using TheLostSpirit.View;
-using TheLostSpirit.ViewModel.Portal;
+using TheLostSpirit.Presentation.IDOnlyViewModel;
+using TheLostSpirit.Presentation.View;
+using TheLostSpirit.Presentation.ViewModel.Portal;
 using UnityEngine;
 
-namespace TheLostSpirit.Context.Portal {
-    public class PortalObjectContext : MonoBehaviour {
+namespace TheLostSpirit.Context.Portal
+{
+    public class PortalObjectContext : MonoBehaviour, IPortalObjectContext
+    {
         [SerializeField]
         PortalMono _mono;
 
         [SerializeField]
         PortalView _view;
 
-        PortalRepository     _repository;
-        PortalViewModelStore _viewModelStore;
 
-        public void Construct(
-            PortalRepository     repository,
-            PortalViewModelStore viewModelStore
-        ) {
-            _repository     = repository;
-            _viewModelStore = viewModelStore;
-        }
+        public PortalEntity Entity { get; private set; }
+        public IViewModelOnlyID<PortalID> ViewModelOnlyID { get; private set; }
 
-        public PortalID Produce() {
+        public void Instantiate() {
             var id = new PortalID();
 
-            var entity = new PortalEntity(id, _mono);
-            _repository.Add(entity);
+            Entity = new PortalEntity(id, _mono);
 
             var viewModel = new PortalViewModel(id);
-            _viewModelStore.Add(viewModel);
+
+            ViewModelOnlyID = viewModel;
 
             _view.Bind(viewModel);
-
-            return id;
         }
     }
 }

@@ -18,8 +18,8 @@ namespace TheLostSpirit.Others.FormulaSystem {
         }
 
         void ApplyFormulaInputs() {
-            _formulas[0].SetDefaultActiveInput(_general.FirstCircuit);
-            _formulas[1].SetDefaultActiveInput(_general.SecondCircuit);
+            //_formulas[0].SetDefaultActiveInput(_general.FirstCircuit);
+            //_formulas[1].SetDefaultActiveInput(_general.SecondCircuit);
         }
     }
 }

@@ -1,22 +1,27 @@
 using MoreLinq;
+using TheLostSpirit.Application.UseCase.Portal;
 using TheLostSpirit.Context.Player;
 using TheLostSpirit.Context.Portal;
 using TheLostSpirit.Others.FormulaSystem;
 using TheLostSpirit.Others.SkillSystem.CoreModule;
-using TheLostSpirit.Others.SkillSystem.CoreModule.InputHandler;
-using TheLostSpirit.Others.SkillSystem.CoreModule.OutputHandler;
 using TheLostSpirit.Others.SkillSystem.SkillBase;
-using TheLostSpirit.View.Input;
-using Unity.VisualScripting.Dependencies.NCalc;
+using TheLostSpirit.Presentation.View.Input;
+using TheLostSpirit.Presentation.ViewModel.Formula.InputHandler;
+using TheLostSpirit.Presentation.ViewModel.Formula.OutputHandler;
 using UnityEngine;
 
-namespace TheLostSpirit.Context.Playground {
-    public class PlaygroundContext : MonoBehaviour {
+namespace TheLostSpirit.Context.Playground
+{
+    public class PlaygroundContext : MonoBehaviour
+    {
         [SerializeField]
         PlayerObjectContext _playerObjectContext;
 
         [SerializeField]
         PortalContext _portalContext;
+
+        [SerializeField]
+        FormulaContext _formulaContext;
 
         [SerializeField]
         PortalObjectContext[] _testPortals;
@@ -31,9 +36,10 @@ namespace TheLostSpirit.Context.Playground {
             var generalInputView = new GeneralInputView(_actionMap.General);
 
             _playerObjectContext.Construct(generalInputView);
+            _formulaContext.Construct(generalInputView);
             _portalContext.Construct(_playerObjectContext);
         }
-        
+
         void Awake() {
             Construct();
 
@@ -41,14 +47,14 @@ namespace TheLostSpirit.Context.Playground {
         }
 
         void TestBlock() {
-            var repository     = _portalContext.PortalRepository;
-            var viewModelStore = _portalContext.PortalViewModelStore;
-            _testPortals.ForEach(ctx => {
-                ctx.Construct(repository, viewModelStore);
-            });
+            _playerObjectContext.Instantiate();
 
-            _playerObjectContext.Produce();
-            _testPortals.ForEach(ctx => ctx.Produce());
+            var createPortalByInstanceUseCase = _portalContext.CreatePortalByInstanceUseCase;
+            _testPortals.ForEach(ctx => {
+                ctx.Instantiate();
+                var createPortalInstanceInput = new CreatePortalByInstanceUseCase.Input(ctx);
+                createPortalByInstanceUseCase.Execute(createPortalInstanceInput);
+            });
         }
 
 

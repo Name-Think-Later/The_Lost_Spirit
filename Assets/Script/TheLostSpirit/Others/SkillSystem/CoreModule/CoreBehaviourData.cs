@@ -1,5 +1,6 @@
 ﻿using System;
 using LBG;
+using TheLostSpirit.Presentation.ViewModel.Formula;
 using UnityEngine;
 
 namespace TheLostSpirit.Others.SkillSystem.CoreModule {

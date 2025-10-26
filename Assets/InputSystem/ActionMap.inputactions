@@ -34,7 +34,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "FirstCircuit",
+                    "name": "FirstFormula",
                     "type": "Button",
                     "id": "d1742e37-ac27-4a40-801e-69b26a4a6f13",
                     "expectedControlType": "",
@@ -43,7 +43,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SecondCircuit",
+                    "name": "SecondFormula",
                     "type": "Button",
                     "id": "eaad8c56-77f7-4121-9b56-d09693a271e6",
                     "expectedControlType": "",
@@ -93,7 +93,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "FirstCircuit",
+                    "action": "FirstFormula",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -104,7 +104,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SecondCircuit",
+                    "action": "SecondFormula",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -1,6 +1,4 @@
-﻿using TheLostSpirit.Domain.Portal.Event;
-using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure.EventDriven;
+﻿using TheLostSpirit.Identify;
 
 namespace TheLostSpirit.Domain.Interactable {
     public interface IInteractable :

@@ -3,30 +3,26 @@ using TheLostSpirit.Application.EventHandler.Portal;
 using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Portal;
 using TheLostSpirit.Application.ViewModelStore;
-using TheLostSpirit.Context.ObjectFactory;
 using TheLostSpirit.Context.Player;
-using TheLostSpirit.Domain.Portal;
-using TheLostSpirit.ViewModel.Portal;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace TheLostSpirit.Context.Portal {
-    public class PortalContext : MonoBehaviour {
+namespace TheLostSpirit.Context.Portal
+{
+    public class PortalContext : MonoBehaviour
+    {
         [SerializeField, AssetList]
         PortalObjectContext _portalObjectContext;
 
         public PortalRepository PortalRepository { get; private set; }
         public PortalViewModelStore PortalViewModelStore { get; private set; }
-        public PortalFactory PortalFactory { get; private set; }
 
+
+        public CreatePortalByInstanceUseCase CreatePortalByInstanceUseCase { get; private set; }
         public ConnectPortalUseCase ConnectPortalUseCase { get; private set; }
 
-        public void Construct(
-            PlayerObjectContext playerObjectContext
-        ) {
+        public void Construct(PlayerObjectContext playerObjectContext) {
             PortalRepository     = new PortalRepository();
             PortalViewModelStore = new PortalViewModelStore();
-            PortalFactory        = new PortalFactory(_portalObjectContext, PortalRepository, PortalViewModelStore);
 
             var interactableRepository = playerObjectContext.InteractableRepository;
 
@@ -37,7 +33,8 @@ namespace TheLostSpirit.Context.Portal {
             _ = new PortalTeleportEventHandler(PortalRepository);
             _ = new PortalConnectedEventHandler(PortalRepository, PortalViewModelStore);
 
-            ConnectPortalUseCase = new ConnectPortalUseCase(PortalRepository);
+            CreatePortalByInstanceUseCase = new CreatePortalByInstanceUseCase(PortalRepository, PortalViewModelStore);
+            ConnectPortalUseCase          = new ConnectPortalUseCase(PortalRepository);
         }
     }
 }

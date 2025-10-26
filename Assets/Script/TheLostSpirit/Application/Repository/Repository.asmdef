@@ -1,5 +1,5 @@
 {
-    "name": "Repository",
+    "name": "TheLostSpirits.Application.Repository",
     "rootNamespace": "",
     "references": [
         "GUID:62821c2b73a8cc3449e7bf3de409d4e5",

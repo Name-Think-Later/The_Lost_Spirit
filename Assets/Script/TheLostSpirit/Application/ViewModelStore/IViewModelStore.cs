@@ -1,16 +1,17 @@
-﻿using System.Collections.Generic;
-using TheLostSpirit.Identify;
-using TheLostSpirit.ViewModel;
+﻿using TheLostSpirit.Identify;
+using TheLostSpirit.Presentation.IDOnlyViewModel;
 
 namespace TheLostSpirit.Application.ViewModelStore {
-    public interface IViewModelStore<T, U> : IEnumerable<KeyValuePair<T, U>>
-        where U : IViewModel<T> where T : IIdentity {
-        void Add(U viewModel);
+    public interface IViewModelStore<TId>
+        where TId : IIdentity {
+        void Save(IViewModelOnlyID<TId> viewModelOnlyID);
 
-        void Remove(T id);
+        IViewModelOnlyID<TId> GetByID(TId id);
 
-        U GetByID(T id);
+        void Remove(TId id);
 
-        bool HasID(T id);
+        bool HasID(TId id);
+
+        void Clear();
     }
 }

@@ -1,38 +1,46 @@
-﻿using TheLostSpirit.Application;
-using TheLostSpirit.Application.Repository;
+﻿using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Room;
 using TheLostSpirit.Application.ViewModelStore;
-using TheLostSpirit.Context.ObjectFactory;
 using TheLostSpirit.Context.Portal;
 using UnityEngine;
 
-namespace TheLostSpirit.Context.Room {
-    public class RoomContext : MonoBehaviour {
+namespace TheLostSpirit.Context.Room
+{
+    public class RoomContext : MonoBehaviour
+    {
         [SerializeField]
-        RoomFactoryConfig _config;
+        RoomObjectFactoryConfig _config;
 
         public RoomRepository RoomRepository { get; private set; }
         public RoomViewModelStore RoomViewModelStore { get; private set; }
-        public RoomFactory RoomFactory { get; private set; }
+        public RoomObjectFactory RoomObjectFactory { get; private set; }
 
+
+        public CreateRoomUseCase CreateRoomUseCase { get; private set; }
+        public CreateRoomByInstanceUseCase CreateRoomByInstanceUseCase { get; private set; }
         public ConnectRoomUseCase ConnectRoomUseCase { get; private set; }
 
-        public void Construct(
-            PortalContext portalContext
-        ) {
+        public void Construct(PortalContext portalContext) {
             RoomRepository     = new RoomRepository();
             RoomViewModelStore = new RoomViewModelStore();
+            RoomObjectFactory  = new RoomObjectFactory(_config);
 
             var portalRepository     = portalContext.PortalRepository;
             var portalViewModelStore = portalContext.PortalViewModelStore;
 
-            RoomFactory = new RoomFactory(
-                _config,
-                RoomRepository,
-                RoomViewModelStore,
-                portalRepository,
-                portalViewModelStore
-            );
+            CreateRoomByInstanceUseCase
+                = new CreateRoomByInstanceUseCase(
+                    RoomRepository,
+                    RoomViewModelStore,
+                    portalContext.CreatePortalByInstanceUseCase
+                );
+
+
+            CreateRoomUseCase =
+                new CreateRoomUseCase(
+                    RoomObjectFactory,
+                    CreateRoomByInstanceUseCase
+                );
 
             ConnectRoomUseCase =
                 new ConnectRoomUseCase(

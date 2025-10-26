@@ -17,10 +17,10 @@ namespace TheLostSpirit.Others.SkillSystem.CoreModule {
             var outputHandler = _behaviourData.OutputHandler;
             var activeInput   = formula.GetActiveInput;
 
-            var activateObservable = inputHandler.CreateObservableActivator(activeInput);
+            //var activateObservable = inputHandler.CreateObservableActivator(activeInput);
             outputHandler.OutputAction = formula.Activate;
 
-            _disposable = activateObservable.Subscribe(_ => outputHandler.HandleOutput());
+           // _disposable = activateObservable.Subscribe(_ => outputHandler.HandleOutput());
         }
     }
 }

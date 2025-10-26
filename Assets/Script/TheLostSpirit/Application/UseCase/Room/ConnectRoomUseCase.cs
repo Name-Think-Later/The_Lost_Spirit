@@ -1,4 +1,5 @@
 ﻿using TheLostSpirit.Application.Repository;
+using TheLostSpirit.Application.UseCase.Contract;
 using TheLostSpirit.Application.UseCase.Portal;
 using TheLostSpirit.Identify;
 

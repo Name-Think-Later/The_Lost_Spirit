@@ -1,67 +1,50 @@
-﻿using MoreLinq;
+﻿using System.Linq;
+using MoreLinq;
+using Script.TheLostSpirit.Application.ObjectContextContract;
 using Sirenix.OdinInspector;
-using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Application.ViewModelStore;
 using TheLostSpirit.Context.Portal;
-using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Domain.Room;
 using TheLostSpirit.Identify;
-using TheLostSpirit.ViewModel.Portal;
-using TheLostSpirit.ViewModel.Room;
+using TheLostSpirit.Presentation.IDOnlyViewModel;
+using TheLostSpirit.Presentation.ViewModel.Room;
 using UnityEngine;
 using ZLinq;
 
-namespace TheLostSpirit.Context.Room {
-    public class RoomObjectContext : MonoBehaviour {
+namespace TheLostSpirit.Context.Room
+{
+    public class RoomObjectContext : MonoBehaviour, IRoomObjectContext
+
+    {
         [SerializeField]
         RoomMono _mono;
 
         [SerializeField, DisableIn(PrefabKind.All)]
-        PortalObjectContext[] _portalSubContexts;
+        PortalObjectContext[] _portalObjectContexts;
 
 
-        RoomRepository     _roomRepository;
-        RoomViewModelStore _roomViewModelStore;
+        public RoomEntity Entity { get; private set; }
+        public IViewModelOnlyID<RoomID> ViewModelOnlyID { get; private set; }
+        public IPortalObjectContext[] Portals => _portalObjectContexts.ToArray<IPortalObjectContext>();
 
-        PortalRepository     _portalRepository;
-        PortalViewModelStore _portalViewModelStore;
+        public RoomObjectContext Instantiate() {
+            var roomID = new RoomID();
 
-        public void Construct(
-            RoomRepository       roomRepository,
-            RoomViewModelStore   roomViewModelStore,
-            PortalRepository     portalRepository,
-            PortalViewModelStore portalViewModelStore
-        ) {
-            _roomRepository       = roomRepository;
-            _roomViewModelStore   = roomViewModelStore;
-            _portalRepository     = portalRepository;
-            _portalViewModelStore = portalViewModelStore;
+            Entity = new RoomEntity(roomID, _mono);
+
+            var viewModel = new RoomViewModel(roomID);
+
+            ViewModelOnlyID = viewModel;
+
+            _portalObjectContexts.ForEach(ctx => ctx.Instantiate());
+
+            return this;
         }
 
-        public RoomID Produce() {
-            var id = new RoomID();
-
-            var roomEntity = new RoomEntity(id, _mono);
-            _roomRepository.Add(roomEntity);
-
-            var roomViewModel = new RoomViewModel(id);
-            _roomViewModelStore.Add(roomViewModel);
-
-
-            _portalSubContexts.ForEach(context => {
-                context.Construct(_portalRepository, _portalViewModelStore);
-                var portalID = context.Produce();
-
-                roomEntity.IncludePortal(portalID);
-            });
-
-            return id;
-        }
 
 #if UNITY_EDITOR
         [Button(ButtonSizes.Medium), DisableInPlayMode]
         void AutoGetPortals() {
-            _portalSubContexts = transform.Children().OfComponent<PortalObjectContext>().ToArray();
+            _portalObjectContexts = transform.Children().OfComponent<PortalObjectContext>().ToArray();
         }
 #endif
     }
