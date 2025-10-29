@@ -1,10 +1,13 @@
 ﻿using System;
 using R3;
 using TheLostSpirit.Identify;
+using TheLostSpirit.Presentation.IDOnlyViewModel;
 using UnityEngine;
 
-namespace TheLostSpirit.Presentation.ViewModel.Formula {
-    public class FormulaViewModel : IViewModel<FormulaID> {
+namespace TheLostSpirit.Presentation.ViewModel.Formula
+{
+    public class FormulaInputViewModel : IViewModel<FormulaID>
+    {
         readonly Subject<Unit> _start;
         readonly Subject<Unit> _perform;
         readonly Subject<Unit> _cancel;
@@ -17,10 +20,9 @@ namespace TheLostSpirit.Presentation.ViewModel.Formula {
         public Observer<Unit> Start => _start.AsObserver();
         public Observer<Unit> Perform => _perform.AsObserver();
         public Observer<Unit> Cancel => _cancel.AsObserver();
-        
 
 
-        public FormulaViewModel(FormulaID id) {
+        public FormulaInputViewModel(FormulaID id) {
             ID = id;
 
             _start   = new Subject<Unit>();
@@ -28,7 +30,7 @@ namespace TheLostSpirit.Presentation.ViewModel.Formula {
             _cancel  = new Subject<Unit>();
         }
 
-        public FormulaViewModel WithInputHandler(IInputHandler inputHandler) {
+        public FormulaInputViewModel WithInputHandler(IInputHandler inputHandler) {
             _inputHandler = inputHandler;
 
             _disposable?.Dispose();
@@ -41,7 +43,7 @@ namespace TheLostSpirit.Presentation.ViewModel.Formula {
             return this;
         }
 
-        public FormulaViewModel WithOutputHandler(IOutputHandler outputHandler) {
+        public FormulaInputViewModel WithOutputHandler(IOutputHandler outputHandler) {
             _outputHandler = outputHandler;
 
             _outputHandler.OutputAction = FormulaInput;
@@ -51,6 +53,13 @@ namespace TheLostSpirit.Presentation.ViewModel.Formula {
 
         public void FormulaInput() {
             Debug.Log("Formula");
+        }
+    }
+
+    public static class ViewModelOnlyIDExtension
+    {
+        public static FormulaInputViewModel TransformToViewModel(this IViewModelOnlyID<FormulaID> viewModelOnlyID) {
+            return (FormulaInputViewModel)viewModelOnlyID;
         }
     }
 }

@@ -1,3 +1,4 @@
-namespace TheLostSpirit.Identify {
-    public class PortalID : IIdentity, IInteractableID {}
+namespace TheLostSpirit.Identify
+{
+    public record PortalID : IIdentity, IInteractableID;
 }

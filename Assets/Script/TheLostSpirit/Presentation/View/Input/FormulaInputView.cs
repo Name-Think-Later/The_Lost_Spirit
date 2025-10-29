@@ -5,7 +5,7 @@ using TheLostSpirit.Presentation.ViewModel.Formula;
 using UnityEngine.InputSystem;
 
 namespace TheLostSpirit.Presentation.View.Input {
-    public class FormulaInputView : IView<FormulaViewModel>, IDisposable {
+    public class FormulaInputView : IView<FormulaInputViewModel>, IDisposable {
         readonly InputAction _inputAction;
 
         IDisposable _disposable;
@@ -14,7 +14,7 @@ namespace TheLostSpirit.Presentation.View.Input {
             _inputAction = inputAction;
         }
 
-        public void Bind(FormulaViewModel viewModel) {
+        public void Bind(FormulaInputViewModel playerViewModel) {
             var start   = _inputAction.StartedAsObservable();
             var perform = _inputAction.PerformedAsObservable();
             var cancel  = _inputAction.CanceledAsObservable();
@@ -23,17 +23,17 @@ namespace TheLostSpirit.Presentation.View.Input {
             {
                 start
                     .AsUnitObservable()
-                    .Subscribe(viewModel.Start)
+                    .Subscribe(playerViewModel.Start)
                     .AddTo(ref disposableBuilder);
 
                 perform
                     .AsUnitObservable()
-                    .Subscribe(viewModel.Perform)
+                    .Subscribe(playerViewModel.Perform)
                     .AddTo(ref disposableBuilder);
 
                 cancel
                     .AsUnitObservable()
-                    .Subscribe(viewModel.Cancel)
+                    .Subscribe(playerViewModel.Cancel)
                     .AddTo(ref disposableBuilder);
             }
             _disposable = disposableBuilder.Build();

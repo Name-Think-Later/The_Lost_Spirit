@@ -15,7 +15,13 @@ namespace TheLostSpirit.Context.Playground
     public class PlaygroundContext : MonoBehaviour
     {
         [SerializeField]
-        PlayerObjectContext _playerObjectContext;
+        PlayerContext _playerContext;
+
+        [SerializeField]
+        PlayerInstanceContext _playerInstanceContext;
+
+        [SerializeField]
+        UserInputContext _userInputContext;
 
         [SerializeField]
         PortalContext _portalContext;
@@ -24,20 +30,21 @@ namespace TheLostSpirit.Context.Playground
         FormulaContext _formulaContext;
 
         [SerializeField]
-        PortalObjectContext[] _testPortals;
+        PortalInstanceContext[] _testPortals;
 
         Formula[] _formulas;
 
-        ActionMap _actionMap;
+        ActionMap        _actionMap;
+        GeneralInputView _generalInputView;
 
-        public void Construct() {
-            _actionMap = new ActionMap();
-            _actionMap.Enable();
-            var generalInputView = new GeneralInputView(_actionMap.General);
+        PlaygroundContext Construct() {
+            _userInputContext.Construct();
+            _playerContext.Construct();
+            _formulaContext.Construct();
 
-            _playerObjectContext.Construct(generalInputView);
-            _formulaContext.Construct(generalInputView);
-            _portalContext.Construct(_playerObjectContext);
+            _portalContext.Construct(_playerContext);
+
+            return this;
         }
 
         void Awake() {
@@ -47,11 +54,11 @@ namespace TheLostSpirit.Context.Playground
         }
 
         void TestBlock() {
-            _playerObjectContext.Instantiate();
+            _playerInstanceContext.Construct(_playerContext, _userInputContext);
 
             var createPortalByInstanceUseCase = _portalContext.CreatePortalByInstanceUseCase;
             _testPortals.ForEach(ctx => {
-                ctx.Instantiate();
+                ctx.Construct();
                 var createPortalInstanceInput = new CreatePortalByInstanceUseCase.Input(ctx);
                 createPortalByInstanceUseCase.Execute(createPortalInstanceInput);
             });

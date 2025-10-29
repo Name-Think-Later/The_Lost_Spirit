@@ -5,10 +5,10 @@ using UnityEngine;
 namespace TheLostSpirit.Context.Room
 {
     [Serializable]
-    public class RoomObjectFactoryConfig
+    public class RoomInstanceFactoryConfig
     {
         [SerializeField, AssetList(AutoPopulate = true)]
-        public RoomObjectContext[] roomObjectContexts;
+        public RoomInstanceContext[] roomObjectContexts;
 
         [SerializeField, SceneObjectsOnly]
         public Grid roomDrawingGrid;

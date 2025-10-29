@@ -6,19 +6,19 @@ namespace TheLostSpirit.Application.UseCase.Room
 {
     public class CreateRoomUseCase : IUseCase<CreateRoomUseCase.Output, Void>
     {
-        readonly IRoomObjectFactory          _roomObjectFactory;
+        readonly IRoomInstanceFactory          _roomInstanceFactory;
         readonly CreateRoomByInstanceUseCase _createRoomByInstanceUseCase;
 
         public CreateRoomUseCase(
-            IRoomObjectFactory          roomObjectFactory,
+            IRoomInstanceFactory          roomInstanceFactory,
             CreateRoomByInstanceUseCase createRoomByInstanceUseCase
         ) {
-            _roomObjectFactory           = roomObjectFactory;
+            _roomInstanceFactory           = roomInstanceFactory;
             _createRoomByInstanceUseCase = createRoomByInstanceUseCase;
         }
 
         public Output Execute(Void input) {
-            var roomObjectContext = _roomObjectFactory.Create();
+            var roomObjectContext = _roomInstanceFactory.Create();
 
             var createRoomByInstanceInput  = new CreateRoomByInstanceUseCase.Input(roomObjectContext);
             var createRoomByInstanceOutput = _createRoomByInstanceUseCase.Execute(createRoomByInstanceInput);

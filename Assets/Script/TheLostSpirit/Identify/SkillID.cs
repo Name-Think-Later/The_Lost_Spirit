@@ -1,3 +1,4 @@
-﻿namespace TheLostSpirit.Identify {
-    public class SkillID : IIdentity { }
+﻿namespace TheLostSpirit.Identify
+{
+    public record SkillID : IIdentity;
 }

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace TheLostSpirit.Context.Portal
 {
-    public class PortalObjectContext : MonoBehaviour, IPortalObjectContext
+    public class PortalInstanceContext : MonoBehaviour, IPortalInstanceContext
     {
         [SerializeField]
         PortalMono _mono;
@@ -20,16 +20,18 @@ namespace TheLostSpirit.Context.Portal
         public PortalEntity Entity { get; private set; }
         public IViewModelOnlyID<PortalID> ViewModelOnlyID { get; private set; }
 
-        public void Instantiate() {
-            var id = new PortalID();
+        public PortalInstanceContext Construct() {
+            var portalID = new PortalID();
 
-            Entity = new PortalEntity(id, _mono);
+            Entity = new PortalEntity(portalID, _mono);
 
-            var viewModel = new PortalViewModel(id);
+            var viewModel = new PortalViewModel(portalID);
 
             ViewModelOnlyID = viewModel;
 
             _view.Bind(viewModel);
+
+            return this;
         }
     }
 }

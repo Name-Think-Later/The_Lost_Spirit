@@ -26,14 +26,14 @@ namespace TheLostSpirit.Application.UseCase.Room
         }
 
         public Output Execute(Input input) {
-            var roomEntity    = input.RoomObjectContext.Entity;
-            var roomViewModel = input.RoomObjectContext.ViewModelOnlyID;
+            var roomEntity    = input.RoomInstanceContext.Entity;
+            var roomViewModel = input.RoomInstanceContext.ViewModelOnlyID;
 
             _roomRepository.Save(roomEntity);
             _roomViewModelStore.Save(roomViewModel);
 
 
-            var portalObjectContexts = input.RoomObjectContext.Portals;
+            var portalObjectContexts = input.RoomInstanceContext.Portals;
             portalObjectContexts.ForEach(ctx => {
                 var createPortalByInstanceInput  = new CreatePortalByInstanceUseCase.Input(ctx);
                 var createPortalByInstanceOutput = _createPortalByInstanceUseCase.Execute(createPortalByInstanceInput);
@@ -47,7 +47,7 @@ namespace TheLostSpirit.Application.UseCase.Room
             return new Output(roomID);
         }
 
-        public record struct Input(IRoomObjectContext RoomObjectContext) : IInput;
+        public record struct Input(IRoomInstanceContext RoomInstanceContext) : IInput;
 
         public record struct Output(RoomID RoomID) : IOutput;
     }

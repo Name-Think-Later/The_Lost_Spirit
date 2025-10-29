@@ -4,9 +4,9 @@ using TheLostSpirit.Presentation.IDOnlyViewModel;
 
 namespace Script.TheLostSpirit.Application.ObjectContextContract
 {
-    public interface IRoomObjectContext
-        : IObjectContext<RoomID, RoomEntity, IViewModelOnlyID<RoomID>>
+    public interface IRoomInstanceContext
+        : IInstanceContext<RoomID, RoomEntity, IViewModelOnlyID<RoomID>>
     {
-        IPortalObjectContext[] Portals { get; }
+        IPortalInstanceContext[] Portals { get; }
     }
 }

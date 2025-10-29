@@ -5,22 +5,24 @@ using TheLostSpirit.Presentation.View.Input;
 using TheLostSpirit.Presentation.ViewModel.Formula;
 using UnityEngine;
 
-namespace TheLostSpirit.Context {
-    public class FormulaContext : MonoBehaviour {
-        public FormulaViewModelStore FormulaViewModelStore { get; private set; }
+namespace TheLostSpirit.Context
+{
+    public class FormulaContext : MonoBehaviour
+    {
+        const int _formulaCount = 5;
+        public FormulaInputViewModelStore FormulaInputViewModelStore { get; private set; }
 
-        public void Construct(GeneralInputView generalInputView) {
-            FormulaViewModelStore = new FormulaViewModelStore();
 
-            var formulaInputViews = generalInputView.Formulas;
-            formulaInputViews.ForEach(view => {
-                var id = new FormulaID();
+        public FormulaContext Construct() {
+            FormulaInputViewModelStore = new FormulaInputViewModelStore();
 
-                var viewModel = new FormulaViewModel(id);
-                FormulaViewModelStore.Save(viewModel);
+            for (int i = 0; i < _formulaCount; i++) {
+                var formulaID             = new FormulaID();
+                var formulaInputViewModel = new FormulaInputViewModel(formulaID);
+                FormulaInputViewModelStore.Save(formulaInputViewModel);
+            }
 
-                view.Bind(viewModel);
-            });
+            return this;
         }
     }
 }

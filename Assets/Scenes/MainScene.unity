@@ -336,6 +336,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2002748013}
   - component: {fileID: 2002748012}
+  - component: {fileID: 2002748016}
   - component: {fileID: 2002748014}
   - component: {fileID: 2002748015}
   m_Layer: 0
@@ -357,9 +358,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6990e214eccc2b41a9d0b7d7d75cb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerContext: {fileID: 2002748016}
+  _playerInstanceContext: {fileID: 1806422527}
   _roomContext: {fileID: 2002748014}
   _portalContext: {fileID: 2002748015}
-  _playerObjectContext: {fileID: 1806422527}
 --- !u!4 &2002748013
 Transform:
   m_ObjectHideFlags: 0
@@ -405,7 +407,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cb00448a7684fad96d692c355b32b34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _portalObjectContext: {fileID: 8096155481020612927, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
+  _portalInstanceContext: {fileID: 8096155481020612927, guid: c4156ce226dc5864e8f7841f8a8a1b61, type: 3}
+--- !u!114 &2002748016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002748011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c41ea4f415b44c8a966af62cfee1a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

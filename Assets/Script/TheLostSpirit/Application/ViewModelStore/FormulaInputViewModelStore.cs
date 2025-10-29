@@ -4,7 +4,7 @@ using TheLostSpirit.Identify;
 using TheLostSpirit.Presentation.IDOnlyViewModel;
 
 namespace TheLostSpirit.Application.ViewModelStore {
-    public class FormulaViewModelStore : IViewModelStore<FormulaID>, IReadOnlyList<IViewModelOnlyID<FormulaID>> {
+    public class FormulaInputViewModelStore : IViewModelStore<FormulaID>, IReadOnlyList<IViewModelOnlyID<FormulaID>> {
         readonly List<IViewModelOnlyID<FormulaID>> _list = new();
 
         public void Save(IViewModelOnlyID<FormulaID> viewModel) {

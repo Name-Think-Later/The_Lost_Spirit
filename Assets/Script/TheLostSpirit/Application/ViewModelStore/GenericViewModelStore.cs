@@ -8,7 +8,7 @@ namespace TheLostSpirit.Application.ViewModelStore
     public abstract class GenericViewModelStore<TId>
         : IViewModelStore<TId>, IEnumerable<IViewModelOnlyID<TId>> where TId : IIdentity
     {
-        protected Dictionary<TId, IViewModelOnlyID<TId>> dictionary = new();
+        protected readonly Dictionary<TId, IViewModelOnlyID<TId>> dictionary = new();
 
         public void Save(IViewModelOnlyID<TId> viewModelOnlyID) => dictionary[viewModelOnlyID.ID] = viewModelOnlyID;
 

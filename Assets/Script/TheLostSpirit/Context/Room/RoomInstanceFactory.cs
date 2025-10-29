@@ -5,21 +5,21 @@ using UnityEngine;
 
 namespace TheLostSpirit.Context.Room
 {
-    public class RoomObjectFactory : IRoomObjectFactory
+    public class RoomInstanceFactory : IRoomInstanceFactory
     {
-        readonly RoomObjectFactoryConfig _config;
+        readonly RoomInstanceFactoryConfig _config;
 
         Vector2 _spawnPosition;
 
-        public RoomObjectFactory(RoomObjectFactoryConfig config) {
+        public RoomInstanceFactory(RoomInstanceFactoryConfig config) {
             _config = config;
         }
 
-        public IRoomObjectContext Create() {
+        public IRoomInstanceContext Create() {
             var prefab   = _config.roomObjectContexts.GetRandom();
             var parent   = _config.roomDrawingGrid.transform;
             var instance = Object.Instantiate(prefab, _spawnPosition, Quaternion.identity, parent);
-            instance.Instantiate();
+            instance.Construct();
 
             _spawnPosition += Vector2.right * _config.horizontalOffset;
 

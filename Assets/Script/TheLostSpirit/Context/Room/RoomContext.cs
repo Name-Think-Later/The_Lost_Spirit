@@ -9,25 +9,22 @@ namespace TheLostSpirit.Context.Room
     public class RoomContext : MonoBehaviour
     {
         [SerializeField]
-        RoomObjectFactoryConfig _config;
+        RoomInstanceFactoryConfig _config;
 
         public RoomRepository RoomRepository { get; private set; }
         public RoomViewModelStore RoomViewModelStore { get; private set; }
-        public RoomObjectFactory RoomObjectFactory { get; private set; }
+        public RoomInstanceFactory RoomInstanceFactory { get; private set; }
 
 
         public CreateRoomUseCase CreateRoomUseCase { get; private set; }
         public CreateRoomByInstanceUseCase CreateRoomByInstanceUseCase { get; private set; }
         public ConnectRoomUseCase ConnectRoomUseCase { get; private set; }
 
-        public void Construct(PortalContext portalContext) {
+        public RoomContext Construct(PortalContext portalContext) {
             RoomRepository     = new RoomRepository();
             RoomViewModelStore = new RoomViewModelStore();
-            RoomObjectFactory  = new RoomObjectFactory(_config);
-
-            var portalRepository     = portalContext.PortalRepository;
-            var portalViewModelStore = portalContext.PortalViewModelStore;
-
+            RoomInstanceFactory  = new RoomInstanceFactory(_config);
+            
             CreateRoomByInstanceUseCase
                 = new CreateRoomByInstanceUseCase(
                     RoomRepository,
@@ -38,7 +35,7 @@ namespace TheLostSpirit.Context.Room
 
             CreateRoomUseCase =
                 new CreateRoomUseCase(
-                    RoomObjectFactory,
+                    RoomInstanceFactory,
                     CreateRoomByInstanceUseCase
                 );
 
@@ -48,6 +45,8 @@ namespace TheLostSpirit.Context.Room
                     portalContext.PortalRepository,
                     portalContext.ConnectPortalUseCase
                 );
+
+            return this;
         }
     }
 }

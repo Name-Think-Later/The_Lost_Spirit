@@ -1,3 +1,3 @@
 ﻿namespace TheLostSpirit.Identify {
-    public class NodeID : IIdentity { }
+    public record NodeID : IIdentity{};
 }

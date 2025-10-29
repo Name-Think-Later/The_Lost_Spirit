@@ -1,14 +1,17 @@
 ﻿using System;
 using R3;
 using ReactiveInputSystem;
+using TheLostSpirit.Presentation.ViewModel;
 using TheLostSpirit.Presentation.ViewModel.Player;
 
-namespace TheLostSpirit.Presentation.View.Input {
-    public class GeneralInputView : IView<PlayerViewModel>, IDisposable {
+namespace TheLostSpirit.Presentation.View.Input
+{
+    public class GeneralInputView : IView<PlayerViewModel>, IDisposable
+    {
         readonly ActionMap.GeneralActions _general;
 
-        PlayerViewModel _viewModel;
-        DisposableBag   _disposables;
+        PlayerViewModel _inputViewModel;
+        DisposableBag          _disposables;
         public FormulaInputView[] Formulas { get; }
 
         public GeneralInputView(ActionMap.GeneralActions general) {
@@ -20,8 +23,8 @@ namespace TheLostSpirit.Presentation.View.Input {
             };
         }
 
-        public void Bind(PlayerViewModel viewModel) {
-            _viewModel = viewModel;
+        public void Bind(PlayerViewModel playerViewModel) {
+            _inputViewModel = playerViewModel;
 
             var disposableBuilder = new DisposableBuilder();
             {
@@ -49,7 +52,7 @@ namespace TheLostSpirit.Presentation.View.Input {
 
             return pressAndRelease.Subscribe(context => {
                 var value = context.ReadValue<float>();
-                _viewModel.MoveInput(value);
+                _inputViewModel.MoveInput(value);
             });
         }
 
@@ -58,7 +61,7 @@ namespace TheLostSpirit.Presentation.View.Input {
 
             var press = jumpAction.PerformedAsObservable();
 
-            return press.Subscribe(_ => _viewModel.DoJumpInput());
+            return press.Subscribe(_ => _inputViewModel.DoJumpInput());
         }
 
         IDisposable ReleaseJumpInputBinding() {
@@ -81,7 +84,7 @@ namespace TheLostSpirit.Presentation.View.Input {
                     )
                     .Switch();
 
-            return holdingTimeoutOrRelease.Subscribe(_ => _viewModel.ReleaseJumpInput());
+            return holdingTimeoutOrRelease.Subscribe(_ => _inputViewModel.ReleaseJumpInput());
         }
 
         IDisposable InteractInputBinding() {
@@ -89,7 +92,7 @@ namespace TheLostSpirit.Presentation.View.Input {
 
             var press = interactAction.PerformedAsObservable();
 
-            return press.Subscribe(_ => _viewModel.InteractInput());
+            return press.Subscribe(_ => _inputViewModel.InteractInput());
         }
 
         public void Dispose() => Unbind();

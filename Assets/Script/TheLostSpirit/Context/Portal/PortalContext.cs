@@ -11,7 +11,7 @@ namespace TheLostSpirit.Context.Portal
     public class PortalContext : MonoBehaviour
     {
         [SerializeField, AssetList]
-        PortalObjectContext _portalObjectContext;
+        PortalInstanceContext _portalInstanceContext;
 
         public PortalRepository PortalRepository { get; private set; }
         public PortalViewModelStore PortalViewModelStore { get; private set; }
@@ -20,14 +20,12 @@ namespace TheLostSpirit.Context.Portal
         public CreatePortalByInstanceUseCase CreatePortalByInstanceUseCase { get; private set; }
         public ConnectPortalUseCase ConnectPortalUseCase { get; private set; }
 
-        public void Construct(PlayerObjectContext playerObjectContext) {
+        public PortalContext Construct(PlayerContext playerContext) {
             PortalRepository     = new PortalRepository();
             PortalViewModelStore = new PortalViewModelStore();
 
-            var interactableRepository = playerObjectContext.InteractableRepository;
-
-            _ = new PortalInRangeEventHandler(PortalRepository, interactableRepository);
-            _ = new PortalOutOfRangeEventHandler(interactableRepository);
+            _ = new PortalInRangeEventHandler(PortalRepository, playerContext.InteractableRepository);
+            _ = new PortalOutOfRangeEventHandler(playerContext.InteractableRepository);
             _ = new PortalInFocusEventHandler(PortalViewModelStore);
             _ = new PortalOutOfFocusEventHandler(PortalViewModelStore);
             _ = new PortalTeleportEventHandler(PortalRepository);
@@ -35,6 +33,8 @@ namespace TheLostSpirit.Context.Portal
 
             CreatePortalByInstanceUseCase = new CreatePortalByInstanceUseCase(PortalRepository, PortalViewModelStore);
             ConnectPortalUseCase          = new ConnectPortalUseCase(PortalRepository);
+
+            return this;
         }
     }
 }

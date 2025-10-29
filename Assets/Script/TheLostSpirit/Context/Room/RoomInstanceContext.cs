@@ -12,21 +12,21 @@ using ZLinq;
 
 namespace TheLostSpirit.Context.Room
 {
-    public class RoomObjectContext : MonoBehaviour, IRoomObjectContext
+    public class RoomInstanceContext : MonoBehaviour, IRoomInstanceContext
 
     {
         [SerializeField]
         RoomMono _mono;
 
         [SerializeField, DisableIn(PrefabKind.All)]
-        PortalObjectContext[] _portalObjectContexts;
+        PortalInstanceContext[] _portalObjectContexts;
 
 
         public RoomEntity Entity { get; private set; }
         public IViewModelOnlyID<RoomID> ViewModelOnlyID { get; private set; }
-        public IPortalObjectContext[] Portals => _portalObjectContexts.ToArray<IPortalObjectContext>();
+        public IPortalInstanceContext[] Portals => _portalObjectContexts.ToArray<IPortalInstanceContext>();
 
-        public RoomObjectContext Instantiate() {
+        public RoomInstanceContext Construct() {
             var roomID = new RoomID();
 
             Entity = new RoomEntity(roomID, _mono);
@@ -35,7 +35,7 @@ namespace TheLostSpirit.Context.Room
 
             ViewModelOnlyID = viewModel;
 
-            _portalObjectContexts.ForEach(ctx => ctx.Instantiate());
+            _portalObjectContexts.ForEach(ctx => ctx.Construct());
 
             return this;
         }
@@ -44,7 +44,7 @@ namespace TheLostSpirit.Context.Room
 #if UNITY_EDITOR
         [Button(ButtonSizes.Medium), DisableInPlayMode]
         void AutoGetPortals() {
-            _portalObjectContexts = transform.Children().OfComponent<PortalObjectContext>().ToArray();
+            _portalObjectContexts = transform.Children().OfComponent<PortalInstanceContext>().ToArray();
         }
 #endif
     }

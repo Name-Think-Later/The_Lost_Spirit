@@ -10,16 +10,16 @@ namespace TheLostSpirit.Application.UseCase.Map
     {
         readonly RoomRepository     _roomRepository;
         readonly RoomViewModelStore _roomViewModelStore;
-        readonly IRoomObjectFactory _roomObjectFactory;
+        readonly IRoomInstanceFactory _roomInstanceFactory;
 
         public ClearMapUseCase(
             RoomRepository     roomRepository,
             RoomViewModelStore roomViewModelStore,
-            IRoomObjectFactory roomObjectFactory
+            IRoomInstanceFactory roomInstanceFactory
         ) {
             _roomRepository     = roomRepository;
             _roomViewModelStore = roomViewModelStore;
-            _roomObjectFactory  = roomObjectFactory;
+            _roomInstanceFactory  = roomInstanceFactory;
         }
 
         public Void Execute(Void input) {
@@ -28,7 +28,7 @@ namespace TheLostSpirit.Application.UseCase.Map
 
             _roomViewModelStore.Clear();
 
-            _roomObjectFactory.Reset();
+            _roomInstanceFactory.Reset();
 
             return Void.Default;
         }

@@ -21,8 +21,8 @@ namespace TheLostSpirit.Application.UseCase.Portal
         }
 
         public Output Execute(Input input) {
-            var portalEntity    = input.PortalObjectContext.Entity;
-            var portalViewModel = input.PortalObjectContext.ViewModelOnlyID;
+            var portalEntity    = input.PortalInstanceContext.Entity;
+            var portalViewModel = input.PortalInstanceContext.ViewModelOnlyID;
 
             _portalRepository.Save(portalEntity);
             _portalViewModelStore.Save(portalViewModel);
@@ -32,7 +32,7 @@ namespace TheLostSpirit.Application.UseCase.Portal
             return new Output(portalID);
         }
 
-        public record struct Input(IPortalObjectContext PortalObjectContext) : IInput;
+        public record struct Input(IPortalInstanceContext PortalInstanceContext) : IInput;
 
         public record struct Output(PortalID PortalID) : IOutput;
     }

@@ -4,9 +4,9 @@ using TheLostSpirit.Presentation.IDOnlyViewModel;
 
 namespace Script.TheLostSpirit.Application.ObjectContextContract.ObjectFactory
 {
-    public interface IObjectFactory<TId, out TObjectContext>
+    public interface IInstanceFactory<TId, out TObjectContext>
         where TId : IIdentity
-        where TObjectContext : IObjectContext<TId, IEntity<TId>, IViewModelOnlyID<TId>>
+        where TObjectContext : IInstanceContext<TId, IEntity<TId>, IViewModelOnlyID<TId>>
     {
         TObjectContext Create();
     }

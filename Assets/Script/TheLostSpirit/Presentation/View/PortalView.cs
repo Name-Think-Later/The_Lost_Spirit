@@ -10,8 +10,8 @@ namespace TheLostSpirit.Presentation.View {
 
         IDisposable _disposable;
 
-        public void Bind(PortalViewModel viewModel) {
-            var inFocus = viewModel.InFocus;
+        public void Bind(PortalViewModel playerViewModel) {
+            var inFocus = playerViewModel.InFocus;
 
             var disposableBuilder = new DisposableBuilder();
             {
@@ -28,8 +28,8 @@ namespace TheLostSpirit.Presentation.View {
                 Observable
                     .EveryUpdate()
                     .Subscribe(_ => {
-                        if (viewModel.DebugLineDestinationTarget == null) return;
-                        Debug.DrawLine(transform.position, viewModel.DebugLineDestinationTarget.Position);
+                        if (playerViewModel.DebugLineDestinationTarget == null) return;
+                        Debug.DrawLine(transform.position, playerViewModel.DebugLineDestinationTarget.Position);
                     })
                     .AddTo(ref disposableBuilder);
             }

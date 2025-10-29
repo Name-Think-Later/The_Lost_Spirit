@@ -1,3 +1,5 @@
-﻿namespace TheLostSpirit.Identify {
-    public interface IInteractableID : IIdentity { }
+﻿namespace TheLostSpirit.Identify
+{
+    public interface IInteractableID : IIdentity
+    { }
 }

@@ -2,7 +2,7 @@ using TheLostSpirit.Identify;
 
 namespace Script.TheLostSpirit.Application.ObjectContextContract.ObjectFactory
 {
-    public interface IRoomObjectFactory : IObjectFactory<RoomID, IRoomObjectContext>
+    public interface IRoomInstanceFactory : IInstanceFactory<RoomID, IRoomInstanceContext>
     {
         void Reset();
     }
