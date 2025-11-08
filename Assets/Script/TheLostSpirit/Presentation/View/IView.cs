@@ -1,9 +1,9 @@
-﻿using TheLostSpirit.Identify;
-using TheLostSpirit.Presentation.ViewModel;
+﻿using Script.TheLostSpirit.Presentation.ViewModel;
+using TheLostSpirit.Identify;
 
-namespace TheLostSpirit.Presentation.View
+namespace Script.TheLostSpirit.Presentation.View
 {
-    public interface IView<in TViewModel> where TViewModel : IViewModel<IIdentity>
+    public interface IView<TId, in TViewModel> where TViewModel : IViewModel<TId> where TId : IIdentity
     {
         void Bind(TViewModel playerViewModel);
 

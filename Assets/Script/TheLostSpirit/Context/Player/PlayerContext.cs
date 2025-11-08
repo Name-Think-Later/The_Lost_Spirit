@@ -1,7 +1,6 @@
 ﻿using R3;
 using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Input;
-using TheLostSpirit.Presentation.ViewModel;
 using UnityEngine;
 
 namespace TheLostSpirit.Context.Player

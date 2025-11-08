@@ -1,5 +1,5 @@
-﻿using TheLostSpirit.Identify;
-using TheLostSpirit.Presentation.IDOnlyViewModel;
+﻿using Script.TheLostSpirit.Presentation.ViewModel.Port;
+using TheLostSpirit.Identify;
 
 namespace TheLostSpirit.Application.ViewModelStore {
     public interface IViewModelStore<TId>

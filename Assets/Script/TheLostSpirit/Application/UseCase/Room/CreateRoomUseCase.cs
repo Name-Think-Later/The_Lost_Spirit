@@ -1,5 +1,4 @@
-﻿using Script.TheLostSpirit.Application.ObjectContextContract.ObjectFactory;
-using TheLostSpirit.Application.UseCase.Contract;
+﻿using Script.TheLostSpirit.Application.Port.InstanceFactory;
 using TheLostSpirit.Identify;
 
 namespace TheLostSpirit.Application.UseCase.Room

@@ -1,7 +1,6 @@
 ﻿using MoreLinq;
-using Script.TheLostSpirit.Application.ObjectContextContract.ObjectFactory;
+using Script.TheLostSpirit.Application.Port.InstanceFactory;
 using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Application.UseCase.Contract;
 using TheLostSpirit.Application.ViewModelStore;
 
 namespace TheLostSpirit.Application.UseCase.Map

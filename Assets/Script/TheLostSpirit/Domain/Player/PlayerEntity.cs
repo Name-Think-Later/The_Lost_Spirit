@@ -1,9 +1,11 @@
-﻿using TheLostSpirit.Exception;
+﻿using System.Diagnostics.Contracts;
 using TheLostSpirit.Identify;
 using TheLostSpirit.Infrastructure;
 
-namespace TheLostSpirit.Domain.Player {
-    public class PlayerEntity : IEntity<PlayerID>, ITransformProvider {
+namespace TheLostSpirit.Domain.Player
+{
+    public class PlayerEntity : IEntity<PlayerID>, ITransformProvider
+    {
         #region Static member
 
         static PlayerEntity _instance;
@@ -20,7 +22,9 @@ namespace TheLostSpirit.Domain.Player {
 
 
         public static PlayerEntity Get() {
-            return _instance ?? throw new PlayerEntityNotCreatedException();
+            Contract.Assert(_instance != null, "PlayerEntity not created");
+
+            return _instance;
         }
 
         #endregion

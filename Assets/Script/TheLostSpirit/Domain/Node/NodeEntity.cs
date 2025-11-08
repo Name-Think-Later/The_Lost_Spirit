@@ -1,12 +1,35 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Linq;
+using Extension.General;
 using TheLostSpirit.Identify;
 
-namespace TheLostSpirit.Domain.Node {
-    public class NodeEntity : IEntity<NodeID> {
+namespace TheLostSpirit.Domain.Node
+{
+    public class NodeEntity : IEntity<NodeID>
+    {
         readonly Node _node;
         public NodeID ID { get; }
 
-        public IReadOnlyList<Neighbor?> Neighbors => _node.Neighbors;
+        public SkillID Skill {
+            get => _node.Skill;
+            set => _node.Skill = value;
+        }
+
+        public IEnumerable<Neighbor?> NullNeighbors =>
+            _node
+                .Neighbors
+                .Where(n => !n.HasValue);
+
+        public IEnumerable<Neighbor> NotNullNeighbors =>
+            _node
+                .Neighbors
+                .Where(n => n.HasValue)
+                .Cast<Neighbor>();
+
+        public IEnumerable<Neighbor> OutNeighbors =>
+            NotNullNeighbors
+                .Where(n => n.IsOut);
 
         public NodeEntity(NodeID id, int neighborCount) {
             ID = id;
@@ -14,18 +37,15 @@ namespace TheLostSpirit.Domain.Node {
             _node = new Node(neighborCount);
         }
 
+        public void Associate(int index, Neighbor neighbor) {
+            Contract.Assert(index.InClosedInterval(0, _node.Neighbors.Count - 1), "Index is invalid");
 
-        public NodeEntity WithSkill(SkillID skill) {
-            _node.Skill = skill;
-
-            return this;
-        }
-
-        public void Associate(int index, NodeID id, AssociateType type) {
-            _node.Neighbors[index] = new Neighbor(id, type);
+            _node.Neighbors[index] = neighbor;
         }
 
         public void Cut(int index) {
+            Contract.Assert(index.InClosedInterval(0, _node.Neighbors.Count - 1), "Index is invalid");
+
             _node.Neighbors[index] = null;
         }
     }

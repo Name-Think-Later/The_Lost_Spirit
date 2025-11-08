@@ -6,6 +6,6 @@ namespace TheLostSpirit.Domain.Interactable {
         public bool CanInteract { get; }
         public void InFocus();
         public void OutOfFocus();
-        public void Interacted();
+        public void Interact();
     }
 }

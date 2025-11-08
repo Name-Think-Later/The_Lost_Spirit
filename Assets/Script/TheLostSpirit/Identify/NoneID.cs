@@ -2,12 +2,9 @@
 
 namespace TheLostSpirit.Identify
 {
-    public record NoneID : IIdentity
+    public record struct NoneID : IIdentity
     {
-        private NoneID() { }
-
-        public Guid Value => Guid.Empty;
-
         public static NoneID Default => new NoneID();
+        public Guid Value => Guid.Empty;
     }
 }

@@ -2,11 +2,19 @@
 using System.Linq;
 using TheLostSpirit.Identify;
 
-namespace TheLostSpirit.Domain.Room {
-    public class Room {
-        public List<RoomID> AssociatedRoom { get; } = new();
-        public IReadOnlyList<PortalID> IncludedPortal => AvailablePortal.Concat(UnavailablePortal).ToList();
-        public List<PortalID> AvailablePortal { get; } = new();
-        public List<PortalID> UnavailablePortal { get; } = new();
+namespace TheLostSpirit.Domain.Room
+{
+    public class Room
+    {
+        public List<RoomID> AssociatedRoom { get; }
+        public List<PortalID> AvailablePortals { get; }
+        public List<PortalID> UnavailablePortals { get; }
+        public IEnumerable<PortalID> Portals => AvailablePortals.Concat(UnavailablePortals);
+
+        public Room() {
+            AssociatedRoom     = new List<RoomID>();
+            AvailablePortals   = new List<PortalID>();
+            UnavailablePortals = new List<PortalID>();
+        }
     }
 }

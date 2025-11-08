@@ -24,11 +24,11 @@ namespace TheLostSpirit.Context.Portal
             PortalRepository     = new PortalRepository();
             PortalViewModelStore = new PortalViewModelStore();
 
-            _ = new PortalInRangeEventHandler(PortalRepository, playerContext.InteractableRepository);
-            _ = new PortalOutOfRangeEventHandler(playerContext.InteractableRepository);
-            _ = new PortalInFocusEventHandler(PortalViewModelStore);
-            _ = new PortalOutOfFocusEventHandler(PortalViewModelStore);
-            _ = new PortalTeleportEventHandler(PortalRepository);
+            _ = new PortalTriggerEnteredEventHandler(PortalRepository, playerContext.InteractableRepository);
+            _ = new PortalTriggerExitedEventHandler(playerContext.InteractableRepository);
+            _ = new PortalInFocusedEventHandler(PortalViewModelStore);
+            _ = new PortalOutOfFocusedEventHandler(PortalViewModelStore);
+            _ = new PortalInteractedEventHandler(PortalRepository);
             _ = new PortalConnectedEventHandler(PortalRepository, PortalViewModelStore);
 
             CreatePortalByInstanceUseCase = new CreatePortalByInstanceUseCase(PortalRepository, PortalViewModelStore);

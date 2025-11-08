@@ -1,9 +1,10 @@
 ﻿using System;
-using TheLostSpirit.Application.UseCase.Contract;
+using System.Diagnostics.Contracts;
+using TheLostSpirit.Application.UseCase;
 using TheLostSpirit.Application.UseCase.Input;
 using TheLostSpirit.Identify;
 
-namespace TheLostSpirit.Presentation.ViewModel.Player
+namespace Script.TheLostSpirit.Presentation.ViewModel.Player
 {
     public class PlayerViewModel : IViewModel<PlayerID>
     {
@@ -12,7 +13,9 @@ namespace TheLostSpirit.Presentation.ViewModel.Player
         static PlayerViewModel _instance;
 
         public static PlayerViewModel Get() {
-            return _instance ?? throw new PlayerViewModelNotCreatedException();
+            Contract.Assert(_instance != null, "PlayerViewModel not created");
+
+            return _instance;
         }
 
         public static PlayerViewModel Construct(

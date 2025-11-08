@@ -1,12 +1,10 @@
 using Sirenix.OdinInspector;
-using TheLostSpirit.Application.UseCase.Contract;
+using TheLostSpirit.Application.UseCase;
 using TheLostSpirit.Application.UseCase.Map;
 using TheLostSpirit.Context.Player;
 using TheLostSpirit.Context.Playground;
 using TheLostSpirit.Context.Portal;
 using TheLostSpirit.Context.Room;
-using TheLostSpirit.Presentation.View.Input;
-using TheLostSpirit.Presentation.ViewModel;
 using UnityEngine;
 
 namespace TheLostSpirit.Context.MainScene
@@ -27,10 +25,6 @@ namespace TheLostSpirit.Context.MainScene
 
         [SerializeField, SceneObjectsOnly]
         PortalContext _portalContext;
-
-
-        ActionMap        _actionMap;
-        GeneralInputView _generalInputView;
 
         GenerateMapUseCase _generateMapUseCase;
         ClearMapUseCase    _clearMapUseCase;

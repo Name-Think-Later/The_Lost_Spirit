@@ -190,74 +190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7529523f8b934fc1a858cb1caa80fdad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &104146806
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 516734842666723719, guid: 2fd8067059e498d489fda3181bb15100, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 516734842666723719, guid: 2fd8067059e498d489fda3181bb15100, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 516734842666723719, guid: 2fd8067059e498d489fda3181bb15100, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 516734842666723719, guid: 2fd8067059e498d489fda3181bb15100, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 516734842666723719, guid: 2fd8067059e498d489fda3181bb15100, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 516734842666723719, guid: 2fd8067059e498d489fda3181bb15100, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 516734842666723719, guid: 2fd8067059e498d489fda3181bb15100, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 516734842666723719, guid: 2fd8067059e498d489fda3181bb15100, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 516734842666723719, guid: 2fd8067059e498d489fda3181bb15100, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 516734842666723719, guid: 2fd8067059e498d489fda3181bb15100, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1487063744590046048, guid: 2fd8067059e498d489fda3181bb15100, type: 3}
-      propertyPath: m_Name
-      value: Player (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2fd8067059e498d489fda3181bb15100, type: 3}
---- !u!114 &277862348 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1243164083139634435, guid: 2fd8067059e498d489fda3181bb15100, type: 3}
-  m_PrefabInstance: {fileID: 104146806}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50b8ba7abb8f40a89719af5b78c01cee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3203,6 +3135,7 @@ GameObject:
   - component: {fileID: 1410382116}
   - component: {fileID: 1410382114}
   - component: {fileID: 1410382115}
+  - component: {fileID: 1410382117}
   m_Layer: 0
   m_Name: PlaygroundContext
   m_TagString: Untagged
@@ -3239,7 +3172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerContext: {fileID: 1410382116}
   _playerInstanceContext: {fileID: 4399604929662251394}
-  _dummy: {fileID: 277862348}
+  _userInputContext: {fileID: 1410382117}
   _portalContext: {fileID: 1410382114}
   _formulaContext: {fileID: 1410382115}
   _testPortals:
@@ -3270,6 +3203,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc1a5393188445f9cbc0151dc59ce10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _skillFactoryConfig:
+    skillConfigsWrapper:
+    - {fileID: 11400000, guid: 2eb469e3aebc67d468bec20a29d4d032, type: 2}
+    - {fileID: 11400000, guid: a522027987e1750438c5251c421a39c1, type: 2}
 --- !u!114 &1410382116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3280,6 +3217,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c41ea4f415b44c8a966af62cfee1a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1410382117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410382111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ffb13d603834b7b97bd7d78d9447698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4399604929662251393
@@ -3357,7 +3306,6 @@ SceneRoots:
   - {fileID: 1410382112}
   - {fileID: 519420032}
   - {fileID: 4399604929662251393}
-  - {fileID: 104146806}
   - {fileID: 819428843}
   - {fileID: 52693288}
   - {fileID: 570808896}

@@ -1,10 +1,13 @@
 using System;
 using R3;
-using TheLostSpirit.Presentation.ViewModel.Portal;
+using Script.TheLostSpirit.Presentation.ViewModel.Portal;
+using TheLostSpirit.Identify;
 using UnityEngine;
 
-namespace TheLostSpirit.Presentation.View {
-    public class PortalView : MonoBehaviour, IView<PortalViewModel> {
+namespace Script.TheLostSpirit.Presentation.View
+{
+    public class PortalView : MonoBehaviour, IView<PortalID, PortalViewModel>
+    {
         [SerializeField]
         SpriteRenderer _spriteRenderer;
 

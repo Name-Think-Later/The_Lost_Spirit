@@ -1,10 +1,10 @@
-﻿using Script.TheLostSpirit.Application.ObjectContextContract;
+﻿using Script.TheLostSpirit.Application.Port.InstanceContext;
+using Script.TheLostSpirit.Presentation.ViewModel.Player;
+using Script.TheLostSpirit.Presentation.ViewModel.Port;
 using Sirenix.OdinInspector;
 using TheLostSpirit.Context.Playground;
 using TheLostSpirit.Domain.Player;
 using TheLostSpirit.Identify;
-using TheLostSpirit.Presentation.IDOnlyViewModel;
-using TheLostSpirit.Presentation.ViewModel.Player;
 using UnityEngine;
 
 namespace TheLostSpirit.Context.Player
@@ -27,7 +27,7 @@ namespace TheLostSpirit.Context.Player
             PlayerContext    playerContext,
             UserInputContext userInputContext
         ) {
-            var playerID = new PlayerID();
+            var playerID = PlayerID.New();
 
             Entity = PlayerEntity.Construct(playerID, _playerConfig, _mono);
 

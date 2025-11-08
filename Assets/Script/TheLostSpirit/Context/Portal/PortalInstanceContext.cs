@@ -1,9 +1,9 @@
-﻿using Script.TheLostSpirit.Application.ObjectContextContract;
+﻿using Script.TheLostSpirit.Application.Port.InstanceContext;
+using Script.TheLostSpirit.Presentation.View;
+using Script.TheLostSpirit.Presentation.ViewModel.Port;
+using Script.TheLostSpirit.Presentation.ViewModel.Portal;
 using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Identify;
-using TheLostSpirit.Presentation.IDOnlyViewModel;
-using TheLostSpirit.Presentation.View;
-using TheLostSpirit.Presentation.ViewModel.Portal;
 using UnityEngine;
 
 namespace TheLostSpirit.Context.Portal
@@ -21,7 +21,7 @@ namespace TheLostSpirit.Context.Portal
         public IViewModelOnlyID<PortalID> ViewModelOnlyID { get; private set; }
 
         public PortalInstanceContext Construct() {
-            var portalID = new PortalID();
+            var portalID = PortalID.New();
 
             Entity = new PortalEntity(portalID, _mono);
 

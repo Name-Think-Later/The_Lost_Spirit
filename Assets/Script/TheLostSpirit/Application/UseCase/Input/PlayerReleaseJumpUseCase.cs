@@ -1,4 +1,3 @@
-using TheLostSpirit.Application.UseCase.Contract;
 using TheLostSpirit.Domain.Player;
 
 namespace TheLostSpirit.Application.UseCase.Input {

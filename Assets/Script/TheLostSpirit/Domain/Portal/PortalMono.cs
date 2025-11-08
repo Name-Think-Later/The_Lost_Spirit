@@ -6,8 +6,10 @@ using TheLostSpirit.Infrastructure;
 using TheLostSpirit.Infrastructure.EventDriven;
 using UnityEngine;
 
-namespace TheLostSpirit.Domain.Portal {
-    public class PortalMono : MonoBehaviour, IPortalMono {
+namespace TheLostSpirit.Domain.Portal
+{
+    public class PortalMono : MonoBehaviour, IPortalMono
+    {
         [SerializeField]
         Collider2D _collider;
 
@@ -31,8 +33,8 @@ namespace TheLostSpirit.Domain.Portal {
 
             triggerEnter
                 .Subscribe(_ => {
-                    var portalInRange = new PortalInRangeEvent(ID);
-                    _eventBus.Publish(portalInRange);
+                    var portalTriggerEntered = new PortalTriggerEnteredEvent(ID);
+                    _eventBus.Publish(portalTriggerEntered);
                 })
                 .AddTo(this);
         }
@@ -43,8 +45,8 @@ namespace TheLostSpirit.Domain.Portal {
 
             triggerExit
                 .Subscribe(_ => {
-                    var portalOutOfRange = new PortalOutOfRangeEvent(ID);
-                    _eventBus.Publish(portalOutOfRange);
+                    var portalTriggerExited = new PortalTriggerExitedEvent(ID);
+                    _eventBus.Publish(portalTriggerExited);
                 })
                 .AddTo(this);
         }

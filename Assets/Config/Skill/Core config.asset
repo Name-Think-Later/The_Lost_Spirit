@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a6b18cf6d3140628be0288e67a14f5b, type: 3}
+  m_Name: Core config
+  m_EditorClassIdentifier: 
+  _coreConfig:
+    configID: 0
+    skillName: 
+    inputPolicy:
+      rid: 3464740533680209922
+    outputPolicy:
+      rid: 3464740533680209923
+  references:
+    version: 2
+    RefIds:
+    - rid: 3464740533680209922
+      type: {class: SingleClick, ns: TheLostSpirit.Domain.Skill.Core.Input, asm: TheLostSpirits.Domain}
+      data: 
+    - rid: 3464740533680209923
+      type: {class: Repeat, ns: TheLostSpirit.Domain.Skill.Core.Output, asm: TheLostSpirits.Domain}
+      data:
+        repeatTimes: 2
+        interval: 0.5

@@ -1,7 +1,7 @@
-﻿using TheLostSpirit.Identify;
-using TheLostSpirit.Presentation.IDOnlyViewModel;
+﻿using Script.TheLostSpirit.Presentation.ViewModel.Port;
+using TheLostSpirit.Identify;
 
-namespace TheLostSpirit.Presentation.ViewModel.Room {
+namespace Script.TheLostSpirit.Presentation.ViewModel.Room {
     public class RoomViewModel : IViewModel<RoomID> {
         public RoomViewModel(RoomID id) {
             ID = id;

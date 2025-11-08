@@ -1,13 +1,6 @@
 using MoreLinq;
-using TheLostSpirit.Application.UseCase.Portal;
 using TheLostSpirit.Context.Player;
 using TheLostSpirit.Context.Portal;
-using TheLostSpirit.Others.FormulaSystem;
-using TheLostSpirit.Others.SkillSystem.CoreModule;
-using TheLostSpirit.Others.SkillSystem.SkillBase;
-using TheLostSpirit.Presentation.View.Input;
-using TheLostSpirit.Presentation.ViewModel.Formula.InputHandler;
-using TheLostSpirit.Presentation.ViewModel.Formula.OutputHandler;
 using UnityEngine;
 
 namespace TheLostSpirit.Context.Playground
@@ -26,21 +19,19 @@ namespace TheLostSpirit.Context.Playground
         [SerializeField]
         PortalContext _portalContext;
 
+
         [SerializeField]
         FormulaContext _formulaContext;
+
 
         [SerializeField]
         PortalInstanceContext[] _testPortals;
 
-        Formula[] _formulas;
-
-        ActionMap        _actionMap;
-        GeneralInputView _generalInputView;
 
         PlaygroundContext Construct() {
             _userInputContext.Construct();
             _playerContext.Construct();
-            _formulaContext.Construct();
+            _formulaContext.Construct(_userInputContext);
 
             _portalContext.Construct(_playerContext);
 
@@ -59,42 +50,26 @@ namespace TheLostSpirit.Context.Playground
             var createPortalByInstanceUseCase = _portalContext.CreatePortalByInstanceUseCase;
             _testPortals.ForEach(ctx => {
                 ctx.Construct();
-                var createPortalInstanceInput = new CreatePortalByInstanceUseCase.Input(ctx);
-                createPortalByInstanceUseCase.Execute(createPortalInstanceInput);
+                createPortalByInstanceUseCase.Execute(new(ctx));
             });
-        }
+
+            var formulaID = _formulaContext.FormulaViewModelStore[0].ID;
+
+            var n1 = _formulaContext.CreateNodeUseCase.Execute(new(3)).NodeID;
+            var s1 = _formulaContext.CreateSkillUseCase.Execute(new(0)).SkillID;
+            _formulaContext.NodeContainSkillUseCase.Execute(new(n1, s1));
+
+            var n2 = _formulaContext.CreateNodeUseCase.Execute(new(3)).NodeID;
+            var n3 = _formulaContext.CreateNodeUseCase.Execute(new(3)).NodeID;
 
 
-        void FormulaTest(ActionMap.GeneralActions generalActions) {
-            _formulas = new[] {
-                new Formula(),
-                new Formula()
-            };
-            _ = new FormulaDefaultInputBinding(generalActions, _formulas);
+            _formulaContext.FormulaAddNodeUseCase.Execute(new(formulaID, n1));
+            _formulaContext.FormulaAddNodeUseCase.Execute(new(formulaID, n2));
+            _formulaContext.FormulaAddNodeUseCase.Execute(new(formulaID, n3));
 
 
-            var inputHandler  = new SingleClick();
-            var outputHandler = new Once();
-
-            var coreInfo = new Info { Name = "c1" };
-
-            var coreBehaviour = new CoreBehaviourData { InputHandler = inputHandler, OutputHandler = outputHandler };
-
-            var coreModel = new CoreModel { Info = coreInfo, BehaviourData = coreBehaviour };
-            var core      = new Core(coreModel);
-
-
-            var c1 = new SkillNode<Core>(core);
-            var c2 = new SkillNode<Skill>(new Skill(new Info { Name = "c2" }));
-            var c3 = new SkillNode<Skill>(new Skill(new Info { Name = "c3" }));
-            var c4 = new SkillNode<Skill>(new Skill(new Info { Name = "c4" }));
-            c1.Adjacencies[0].To(c2.Adjacencies[0]);
-            c1.Adjacencies[1].To(c3.Adjacencies[0]);
-
-            c2.Adjacencies[0].To(c4.Adjacencies[0]);
-
-            _formulas[0].Add(c1);
-            _formulas[1].Add(c1);
+            _formulaContext.ConnectNodeUseCase.Execute(new(From: (n1, 1), To: (n2, 0)));
+            _formulaContext.ConnectNodeUseCase.Execute(new(From: (n2, 1), To: (n3, 0)));
         }
     }
 }

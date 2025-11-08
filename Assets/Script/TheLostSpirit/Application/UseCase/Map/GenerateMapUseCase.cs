@@ -2,7 +2,6 @@
 using Extension.Linq;
 using MoreLinq;
 using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Application.UseCase.Contract;
 using TheLostSpirit.Application.UseCase.Room;
 using TheLostSpirit.Domain;
 
@@ -51,8 +50,8 @@ namespace TheLostSpirit.Application.UseCase.Map
                     var leftRoomEntity  = selector[0];
                     var rightRoomEntity = selector[1];
 
-                    var leftPortalID  = leftRoomEntity.AvailablePortal.GetRandom();
-                    var rightPortalID = rightRoomEntity.AvailablePortal.GetRandom();
+                    var leftPortalID  = leftRoomEntity.AvailablePortals.GetRandom();
+                    var rightPortalID = rightRoomEntity.AvailablePortals.GetRandom();
 
                     var connectRoomInput =
                         new ConnectRoomUseCase.Input(
@@ -68,10 +67,10 @@ namespace TheLostSpirit.Application.UseCase.Map
 
         void BranchConnection() {
             _roomRepository.ForEach(leftRoomEntity => {
-                var availablePortalCount = leftRoomEntity.AvailablePortal.Count;
+                var availablePortalCount = leftRoomEntity.AvailablePortals.Count();
                 var branchAmount         = new CdfSampler(availablePortalCount + 1).Next();
 
-                var tryGetLeftPortalID = leftRoomEntity.AvailablePortal.TakeRandom(branchAmount);
+                var tryGetLeftPortalID = leftRoomEntity.AvailablePortals.TakeRandom(branchAmount);
 
                 tryGetLeftPortalID.ForEach(leftPortalID => {
                     var roomFilter =
@@ -91,9 +90,9 @@ namespace TheLostSpirit.Application.UseCase.Map
 
                     roomFilter
                         .SkipUntil(rightRoomEntity => {
-                            if (!rightRoomEntity.AvailablePortal.Any()) return false;
+                            if (!rightRoomEntity.AvailablePortals.Any()) return false;
 
-                            var rightPortalID = rightRoomEntity.AvailablePortal.GetRandom();
+                            var rightPortalID = rightRoomEntity.AvailablePortals.GetRandom();
 
                             var connectRoomInput =
                                 new ConnectRoomUseCase.Input(

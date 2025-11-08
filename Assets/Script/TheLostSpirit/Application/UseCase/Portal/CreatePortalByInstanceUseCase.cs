@@ -1,6 +1,5 @@
-﻿using Script.TheLostSpirit.Application.ObjectContextContract;
+﻿using Script.TheLostSpirit.Application.Port.InstanceContext;
 using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Application.UseCase.Contract;
 using TheLostSpirit.Application.ViewModelStore;
 using TheLostSpirit.Identify;
 

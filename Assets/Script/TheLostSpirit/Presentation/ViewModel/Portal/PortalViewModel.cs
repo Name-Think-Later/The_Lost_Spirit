@@ -1,10 +1,10 @@
 ﻿using R3;
+using Script.TheLostSpirit.Presentation.ViewModel.Port;
 using TheLostSpirit.Identify;
 using TheLostSpirit.Infrastructure;
-using TheLostSpirit.Presentation.IDOnlyViewModel;
 using UnityEngine;
 
-namespace TheLostSpirit.Presentation.ViewModel.Portal {
+namespace Script.TheLostSpirit.Presentation.ViewModel.Portal {
     public class PortalViewModel : IViewModel<PortalID> {
         readonly ReactiveProperty<bool>    _inFocus;
         readonly ReactiveProperty<Vector2> _debugLineDestination;

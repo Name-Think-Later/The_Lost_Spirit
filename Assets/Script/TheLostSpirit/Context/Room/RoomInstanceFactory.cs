@@ -1,6 +1,6 @@
 ﻿using Extension.Linq;
-using Script.TheLostSpirit.Application.ObjectContextContract;
-using Script.TheLostSpirit.Application.ObjectContextContract.ObjectFactory;
+using Script.TheLostSpirit.Application.Port.InstanceContext;
+using Script.TheLostSpirit.Application.Port.InstanceFactory;
 using UnityEngine;
 
 namespace TheLostSpirit.Context.Room

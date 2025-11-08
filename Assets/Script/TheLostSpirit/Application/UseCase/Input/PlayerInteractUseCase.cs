@@ -1,5 +1,4 @@
 ﻿using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Application.UseCase.Contract;
 using TheLostSpirit.Domain.Player;
 
 namespace TheLostSpirit.Application.UseCase.Input {
@@ -17,7 +16,7 @@ namespace TheLostSpirit.Application.UseCase.Input {
 
             if (interactableID != null) {
                 var interactable = _interactableRepository.GetByID(interactableID);
-                interactable.Interacted();
+                interactable.Interact();
             }
 
             return Void.Default;

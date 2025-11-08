@@ -21,10 +21,10 @@ namespace TheLostSpirit.Context.Room
         public ConnectRoomUseCase ConnectRoomUseCase { get; private set; }
 
         public RoomContext Construct(PortalContext portalContext) {
-            RoomRepository     = new RoomRepository();
-            RoomViewModelStore = new RoomViewModelStore();
-            RoomInstanceFactory  = new RoomInstanceFactory(_config);
-            
+            RoomRepository      = new RoomRepository();
+            RoomViewModelStore  = new RoomViewModelStore();
+            RoomInstanceFactory = new RoomInstanceFactory(_config);
+
             CreateRoomByInstanceUseCase
                 = new CreateRoomByInstanceUseCase(
                     RoomRepository,
@@ -42,7 +42,6 @@ namespace TheLostSpirit.Context.Room
             ConnectRoomUseCase =
                 new ConnectRoomUseCase(
                     RoomRepository,
-                    portalContext.PortalRepository,
                     portalContext.ConnectPortalUseCase
                 );
 

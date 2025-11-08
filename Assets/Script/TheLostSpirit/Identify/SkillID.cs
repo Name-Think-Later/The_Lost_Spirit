@@ -1,4 +1,9 @@
-﻿namespace TheLostSpirit.Identify
+﻿using System;
+
+namespace TheLostSpirit.Identify
 {
-    public record SkillID : IIdentity;
+    public abstract record SkillID : IIdentity
+    {
+        public Guid Value { get; protected set; }
+    }
 }

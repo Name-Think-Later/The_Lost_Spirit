@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TheLostSpirit.Domain.Room;
+﻿using TheLostSpirit.Domain.Room;
 using TheLostSpirit.Identify;
 
 namespace TheLostSpirit.Application.Repository

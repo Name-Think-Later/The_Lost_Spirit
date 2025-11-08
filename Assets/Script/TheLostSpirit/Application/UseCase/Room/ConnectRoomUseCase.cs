@@ -1,21 +1,19 @@
 ﻿using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Application.UseCase.Contract;
 using TheLostSpirit.Application.UseCase.Portal;
 using TheLostSpirit.Identify;
 
-namespace TheLostSpirit.Application.UseCase.Room {
-    public class ConnectRoomUseCase : IUseCase<Void, ConnectRoomUseCase.Input> {
+namespace TheLostSpirit.Application.UseCase.Room
+{
+    public class ConnectRoomUseCase : IUseCase<Void, ConnectRoomUseCase.Input>
+    {
         readonly RoomRepository       _roomRepository;
-        readonly PortalRepository     _portalRepository;
         readonly ConnectPortalUseCase _connectPortalUseCase;
 
         public ConnectRoomUseCase(
             RoomRepository       roomRepository,
-            PortalRepository     portalRepository,
             ConnectPortalUseCase connectPortalUseCase
         ) {
             _roomRepository       = roomRepository;
-            _portalRepository     = portalRepository;
             _connectPortalUseCase = connectPortalUseCase;
         }
 

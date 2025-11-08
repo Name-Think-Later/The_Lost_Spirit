@@ -1,17 +1,17 @@
 ﻿using System;
 using R3;
 using ReactiveInputSystem;
-using TheLostSpirit.Presentation.ViewModel;
-using TheLostSpirit.Presentation.ViewModel.Player;
+using Script.TheLostSpirit.Presentation.ViewModel.Player;
+using TheLostSpirit.Identify;
 
-namespace TheLostSpirit.Presentation.View.Input
+namespace Script.TheLostSpirit.Presentation.View.Input
 {
-    public class GeneralInputView : IView<PlayerViewModel>, IDisposable
+    public class GeneralInputView : IView<PlayerID, PlayerViewModel>, IDisposable
     {
         readonly ActionMap.GeneralActions _general;
 
         PlayerViewModel _inputViewModel;
-        DisposableBag          _disposables;
+        DisposableBag   _disposables;
         public FormulaInputView[] Formulas { get; }
 
         public GeneralInputView(ActionMap.GeneralActions general) {

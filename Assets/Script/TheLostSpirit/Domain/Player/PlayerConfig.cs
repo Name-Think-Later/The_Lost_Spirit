@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace TheLostSpirit.Domain.Player {
-    [CreateAssetMenu(fileName = "PlayerConfig", menuName = "TheLostSpirit/PlayerConfig")]
+    [CreateAssetMenu(fileName = "PlayerConfig", menuName = "The Lost Spirits/PlayerConfig")]
     public class PlayerConfig : ScriptableObject {
         public float baseSpeed = 10;
 

@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using MoreLinq;
-using Script.TheLostSpirit.Application.ObjectContextContract;
+using Script.TheLostSpirit.Application.Port.InstanceContext;
+using Script.TheLostSpirit.Presentation.ViewModel.Port;
+using Script.TheLostSpirit.Presentation.ViewModel.Room;
 using Sirenix.OdinInspector;
 using TheLostSpirit.Context.Portal;
 using TheLostSpirit.Domain.Room;
 using TheLostSpirit.Identify;
-using TheLostSpirit.Presentation.IDOnlyViewModel;
-using TheLostSpirit.Presentation.ViewModel.Room;
 using UnityEngine;
 using ZLinq;
 
@@ -27,7 +27,7 @@ namespace TheLostSpirit.Context.Room
         public IPortalInstanceContext[] Portals => _portalObjectContexts.ToArray<IPortalInstanceContext>();
 
         public RoomInstanceContext Construct() {
-            var roomID = new RoomID();
+            var roomID = RoomID.New();
 
             Entity = new RoomEntity(roomID, _mono);
 
