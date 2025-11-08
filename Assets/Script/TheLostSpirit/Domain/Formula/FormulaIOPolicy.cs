@@ -1,10 +1,9 @@
 ﻿using System;
 using R3;
-using Script.TheLostSpirit.Presentation.ViewModel.Port;
+using Script.TheLostSpirit.Domain.ViewModelPort;
 using TheLostSpirit.Domain.Skill.Core;
-using TheLostSpirit.Identify;
 
-namespace Script.TheLostSpirit.Application.General
+namespace TheLostSpirit.Domain.Formula
 {
     public class FormulaIOPolicy : IFormulaIOPolicy
     {
@@ -13,14 +12,10 @@ namespace Script.TheLostSpirit.Application.General
 
         Observable<Unit> _observable;
 
-        public NodeID Head { get; }
-
         public FormulaIOPolicy(
-            NodeID        nodeID,
             IInputPolicy  inputPolicy,
             IOutputPolicy outputPolicy
         ) {
-            Head          = nodeID;
             _inputPolicy  = inputPolicy;
             _outputPolicy = outputPolicy;
         }

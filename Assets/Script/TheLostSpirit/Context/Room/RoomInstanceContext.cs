@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using MoreLinq;
 using Script.TheLostSpirit.Application.Port.InstanceContext;
-using Script.TheLostSpirit.Presentation.ViewModel.Port;
 using Script.TheLostSpirit.Presentation.ViewModel.Room;
+using Script.TheLostSpirit.Presentation.ViewModel.UseCasePort;
 using Sirenix.OdinInspector;
 using TheLostSpirit.Context.Portal;
 using TheLostSpirit.Domain.Room;

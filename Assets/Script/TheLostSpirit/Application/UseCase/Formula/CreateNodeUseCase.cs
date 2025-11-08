@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using MoreLinq;
 using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Domain.Node;
+using TheLostSpirit.Domain.Formula.Node;
 using TheLostSpirit.Identify;
 using UnityEngine;
 

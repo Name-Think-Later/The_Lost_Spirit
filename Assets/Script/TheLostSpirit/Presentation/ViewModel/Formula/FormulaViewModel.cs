@@ -1,6 +1,7 @@
 ﻿using System;
 using R3;
-using Script.TheLostSpirit.Presentation.ViewModel.Port;
+using Script.TheLostSpirit.Domain.ViewModelPort;
+using Script.TheLostSpirit.Presentation.ViewModel.UseCasePort;
 using TheLostSpirit.Application.UseCase.Formula;
 using TheLostSpirit.Identify;
 using UnityEngine;
@@ -14,8 +15,6 @@ namespace Script.TheLostSpirit.Presentation.ViewModel.Formula
         readonly Subject<Unit> _cancel;
 
         readonly TraverseNodeUseCase _traverseNodeUseCase;
-
-        NodeID _head;
 
         public FormulaID ID { get; }
         public Observer<Unit> Start => _start.AsObserver();
@@ -37,8 +36,6 @@ namespace Script.TheLostSpirit.Presentation.ViewModel.Formula
         }
 
         public FormulaViewModel WithIOPolicy(IFormulaIOPolicy formulaIOPolicy) {
-            _head = formulaIOPolicy.Head;
-
             formulaIOPolicy
                 .BindInput(_start, _perform, _cancel)
                 .ToOutput(FormulaInput);
@@ -48,7 +45,7 @@ namespace Script.TheLostSpirit.Presentation.ViewModel.Formula
 
         public void FormulaInput() {
             Debug.Log("Formula");
-            var traverseNodeInput = new TraverseNodeUseCase.Input(_head);
+            var traverseNodeInput = new TraverseNodeUseCase.Input(ID);
             _traverseNodeUseCase.Execute(traverseNodeInput);
         }
     }

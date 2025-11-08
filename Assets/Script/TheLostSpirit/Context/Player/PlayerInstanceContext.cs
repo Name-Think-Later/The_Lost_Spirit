@@ -1,6 +1,6 @@
 ﻿using Script.TheLostSpirit.Application.Port.InstanceContext;
 using Script.TheLostSpirit.Presentation.ViewModel.Player;
-using Script.TheLostSpirit.Presentation.ViewModel.Port;
+using Script.TheLostSpirit.Presentation.ViewModel.UseCasePort;
 using Sirenix.OdinInspector;
 using TheLostSpirit.Context.Playground;
 using TheLostSpirit.Domain.Player;

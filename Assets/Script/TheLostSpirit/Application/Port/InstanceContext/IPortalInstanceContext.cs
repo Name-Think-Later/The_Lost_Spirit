@@ -1,4 +1,4 @@
-﻿using Script.TheLostSpirit.Presentation.ViewModel.Port;
+﻿using Script.TheLostSpirit.Presentation.ViewModel.UseCasePort;
 using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Identify;
 

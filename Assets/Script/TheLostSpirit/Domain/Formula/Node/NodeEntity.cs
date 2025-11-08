@@ -4,7 +4,7 @@ using System.Linq;
 using Extension.General;
 using TheLostSpirit.Identify;
 
-namespace TheLostSpirit.Domain.Node
+namespace TheLostSpirit.Domain.Formula.Node
 {
     public class NodeEntity : IEntity<NodeID>
     {

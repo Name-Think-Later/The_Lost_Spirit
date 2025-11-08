@@ -6,14 +6,21 @@ namespace TheLostSpirit.Application.UseCase.Formula
     public class FormulaAddNodeUseCase : IUseCase<Void, FormulaAddNodeUseCase.Input>
     {
         readonly FormulaRepository _formulaRepository;
+        readonly NodeRepository    _nodeRepository;
 
         public FormulaAddNodeUseCase(FormulaRepository formulaRepository) {
             _formulaRepository = formulaRepository;
         }
 
         public Void Execute(Input input) {
-            var formula = _formulaRepository.GetByID(input.FormulaID);
-            formula.AddNode(input.NodeID);
+            var nodeID        = input.NodeID;
+            var formulaEntity = _formulaRepository.GetByID(input.FormulaID);
+            formulaEntity.AddNode(nodeID);
+
+            var nodeEntity = _nodeRepository.GetByID(nodeID);
+            if (nodeEntity.Skill is CoreID coreID)
+                formulaEntity.CoreNode = (nodeID, coreID);
+
 
             return Void.Default;
         }

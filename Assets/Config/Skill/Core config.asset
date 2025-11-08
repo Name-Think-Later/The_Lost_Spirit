@@ -15,6 +15,10 @@ MonoBehaviour:
   _coreConfig:
     configID: 0
     skillName: 
+    handleCap: 0
+    recoverAmount: 0
+    recoverInterval: 0
+    rechargeCooldown: 0
     inputPolicy:
       rid: 3464740533680209922
     outputPolicy:
@@ -28,5 +32,5 @@ MonoBehaviour:
     - rid: 3464740533680209923
       type: {class: Repeat, ns: TheLostSpirit.Domain.Skill.Core.Output, asm: TheLostSpirits.Domain}
       data:
-        repeatTimes: 2
-        interval: 0.5
+        repeatTimes: 5
+        interval: 0.2

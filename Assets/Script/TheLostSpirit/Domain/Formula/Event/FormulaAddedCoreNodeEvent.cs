@@ -3,5 +3,5 @@ using TheLostSpirit.Infrastructure.EventDriven;
 
 namespace TheLostSpirit.Domain.Formula.Event
 {
-    public record struct FormulaAddedNodeEvent(FormulaID FormulaID, NodeID NodeID) : IDomainEvent;
+    public record struct FormulaAddedCoreNodeEvent(FormulaID FormulaID, CoreID CoreID) : IDomainEvent;
 }

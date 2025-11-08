@@ -1,6 +1,6 @@
 ﻿using TheLostSpirit.Identify;
 
-namespace TheLostSpirit.Domain.Node
+namespace TheLostSpirit.Domain.Formula.Node
 {
     public record struct Neighbor(NodeID ID, AssociateType Type)
     {

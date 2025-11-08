@@ -1,5 +1,5 @@
 ﻿using R3;
-using Script.TheLostSpirit.Presentation.ViewModel.Port;
+using Script.TheLostSpirit.Presentation.ViewModel.UseCasePort;
 using TheLostSpirit.Identify;
 using TheLostSpirit.Infrastructure;
 using UnityEngine;

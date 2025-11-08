@@ -39,14 +39,14 @@ namespace TheLostSpirit.Context
 
             CreateNodeUseCase       = new CreateNodeUseCase(NodeRepository);
             ConnectNodeUseCase      = new ConnectNodeUseCase(NodeRepository);
-            TraverseNodeUseCase     = new TraverseNodeUseCase(NodeRepository);
+            TraverseNodeUseCase     = new TraverseNodeUseCase(NodeRepository, FormulaRepository);
             CreateSkillUseCase      = new CreateSkillUseCase(SkillFactory, SkillRepository);
             NodeContainSkillUseCase = new NodeContainSkillUseCase(NodeRepository);
             FormulaAddNodeUseCase   = new FormulaAddNodeUseCase(FormulaRepository);
 
-            _ = new FormulaAddedNodeEventHandler(NodeRepository, SkillRepository, FormulaViewModelStore);
+            _ = new FormulaAddedCoreNodeEventHandler(SkillRepository, FormulaViewModelStore);
 
-            
+
             var formulaInputViews = userInputContext.GeneralInputView.Formulas;
 
             for (int i = 0; i < _formulaCount; i++) {

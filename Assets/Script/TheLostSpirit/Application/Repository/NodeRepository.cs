@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TheLostSpirit.Domain.Node;
+using TheLostSpirit.Domain.Formula.Node;
 using TheLostSpirit.Identify;
 
 namespace TheLostSpirit.Application.Repository

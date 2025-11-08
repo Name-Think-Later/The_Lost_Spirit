@@ -1,7 +1,7 @@
 ﻿using Script.TheLostSpirit.Application.Port.InstanceContext;
 using Script.TheLostSpirit.Presentation.View;
-using Script.TheLostSpirit.Presentation.ViewModel.Port;
 using Script.TheLostSpirit.Presentation.ViewModel.Portal;
+using Script.TheLostSpirit.Presentation.ViewModel.UseCasePort;
 using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Identify;
 using UnityEngine;

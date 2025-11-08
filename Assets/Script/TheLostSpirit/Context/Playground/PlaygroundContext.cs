@@ -1,3 +1,4 @@
+using System.Linq;
 using MoreLinq;
 using TheLostSpirit.Context.Player;
 using TheLostSpirit.Context.Portal;
@@ -48,10 +49,17 @@ namespace TheLostSpirit.Context.Playground
             _playerInstanceContext.Construct(_playerContext, _userInputContext);
 
             var createPortalByInstanceUseCase = _portalContext.CreatePortalByInstanceUseCase;
-            _testPortals.ForEach(ctx => {
-                ctx.Construct();
-                createPortalByInstanceUseCase.Execute(new(ctx));
-            });
+            var portalIdList =
+                _testPortals
+                    .Select(ctx => {
+                        ctx.Construct();
+                        var portalID = createPortalByInstanceUseCase.Execute(new(ctx)).PortalID;
+
+                        return portalID;
+                    })
+                    .ToList();
+            _portalContext.ConnectPortalUseCase.Execute(new(portalIdList[0], portalIdList[1]));
+
 
             var formulaID = _formulaContext.FormulaViewModelStore[0].ID;
 

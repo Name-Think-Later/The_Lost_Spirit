@@ -5,7 +5,7 @@ using MoreLinq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace TheLostSpirit.Domain {
+namespace TheLostSpirit.Domain.Util {
     /// <summary>
     /// 機率分布函數採樣， 在此預設各分部變化量為1/(n^2)
     /// </summary>

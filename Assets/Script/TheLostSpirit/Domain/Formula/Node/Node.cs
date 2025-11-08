@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TheLostSpirit.Identify;
 
-namespace TheLostSpirit.Domain.Node
+namespace TheLostSpirit.Domain.Formula.Node
 {
     public class Node
     {

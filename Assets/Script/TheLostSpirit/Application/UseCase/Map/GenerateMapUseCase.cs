@@ -4,6 +4,7 @@ using MoreLinq;
 using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Room;
 using TheLostSpirit.Domain;
+using TheLostSpirit.Domain.Util;
 
 namespace TheLostSpirit.Application.UseCase.Map
 {

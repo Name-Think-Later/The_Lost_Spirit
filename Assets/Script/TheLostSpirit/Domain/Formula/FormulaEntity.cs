@@ -14,6 +14,15 @@ namespace TheLostSpirit.Domain.Formula
 
         public IEnumerable<NodeID> Nodes => _formula.Nodes;
 
+        public (NodeID nodeID, CoreID coreID) CoreNode {
+            get => _formula.HeadNode;
+            set {
+                _formula.HeadNode = value;
+                var formulaAddedNode = new FormulaAddedCoreNodeEvent(ID, value.coreID);
+                _eventBus.Publish(formulaAddedNode);
+            }
+        }
+
         public FormulaEntity(FormulaID id) {
             ID = id;
 
@@ -23,9 +32,6 @@ namespace TheLostSpirit.Domain.Formula
 
         public void AddNode(NodeID node) {
             _formula.Nodes.Add(node);
-
-            var formulaAddedNode = new FormulaAddedNodeEvent(ID, node);
-            _eventBus.Publish(formulaAddedNode);
         }
 
         public void RemoveNode(NodeID node) {
