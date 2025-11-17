@@ -3206,7 +3206,6 @@ MonoBehaviour:
   _skillFactoryConfig:
     skillConfigsWrapper:
     - {fileID: 11400000, guid: 2eb469e3aebc67d468bec20a29d4d032, type: 2}
-    - {fileID: 11400000, guid: a522027987e1750438c5251c421a39c1, type: 2}
 --- !u!114 &1410382116
 MonoBehaviour:
   m_ObjectHideFlags: 0

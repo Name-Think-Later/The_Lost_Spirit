@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using TheLostSpirit.Domain.Formula.Event;
+using TheLostSpirit.Domain.Formula.Node.Event;
 using TheLostSpirit.Identify;
 using TheLostSpirit.Infrastructure;
 using TheLostSpirit.Infrastructure.EventDriven;
@@ -14,14 +16,7 @@ namespace TheLostSpirit.Domain.Formula
 
         public IEnumerable<NodeID> Nodes => _formula.Nodes;
 
-        public (NodeID nodeID, CoreID coreID) CoreNode {
-            get => _formula.HeadNode;
-            set {
-                _formula.HeadNode = value;
-                var formulaAddedNode = new FormulaAddedCoreNodeEvent(ID, value.coreID);
-                _eventBus.Publish(formulaAddedNode);
-            }
-        }
+        public NodeID CoreNode => _formula.CoreNode;
 
         public FormulaEntity(FormulaID id) {
             ID = id;
@@ -31,7 +26,17 @@ namespace TheLostSpirit.Domain.Formula
         }
 
         public void AddNode(NodeID node) {
+            Contract.Assert(!_formula.Nodes.Contains(node), $"Node: {node} already in formula: {ID}");
+
             _formula.Nodes.Add(node);
+        }
+
+        public void AddCoreNode(NodeID node, CoreID coreID) {
+            AddNode(node);
+            _formula.CoreNode = node;
+
+            var formulaAddedCoreNode = new FormulaAddedCoreNodeEvent(ID, coreID);
+            _eventBus.Publish(formulaAddedCoreNode);
         }
 
         public void RemoveNode(NodeID node) {
@@ -40,6 +45,10 @@ namespace TheLostSpirit.Domain.Formula
 
         public void ClearNode() {
             _formula.Nodes.Clear();
+        }
+
+        public void Traverse() {
+            _eventBus.Publish(new VisitedNodeEvent(CoreNode));
         }
     }
 }

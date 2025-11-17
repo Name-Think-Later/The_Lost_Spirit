@@ -14,7 +14,7 @@ namespace Script.TheLostSpirit.Presentation.ViewModel.Formula
         readonly Subject<Unit> _perform;
         readonly Subject<Unit> _cancel;
 
-        readonly TraverseNodeUseCase _traverseNodeUseCase;
+        readonly TraverseFormulaUseCase _traverseFormulaUseCase;
 
         public FormulaID ID { get; }
         public Observer<Unit> Start => _start.AsObserver();
@@ -24,7 +24,7 @@ namespace Script.TheLostSpirit.Presentation.ViewModel.Formula
 
         public FormulaViewModel(
             FormulaID           id,
-            TraverseNodeUseCase traverseNodeUseCase
+            TraverseFormulaUseCase traverseFormulaUseCase
         ) {
             ID = id;
 
@@ -32,7 +32,7 @@ namespace Script.TheLostSpirit.Presentation.ViewModel.Formula
             _perform = new Subject<Unit>();
             _cancel  = new Subject<Unit>();
 
-            _traverseNodeUseCase = traverseNodeUseCase;
+            _traverseFormulaUseCase = traverseFormulaUseCase;
         }
 
         public FormulaViewModel WithIOPolicy(IFormulaIOPolicy formulaIOPolicy) {
@@ -45,8 +45,8 @@ namespace Script.TheLostSpirit.Presentation.ViewModel.Formula
 
         public void FormulaInput() {
             Debug.Log("Formula");
-            var traverseNodeInput = new TraverseNodeUseCase.Input(ID);
-            _traverseNodeUseCase.Execute(traverseNodeInput);
+            var traverseNodeInput = new TraverseFormulaUseCase.Input(ID);
+            _traverseFormulaUseCase.Execute(traverseNodeInput);
         }
     }
 

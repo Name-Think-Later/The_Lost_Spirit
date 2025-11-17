@@ -22,15 +22,13 @@ MonoBehaviour:
     inputPolicy:
       rid: 3464740533680209922
     outputPolicy:
-      rid: 3464740533680209923
+      rid: 3464740569780584448
   references:
     version: 2
     RefIds:
     - rid: 3464740533680209922
       type: {class: SingleClick, ns: TheLostSpirit.Domain.Skill.Core.Input, asm: TheLostSpirits.Domain}
       data: 
-    - rid: 3464740533680209923
-      type: {class: Repeat, ns: TheLostSpirit.Domain.Skill.Core.Output, asm: TheLostSpirits.Domain}
-      data:
-        repeatTimes: 5
-        interval: 0.2
+    - rid: 3464740569780584448
+      type: {class: Once, ns: TheLostSpirit.Domain.Skill.Core.Output, asm: TheLostSpirits.Domain}
+      data: 

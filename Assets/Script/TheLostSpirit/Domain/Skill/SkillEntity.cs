@@ -6,8 +6,10 @@ namespace TheLostSpirit.Domain.Skill
     {
         public SkillID ID { get; }
 
-        public SkillEntity(SkillID id) {
+        protected SkillEntity(SkillID id) {
             ID = id;
         }
+
+        public abstract void Activate();
     }
 }

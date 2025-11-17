@@ -3,14 +3,14 @@ using TheLostSpirit.Infrastructure;
 using TheLostSpirit.Infrastructure.EventDriven;
 
 namespace TheLostSpirit.Application.EventHandler {
-    public abstract class DomainEventHandler<T> where T : IDomainEvent {
+    public abstract class DomainEventHandler<TEvent> where TEvent : IDomainEvent {
         protected DomainEventHandler() {
             AppScope
                 .EventBus
-                .ObservableEvent<T>()
+                .ObservableEvent<TEvent>()
                 .Subscribe(Handle);
         }
 
-        protected abstract void Handle(T domainEvent);
+        protected abstract void Handle(TEvent domainEvent);
     }
 }

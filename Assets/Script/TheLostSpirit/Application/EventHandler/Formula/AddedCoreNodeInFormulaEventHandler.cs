@@ -5,12 +5,12 @@ using TheLostSpirit.Domain.Formula.Event;
 
 namespace TheLostSpirit.Application.EventHandler.Formula
 {
-    public class FormulaAddedCoreNodeEventHandler : DomainEventHandler<FormulaAddedCoreNodeEvent>
+    public class AddedCoreNodeInFormulaEventHandler : DomainEventHandler<FormulaAddedCoreNodeEvent>
     {
         readonly SkillRepository       _skillRepository;
         readonly FormulaViewModelStore _formulaViewModelStore;
 
-        public FormulaAddedCoreNodeEventHandler(
+        public AddedCoreNodeInFormulaEventHandler(
             SkillRepository       skillRepository,
             FormulaViewModelStore formulaViewModelStore
         ) {

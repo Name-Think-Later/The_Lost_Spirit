@@ -24,10 +24,10 @@ namespace TheLostSpirit.Context
 
         public CreateNodeUseCase CreateNodeUseCase { get; private set; }
         public ConnectNodeUseCase ConnectNodeUseCase { get; private set; }
-        public TraverseNodeUseCase TraverseNodeUseCase { get; private set; }
+        public TraverseFormulaUseCase TraverseFormulaUseCase { get; private set; }
         public CreateSkillUseCase CreateSkillUseCase { get; private set; }
         public NodeContainSkillUseCase NodeContainSkillUseCase { get; private set; }
-        public FormulaAddNodeUseCase FormulaAddNodeUseCase { get; private set; }
+        public AddNodeInFormulaUseCase AddNodeInFormulaUseCase { get; private set; }
 
 
         public FormulaContext Construct(UserInputContext userInputContext) {
@@ -39,13 +39,13 @@ namespace TheLostSpirit.Context
 
             CreateNodeUseCase       = new CreateNodeUseCase(NodeRepository);
             ConnectNodeUseCase      = new ConnectNodeUseCase(NodeRepository);
-            TraverseNodeUseCase     = new TraverseNodeUseCase(NodeRepository, FormulaRepository);
+            TraverseFormulaUseCase  = new TraverseFormulaUseCase(FormulaRepository);
             CreateSkillUseCase      = new CreateSkillUseCase(SkillFactory, SkillRepository);
             NodeContainSkillUseCase = new NodeContainSkillUseCase(NodeRepository);
-            FormulaAddNodeUseCase   = new FormulaAddNodeUseCase(FormulaRepository);
+            AddNodeInFormulaUseCase = new AddNodeInFormulaUseCase(FormulaRepository, NodeRepository);
 
-            _ = new FormulaAddedCoreNodeEventHandler(SkillRepository, FormulaViewModelStore);
-
+            _ = new AddedCoreNodeInFormulaEventHandler(SkillRepository, FormulaViewModelStore);
+            _ = new VisitedNodeEventHandler(NodeRepository);
 
             var formulaInputViews = userInputContext.GeneralInputView.Formulas;
 
@@ -55,7 +55,7 @@ namespace TheLostSpirit.Context
                 var formulaEntity = new FormulaEntity(formulaID);
                 FormulaRepository.Save(formulaEntity);
 
-                var formulaViewModel = new FormulaViewModel(formulaID, TraverseNodeUseCase);
+                var formulaViewModel = new FormulaViewModel(formulaID, TraverseFormulaUseCase);
                 FormulaViewModelStore.Save(formulaViewModel);
 
                 formulaInputViews[i].Bind(formulaViewModel);

@@ -3,23 +3,28 @@ using TheLostSpirit.Identify;
 
 namespace TheLostSpirit.Application.UseCase.Formula
 {
-    public class FormulaAddNodeUseCase : IUseCase<Void, FormulaAddNodeUseCase.Input>
+    public class AddNodeInFormulaUseCase : IUseCase<Void, AddNodeInFormulaUseCase.Input>
     {
         readonly FormulaRepository _formulaRepository;
         readonly NodeRepository    _nodeRepository;
 
-        public FormulaAddNodeUseCase(FormulaRepository formulaRepository) {
+        public AddNodeInFormulaUseCase(
+            FormulaRepository formulaRepository,
+            NodeRepository    nodeRepository
+        ) {
             _formulaRepository = formulaRepository;
+            _nodeRepository    = nodeRepository;
         }
 
         public Void Execute(Input input) {
             var nodeID        = input.NodeID;
             var formulaEntity = _formulaRepository.GetByID(input.FormulaID);
-            formulaEntity.AddNode(nodeID);
+            var nodeEntity    = _nodeRepository.GetByID(nodeID);
 
-            var nodeEntity = _nodeRepository.GetByID(nodeID);
             if (nodeEntity.Skill is CoreID coreID)
-                formulaEntity.CoreNode = (nodeID, coreID);
+                formulaEntity.AddCoreNode(nodeID, coreID);
+            else
+                formulaEntity.AddNode(nodeID);
 
 
             return Void.Default;
