@@ -8,6 +8,8 @@ TagManager:
   - Backpack
   - slot
   - main_nodeC
+  - node
+  - UI
   layers:
   - Default
   - TransparentFX

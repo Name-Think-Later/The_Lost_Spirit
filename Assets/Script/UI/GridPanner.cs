@@ -7,11 +7,10 @@ using UnityEngine.EventSystems;
 public class GridPanner : MonoBehaviour, IDragHandler
 {
    public RectTransform nodeContainer;
-   public RectTransform mainPanel; // 請在 Inspector 指定 mainPanel
+   public RectTransform mainPanel;
 
    void Awake()
    {
-      // 初始化 nodeContainer 位置與大小
       if (nodeContainer != null)
       {
          nodeContainer.anchoredPosition = Vector2.zero;
@@ -27,11 +26,9 @@ public class GridPanner : MonoBehaviour, IDragHandler
          return;
       }
 
-      // 取得 mainPanel 與 nodeContainer 的 RectTransform 資訊
       Vector2 mainSize = mainPanel.rect.size;
       Vector2 containerSize = nodeContainer.rect.size;
 
-      // 以 mainPanel 為基準，計算 nodeContainer 拖曳後的新 anchoredPosition
       Vector2 newPos = nodeContainer.anchoredPosition + eventData.delta;
 
 

@@ -25,13 +25,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4502533385713425281}
-  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2832622684342452427}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -1.7267, y: -1.036}
@@ -90,10 +90,11 @@ GameObject:
   - component: {fileID: 2832622684342452427}
   - component: {fileID: 8927687776669749338}
   - component: {fileID: 4401713212725177833}
-  - component: {fileID: 2897854131715819046}
+  - component: {fileID: 7724616895926026434}
+  - component: {fileID: -7358726779873403496}
   m_Layer: 5
   m_Name: main_nodeM
-  m_TagString: Untagged
+  m_TagString: node
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,14 +106,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6574780530512554822}
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6167746815329644911}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -15, y: -108}
@@ -156,7 +157,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2897854131715819046
+--- !u!114 &7724616895926026434
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,12 +166,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 6574780530512554822}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4fdd76417039f14fa7bde519e91a498, type: 3}
+  m_Script: {fileID: 11500000, guid: efce36db107d19849859bd2f8b8379e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeName: Node
+  nodeType: 4
+  inputPoints:
+  - {fileID: 0}
+  outputPoints:
+  - {fileID: 0}
+  nodeRectTransform: {fileID: 0}
+  nodeColor: {r: 1, g: 1, b: 1, a: 1}
+  branchCount: 1
+  useSymmetricalLayout: 1
+--- !u!114 &-7358726779873403496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6574780530512554822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 553edd01b0ff02a4facef40fc2ac7aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   allowDropTags:
   - Backpack
   - NodeContainer
-  - slot
   mainNodePrefab: {fileID: 6574780530512554822}
   backpackNodePrefab: {fileID: 98189716662059617, guid: ded81e2836663584683669df5e896413, type: 3}

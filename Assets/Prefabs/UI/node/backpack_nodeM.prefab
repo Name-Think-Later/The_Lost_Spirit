@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7087264011635593275}
   - component: {fileID: 8498294165238983505}
   - component: {fileID: 5265231017381820519}
-  - component: {fileID: -703977289359482034}
+  - component: {fileID: 5045216188496258733}
   m_Layer: 5
   m_Name: backpack_nodeM
   m_TagString: Untagged
@@ -26,14 +26,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 98189716662059617}
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4889552150142246810}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &-703977289359482034
+--- !u!114 &5045216188496258733
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,13 +86,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 98189716662059617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4fdd76417039f14fa7bde519e91a498, type: 3}
+  m_Script: {fileID: 11500000, guid: 553edd01b0ff02a4facef40fc2ac7aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   allowDropTags:
   - Backpack
   - NodeContainer
-  - slot
   mainNodePrefab: {fileID: 6574780530512554822, guid: 38fc247fbf0065d42a016c763eb00e81, type: 3}
   backpackNodePrefab: {fileID: 98189716662059617}
 --- !u!1 &3918340237349132945
@@ -120,13 +119,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3918340237349132945}
-  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7087264011635593275}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -1.7267, y: -1.036}
