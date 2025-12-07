@@ -336,6 +336,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2002748013}
   - component: {fileID: 2002748012}
+  - component: {fileID: 2002748017}
   - component: {fileID: 2002748016}
   - component: {fileID: 2002748014}
   - component: {fileID: 2002748015}
@@ -360,6 +361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerContext: {fileID: 2002748016}
   _playerInstanceContext: {fileID: 1806422527}
+  _userInputContext: {fileID: 2002748017}
   _roomContext: {fileID: 2002748014}
   _portalContext: {fileID: 2002748015}
 --- !u!4 &2002748013
@@ -418,6 +420,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c41ea4f415b44c8a966af62cfee1a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2002748017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002748011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ffb13d603834b7b97bd7d78d9447698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807

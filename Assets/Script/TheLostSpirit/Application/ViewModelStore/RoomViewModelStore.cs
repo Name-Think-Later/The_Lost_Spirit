@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TheLostSpirit.Identify;
+﻿using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Application.ViewModelStore
 {

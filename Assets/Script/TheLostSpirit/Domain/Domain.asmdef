@@ -2,14 +2,14 @@
     "name": "TheLostSpirits.Domain",
     "rootNamespace": "",
     "references": [
-        "GUID:62821c2b73a8cc3449e7bf3de409d4e5",
-        "GUID:915e5ff71c354504ebd9da8be4928c25",
-        "GUID:127e661b7f673b34dadf82b60e216a32",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:5c01796d064528144a599661eaab93a6",
         "GUID:77221876cc6b8244180b96e320b1bcd4",
         "GUID:8d2717d6e3e0f174c983290a3fe3eff4",
+        "GUID:62821c2b73a8cc3449e7bf3de409d4e5",
         "GUID:3e6a0377c1668434caf6699894bced88",
-        "GUID:5c01796d064528144a599661eaab93a6",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+        "GUID:c34430b422a65464399ffe193365ae07",
+        "GUID:127e661b7f673b34dadf82b60e216a32"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

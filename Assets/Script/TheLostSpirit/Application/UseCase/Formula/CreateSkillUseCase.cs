@@ -1,6 +1,7 @@
 ﻿using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Domain.Skill;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity.ConfigID;
+using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Application.UseCase.Formula
 {
@@ -18,14 +19,14 @@ namespace TheLostSpirit.Application.UseCase.Formula
         }
 
         public Output Execute(Input input) {
-            var skillEntity = _skillFactory.Create(input.SkillIndex);
+            var skillEntity = _skillFactory.Create(input.Id);
             _skillRepository.Save(skillEntity);
 
             return new Output(skillEntity.ID);
         }
 
-        public record struct Input(int SkillIndex) : IInput;
+        public record struct Input(SkillConfigID Id) : IInput;
 
-        public record struct Output(SkillID SkillID) : IOutput;
+        public record struct Output(ISkillID SkillID) : IOutput;
     }
 }

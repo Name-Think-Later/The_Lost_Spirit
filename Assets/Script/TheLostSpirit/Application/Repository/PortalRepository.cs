@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TheLostSpirit.Domain.Portal;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Application.Repository
 {

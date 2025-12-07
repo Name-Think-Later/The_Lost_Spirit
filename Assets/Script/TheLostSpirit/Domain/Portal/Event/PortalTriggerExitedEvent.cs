@@ -1,6 +1,9 @@
-﻿using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure.EventDriven;
+﻿using TheLostSpirit.Domain.Port;
+using TheLostSpirit.Domain.Port.EventBus;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 
-namespace TheLostSpirit.Domain.Portal.Event {
+namespace TheLostSpirit.Domain.Portal.Event
+{
     public record struct PortalTriggerExitedEvent(PortalID ID) : IDomainEvent;
 }

@@ -1,10 +1,10 @@
 using System;
 using R3;
-using Script.TheLostSpirit.Presentation.ViewModel.Portal;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity.EntityID;
+using TheLostSpirit.Presentation.ViewModel.Portal;
 using UnityEngine;
 
-namespace Script.TheLostSpirit.Presentation.View
+namespace TheLostSpirit.Presentation.View
 {
     public class PortalView : MonoBehaviour, IView<PortalID, PortalViewModel>
     {

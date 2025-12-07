@@ -6,10 +6,4 @@
     {
         TOutput Execute(TInput input);
     }
-
-    public interface IInput
-    { }
-
-    public interface IOutput
-    { }
 }

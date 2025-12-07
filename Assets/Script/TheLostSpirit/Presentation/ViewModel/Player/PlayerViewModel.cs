@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
 using TheLostSpirit.Application.UseCase;
-using TheLostSpirit.Application.UseCase.Input;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Application.UseCase.Player;
+using TheLostSpirit.Identity.EntityID;
 
-namespace Script.TheLostSpirit.Presentation.ViewModel.Player
+namespace TheLostSpirit.Presentation.ViewModel.Player
 {
     public class PlayerViewModel : IViewModel<PlayerID>
     {

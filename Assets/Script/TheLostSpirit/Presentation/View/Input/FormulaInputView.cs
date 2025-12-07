@@ -1,12 +1,14 @@
 ﻿using System;
 using R3;
 using ReactiveInputSystem;
-using Script.TheLostSpirit.Presentation.ViewModel.Formula;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity.EntityID;
+using TheLostSpirit.Presentation.ViewModel.Formula;
 using UnityEngine.InputSystem;
 
-namespace Script.TheLostSpirit.Presentation.View.Input {
-    public class FormulaInputView : IView<FormulaID, FormulaViewModel>, IDisposable {
+namespace TheLostSpirit.Presentation.View.Input
+{
+    public class FormulaInputView : IView<FormulaID, FormulaViewModel>, IDisposable
+    {
         readonly InputAction _inputAction;
 
         IDisposable _disposable;

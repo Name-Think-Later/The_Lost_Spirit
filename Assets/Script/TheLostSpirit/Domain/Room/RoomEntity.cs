@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Domain.Port;
+using TheLostSpirit.Domain.Port.EventBus;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Domain.Room
 {
@@ -9,6 +12,7 @@ namespace TheLostSpirit.Domain.Room
     {
         readonly Room      _room;
         readonly IRoomMono _roomMono;
+        readonly IEventBus _eventBus;
 
         public RoomID ID { get; }
 

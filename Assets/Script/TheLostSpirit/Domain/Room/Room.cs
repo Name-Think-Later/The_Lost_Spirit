@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Domain.Room
 {

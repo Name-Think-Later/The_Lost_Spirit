@@ -1,5 +1,7 @@
-﻿using TheLostSpirit.Identify;
+﻿using TheLostSpirit.Identity.EntityID;
 
-namespace TheLostSpirit.Domain.Portal {
-    public interface IPortalMono : IEntityMono<PortalID> { }
+namespace TheLostSpirit.Domain.Portal
+{
+    public interface IPortalMono : IEntityMono<PortalID>
+    { }
 }

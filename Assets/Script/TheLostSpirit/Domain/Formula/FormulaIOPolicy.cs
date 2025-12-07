@@ -1,6 +1,6 @@
 ﻿using System;
 using R3;
-using Script.TheLostSpirit.Domain.ViewModelPort;
+using TheLostSpirit.Domain.Port.FormulaIOPolicy;
 using TheLostSpirit.Domain.Skill.Core;
 
 namespace TheLostSpirit.Domain.Formula

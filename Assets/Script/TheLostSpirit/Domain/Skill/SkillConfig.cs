@@ -1,15 +1,23 @@
 ﻿using System;
+using Sirenix.OdinInspector;
+using TheLostSpirit.Identity.ConfigID;
 using UnityEngine;
 
 namespace TheLostSpirit.Domain.Skill
 {
     [Serializable]
-    public abstract class SkillConfig
+    public abstract class SkillConfig : IConfig<SkillConfigID>
     {
-        [SerializeField]
-        public int configID;
+        [SerializeField, HideLabel]
+        SkillConfigID _id;
 
         [SerializeField]
-        public string skillName;
+        public string name;
+
+        public SkillConfigID ID => _id;
+
+        protected SkillConfig(SkillConfigID id) {
+            _id = id;
+        }
     }
 }

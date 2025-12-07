@@ -1,18 +1,20 @@
 ﻿using R3;
-using Script.TheLostSpirit.Presentation.ViewModel.UseCasePort;
-using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure;
+using TheLostSpirit.Domain.Port.ReadOnly;
+using TheLostSpirit.Identity.EntityID;
+using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
 using UnityEngine;
 
-namespace Script.TheLostSpirit.Presentation.ViewModel.Portal {
-    public class PortalViewModel : IViewModel<PortalID> {
+namespace TheLostSpirit.Presentation.ViewModel.Portal
+{
+    public class PortalViewModel : IViewModel<PortalID>
+    {
         readonly ReactiveProperty<bool>    _inFocus;
         readonly ReactiveProperty<Vector2> _debugLineDestination;
 
         public PortalID ID { get; }
         public ReadOnlyReactiveProperty<bool> InFocus => _inFocus;
 
-        public ReadOnlyTransform DebugLineDestinationTarget { get; set; }
+        public IReadOnlyTransform DebugLineDestinationTarget { get; set; }
 
 
         public PortalViewModel(PortalID id) {
@@ -25,9 +27,10 @@ namespace Script.TheLostSpirit.Presentation.ViewModel.Portal {
         }
     }
 
-    public static class ViewModelOnlyIDExtension {
-        public static PortalViewModel TransformToViewModel(this IViewModelOnlyID<PortalID> viewModelOnlyID) {
-            return (PortalViewModel)viewModelOnlyID;
+    public static class ViewModelReferenceExtension
+    {
+        public static PortalViewModel AsViewModel(this IViewModelReference<PortalID> viewModelReference) {
+            return (PortalViewModel)viewModelReference;
         }
     }
 }

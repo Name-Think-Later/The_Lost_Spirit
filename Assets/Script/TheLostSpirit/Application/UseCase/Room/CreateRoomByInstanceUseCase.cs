@@ -1,9 +1,10 @@
 ﻿using MoreLinq;
-using Script.TheLostSpirit.Application.Port.InstanceContext;
+using TheLostSpirit.Application.Port.InstanceContext.InstanceContext;
 using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Portal;
 using TheLostSpirit.Application.ViewModelStore;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Application.UseCase.Room
 {
@@ -26,7 +27,7 @@ namespace TheLostSpirit.Application.UseCase.Room
 
         public Output Execute(Input input) {
             var roomEntity    = input.RoomInstanceContext.Entity;
-            var roomViewModel = input.RoomInstanceContext.ViewModelOnlyID;
+            var roomViewModel = input.RoomInstanceContext.ViewModelReference;
 
             _roomRepository.Save(roomEntity);
             _roomViewModelStore.Save(roomViewModel);

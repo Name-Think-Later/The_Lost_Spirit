@@ -1,9 +1,14 @@
-﻿using Script.TheLostSpirit.Application.Port.InstanceContext;
-using Script.TheLostSpirit.Presentation.View;
-using Script.TheLostSpirit.Presentation.ViewModel.Portal;
-using Script.TheLostSpirit.Presentation.ViewModel.UseCasePort;
+﻿using TheLostSpirit.Application.Port.InstanceContext.InstanceContext;
+using TheLostSpirit.Domain;
 using TheLostSpirit.Domain.Portal;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
+using TheLostSpirit.Infrastructure;
+using TheLostSpirit.Infrastructure.Domain;
+using TheLostSpirit.Infrastructure.Domain.EntityMono;
+using TheLostSpirit.Presentation.View;
+using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
+using TheLostSpirit.Presentation.ViewModel.Portal;
 using UnityEngine;
 
 namespace TheLostSpirit.Context.Portal
@@ -18,7 +23,7 @@ namespace TheLostSpirit.Context.Portal
 
 
         public PortalEntity Entity { get; private set; }
-        public IViewModelOnlyID<PortalID> ViewModelOnlyID { get; private set; }
+        public IViewModelReference<PortalID> ViewModelReference { get; private set; }
 
         public PortalInstanceContext Construct() {
             var portalID = PortalID.New();
@@ -27,7 +32,7 @@ namespace TheLostSpirit.Context.Portal
 
             var viewModel = new PortalViewModel(portalID);
 
-            ViewModelOnlyID = viewModel;
+            ViewModelReference = viewModel;
 
             _view.Bind(viewModel);
 

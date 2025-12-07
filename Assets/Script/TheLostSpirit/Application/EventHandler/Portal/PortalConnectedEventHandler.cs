@@ -1,10 +1,12 @@
-﻿using Script.TheLostSpirit.Presentation.ViewModel.Portal;
-using TheLostSpirit.Application.Repository;
+﻿using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.ViewModelStore;
 using TheLostSpirit.Domain.Portal.Event;
+using TheLostSpirit.Presentation.ViewModel.Portal;
 
-namespace TheLostSpirit.Application.EventHandler.Portal {
-    public class PortalConnectedEventHandler : DomainEventHandler<PortalConnectedEvent> {
+namespace TheLostSpirit.Application.EventHandler.Portal
+{
+    public class PortalConnectedEventHandler : DomainEventHandler<PortalConnectedEvent>
+    {
         readonly PortalRepository     _repository;
         readonly PortalViewModelStore _viewModelStore;
 
@@ -24,11 +26,11 @@ namespace TheLostSpirit.Application.EventHandler.Portal {
             var leftEntity  = _repository.GetByID(leftID);
             var rightEntity = _repository.GetByID(rightID);
 
-            var leftViewModel  = _viewModelStore.GetByID(leftID).TransformToViewModel();
-            var rightViewModel = _viewModelStore.GetByID(rightID).TransformToViewModel();
+            var leftViewModel  = _viewModelStore.GetByID(leftID).AsViewModel();
+            var rightViewModel = _viewModelStore.GetByID(rightID).AsViewModel();
 
-            leftViewModel.DebugLineDestinationTarget  = rightEntity.ReadOnlyTransform;
-            rightViewModel.DebugLineDestinationTarget = leftEntity.ReadOnlyTransform;
+            //leftViewModel.DebugLineDestinationTarget  = rightEntity.ReadOnlyTransform;
+            //rightViewModel.DebugLineDestinationTarget = leftEntity.ReadOnlyTransform;
         }
     }
 }

@@ -1,7 +1,10 @@
-﻿using TheLostSpirit.Identify;
+﻿using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 
-namespace TheLostSpirit.Domain {
-    public interface IEntity<out T> where T : IIdentity {
+namespace TheLostSpirit.Domain
+{
+    public interface IEntity<out T> where T : IRuntimeID
+    {
         T ID { get; }
     }
 }

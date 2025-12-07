@@ -1,5 +1,6 @@
 ﻿using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Application.UseCase.Formula
 {
@@ -18,6 +19,6 @@ namespace TheLostSpirit.Application.UseCase.Formula
             return Void.Default;
         }
 
-        public record struct Input(NodeID NodeID, SkillID SkillID) : IInput;
+        public record struct Input(NodeID NodeID, ISkillID SkillID) : IInput;
     }
 }

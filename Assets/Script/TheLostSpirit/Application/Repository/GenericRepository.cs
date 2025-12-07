@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TheLostSpirit.Domain;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Application.Repository
 {
     public abstract class GenericRepository<TId, TEntity> : IRepository<TId, TEntity>, IEnumerable<TEntity>
-        where TId : IIdentity where TEntity : IEntity<TId>
+        where TId : IRuntimeID
+        where TEntity : IEntity<TId>
     {
         protected readonly Dictionary<TId, TEntity> dictionary = new();
 
@@ -16,9 +18,18 @@ namespace TheLostSpirit.Application.Repository
 
         public TEntity GetByID(TId id) => dictionary[id];
 
+        public TEntity TakeByID(TId id) {
+            var item = GetByID(id);
+            Remove(id);
+
+            return item;
+        }
+
         public bool HasID(TId id) => dictionary.ContainsKey(id);
 
         public void Clear() => dictionary.Clear();
+
+        public bool IsEmpty => dictionary.Count == 0;
 
         public IEnumerator<TEntity> GetEnumerator() => dictionary.Values.GetEnumerator();
 

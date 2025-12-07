@@ -1,27 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
-using Extension.General;
-using MoreLinq;
 using TheLostSpirit.Domain.Formula.Node.Event;
-using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure;
-using TheLostSpirit.Infrastructure.EventDriven;
-using UnityEngine;
+using TheLostSpirit.Domain.Port;
+using TheLostSpirit.Domain.Port.EventBus;
+using TheLostSpirit.Extension.General;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Domain.Formula.Node
 {
     public class NodeEntity : IEntity<NodeID>
     {
-        readonly Node     _node;
-        readonly EventBus _eventBus;
+        readonly Node      _node;
+        readonly IEventBus _eventBus;
 
         public NodeID ID { get; }
 
-        public SkillID Skill {
+        public ISkillID Skill {
             get => _node.Skill;
             set => _node.Skill = value;
         }
@@ -60,13 +58,25 @@ namespace TheLostSpirit.Domain.Formula.Node
             _node.Neighbors[index] = null;
         }
 
-        public async UniTask MoveNext(TraversalPolicy traversalPolicy = TraversalPolicy.Sequential) {
+
+        public UniTask MoveNext(
+            FormulaPayload  payload,
+            TraversalPolicy traversalPolicy = TraversalPolicy.Sequential
+        ) {
+            var count = OutNeighbors.Count();
             var tasks =
                 OutNeighbors
-                    .Select(neighbor => _eventBus.PublishAwait(new VisitedNodeEvent(neighbor.ID)));
+                    .Select((neighbor, index) => {
+                        var clone = payload.Clone();
+                        clone.isLastChild = (count - 1) == index;
+
+                        var visitedNode = new AsyncVisitedNodeEvent(neighbor.ID, clone);
+
+                        return _eventBus.PublishAsync(visitedNode);
+                    });
 
 
-            var finalTask =
+            var moveNextEventAwait =
                 traversalPolicy switch {
                     TraversalPolicy.Sequential =>
                         tasks
@@ -77,7 +87,7 @@ namespace TheLostSpirit.Domain.Formula.Node
                     _                        => UniTask.CompletedTask
                 };
 
-            await finalTask;
+            return moveNextEventAwait;
         }
     }
 }

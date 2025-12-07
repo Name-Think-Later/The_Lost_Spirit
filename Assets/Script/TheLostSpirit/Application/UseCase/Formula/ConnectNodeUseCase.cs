@@ -1,7 +1,8 @@
 ﻿using MoreLinq;
 using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Domain.Formula.Node;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 using UnityEngine;
 
 namespace TheLostSpirit.Application.UseCase.Formula

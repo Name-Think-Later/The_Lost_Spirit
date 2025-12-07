@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Script.TheLostSpirit.Presentation.ViewModel.UseCasePort;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity.EntityID;
+using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
 
-namespace TheLostSpirit.Application.ViewModelStore {
-    public class FormulaViewModelStore : IViewModelStore<FormulaID>, IReadOnlyList<IViewModelOnlyID<FormulaID>> {
-        readonly List<IViewModelOnlyID<FormulaID>> _list = new();
+namespace TheLostSpirit.Application.ViewModelStore
+{
+    public class FormulaViewModelStore : IViewModelStore<FormulaID>, IReadOnlyList<IViewModelReference<FormulaID>>
+    {
+        readonly List<IViewModelReference<FormulaID>> _list = new();
 
-        public void Save(IViewModelOnlyID<FormulaID> viewModel) {
+        public void Save(IViewModelReference<FormulaID> viewModel) {
             _list.Add(viewModel);
         }
 
@@ -16,7 +18,7 @@ namespace TheLostSpirit.Application.ViewModelStore {
             _list.Remove(target);
         }
 
-        public IViewModelOnlyID<FormulaID> GetByID(FormulaID id) {
+        public IViewModelReference<FormulaID> GetByID(FormulaID id) {
             return _list.Find(viewModel => viewModel.ID == id);
         }
 
@@ -30,7 +32,7 @@ namespace TheLostSpirit.Application.ViewModelStore {
             _list.Clear();
         }
 
-        public IEnumerator<IViewModelOnlyID<FormulaID>> GetEnumerator() {
+        public IEnumerator<IViewModelReference<FormulaID>> GetEnumerator() {
             return _list.GetEnumerator();
         }
 
@@ -40,6 +42,6 @@ namespace TheLostSpirit.Application.ViewModelStore {
 
         public int Count => _list.Count;
 
-        public IViewModelOnlyID<FormulaID> this[int index] => _list[index];
+        public IViewModelReference<FormulaID> this[int index] => _list[index];
     }
 }

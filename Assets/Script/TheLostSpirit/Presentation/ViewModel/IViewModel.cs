@@ -1,6 +1,8 @@
-﻿using Script.TheLostSpirit.Presentation.ViewModel.UseCasePort;
-using TheLostSpirit.Identify;
+﻿using TheLostSpirit.Identity.EntityID;
+using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
 
-namespace Script.TheLostSpirit.Presentation.ViewModel {
-    public interface IViewModel<out T> : IViewModelOnlyID<T> where T : IIdentity { }
+namespace TheLostSpirit.Presentation.ViewModel
+{
+    public interface IViewModel<out T> : IViewModelReference<T> where T : IRuntimeID
+    { }
 }

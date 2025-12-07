@@ -1,10 +1,10 @@
 ﻿using System.Linq;
-using Extension.Linq;
 using MoreLinq;
 using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Room;
 using TheLostSpirit.Domain;
 using TheLostSpirit.Domain.Util;
+using TheLostSpirit.Extension.Linq;
 
 namespace TheLostSpirit.Application.UseCase.Map
 {

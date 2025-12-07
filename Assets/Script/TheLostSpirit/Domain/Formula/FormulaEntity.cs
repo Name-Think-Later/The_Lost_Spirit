@@ -2,16 +2,17 @@
 using System.Diagnostics.Contracts;
 using TheLostSpirit.Domain.Formula.Event;
 using TheLostSpirit.Domain.Formula.Node.Event;
-using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure;
-using TheLostSpirit.Infrastructure.EventDriven;
+using TheLostSpirit.Domain.Port;
+using TheLostSpirit.Domain.Port.EventBus;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Domain.Formula
 {
     public class FormulaEntity : IEntity<FormulaID>
     {
-        readonly Formula  _formula;
-        readonly EventBus _eventBus;
+        readonly Formula   _formula;
+        readonly IEventBus _eventBus;
         public FormulaID ID { get; }
 
         public IEnumerable<NodeID> Nodes => _formula.Nodes;
@@ -25,14 +26,13 @@ namespace TheLostSpirit.Domain.Formula
             _eventBus = AppScope.EventBus;
         }
 
-        public void AddNode(NodeID node) {
+        public void AddNode(NodeID node, ISkillID skill) {
             Contract.Assert(!_formula.Nodes.Contains(node), $"Node: {node} already in formula: {ID}");
 
             _formula.Nodes.Add(node);
-        }
 
-        public void AddCoreNode(NodeID node, CoreID coreID) {
-            AddNode(node);
+            if (skill is not CoreID coreID) return;
+
             _formula.CoreNode = node;
 
             var formulaAddedCoreNode = new FormulaAddedCoreNodeEvent(ID, coreID);
@@ -48,7 +48,7 @@ namespace TheLostSpirit.Domain.Formula
         }
 
         public void Traverse() {
-            _eventBus.Publish(new VisitedNodeEvent(CoreNode));
+            _eventBus.Publish(new AsyncVisitedNodeEvent(CoreNode));
         }
     }
 }

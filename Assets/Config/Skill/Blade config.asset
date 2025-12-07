@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 055e0f8c56f1497479fb1d5df99afe20, type: 3}
+  m_Name: Blade config
+  m_EditorClassIdentifier: 
+  _manifestConfig:
+    _id:
+      _value: 002
+    name: Blade
+  _manifestationConfig: {fileID: 6733824783485205652, guid: fc05a980edac76645a79dfd47a269696, type: 3}

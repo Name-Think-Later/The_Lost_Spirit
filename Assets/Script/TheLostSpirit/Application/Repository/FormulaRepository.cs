@@ -1,5 +1,6 @@
 ﻿using TheLostSpirit.Domain.Formula;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Application.Repository
 {

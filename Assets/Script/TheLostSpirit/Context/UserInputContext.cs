@@ -1,4 +1,4 @@
-﻿using Script.TheLostSpirit.Presentation.View.Input;
+﻿using TheLostSpirit.Presentation.View.Input;
 using UnityEngine;
 
 namespace TheLostSpirit.Context

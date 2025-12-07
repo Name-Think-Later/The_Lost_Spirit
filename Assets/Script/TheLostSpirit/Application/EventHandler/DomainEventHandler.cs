@@ -1,9 +1,11 @@
 ﻿using R3;
-using TheLostSpirit.Infrastructure;
-using TheLostSpirit.Infrastructure.EventDriven;
+using TheLostSpirit.Domain;
+using TheLostSpirit.Domain.Port.EventBus;
 
-namespace TheLostSpirit.Application.EventHandler {
-    public abstract class DomainEventHandler<TEvent> where TEvent : IDomainEvent {
+namespace TheLostSpirit.Application.EventHandler
+{
+    public abstract class DomainEventHandler<TEvent> where TEvent : IDomainEvent
+    {
         protected DomainEventHandler() {
             AppScope
                 .EventBus

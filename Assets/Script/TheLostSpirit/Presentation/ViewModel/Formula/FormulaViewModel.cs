@@ -1,12 +1,11 @@
-﻿using System;
-using R3;
-using Script.TheLostSpirit.Domain.ViewModelPort;
-using Script.TheLostSpirit.Presentation.ViewModel.UseCasePort;
+﻿using R3;
 using TheLostSpirit.Application.UseCase.Formula;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Domain.Port.FormulaIOPolicy;
+using TheLostSpirit.Identity.EntityID;
+using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
 using UnityEngine;
 
-namespace Script.TheLostSpirit.Presentation.ViewModel.Formula
+namespace TheLostSpirit.Presentation.ViewModel.Formula
 {
     public class FormulaViewModel : IViewModel<FormulaID>
     {
@@ -23,7 +22,7 @@ namespace Script.TheLostSpirit.Presentation.ViewModel.Formula
 
 
         public FormulaViewModel(
-            FormulaID           id,
+            FormulaID              id,
             TraverseFormulaUseCase traverseFormulaUseCase
         ) {
             ID = id;
@@ -50,10 +49,10 @@ namespace Script.TheLostSpirit.Presentation.ViewModel.Formula
         }
     }
 
-    public static class ViewModelOnlyIDExtension
+    public static partial class ViewModelReferenceExtension
     {
-        public static FormulaViewModel TransformToViewModel(this IViewModelOnlyID<FormulaID> viewModelOnlyID) {
-            return (FormulaViewModel)viewModelOnlyID;
+        public static FormulaViewModel AsViewModel(this IViewModelReference<FormulaID> viewModelReference) {
+            return (FormulaViewModel)viewModelReference;
         }
     }
 }

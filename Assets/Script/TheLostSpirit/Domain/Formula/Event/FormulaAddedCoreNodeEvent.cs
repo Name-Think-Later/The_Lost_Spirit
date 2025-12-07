@@ -1,5 +1,7 @@
-﻿using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure.EventDriven;
+﻿using TheLostSpirit.Domain.Port;
+using TheLostSpirit.Domain.Port.EventBus;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Domain.Formula.Event
 {

@@ -29,7 +29,7 @@ namespace TheLostSpirit.Context.Room
                 = new CreateRoomByInstanceUseCase(
                     RoomRepository,
                     RoomViewModelStore,
-                    portalContext.CreatePortalByInstanceUseCase
+                    portalContext.CreateByInstanceUseCase
                 );
 
 
@@ -42,7 +42,7 @@ namespace TheLostSpirit.Context.Room
             ConnectRoomUseCase =
                 new ConnectRoomUseCase(
                     RoomRepository,
-                    portalContext.ConnectPortalUseCase
+                    portalContext.ConnectUseCase
                 );
 
             return this;

@@ -1,26 +1,28 @@
-﻿using Script.TheLostSpirit.Application.Port.InstanceContext;
-using Script.TheLostSpirit.Presentation.ViewModel.Player;
-using Script.TheLostSpirit.Presentation.ViewModel.UseCasePort;
-using Sirenix.OdinInspector;
-using TheLostSpirit.Context.Playground;
+﻿using Sirenix.OdinInspector;
+using TheLostSpirit.Application.Port.InstanceContext.InstanceContext;
+using TheLostSpirit.Domain;
 using TheLostSpirit.Domain.Player;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity.EntityID;
+using TheLostSpirit.Infrastructure.Domain.ConfigWrapper;
+using TheLostSpirit.Infrastructure.Domain.EntityMono;
+using TheLostSpirit.Presentation.ViewModel.Player;
+using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
 using UnityEngine;
 
 namespace TheLostSpirit.Context.Player
 {
     public class PlayerInstanceContext
         : MonoBehaviour,
-          IInstanceContext<PlayerID, PlayerEntity, IViewModelOnlyID<PlayerID>>
+          IInstanceContext<PlayerID, PlayerEntity, IViewModelReference<PlayerID>>
     {
-        [SerializeField]
-        PlayerConfig _playerConfig;
+        [SerializeField, InlineEditor]
+        PlayerConfigWrapper _playerConfigWrapper;
 
         [SerializeField, ChildGameObjectsOnly]
         PlayerMono _mono;
 
         public PlayerEntity Entity { get; private set; }
-        public IViewModelOnlyID<PlayerID> ViewModelOnlyID { get; private set; }
+        public IViewModelReference<PlayerID> ViewModelReference { get; private set; }
 
 
         public PlayerInstanceContext Construct(
@@ -29,7 +31,7 @@ namespace TheLostSpirit.Context.Player
         ) {
             var playerID = PlayerID.New();
 
-            Entity = PlayerEntity.Construct(playerID, _playerConfig, _mono);
+            Entity = PlayerEntity.Construct(playerID, _playerConfigWrapper.Inner, _mono, AppScope.EventBus);
 
             var viewModel =
                 PlayerViewModel.Construct(
@@ -39,7 +41,7 @@ namespace TheLostSpirit.Context.Player
                     playerContext.PlayerReleaseJumpUseCase,
                     playerContext.PlayerInteractUseCase
                 );
-            ViewModelOnlyID = viewModel;
+            ViewModelReference = viewModel;
 
             userInputContext.GeneralInputView.Bind(viewModel);
 

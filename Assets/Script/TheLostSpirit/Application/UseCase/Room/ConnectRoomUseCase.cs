@@ -1,6 +1,7 @@
 ﻿using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Portal;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Application.UseCase.Room
 {

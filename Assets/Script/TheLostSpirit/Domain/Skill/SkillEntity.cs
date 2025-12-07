@@ -1,15 +1,22 @@
-﻿using TheLostSpirit.Identify;
+﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using TheLostSpirit.Domain.Formula;
+using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Domain.Skill
 {
-    public abstract class SkillEntity : IEntity<SkillID>
+    public abstract class SkillEntity : IEntity<ISkillID>
     {
-        public SkillID ID { get; }
+        public ISkillID ID { get; }
 
-        protected SkillEntity(SkillID id) {
+        protected Dictionary<PayloadSeq, FormulaPayload> payloadCache;
+
+        protected SkillEntity(ISkillID id) {
             ID = id;
+
+            payloadCache = new Dictionary<PayloadSeq, FormulaPayload>();
         }
 
-        public abstract void Activate();
+        public abstract UniTask Activate(FormulaPayload payload);
     }
 }

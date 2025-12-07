@@ -1,7 +1,9 @@
 ﻿using TheLostSpirit.Domain.Player;
 
-namespace TheLostSpirit.Application.UseCase.Input {
-    public class PlayerDoJumpUseCase : IUseCase<Void, Void> {
+namespace TheLostSpirit.Application.UseCase.Player
+{
+    public class PlayerDoJumpUseCase : IUseCase<Void, Void>
+    {
         public Void Execute(Void input) {
             PlayerEntity.Get().DoJump();
 

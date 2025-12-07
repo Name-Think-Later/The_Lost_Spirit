@@ -1,12 +1,15 @@
-﻿using Script.TheLostSpirit.Presentation.ViewModel.UseCasePort;
-using TheLostSpirit.Identify;
+﻿using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
+using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
 
-namespace TheLostSpirit.Application.ViewModelStore {
+namespace TheLostSpirit.Application.ViewModelStore
+{
     public interface IViewModelStore<TId>
-        where TId : IIdentity {
-        void Save(IViewModelOnlyID<TId> viewModelOnlyID);
+        where TId : IRuntimeID
+    {
+        void Save(IViewModelReference<TId> viewModelReference);
 
-        IViewModelOnlyID<TId> GetByID(TId id);
+        IViewModelReference<TId> GetByID(TId id);
 
         void Remove(TId id);
 

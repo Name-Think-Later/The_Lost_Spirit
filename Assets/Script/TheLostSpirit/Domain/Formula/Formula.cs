@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Domain.Formula
 {

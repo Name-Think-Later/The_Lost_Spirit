@@ -1,10 +1,15 @@
 ﻿using System.Diagnostics.Contracts;
-using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure;
+using TheLostSpirit.Domain.Port;
+using TheLostSpirit.Domain.Port.EventBus;
+using TheLostSpirit.Domain.Port.ReadOnly;
+using TheLostSpirit.Extension.Unity;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
+using UnityEngine;
 
 namespace TheLostSpirit.Domain.Player
 {
-    public class PlayerEntity : IEntity<PlayerID>, ITransformProvider
+    public class PlayerEntity : IEntity<PlayerID>
     {
         #region Static member
 
@@ -13,7 +18,8 @@ namespace TheLostSpirit.Domain.Player
         public static PlayerEntity Construct(
             PlayerID     id,
             PlayerConfig config,
-            IPlayerMono  mono
+            IPlayerMono  mono,
+            IEventBus    eventBus
         ) {
             _instance = new PlayerEntity(id, config, mono);
 
@@ -31,14 +37,11 @@ namespace TheLostSpirit.Domain.Player
 
         readonly Player      _player;
         readonly IPlayerMono _playerMono;
+        readonly IEventBus   _eventBus;
+
         public PlayerID ID { get; }
 
-        public IInteractableID InteractableTarget {
-            get => _player.InteractableTarget;
-            set => _player.InteractableTarget = value;
-        }
-
-        public ReadOnlyTransform ReadOnlyTransform { get; private set; }
+        public IReadOnlyTransform ReadOnlyTransform => _playerMono.ReadOnlyTransform;
 
         PlayerEntity(
             PlayerID     id,
@@ -50,8 +53,6 @@ namespace TheLostSpirit.Domain.Player
 
             _playerMono = mono;
             mono.Initialize(ID);
-
-            ReadOnlyTransform = new ReadOnlyTransform(_playerMono.Transform);
         }
 
 
@@ -72,8 +73,12 @@ namespace TheLostSpirit.Domain.Player
             _playerMono.RestoreGravityScale();
         }
 
-        public void SetPosition(ITransformProvider transformProvider) {
-            _playerMono.Transform.position = transformProvider.ReadOnlyTransform.Position;
+        public void Interact() {
+            _playerMono.Interact();
+        }
+
+        public void SetPosition(Vector2 position) {
+            _playerMono.SetPosition(position);
         }
     }
 }

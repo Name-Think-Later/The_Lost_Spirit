@@ -1,0 +1,14 @@
+﻿using System;
+
+namespace TheLostSpirit.Identity.EntityID
+{
+    public abstract record RuntimeID<TRuntimeID> : IRuntimeID
+        where TRuntimeID : RuntimeID<TRuntimeID>, new()
+    {
+        public Guid Value { get; private set; }
+
+        public static TRuntimeID New() => new TRuntimeID { Value = Guid.NewGuid() };
+
+        public static TRuntimeID Empty => new TRuntimeID { Value = Guid.Empty };
+    }
+}

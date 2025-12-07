@@ -1,18 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Script.TheLostSpirit.Presentation.ViewModel.UseCasePort;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity.EntityID;
+using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
 
 namespace TheLostSpirit.Application.ViewModelStore
 {
     public abstract class GenericViewModelStore<TId>
-        : IViewModelStore<TId>, IEnumerable<IViewModelOnlyID<TId>> where TId : IIdentity
+        : IViewModelStore<TId>, IEnumerable<IViewModelReference<TId>> where TId : IRuntimeID
     {
-        protected readonly Dictionary<TId, IViewModelOnlyID<TId>> dictionary = new();
+        protected readonly Dictionary<TId, IViewModelReference<TId>> dictionary = new();
 
-        public void Save(IViewModelOnlyID<TId> viewModelOnlyID) => dictionary[viewModelOnlyID.ID] = viewModelOnlyID;
+        public void Save(IViewModelReference<TId> viewModelReference) =>
+            dictionary[viewModelReference.ID] = viewModelReference;
 
-        public IViewModelOnlyID<TId> GetByID(TId id) => dictionary[id];
+        public IViewModelReference<TId> GetByID(TId id) => dictionary[id];
 
         public void Remove(TId id) => dictionary.Remove(id);
 
@@ -20,7 +21,7 @@ namespace TheLostSpirit.Application.ViewModelStore
 
         public void Clear() => dictionary.Clear();
 
-        public IEnumerator<IViewModelOnlyID<TId>> GetEnumerator() => dictionary.Values.GetEnumerator();
+        public IEnumerator<IViewModelReference<TId>> GetEnumerator() => dictionary.Values.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }

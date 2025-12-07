@@ -1,7 +1,9 @@
 ﻿using TheLostSpirit.Domain.Player;
 
-namespace TheLostSpirit.Application.UseCase.Input {
-    public class PlayerMoveUseCase : IUseCase<Void, PlayerMoveUseCase.Input> {
+namespace TheLostSpirit.Application.UseCase.Player
+{
+    public class PlayerMoveUseCase : IUseCase<Void, PlayerMoveUseCase.Input>
+    {
         public Void Execute(Input input) {
             var axis = input.Axis;
             PlayerEntity.Get().MoveByAxis(axis);

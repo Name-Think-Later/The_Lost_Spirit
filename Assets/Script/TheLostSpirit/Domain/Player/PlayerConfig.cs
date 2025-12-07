@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
 
-namespace TheLostSpirit.Domain.Player {
-    [CreateAssetMenu(fileName = "PlayerConfig", menuName = "The Lost Spirits/PlayerConfig")]
-    public class PlayerConfig : ScriptableObject {
+namespace TheLostSpirit.Domain.Player
+{
+    [Serializable]
+    public class PlayerConfig
+    {
         public float baseSpeed = 10;
 
         public float baseJumpForce       = 10;

@@ -1,13 +1,14 @@
 ﻿using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 
-namespace TheLostSpirit.Application.UseCase.Portal {
-    public class ConnectPortalUseCase : IUseCase<Void, ConnectPortalUseCase.Input> {
+namespace TheLostSpirit.Application.UseCase.Portal
+{
+    public class ConnectPortalUseCase : IUseCase<Void, ConnectPortalUseCase.Input>
+    {
         readonly PortalRepository _portalRepository;
 
-        public ConnectPortalUseCase(
-            PortalRepository portalRepository
-        ) {
+        public ConnectPortalUseCase(PortalRepository portalRepository) {
             _portalRepository = portalRepository;
         }
 

@@ -1,10 +1,10 @@
 ﻿using System;
 using R3;
 using ReactiveInputSystem;
-using Script.TheLostSpirit.Presentation.ViewModel.Player;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity.EntityID;
+using TheLostSpirit.Presentation.ViewModel.Player;
 
-namespace Script.TheLostSpirit.Presentation.View.Input
+namespace TheLostSpirit.Presentation.View.Input
 {
     public class GeneralInputView : IView<PlayerID, PlayerViewModel>, IDisposable
     {

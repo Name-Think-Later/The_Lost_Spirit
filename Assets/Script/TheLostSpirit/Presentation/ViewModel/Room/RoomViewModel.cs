@@ -1,19 +1,21 @@
-﻿using Script.TheLostSpirit.Presentation.ViewModel.UseCasePort;
-using TheLostSpirit.Identify;
+﻿using TheLostSpirit.Identity.EntityID;
+using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
 
-namespace Script.TheLostSpirit.Presentation.ViewModel.Room {
-    public class RoomViewModel : IViewModel<RoomID> {
+namespace TheLostSpirit.Presentation.ViewModel.Room
+{
+    public class RoomViewModel : IViewModel<RoomID>
+    {
         public RoomViewModel(RoomID id) {
             ID = id;
         }
 
         public RoomID ID { get; }
-
     }
 
-    public static class ViewModelOnlyIDExtension {
-        public static RoomViewModel TransformToViewModel(this IViewModelOnlyID<RoomID> viewModelOnlyID) {
-            return (RoomViewModel)viewModelOnlyID;
+    public static class ViewModelReferenceExtension
+    {
+        public static RoomViewModel AsViewModel(this IViewModelReference<RoomID> viewModelReference) {
+            return (RoomViewModel)viewModelReference;
         }
     }
 }

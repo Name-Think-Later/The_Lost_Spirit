@@ -1,5 +1,6 @@
 ﻿using TheLostSpirit.Domain.Room;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Application.Repository
 {

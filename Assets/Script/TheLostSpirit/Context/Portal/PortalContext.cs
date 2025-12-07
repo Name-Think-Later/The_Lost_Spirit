@@ -17,22 +17,20 @@ namespace TheLostSpirit.Context.Portal
         public PortalViewModelStore PortalViewModelStore { get; private set; }
 
 
-        public CreatePortalByInstanceUseCase CreatePortalByInstanceUseCase { get; private set; }
-        public ConnectPortalUseCase ConnectPortalUseCase { get; private set; }
+        public CreatePortalByInstanceUseCase CreateByInstanceUseCase { get; private set; }
+        public ConnectPortalUseCase ConnectUseCase { get; private set; }
 
         public PortalContext Construct(PlayerContext playerContext) {
             PortalRepository     = new PortalRepository();
             PortalViewModelStore = new PortalViewModelStore();
 
-            _ = new PortalTriggerEnteredEventHandler(PortalRepository, playerContext.InteractableRepository);
-            _ = new PortalTriggerExitedEventHandler(playerContext.InteractableRepository);
-            _ = new PortalInFocusedEventHandler(PortalViewModelStore);
-            _ = new PortalOutOfFocusedEventHandler(PortalViewModelStore);
+            _ = new PortalDetectedEventHandler(PortalViewModelStore);
+            _ = new PortalUndetectedEventHandler(PortalViewModelStore);
             _ = new PortalInteractedEventHandler(PortalRepository);
             _ = new PortalConnectedEventHandler(PortalRepository, PortalViewModelStore);
 
-            CreatePortalByInstanceUseCase = new CreatePortalByInstanceUseCase(PortalRepository, PortalViewModelStore);
-            ConnectPortalUseCase          = new ConnectPortalUseCase(PortalRepository);
+            CreateByInstanceUseCase = new CreatePortalByInstanceUseCase(PortalRepository, PortalViewModelStore);
+            ConnectUseCase          = new ConnectPortalUseCase(PortalRepository);
 
             return this;
         }

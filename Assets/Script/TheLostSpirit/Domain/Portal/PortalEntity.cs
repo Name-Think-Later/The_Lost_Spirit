@@ -1,29 +1,26 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
 using TheLostSpirit.Domain.Interactable;
+using TheLostSpirit.Domain.Port.EventBus;
+using TheLostSpirit.Domain.Port.ReadOnly;
 using TheLostSpirit.Domain.Portal.Event;
-using TheLostSpirit.Identify;
-using TheLostSpirit.Infrastructure;
-using TheLostSpirit.Infrastructure.EventDriven;
-using UnityEngine;
+using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Domain.Portal
 {
-    public class PortalEntity : IEntity<PortalID>, IInteractable, IDisposable
+    public class PortalEntity : IEntity<PortalID>, IDisposable
     {
         readonly Portal      _portal;
         readonly IPortalMono _portalMono;
-        readonly EventBus    _eventBus;
+        readonly IEventBus   _eventBus;
+
         public PortalID ID { get; }
-        IInteractableID IEntity<IInteractableID>.ID => ID;
 
+        public PortalID AssociatedPortal => _portal.AssociatedPortal;
         public bool CanInteract => HasAssociated && _portal.IsEnable;
+        public bool HasAssociated => _portal.AssociatedPortal != null;
 
-        public bool HasAssociated => _portal.AssociatedPortal.HasValue;
-
-        public ReadOnlyTransform ReadOnlyTransform { get; private set; }
-
-        public Vector2 Position => _portalMono.Transform.position;
+        public IReadOnlyTransform ReadOnlyTransform => _portalMono.ReadOnlyTransform;
 
 
         public PortalEntity(PortalID id, IPortalMono mono) {
@@ -35,10 +32,7 @@ namespace TheLostSpirit.Domain.Portal
 
             _portalMono = mono;
             _portalMono.Initialize(ID);
-
-            ReadOnlyTransform = new ReadOnlyTransform(_portalMono.Transform);
         }
-
 
         public void Associate(PortalID other) {
             _portal.AssociatedPortal = other;
@@ -47,21 +41,10 @@ namespace TheLostSpirit.Domain.Portal
             _eventBus.Publish(portalConnected);
         }
 
-        public void InFocus() {
-            var inFocused = new PortalInFocusedEvent(ID);
-            _eventBus.Publish(inFocused);
-        }
-
-        public void OutOfFocus() {
-            var outOfFocused = new PortalOutOfFocusedEvent(ID);
-
-            _eventBus.Publish(outOfFocused);
-        }
-
         public void Interact() {
-            Contract.Assert(_portal.AssociatedPortal.HasValue, "Can't interacted without associated portal");
+            Contract.Assert(HasAssociated, "Can't interacted without associated portal");
 
-            var destination      = _portal.AssociatedPortal.Value;
+            var destination      = _portal.AssociatedPortal;
             var portalInteracted = new PortalInteractedEvent(destination);
 
             _eventBus.Publish(portalInteracted);

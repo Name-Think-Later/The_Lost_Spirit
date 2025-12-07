@@ -1,7 +1,8 @@
-﻿using Script.TheLostSpirit.Application.Port.InstanceContext;
+﻿using TheLostSpirit.Application.Port.InstanceContext.InstanceContext;
 using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.ViewModelStore;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Application.UseCase.Portal
 {
@@ -21,7 +22,7 @@ namespace TheLostSpirit.Application.UseCase.Portal
 
         public Output Execute(Input input) {
             var portalEntity    = input.PortalInstanceContext.Entity;
-            var portalViewModel = input.PortalInstanceContext.ViewModelOnlyID;
+            var portalViewModel = input.PortalInstanceContext.ViewModelReference;
 
             _portalRepository.Save(portalEntity);
             _portalViewModelStore.Save(portalViewModel);

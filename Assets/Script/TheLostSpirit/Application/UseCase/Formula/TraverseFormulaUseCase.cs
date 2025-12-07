@@ -2,7 +2,8 @@
 using Cysharp.Threading.Tasks.Linq;
 using MoreLinq;
 using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 using UnityEngine;
 
 namespace TheLostSpirit.Application.UseCase.Formula
@@ -11,9 +12,7 @@ namespace TheLostSpirit.Application.UseCase.Formula
     {
         readonly FormulaRepository _formulaRepository;
 
-        public TraverseFormulaUseCase(
-            FormulaRepository formulaRepository
-        ) {
+        public TraverseFormulaUseCase(FormulaRepository formulaRepository) {
             _formulaRepository = formulaRepository;
         }
 

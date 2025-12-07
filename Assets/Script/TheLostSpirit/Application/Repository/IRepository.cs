@@ -1,9 +1,12 @@
 ﻿using TheLostSpirit.Domain;
-using TheLostSpirit.Identify;
+using TheLostSpirit.Identity;
+using TheLostSpirit.Identity.EntityID;
 
-namespace TheLostSpirit.Application.Repository {
+namespace TheLostSpirit.Application.Repository
+{
     public interface IRepository<in T, U>
-        where U : IEntity<T> where T : IIdentity {
+        where U : IEntity<T> where T : IRuntimeID
+    {
         void Save(U entity);
 
         void Remove(T id);

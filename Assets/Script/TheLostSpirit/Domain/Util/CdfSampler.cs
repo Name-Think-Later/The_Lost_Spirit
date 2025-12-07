@@ -5,12 +5,14 @@ using MoreLinq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace TheLostSpirit.Domain.Util {
+namespace TheLostSpirit.Domain.Util
+{
     /// <summary>
     /// 機率分布函數採樣， 在此預設各分部變化量為1/(n^2)
     /// </summary>
     /// <a href = "https://reurl.cc/9n9eQa" />
-    public class CdfSampler {
+    public class CdfSampler
+    {
         readonly double[] _cdf;
 
         /// <param name="x">分布數量</param>
