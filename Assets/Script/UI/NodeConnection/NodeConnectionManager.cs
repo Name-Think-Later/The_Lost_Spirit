@@ -88,9 +88,44 @@ public class NodeConnectionManager : MonoBehaviour
     /// </summary>
     private GameObject CreateSimpleConnectionLine(NodeConnection connection)
     {
-        // 尋找Canvas作為父物件
-        Canvas canvas = FindObjectOfType<Canvas>();
-        Transform parentTransform = canvas != null ? canvas.transform : transform;
+        Transform parentTransform = null;
+        
+        // 找到連接點所屬的 NodeContainer
+        if (connection.OutputPoint?.ParentNode != null)
+        {
+            // 向上查找到 NodeContainer
+            Transform nodeTransform = connection.OutputPoint.ParentNode.transform;
+            while (nodeTransform != null)
+            {
+                // 檢查是否是 NodeContainer (通常命名包含 "NodeContainer" 或有特定組件)
+                if (nodeTransform.name.Contains("NodeContainer") || 
+                    nodeTransform.GetComponent<RectTransform>() != null && 
+                    nodeTransform.parent != null && 
+                    nodeTransform.parent.name.Contains("page"))
+                {
+                    parentTransform = nodeTransform;
+                    break;
+                }
+                nodeTransform = nodeTransform.parent;
+            }
+        }
+        
+        // 如果找不到 NodeContainer，回退到原來的邏輯
+        if (parentTransform == null)
+        {
+            // 嘗試找到 "main" 物件
+            GameObject mainObject = GameObject.Find("main");
+            if (mainObject != null)
+            {
+                parentTransform = mainObject.transform;
+            }
+            else
+            {
+                // 如果找不到 main，則使用 Canvas
+                Canvas canvas = FindObjectOfType<Canvas>();
+                parentTransform = canvas != null ? canvas.transform : transform;
+            }
+        }
         
         GameObject lineObject = new GameObject($"SimpleConnection_{connection.ConnectionId}");
         lineObject.transform.SetParent(parentTransform, false);

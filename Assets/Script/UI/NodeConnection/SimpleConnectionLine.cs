@@ -76,30 +76,31 @@ public class SimpleConnectionLine : MonoBehaviour, IPointerClickHandler
         Vector3 startWorldPos = StartPoint.GetWorldPosition();
         Vector3 endWorldPos = EndPoint.GetWorldPosition();
         
-        // 轉換為Canvas本地坐標
+        // 轉換為父物件的本地坐標
+        RectTransform parentRT = rectTransform.parent as RectTransform;
         Canvas canvas = GetComponentInParent<Canvas>();
-        if (canvas != null)
+        
+        if (parentRT != null && canvas != null)
         {
-            RectTransform canvasRT = canvas.transform as RectTransform;
             Vector2 startLocal, endLocal;
             
             if (canvas.renderMode == RenderMode.WorldSpace)
             {
-                // World Space Canvas：直接轉換世界坐標到本地坐標
-                startLocal = canvasRT.InverseTransformPoint(startWorldPos);
-                endLocal = canvasRT.InverseTransformPoint(endWorldPos);
+                // World Space Canvas：直接轉換世界坐標到父物件本地坐標
+                startLocal = parentRT.InverseTransformPoint(startWorldPos);
+                endLocal = parentRT.InverseTransformPoint(endWorldPos);
             }
             else
             {
-                // Screen Space Canvas：使用 RectTransformUtility
+                // Screen Space Canvas：先轉換為螢幕座標，再轉換為父物件本地坐標
                 Camera cam = canvas.renderMode == RenderMode.ScreenSpaceCamera ? canvas.worldCamera : null;
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                    canvasRT, 
+                    parentRT, 
                     RectTransformUtility.WorldToScreenPoint(cam, startWorldPos), 
                     cam, 
                     out startLocal);
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                    canvasRT, 
+                    parentRT, 
                     RectTransformUtility.WorldToScreenPoint(cam, endWorldPos), 
                     cam, 
                     out endLocal);
@@ -152,29 +153,31 @@ public class SimpleConnectionLine : MonoBehaviour, IPointerClickHandler
     {
         if (rectTransform == null) return;
         
+        // 轉換為父物件的本地坐標
+        RectTransform parentRT = rectTransform.parent as RectTransform;
         Canvas canvas = GetComponentInParent<Canvas>();
-        if (canvas != null)
+        
+        if (parentRT != null && canvas != null)
         {
-            RectTransform canvasRT = canvas.transform as RectTransform;
             Vector2 startLocal, endLocal;
             
             if (canvas.renderMode == RenderMode.WorldSpace)
             {
-                // World Space Canvas：直接轉換世界坐標到本地坐標
-                startLocal = canvasRT.InverseTransformPoint(manualStartPos);
-                endLocal = canvasRT.InverseTransformPoint(manualEndPos);
+                // World Space Canvas：直接轉換世界坐標到父物件本地坐標
+                startLocal = parentRT.InverseTransformPoint(manualStartPos);
+                endLocal = parentRT.InverseTransformPoint(manualEndPos);
             }
             else
             {
-                // Screen Space Canvas：使用 RectTransformUtility
+                // Screen Space Canvas：先轉換為螢幕座標，再轉換為父物件本地坐標
                 Camera cam = canvas.renderMode == RenderMode.ScreenSpaceCamera ? canvas.worldCamera : null;
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                    canvasRT, 
+                    parentRT, 
                     RectTransformUtility.WorldToScreenPoint(cam, manualStartPos), 
                     cam, 
                     out startLocal);
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                    canvasRT, 
+                    parentRT, 
                     RectTransformUtility.WorldToScreenPoint(cam, manualEndPos), 
                     cam, 
                     out endLocal);

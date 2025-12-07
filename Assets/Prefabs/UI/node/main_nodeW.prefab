@@ -96,10 +96,11 @@ MonoBehaviour:
   outputPoints:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   nodeRectTransform: {fileID: 0}
   nodeColor: {r: 1, g: 1, b: 1, a: 1}
-  branchCount: 4
-  useSymmetricalLayout: 1
+  branchCount: 3
+  useSymmetricalLayout: 0
 --- !u!114 &5727794107000369840
 MonoBehaviour:
   m_ObjectHideFlags: 0
