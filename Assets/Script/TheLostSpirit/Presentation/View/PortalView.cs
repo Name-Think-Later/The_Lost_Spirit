@@ -13,8 +13,8 @@ namespace TheLostSpirit.Presentation.View
 
         IDisposable _disposable;
 
-        public void Bind(PortalViewModel playerViewModel) {
-            var inFocus = playerViewModel.InFocus;
+        public void Bind(PortalViewModel viewModel) {
+            var inFocus = viewModel.InFocus;
 
             var disposableBuilder = new DisposableBuilder();
             {
@@ -31,8 +31,11 @@ namespace TheLostSpirit.Presentation.View
                 Observable
                     .EveryUpdate()
                     .Subscribe(_ => {
-                        if (playerViewModel.DebugLineDestinationTarget == null) return;
-                        Debug.DrawLine(transform.position, playerViewModel.DebugLineDestinationTarget.Position);
+                        if (viewModel.DebugLineDestinationTarget == null) {
+                            return;
+                        }
+
+                        Debug.DrawLine(transform.position, viewModel.DebugLineDestinationTarget.Position);
                     })
                     .AddTo(ref disposableBuilder);
             }
@@ -41,6 +44,8 @@ namespace TheLostSpirit.Presentation.View
             _disposable.AddTo(this);
         }
 
-        public void Unbind() => _disposable.Dispose();
+        public void Unbind() {
+            _disposable.Dispose();
+        }
     }
 }

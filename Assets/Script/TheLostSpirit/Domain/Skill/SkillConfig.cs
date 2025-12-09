@@ -14,10 +14,10 @@ namespace TheLostSpirit.Domain.Skill
         [SerializeField]
         public string name;
 
-        public SkillConfigID ID => _id;
-
         protected SkillConfig(SkillConfigID id) {
             _id = id;
         }
+
+        public SkillConfigID ID => _id;
     }
 }

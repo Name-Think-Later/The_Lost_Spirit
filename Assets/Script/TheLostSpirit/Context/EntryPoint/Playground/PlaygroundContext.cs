@@ -1,4 +1,6 @@
 using System.Linq;
+using TheLostSpirit.Application.UseCase.Formula;
+using TheLostSpirit.Application.UseCase.Portal;
 using TheLostSpirit.Context.Formula;
 using TheLostSpirit.Context.Player;
 using TheLostSpirit.Context.Portal;
@@ -31,6 +33,12 @@ namespace TheLostSpirit.Context.EntryPoint.Playground
         [SerializeField]
         PortalInstanceContext[] _testPortals;
 
+        void Awake() {
+            Construct();
+
+            TestBlock();
+        }
+
 
         PlaygroundContext Construct() {
             AppScope.Initialize(new EventBus());
@@ -44,12 +52,6 @@ namespace TheLostSpirit.Context.EntryPoint.Playground
             return this;
         }
 
-        void Awake() {
-            Construct();
-
-            TestBlock();
-        }
-
         void TestBlock() {
             _playerInstanceContext.Construct(_playerContext, _userInputContext);
 
@@ -58,12 +60,14 @@ namespace TheLostSpirit.Context.EntryPoint.Playground
                 _testPortals
                     .Select(ctx => {
                         ctx.Construct();
-                        var portalID = createPortalByInstanceUseCase.Execute(new(ctx)).PortalID;
+                        var portalID =
+                            createPortalByInstanceUseCase.Execute(new CreatePortalByInstanceUseCase.Input(ctx))
+                                                         .PortalID;
 
                         return portalID;
                     })
                     .ToList();
-            _portalContext.ConnectUseCase.Execute(new(portalIdList[0], portalIdList[1]));
+            _portalContext.ConnectUseCase.Execute(new ConnectPortalUseCase.Input(portalIdList[0], portalIdList[1]));
 
 
             var formulaID = _formulaContext.FormulaViewModelStore[0].ID;
@@ -71,42 +75,48 @@ namespace TheLostSpirit.Context.EntryPoint.Playground
             var first  = new SkillConfigID("001");
             var second = new SkillConfigID("002");
 
-            var n1 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new(3)).NodeID;
-            var s1 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new(first)).SkillID;
-            _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new(n1, s1));
+            var n1 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new CreateNodeUseCase.Input(3)).NodeID;
+            var s1 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new CreateSkillUseCase.Input(first))
+                                    .SkillID;
+            _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new NodeContainSkillUseCase.Input(n1, s1));
 
-            var n2 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new(3)).NodeID;
-            var s2 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new(second)).SkillID;
-            _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new(n2, s2));
+            var n2 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new CreateNodeUseCase.Input(3)).NodeID;
+            var s2 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new CreateSkillUseCase.Input(second))
+                                    .SkillID;
+            _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new NodeContainSkillUseCase.Input(n2, s2));
 
-            var n3 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new(3)).NodeID;
-            var s3 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new(second)).SkillID;
-            _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new(n3, s3));
+            var n3 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new CreateNodeUseCase.Input(3)).NodeID;
+            var s3 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new CreateSkillUseCase.Input(second))
+                                    .SkillID;
+            _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new NodeContainSkillUseCase.Input(n3, s3));
 
-            var n4 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new(3)).NodeID;
-            var s4 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new(second)).SkillID;
-            _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new(n4, s4));
+            var n4 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new CreateNodeUseCase.Input(3)).NodeID;
+            var s4 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new CreateSkillUseCase.Input(second))
+                                    .SkillID;
+            _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new NodeContainSkillUseCase.Input(n4, s4));
 
-            var n5 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new(3)).NodeID;
-            var s5 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new(second)).SkillID;
-            _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new(n5, s5));
+            var n5 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new CreateNodeUseCase.Input(3)).NodeID;
+            var s5 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new CreateSkillUseCase.Input(second))
+                                    .SkillID;
+            _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new NodeContainSkillUseCase.Input(n5, s5));
 
-            var n6 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new(3)).NodeID;
-            var s6 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new(second)).SkillID;
-            _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new(n6, s6));
+            var n6 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new CreateNodeUseCase.Input(3)).NodeID;
+            var s6 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new CreateSkillUseCase.Input(second))
+                                    .SkillID;
+            _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new NodeContainSkillUseCase.Input(n6, s6));
             // var n7 = _formulaContext.CreateNodeUseCase.Execute(new(3)).NodeID;
             // var n8 = _formulaContext.CreateNodeUseCase.Execute(new(3)).NodeID;
             // var n9 = _formulaContext.CreateNodeUseCase.Execute(new(3)).NodeID;
 
 
-            _formulaContext.FormulaAddNodeUseCase.Execute(new(formulaID, n1));
+            _formulaContext.FormulaAddNodeUseCase.Execute(new FormulaAddNodeUseCase.Input(formulaID, n1));
 
 
-            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new(From: (n1, 0), To: (n2, 0)));
-            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new(From: (n1, 1), To: (n3, 0)));
-            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new(From: (n2, 1), To: (n4, 0)));
-            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new(From: (n2, 2), To: (n5, 0)));
-            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new(From: (n5, 1), To: (n6, 0)));
+            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n1, 0), (n2, 0)));
+            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n1, 1), (n3, 0)));
+            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n2, 1), (n4, 0)));
+            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n2, 2), (n5, 0)));
+            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n5, 1), (n6, 0)));
             // _formulaContext.ConnectNodeUseCase.Execute(new(From: (n3, 1), To: (n7, 0)));
             // _formulaContext.ConnectNodeUseCase.Execute(new(From: (n4, 1), To: (n8, 0)));
             // _formulaContext.ConnectNodeUseCase.Execute(new(From: (n5, 2), To: (n9, 0)));

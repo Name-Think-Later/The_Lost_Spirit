@@ -8,9 +8,8 @@ namespace TheLostSpirit.Extension.ZLinq
         public static IEnumerable<T> AsEnumerable<TEnumerator, T>(this ValueEnumerable<TEnumerator, T> valueEnumerable)
             where TEnumerator : struct, IValueEnumerator<T> {
             using var e = valueEnumerable.Enumerator;
-            while (e.TryGetNext(out var current)) {
-                yield return current;
-            }
+
+            while (e.TryGetNext(out var current)) yield return current;
         }
     }
 }

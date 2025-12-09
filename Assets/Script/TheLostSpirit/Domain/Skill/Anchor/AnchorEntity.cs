@@ -7,10 +7,8 @@ namespace TheLostSpirit.Domain.Skill.Anchor
 {
     public class AnchorEntity : IEntity<AnchorID>
     {
-        readonly IEventBus   _eventBus;
         readonly IAnchorMono _anchorMono;
-        public AnchorID ID { get; }
-        public IReadOnlyTransform ReadOnlyTransform => _anchorMono.ReadOnlyTransform;
+        readonly IEventBus   _eventBus;
 
         public AnchorEntity(AnchorID id, IAnchorMono anchorMono) {
             ID        = id;
@@ -20,6 +18,9 @@ namespace TheLostSpirit.Domain.Skill.Anchor
 
             anchorMono.Initialize(id);
         }
+
+        public IReadOnlyTransform ReadOnlyTransform => _anchorMono.ReadOnlyTransform;
+        public AnchorID ID { get; }
 
         public void SetPosition(Vector2 position) {
             _anchorMono.SetPosition(position);

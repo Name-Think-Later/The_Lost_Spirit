@@ -30,7 +30,9 @@ namespace TheLostSpirit.Infrastructure
                 .Subscribe(other => {
                     var isGet = other.TryGetComponent<IInteractableComponent>(out var interactable);
 
-                    if (!isGet) return;
+                    if (!isGet) {
+                        return;
+                    }
 
                     _candidates.Remove(interactable);
                     interactable.Undetected();
@@ -45,7 +47,9 @@ namespace TheLostSpirit.Infrastructure
                 .Subscribe(other => {
                     var isGet = other.TryGetComponent<IInteractableComponent>(out var interactable);
 
-                    if (!isGet) return;
+                    if (!isGet) {
+                        return;
+                    }
 
                     _candidates.Add(interactable);
 

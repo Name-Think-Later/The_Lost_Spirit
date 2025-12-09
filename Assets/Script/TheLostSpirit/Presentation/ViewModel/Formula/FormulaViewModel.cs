@@ -9,16 +9,11 @@ namespace TheLostSpirit.Presentation.ViewModel.Formula
 {
     public class FormulaViewModel : IViewModel<FormulaID>
     {
-        readonly Subject<Unit> _start;
-        readonly Subject<Unit> _perform;
         readonly Subject<Unit> _cancel;
+        readonly Subject<Unit> _perform;
+        readonly Subject<Unit> _start;
 
         readonly TraverseFormulaUseCase _traverseFormulaUseCase;
-
-        public FormulaID ID { get; }
-        public Observer<Unit> Start => _start.AsObserver();
-        public Observer<Unit> Perform => _perform.AsObserver();
-        public Observer<Unit> Cancel => _cancel.AsObserver();
 
 
         public FormulaViewModel(
@@ -33,6 +28,12 @@ namespace TheLostSpirit.Presentation.ViewModel.Formula
 
             _traverseFormulaUseCase = traverseFormulaUseCase;
         }
+
+        public Observer<Unit> Start => _start.AsObserver();
+        public Observer<Unit> Perform => _perform.AsObserver();
+        public Observer<Unit> Cancel => _cancel.AsObserver();
+
+        public FormulaID ID { get; }
 
         public FormulaViewModel WithIOPolicy(IFormulaIOPolicy formulaIOPolicy) {
             formulaIOPolicy

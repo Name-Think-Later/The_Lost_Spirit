@@ -4,20 +4,23 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using TheLostSpirit.Domain.Formula.Node.Event;
-using TheLostSpirit.Domain.Port;
 using TheLostSpirit.Domain.Port.EventBus;
 using TheLostSpirit.Extension.General;
-using TheLostSpirit.Identity;
 using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Domain.Formula.Node
 {
     public class NodeEntity : IEntity<NodeID>
     {
-        readonly Node      _node;
         readonly IEventBus _eventBus;
+        readonly Node      _node;
 
-        public NodeID ID { get; }
+        public NodeEntity(NodeID id, int neighborCount) {
+            ID = id;
+
+            _node     = new Node(neighborCount);
+            _eventBus = AppScope.EventBus;
+        }
 
         public ISkillID Skill {
             get => _node.Skill;
@@ -39,12 +42,7 @@ namespace TheLostSpirit.Domain.Formula.Node
             NotNullNeighbors
                 .Where(n => n.IsOut);
 
-        public NodeEntity(NodeID id, int neighborCount) {
-            ID = id;
-
-            _node     = new Node(neighborCount);
-            _eventBus = AppScope.EventBus;
-        }
+        public NodeID ID { get; }
 
         public void Associate(int index, Neighbor neighbor) {
             Contract.Assert(index.InClosedInterval(0, _node.Neighbors.Count - 1), "Index is invalid");
@@ -68,7 +66,7 @@ namespace TheLostSpirit.Domain.Formula.Node
                 OutNeighbors
                     .Select((neighbor, index) => {
                         var clone = payload.Clone();
-                        clone.isLastChild = (count - 1) == index;
+                        clone.isLastChild = count - 1 == index;
 
                         var visitedNode = new AsyncVisitedNodeEvent(neighbor.ID, clone);
 

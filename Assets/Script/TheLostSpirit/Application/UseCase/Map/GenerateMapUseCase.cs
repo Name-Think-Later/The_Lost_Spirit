@@ -2,7 +2,6 @@
 using MoreLinq;
 using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Room;
-using TheLostSpirit.Domain;
 using TheLostSpirit.Domain.Util;
 using TheLostSpirit.Extension.Linq;
 
@@ -10,9 +9,9 @@ namespace TheLostSpirit.Application.UseCase.Map
 {
     public class GenerateMapUseCase : IUseCase<Void, GenerateMapUseCase.Input>
     {
-        readonly RoomRepository     _roomRepository;
-        readonly CreateRoomUseCase  _createRoomUseCase;
         readonly ConnectRoomUseCase _connectRoomUseCase;
+        readonly CreateRoomUseCase  _createRoomUseCase;
+        readonly RoomRepository     _roomRepository;
 
 
         public GenerateMapUseCase(
@@ -36,12 +35,8 @@ namespace TheLostSpirit.Application.UseCase.Map
             return Void.Default;
         }
 
-        public record struct Input(int Amount) : IInput;
-
         void RoomCreation(int amount) {
-            for (int i = 0; i < amount; i++) {
-                _createRoomUseCase.Execute();
-            }
+            for (var i = 0; i < amount; i++) _createRoomUseCase.Execute();
         }
 
         void MainConnection() {
@@ -87,11 +82,15 @@ namespace TheLostSpirit.Application.UseCase.Map
                             .Shuffle()
                             .ToList();
 
-                    if (!roomFilter.Any()) return;
+                    if (!roomFilter.Any()) {
+                        return;
+                    }
 
                     roomFilter
                         .SkipUntil(rightRoomEntity => {
-                            if (!rightRoomEntity.AvailablePortals.Any()) return false;
+                            if (!rightRoomEntity.AvailablePortals.Any()) {
+                                return false;
+                            }
 
                             var rightPortalID = rightRoomEntity.AvailablePortals.GetRandom();
 
@@ -111,5 +110,7 @@ namespace TheLostSpirit.Application.UseCase.Map
                 });
             });
         }
+
+        public record struct Input(int Amount) : IInput;
     }
 }

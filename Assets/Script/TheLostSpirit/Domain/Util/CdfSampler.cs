@@ -8,16 +8,19 @@ using Random = UnityEngine.Random;
 namespace TheLostSpirit.Domain.Util
 {
     /// <summary>
-    /// 機率分布函數採樣， 在此預設各分部變化量為1/(n^2)
+    ///     機率分布函數採樣， 在此預設各分部變化量為1/(n^2)
     /// </summary>
-    /// <a href = "https://reurl.cc/9n9eQa" />
+    /// <a href="https://reurl.cc/9n9eQa" />
     public class CdfSampler
     {
         readonly double[] _cdf;
 
         /// <param name="x">分布數量</param>
         public CdfSampler(int x) {
-            if (x <= 0) throw new ArgumentOutOfRangeException(nameof(x));
+            if (x <= 0) {
+                throw new ArgumentOutOfRangeException(nameof(x));
+            }
+
             var cdfDenormalize =
                 Enumerable
                     .Range(1, x)
@@ -36,8 +39,13 @@ namespace TheLostSpirit.Domain.Util
             var u   = Random.value;
             var idx = Array.BinarySearch(_cdf, u);
 
-            if (idx < 0) idx            = ~idx;            // 第一個 ≥ u 的位置
-            if (idx >= _cdf.Length) idx = _cdf.Length - 1; // u==1 時回最後一格
+            if (idx < 0) {
+                idx = ~idx; // 第一個 ≥ u 的位置
+            }
+
+            if (idx >= _cdf.Length) {
+                idx = _cdf.Length - 1; // u==1 時回最後一格
+            }
 
             Debug.Log($"idx: {idx}");
 

@@ -1,13 +1,12 @@
 ﻿using Cysharp.Threading.Tasks;
 using R3;
-using TheLostSpirit.Domain.Port;
 using TheLostSpirit.Domain.Port.EventBus;
 
 namespace TheLostSpirit.Infrastructure
 {
     public class EventBus : IEventBus
     {
-        readonly Subject<IDomainEvent> _subject = new();
+        readonly Subject<IDomainEvent> _subject = new Subject<IDomainEvent>();
 
         public Observable<TEvent> ObservableEvent<TEvent>() where TEvent : IDomainEvent {
             //OfType is the constraint from subscriber

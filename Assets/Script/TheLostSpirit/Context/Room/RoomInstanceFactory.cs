@@ -26,6 +26,8 @@ namespace TheLostSpirit.Context.Room
             return instance;
         }
 
-        public void Reset() => _spawnPosition = Vector2.zero;
+        public void Reset() {
+            _spawnPosition = Vector2.zero;
+        }
     }
 }

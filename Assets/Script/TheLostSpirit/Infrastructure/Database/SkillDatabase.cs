@@ -6,8 +6,12 @@ using UnityEngine;
 namespace TheLostSpirit.Infrastructure.Database
 {
     [CreateAssetMenu(fileName = "Skill Database", menuName = "The Lost Spirits/DataBase/Skill DataBase")]
-    public class SkillDataBase
+    public class SkillDatabase
         : GenericDatabase<SkillConfigID, SkillConfig, SkillConfigWrapper>,
           ISkillDatabase
-    { }
+    {
+        SkillConfig ISkillDatabase.GetByID(SkillConfigID id) {
+            return GetByID(id).Inner;
+        }
+    }
 }

@@ -1,7 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Formula;
-using TheLostSpirit.Domain.Formula;
 using TheLostSpirit.Domain.Formula.Node;
 using TheLostSpirit.Domain.Formula.Node.Event;
 using UnityEngine;
@@ -10,8 +9,8 @@ namespace TheLostSpirit.Application.EventHandler.Formula
 {
     public class AsyncVisitedNodeEventHandler : AsyncDomainEventHandler<AsyncVisitedNodeEvent>
     {
-        readonly NodeRepository     _nodeRepository;
         readonly ActiveSkillUseCase _activeSkillUseCase;
+        readonly NodeRepository     _nodeRepository;
 
         public AsyncVisitedNodeEventHandler(
             NodeRepository     nodeRepository,

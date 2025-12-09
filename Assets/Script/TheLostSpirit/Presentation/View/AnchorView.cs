@@ -6,7 +6,7 @@ namespace TheLostSpirit.Presentation.View
 {
     public class AnchorView : MonoBehaviour, IView<AnchorID, AnchorViewModel>
     {
-        public void Bind(AnchorViewModel playerViewModel) { }
+        public void Bind(AnchorViewModel viewModel) { }
         public void Unbind() { }
     }
 }

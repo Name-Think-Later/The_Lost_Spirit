@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
-using TheLostSpirit.Domain.Interactable;
 using TheLostSpirit.Domain.Port.EventBus;
 using TheLostSpirit.Domain.Port.ReadOnly;
 using TheLostSpirit.Domain.Portal.Event;
@@ -10,17 +9,9 @@ namespace TheLostSpirit.Domain.Portal
 {
     public class PortalEntity : IEntity<PortalID>, IDisposable
     {
+        readonly IEventBus   _eventBus;
         readonly Portal      _portal;
         readonly IPortalMono _portalMono;
-        readonly IEventBus   _eventBus;
-
-        public PortalID ID { get; }
-
-        public PortalID AssociatedPortal => _portal.AssociatedPortal;
-        public bool CanInteract => HasAssociated && _portal.IsEnable;
-        public bool HasAssociated => _portal.AssociatedPortal != null;
-
-        public IReadOnlyTransform ReadOnlyTransform => _portalMono.ReadOnlyTransform;
 
 
         public PortalEntity(PortalID id, IPortalMono mono) {
@@ -33,6 +24,18 @@ namespace TheLostSpirit.Domain.Portal
             _portalMono = mono;
             _portalMono.Initialize(ID);
         }
+
+        public PortalID AssociatedPortal => _portal.AssociatedPortal;
+        public bool CanInteract => HasAssociated && _portal.IsEnable;
+        public bool HasAssociated => _portal.AssociatedPortal != null;
+
+        public IReadOnlyTransform ReadOnlyTransform => _portalMono.ReadOnlyTransform;
+
+        public void Dispose() {
+            _portalMono.Destroy();
+        }
+
+        public PortalID ID { get; }
 
         public void Associate(PortalID other) {
             _portal.AssociatedPortal = other;
@@ -48,10 +51,6 @@ namespace TheLostSpirit.Domain.Portal
             var portalInteracted = new PortalInteractedEvent(destination);
 
             _eventBus.Publish(portalInteracted);
-        }
-
-        public void Dispose() {
-            _portalMono.Destroy();
         }
     }
 }

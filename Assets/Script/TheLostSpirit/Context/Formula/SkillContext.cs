@@ -15,10 +15,13 @@ namespace TheLostSpirit.Context.Formula
     public class SkillContext
     {
         [SerializeField, Indent]
-        SkillDataBase _skillDatabase;
+        SkillDatabase _skillDatabase;
 
         [SerializeField, AssetSelector, Indent]
         AnchorInstanceContext _anchorInstanceContext;
+
+        [SerializeField, Indent]
+        public ManifestationContext manifestationContext;
 
         public SkillRepository SkillRepository { get; private set; }
         public SkillFactory SkillFactory { get; private set; }
@@ -32,6 +35,8 @@ namespace TheLostSpirit.Context.Formula
         public CreateAnchorUseCase CreateAnchorUseCase { get; private set; }
 
         public SkillContext Construct() {
+            manifestationContext.Construct();
+
             SkillRepository       = new SkillRepository();
             SkillFactory          = new SkillFactory(_skillDatabase);
             AnchorRepository      = new AnchorRepository();
@@ -49,7 +54,14 @@ namespace TheLostSpirit.Context.Formula
 
 
             _ = new AsyncCoreActivatedEventHandler(CreateAnchorUseCase, AnchorRepository);
-            _ = new AsyncManifestActivatedEventHandler(AnchorRepository);
+
+            _ =
+                new AsyncManifestActivatedEventHandler(
+                    AnchorRepository,
+                    manifestationContext.ManifestationRepository,
+                    manifestationContext.ManifestationViewModelStore,
+                    manifestationContext.ManifestationInstanceFactory
+                );
 
             return this;
         }

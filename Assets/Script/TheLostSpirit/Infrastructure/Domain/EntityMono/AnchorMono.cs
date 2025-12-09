@@ -11,9 +11,9 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
     {
         IEventBus _eventBus;
 
-        public AnchorID ID { get; private set; }
-
         public Transform Transform => transform;
+
+        public AnchorID ID { get; private set; }
         public IReadOnlyTransform ReadOnlyTransform { get; private set; }
 
         public void Initialize(AnchorID id) {
@@ -29,7 +29,7 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
 
 
         public void Destroy() {
-            Object.Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 }

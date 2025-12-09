@@ -1,13 +1,9 @@
-﻿using Sirenix.OdinInspector;
-using TheLostSpirit.Application.EventHandler.Formula;
+﻿using TheLostSpirit.Application.EventHandler.Formula;
 using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Formula;
 using TheLostSpirit.Application.ViewModelStore;
-using TheLostSpirit.Domain;
 using TheLostSpirit.Domain.Formula;
-using TheLostSpirit.Identity;
 using TheLostSpirit.Identity.EntityID;
-using TheLostSpirit.Infrastructure;
 using TheLostSpirit.Presentation.ViewModel.Formula;
 using UnityEngine;
 
@@ -15,13 +11,14 @@ namespace TheLostSpirit.Context.Formula
 {
     public class FormulaContext : MonoBehaviour
     {
+        const int _formulaCount = 2;
+
         [SerializeField]
         public NodeContext nodeContext;
 
         [SerializeField]
         public SkillContext skillContext;
 
-        const int _formulaCount = 2;
         public FormulaRepository FormulaRepository { get; private set; }
         public FormulaViewModelStore FormulaViewModelStore { get; private set; }
 
@@ -43,7 +40,7 @@ namespace TheLostSpirit.Context.Formula
 
             var formulaInputViews = userInputContext.GeneralInputView.Formulas;
 
-            for (int i = 0; i < _formulaCount; i++) {
+            for (var i = 0; i < _formulaCount; i++) {
                 var formulaID = FormulaID.New();
 
                 var formulaEntity = new FormulaEntity(formulaID);

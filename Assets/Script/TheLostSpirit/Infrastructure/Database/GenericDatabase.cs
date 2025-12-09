@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using TheLostSpirit.Domain;
@@ -15,13 +14,12 @@ namespace TheLostSpirit.Infrastructure.Database
         where TConfig : IConfig<TConfigID>
         where TConfigWrapper : IConfigWrapper<TConfigID, TConfig>
     {
-        [SerializeField, AssetList(AutoPopulate = true), InlineEditor, ReadOnly]
-        [PropertySpace(SpaceAfter = 20)]
+        [SerializeField, AssetList(AutoPopulate = true), InlineEditor, ReadOnly, PropertySpace(SpaceAfter = 20)]
         List<TConfigWrapper> _database = new List<TConfigWrapper>();
 
 
-        public TConfig GetByID(TConfigID id) {
-            return _database.First(wrapper => wrapper.ID.Equals(id)).Inner;
+        public TConfigWrapper GetByID(TConfigID id) {
+            return _database.First(wrapper => wrapper.ID.Equals(id));
         }
 
         public bool HasID(TConfigID id) {

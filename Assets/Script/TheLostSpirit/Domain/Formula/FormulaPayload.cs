@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using MoreLinq;
-using TheLostSpirit.Identity;
 using TheLostSpirit.Identity.EntityID;
 using UnityEngine;
 
@@ -15,9 +14,6 @@ namespace TheLostSpirit.Domain.Formula
         public readonly PayloadSeq seq;
         public          bool       isLastChild;
 
-        public List<AnchorID> LastAnchors { get; private set; }
-        public List<AnchorID> NewAnchors { get; private set; }
-
 
         public FormulaPayload() {
             seq         = PayloadSeq.New();
@@ -28,15 +24,18 @@ namespace TheLostSpirit.Domain.Formula
 
 
         FormulaPayload(FormulaPayload origin) {
-            this.seq = origin.seq;
+            seq = origin.seq;
 
             var newNodeRoute = origin._nodeRoute;
             Array.Resize(ref newNodeRoute, newNodeRoute.Length + 1);
             _nodeRoute = newNodeRoute;
 
-            this.LastAnchors = new List<AnchorID>(origin.LastAnchors);
-            this.NewAnchors  = new List<AnchorID>(origin.NewAnchors);
+            LastAnchors = new List<AnchorID>(origin.LastAnchors);
+            NewAnchors  = new List<AnchorID>(origin.NewAnchors);
         }
+
+        public List<AnchorID> LastAnchors { get; private set; }
+        public List<AnchorID> NewAnchors { get; private set; }
 
         public void PushAnchors() {
             (LastAnchors, NewAnchors) = (NewAnchors, LastAnchors);

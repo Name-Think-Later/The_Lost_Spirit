@@ -1,9 +1,6 @@
 ﻿using System.Diagnostics.Contracts;
-using TheLostSpirit.Domain.Port;
 using TheLostSpirit.Domain.Port.EventBus;
 using TheLostSpirit.Domain.Port.ReadOnly;
-using TheLostSpirit.Extension.Unity;
-using TheLostSpirit.Identity;
 using TheLostSpirit.Identity.EntityID;
 using UnityEngine;
 
@@ -11,37 +8,10 @@ namespace TheLostSpirit.Domain.Player
 {
     public class PlayerEntity : IEntity<PlayerID>
     {
-        #region Static member
-
-        static PlayerEntity _instance;
-
-        public static PlayerEntity Construct(
-            PlayerID     id,
-            PlayerConfig config,
-            IPlayerMono  mono,
-            IEventBus    eventBus
-        ) {
-            _instance = new PlayerEntity(id, config, mono);
-
-            return _instance;
-        }
-
-
-        public static PlayerEntity Get() {
-            Contract.Assert(_instance != null, "PlayerEntity not created");
-
-            return _instance;
-        }
-
-        #endregion
+        readonly IEventBus _eventBus;
 
         readonly Player      _player;
         readonly IPlayerMono _playerMono;
-        readonly IEventBus   _eventBus;
-
-        public PlayerID ID { get; }
-
-        public IReadOnlyTransform ReadOnlyTransform => _playerMono.ReadOnlyTransform;
 
         PlayerEntity(
             PlayerID     id,
@@ -54,6 +24,10 @@ namespace TheLostSpirit.Domain.Player
             _playerMono = mono;
             mono.Initialize(ID);
         }
+
+        public IReadOnlyTransform ReadOnlyTransform => _playerMono.ReadOnlyTransform;
+
+        public PlayerID ID { get; }
 
 
         public void MoveByAxis(int axis) {
@@ -80,5 +54,29 @@ namespace TheLostSpirit.Domain.Player
         public void SetPosition(Vector2 position) {
             _playerMono.SetPosition(position);
         }
+
+        #region Static member
+
+        static PlayerEntity _instance;
+
+        public static PlayerEntity Construct(
+            PlayerID     id,
+            PlayerConfig config,
+            IPlayerMono  mono,
+            IEventBus    eventBus
+        ) {
+            _instance = new PlayerEntity(id, config, mono);
+
+            return _instance;
+        }
+
+
+        public static PlayerEntity Get() {
+            Contract.Assert(_instance != null, "PlayerEntity not created");
+
+            return _instance;
+        }
+
+        #endregion
     }
 }

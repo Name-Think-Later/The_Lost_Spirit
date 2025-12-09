@@ -1,5 +1,4 @@
-﻿using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Domain.Player;
+﻿using TheLostSpirit.Domain.Player;
 
 namespace TheLostSpirit.Application.UseCase.Player
 {

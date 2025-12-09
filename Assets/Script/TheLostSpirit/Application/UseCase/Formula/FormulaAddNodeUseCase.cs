@@ -1,5 +1,4 @@
 ﻿using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Identity;
 using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Application.UseCase.Formula

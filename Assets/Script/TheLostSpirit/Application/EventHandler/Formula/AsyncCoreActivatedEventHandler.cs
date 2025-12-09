@@ -9,8 +9,8 @@ namespace TheLostSpirit.Application.EventHandler.Formula
 {
     public class AsyncCoreActivatedEventHandler : AsyncDomainEventHandler<AsyncCoreActivatedEvent>
     {
-        readonly CreateAnchorUseCase _createAnchorUseCase;
         readonly AnchorRepository    _anchorRepository;
+        readonly CreateAnchorUseCase _createAnchorUseCase;
 
         public AsyncCoreActivatedEventHandler(
             CreateAnchorUseCase createAnchorUseCase,

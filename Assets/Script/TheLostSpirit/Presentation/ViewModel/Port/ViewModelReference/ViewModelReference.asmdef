@@ -1,16 +1,16 @@
 {
-    "name": "TheLostSpirits.Presentation.ViewModel.Port.ViewModelReference",
-    "rootNamespace": "",
-    "references": [
-        "GUID:62821c2b73a8cc3449e7bf3de409d4e5"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "TheLostSpirits.Presentation.ViewModel.Port.ViewModelReference",
+  "rootNamespace": "",
+  "references": [
+    "GUID:62821c2b73a8cc3449e7bf3de409d4e5"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

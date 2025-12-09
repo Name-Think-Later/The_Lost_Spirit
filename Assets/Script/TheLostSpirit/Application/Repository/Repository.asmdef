@@ -1,18 +1,18 @@
 {
-    "name": "TheLostSpirits.Application.Repository",
-    "rootNamespace": "",
-    "references": [
-        "GUID:62821c2b73a8cc3449e7bf3de409d4e5",
-        "GUID:bafdf1b0b22bd4b408956c5eda2d3e4a",
-        "GUID:c34430b422a65464399ffe193365ae07"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "TheLostSpirits.Application.Repository",
+  "rootNamespace": "",
+  "references": [
+    "GUID:62821c2b73a8cc3449e7bf3de409d4e5",
+    "GUID:bafdf1b0b22bd4b408956c5eda2d3e4a",
+    "GUID:c34430b422a65464399ffe193365ae07"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

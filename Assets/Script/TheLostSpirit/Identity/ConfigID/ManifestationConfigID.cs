@@ -10,6 +10,10 @@ namespace TheLostSpirit.Identity.ConfigID
         [SerializeField, LabelText("Id")]
         string _value;
 
+        public ManifestationConfigID(string value) {
+            _value = value;
+        }
+
         public string Value => _value;
     }
 }

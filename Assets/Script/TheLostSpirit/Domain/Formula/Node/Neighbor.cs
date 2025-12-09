@@ -1,5 +1,4 @@
-﻿using TheLostSpirit.Identity;
-using TheLostSpirit.Identity.EntityID;
+﻿using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Domain.Formula.Node
 {
@@ -7,5 +6,5 @@ namespace TheLostSpirit.Domain.Formula.Node
     {
         public bool IsIn => Type == AssociateType.In;
         public bool IsOut => Type == AssociateType.Out;
-    };
+    }
 }

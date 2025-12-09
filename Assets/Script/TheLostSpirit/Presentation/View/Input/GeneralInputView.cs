@@ -9,10 +9,9 @@ namespace TheLostSpirit.Presentation.View.Input
     public class GeneralInputView : IView<PlayerID, PlayerViewModel>, IDisposable
     {
         readonly ActionMap.GeneralActions _general;
+        DisposableBag                     _disposables;
 
         PlayerViewModel _inputViewModel;
-        DisposableBag   _disposables;
-        public FormulaInputView[] Formulas { get; }
 
         public GeneralInputView(ActionMap.GeneralActions general) {
             _general = general;
@@ -23,8 +22,14 @@ namespace TheLostSpirit.Presentation.View.Input
             };
         }
 
-        public void Bind(PlayerViewModel playerViewModel) {
-            _inputViewModel = playerViewModel;
+        public FormulaInputView[] Formulas { get; }
+
+        public void Dispose() {
+            Unbind();
+        }
+
+        public void Bind(PlayerViewModel viewModel) {
+            _inputViewModel = viewModel;
 
             var disposableBuilder = new DisposableBuilder();
             {
@@ -39,7 +44,9 @@ namespace TheLostSpirit.Presentation.View.Input
             disposableBuilder.Build().AddTo(ref _disposables);
         }
 
-        public void Unbind() => _disposables.Dispose();
+        public void Unbind() {
+            _disposables.Dispose();
+        }
 
         IDisposable MoveInputBinding() {
             var moveAction = _general.Move;
@@ -94,7 +101,5 @@ namespace TheLostSpirit.Presentation.View.Input
 
             return press.Subscribe(_ => _inputViewModel.InteractInput());
         }
-
-        public void Dispose() => Unbind();
     }
 }

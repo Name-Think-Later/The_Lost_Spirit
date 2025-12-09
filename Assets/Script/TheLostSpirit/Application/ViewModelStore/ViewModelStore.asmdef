@@ -1,17 +1,17 @@
 {
-    "name": "TheLostSpirits.Application.ViewModelStore",
-    "rootNamespace": "",
-    "references": [
-        "GUID:62821c2b73a8cc3449e7bf3de409d4e5",
-        "GUID:21d51f2f164aab542be2ce806247fd0d"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "TheLostSpirits.Application.ViewModelStore",
+  "rootNamespace": "",
+  "references": [
+    "GUID:62821c2b73a8cc3449e7bf3de409d4e5",
+    "GUID:21d51f2f164aab542be2ce806247fd0d"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

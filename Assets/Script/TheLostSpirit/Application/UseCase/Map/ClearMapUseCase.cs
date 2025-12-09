@@ -7,9 +7,9 @@ namespace TheLostSpirit.Application.UseCase.Map
 {
     public class ClearMapUseCase : IUseCase<Void, Void>
     {
+        readonly IRoomInstanceFactory _roomInstanceFactory;
         readonly RoomRepository       _roomRepository;
         readonly RoomViewModelStore   _roomViewModelStore;
-        readonly IRoomInstanceFactory _roomInstanceFactory;
 
         public ClearMapUseCase(
             RoomRepository       roomRepository,

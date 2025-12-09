@@ -3,7 +3,6 @@ using TheLostSpirit.Application.Port.InstanceContext.InstanceContext;
 using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Portal;
 using TheLostSpirit.Application.ViewModelStore;
-using TheLostSpirit.Identity;
 using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Application.UseCase.Room
@@ -11,9 +10,9 @@ namespace TheLostSpirit.Application.UseCase.Room
     public class CreateRoomByInstanceUseCase
         : IUseCase<CreateRoomByInstanceUseCase.Output, CreateRoomByInstanceUseCase.Input>
     {
+        readonly CreatePortalByInstanceUseCase _createPortalByInstanceUseCase;
         readonly RoomRepository                _roomRepository;
         readonly RoomViewModelStore            _roomViewModelStore;
-        readonly CreatePortalByInstanceUseCase _createPortalByInstanceUseCase;
 
         public CreateRoomByInstanceUseCase(
             RoomRepository                roomRepository,

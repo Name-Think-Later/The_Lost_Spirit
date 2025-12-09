@@ -1,13 +1,12 @@
 ﻿using TheLostSpirit.Application.Port.InstanceContext.InstanceFactory;
-using TheLostSpirit.Identity;
 using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Application.UseCase.Room
 {
     public class CreateRoomUseCase : IUseCase<CreateRoomUseCase.Output, Void>
     {
-        readonly IRoomInstanceFactory        _roomInstanceFactory;
         readonly CreateRoomByInstanceUseCase _createRoomByInstanceUseCase;
+        readonly IRoomInstanceFactory        _roomInstanceFactory;
 
         public CreateRoomUseCase(
             IRoomInstanceFactory        roomInstanceFactory,

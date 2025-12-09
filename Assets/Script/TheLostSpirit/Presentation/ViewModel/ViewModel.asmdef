@@ -1,24 +1,24 @@
 {
-    "name": "TheLostSpirits.Presentation.ViewModel",
-    "rootNamespace": "",
-    "references": [
-        "GUID:62821c2b73a8cc3449e7bf3de409d4e5",
-        "GUID:915e5ff71c354504ebd9da8be4928c25",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:b1e1631a7c1c9014c8fb566d31b5e269",
-        "GUID:21d51f2f164aab542be2ce806247fd0d",
-        "GUID:3e6a0377c1668434caf6699894bced88",
-        "GUID:935ae55f4b75c0c4fbf67635c0ca3374",
-        "GUID:bafdf1b0b22bd4b408956c5eda2d3e4a",
-        "GUID:c34430b422a65464399ffe193365ae07"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "TheLostSpirits.Presentation.ViewModel",
+  "rootNamespace": "",
+  "references": [
+    "GUID:62821c2b73a8cc3449e7bf3de409d4e5",
+    "GUID:915e5ff71c354504ebd9da8be4928c25",
+    "GUID:f51ebe6a0ceec4240a699833d6309b23",
+    "GUID:b1e1631a7c1c9014c8fb566d31b5e269",
+    "GUID:21d51f2f164aab542be2ce806247fd0d",
+    "GUID:3e6a0377c1668434caf6699894bced88",
+    "GUID:935ae55f4b75c0c4fbf67635c0ca3374",
+    "GUID:bafdf1b0b22bd4b408956c5eda2d3e4a",
+    "GUID:c34430b422a65464399ffe193365ae07"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

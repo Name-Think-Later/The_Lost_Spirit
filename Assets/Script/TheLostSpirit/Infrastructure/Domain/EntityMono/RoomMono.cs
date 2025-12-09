@@ -11,6 +11,8 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
     {
         IEventBus _eventBus;
 
+        public Transform Transform => transform;
+
         public RoomID ID { get; private set; }
 
         public void Initialize(RoomID id) {
@@ -20,7 +22,8 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
 
         public IReadOnlyTransform ReadOnlyTransform { get; }
 
-        public Transform Transform => transform;
-        public void Destroy() => Destroy(gameObject);
+        public void Destroy() {
+            Destroy(gameObject);
+        }
     }
 }

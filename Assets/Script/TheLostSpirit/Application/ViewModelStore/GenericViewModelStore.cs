@@ -8,21 +8,35 @@ namespace TheLostSpirit.Application.ViewModelStore
     public abstract class GenericViewModelStore<TId>
         : IViewModelStore<TId>, IEnumerable<IViewModelReference<TId>> where TId : IRuntimeID
     {
-        protected readonly Dictionary<TId, IViewModelReference<TId>> dictionary = new();
+        protected readonly Dictionary<TId, IViewModelReference<TId>> dictionary =
+            new Dictionary<TId, IViewModelReference<TId>>();
 
-        public void Save(IViewModelReference<TId> viewModelReference) =>
+        public IEnumerator<IViewModelReference<TId>> GetEnumerator() {
+            return dictionary.Values.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
+        }
+
+        public void Save(IViewModelReference<TId> viewModelReference) {
             dictionary[viewModelReference.ID] = viewModelReference;
+        }
 
-        public IViewModelReference<TId> GetByID(TId id) => dictionary[id];
+        public IViewModelReference<TId> GetByID(TId id) {
+            return dictionary[id];
+        }
 
-        public void Remove(TId id) => dictionary.Remove(id);
+        public void Remove(TId id) {
+            dictionary.Remove(id);
+        }
 
-        public bool HasID(TId id) => dictionary.ContainsKey(id);
+        public bool HasID(TId id) {
+            return dictionary.ContainsKey(id);
+        }
 
-        public void Clear() => dictionary.Clear();
-
-        public IEnumerator<IViewModelReference<TId>> GetEnumerator() => dictionary.Values.GetEnumerator();
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        public void Clear() {
+            dictionary.Clear();
+        }
     }
 }

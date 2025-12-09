@@ -1,6 +1,5 @@
 ﻿using TheLostSpirit.Domain.Skill;
 using TheLostSpirit.Domain.Skill.Core;
-using TheLostSpirit.Identity;
 using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Application.Repository

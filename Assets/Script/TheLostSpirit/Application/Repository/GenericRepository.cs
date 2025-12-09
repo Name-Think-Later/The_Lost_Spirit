@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TheLostSpirit.Domain;
 using TheLostSpirit.Identity.EntityID;
 
@@ -10,13 +9,37 @@ namespace TheLostSpirit.Application.Repository
         where TId : IRuntimeID
         where TEntity : IEntity<TId>
     {
-        protected readonly Dictionary<TId, TEntity> dictionary = new();
+        protected readonly Dictionary<TId, TEntity> dictionary = new Dictionary<TId, TEntity>();
 
-        public void Save(TEntity entity) => dictionary[entity.ID] = entity;
+        public bool IsEmpty => dictionary.Count == 0;
 
-        public void Remove(TId id) => dictionary.Remove(id);
+        public IEnumerator<TEntity> GetEnumerator() {
+            return dictionary.Values.GetEnumerator();
+        }
 
-        public TEntity GetByID(TId id) => dictionary[id];
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
+        }
+
+        public void Save(TEntity entity) {
+            dictionary[entity.ID] = entity;
+        }
+
+        public void Remove(TId id) {
+            dictionary.Remove(id);
+        }
+
+        public TEntity GetByID(TId id) {
+            return dictionary[id];
+        }
+
+        public bool HasID(TId id) {
+            return dictionary.ContainsKey(id);
+        }
+
+        public void Clear() {
+            dictionary.Clear();
+        }
 
         public TEntity TakeByID(TId id) {
             var item = GetByID(id);
@@ -24,15 +47,5 @@ namespace TheLostSpirit.Application.Repository
 
             return item;
         }
-
-        public bool HasID(TId id) => dictionary.ContainsKey(id);
-
-        public void Clear() => dictionary.Clear();
-
-        public bool IsEmpty => dictionary.Count == 0;
-
-        public IEnumerator<TEntity> GetEnumerator() => dictionary.Values.GetEnumerator();
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

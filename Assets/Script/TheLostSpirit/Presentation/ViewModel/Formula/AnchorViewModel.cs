@@ -5,11 +5,11 @@ namespace TheLostSpirit.Presentation.ViewModel.Formula
 {
     public class AnchorViewModel : IViewModel<AnchorID>
     {
-        public AnchorID ID { get; }
-
         public AnchorViewModel(AnchorID id) {
             ID = id;
         }
+
+        public AnchorID ID { get; }
     }
 
     public static partial class ViewModelReferenceExtension

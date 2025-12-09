@@ -27,8 +27,9 @@ namespace TheLostSpirit.Context.EntryPoint.MainScene
         [SerializeField, SceneObjectsOnly]
         PortalContext _portalContext;
 
+        ClearMapUseCase _clearMapUseCase;
+
         GenerateMapUseCase _generateMapUseCase;
-        ClearMapUseCase    _clearMapUseCase;
 
         void Awake() {
             Construct();
@@ -65,14 +66,13 @@ namespace TheLostSpirit.Context.EntryPoint.MainScene
 
         void TheLostSpirits() {
             _playerInstanceContext.Construct(_playerContext, _userInputContext);
-            _generateMapUseCase.Execute(new(3));
+            _generateMapUseCase.Execute(new GenerateMapUseCase.Input(3));
         }
 
-        [DisableInEditorMode]
-        [Button(ButtonSizes.Medium)]
+        [DisableInEditorMode, Button(ButtonSizes.Medium)]
         public void GenerateMap() {
             _clearMapUseCase.Execute();
-            _generateMapUseCase.Execute(new(3));
+            _generateMapUseCase.Execute(new GenerateMapUseCase.Input(3));
         }
     }
 }

@@ -16,17 +16,6 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
 
         IEventBus _eventBus;
 
-        public PortalID ID { get; private set; }
-
-        public IReadOnlyTransform ReadOnlyTransform { get; private set; }
-
-        public void Initialize(PortalID id) {
-            ID        = id;
-            _eventBus = AppScope.EventBus;
-
-            ReadOnlyTransform = transform.ToReadOnly();
-        }
-
 
         public void Interacted() {
             var detectedEvent = new PortalInteractedEvent(ID);
@@ -43,6 +32,19 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
             _eventBus.Publish(undetectedEvent);
         }
 
-        public void Destroy() => Destroy(gameObject);
+        public PortalID ID { get; private set; }
+
+        public IReadOnlyTransform ReadOnlyTransform { get; private set; }
+
+        public void Initialize(PortalID id) {
+            ID        = id;
+            _eventBus = AppScope.EventBus;
+
+            ReadOnlyTransform = transform.ToReadOnly();
+        }
+
+        public void Destroy() {
+            Destroy(gameObject);
+        }
     }
 }

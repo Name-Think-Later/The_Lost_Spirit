@@ -1,5 +1,4 @@
-﻿using TheLostSpirit.Identity;
-using TheLostSpirit.Identity.EntityID;
+﻿using TheLostSpirit.Identity.EntityID;
 using UnityEngine;
 
 namespace TheLostSpirit.Domain.Player

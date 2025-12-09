@@ -1,14 +1,13 @@
 ﻿using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Portal;
-using TheLostSpirit.Identity;
 using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Application.UseCase.Room
 {
     public class ConnectRoomUseCase : IUseCase<Void, ConnectRoomUseCase.Input>
     {
-        readonly RoomRepository       _roomRepository;
         readonly ConnectPortalUseCase _connectPortalUseCase;
+        readonly RoomRepository       _roomRepository;
 
         public ConnectRoomUseCase(
             RoomRepository       roomRepository,

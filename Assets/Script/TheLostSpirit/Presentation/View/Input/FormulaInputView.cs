@@ -17,7 +17,11 @@ namespace TheLostSpirit.Presentation.View.Input
             _inputAction = inputAction;
         }
 
-        public void Bind(FormulaViewModel playerViewModel) {
+        public void Dispose() {
+            Unbind();
+        }
+
+        public void Bind(FormulaViewModel viewModel) {
             var start   = _inputAction.StartedAsObservable();
             var perform = _inputAction.PerformedAsObservable();
             var cancel  = _inputAction.CanceledAsObservable();
@@ -26,23 +30,24 @@ namespace TheLostSpirit.Presentation.View.Input
             {
                 start
                     .AsUnitObservable()
-                    .Subscribe(playerViewModel.Start)
+                    .Subscribe(viewModel.Start)
                     .AddTo(ref disposableBuilder);
 
                 perform
                     .AsUnitObservable()
-                    .Subscribe(playerViewModel.Perform)
+                    .Subscribe(viewModel.Perform)
                     .AddTo(ref disposableBuilder);
 
                 cancel
                     .AsUnitObservable()
-                    .Subscribe(playerViewModel.Cancel)
+                    .Subscribe(viewModel.Cancel)
                     .AddTo(ref disposableBuilder);
             }
             _disposable = disposableBuilder.Build();
         }
 
-        public void Unbind() => _disposable?.Dispose();
-        public void Dispose() => Unbind();
+        public void Unbind() {
+            _disposable?.Dispose();
+        }
     }
 }

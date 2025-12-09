@@ -2,22 +2,15 @@
 using System.Diagnostics.Contracts;
 using TheLostSpirit.Domain.Formula.Event;
 using TheLostSpirit.Domain.Formula.Node.Event;
-using TheLostSpirit.Domain.Port;
 using TheLostSpirit.Domain.Port.EventBus;
-using TheLostSpirit.Identity;
 using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Domain.Formula
 {
     public class FormulaEntity : IEntity<FormulaID>
     {
-        readonly Formula   _formula;
         readonly IEventBus _eventBus;
-        public FormulaID ID { get; }
-
-        public IEnumerable<NodeID> Nodes => _formula.Nodes;
-
-        public NodeID CoreNode => _formula.CoreNode;
+        readonly Formula   _formula;
 
         public FormulaEntity(FormulaID id) {
             ID = id;
@@ -26,12 +19,19 @@ namespace TheLostSpirit.Domain.Formula
             _eventBus = AppScope.EventBus;
         }
 
+        public IEnumerable<NodeID> Nodes => _formula.Nodes;
+
+        public NodeID CoreNode => _formula.CoreNode;
+        public FormulaID ID { get; }
+
         public void AddNode(NodeID node, ISkillID skill) {
             Contract.Assert(!_formula.Nodes.Contains(node), $"Node: {node} already in formula: {ID}");
 
             _formula.Nodes.Add(node);
 
-            if (skill is not CoreID coreID) return;
+            if (skill is not CoreID coreID) {
+                return;
+            }
 
             _formula.CoreNode = node;
 

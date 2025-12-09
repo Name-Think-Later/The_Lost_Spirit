@@ -7,7 +7,19 @@ namespace TheLostSpirit.Application.ViewModelStore
 {
     public class FormulaViewModelStore : IViewModelStore<FormulaID>, IReadOnlyList<IViewModelReference<FormulaID>>
     {
-        readonly List<IViewModelReference<FormulaID>> _list = new();
+        readonly List<IViewModelReference<FormulaID>> _list = new List<IViewModelReference<FormulaID>>();
+
+        public IEnumerator<IViewModelReference<FormulaID>> GetEnumerator() {
+            return _list.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
+        }
+
+        public int Count => _list.Count;
+
+        public IViewModelReference<FormulaID> this[int index] => _list[index];
 
         public void Save(IViewModelReference<FormulaID> viewModel) {
             _list.Add(viewModel);
@@ -31,17 +43,5 @@ namespace TheLostSpirit.Application.ViewModelStore
         public void Clear() {
             _list.Clear();
         }
-
-        public IEnumerator<IViewModelReference<FormulaID>> GetEnumerator() {
-            return _list.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() {
-            return GetEnumerator();
-        }
-
-        public int Count => _list.Count;
-
-        public IViewModelReference<FormulaID> this[int index] => _list[index];
     }
 }

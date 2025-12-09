@@ -1,8 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
-using MoreLinq;
 using R3;
-using R3.Triggers;
 using Sirenix.OdinInspector;
 using TheLostSpirit.Domain;
 using TheLostSpirit.Domain.Player;
@@ -46,22 +42,6 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
         }
 
 
-        void FixedUpdateBinding() {
-            var fixedUpdate =
-                Observable.EveryUpdate(UnityFrameProvider.FixedUpdate);
-
-            fixedUpdate
-                .Subscribe(_ => {
-                    ApplyVelocity();
-                })
-                .AddTo(this);
-        }
-
-        void ApplyVelocity() {
-            _rigidbody.velocity = _rigidbody.velocity.WithX(_moveSpeed);
-        }
-
-
         public void SetMoveSpeed(float speed) {
             _moveSpeed = speed;
         }
@@ -86,6 +66,24 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
             _detector.Target?.Interacted();
         }
 
-        public void Destroy() => Destroy(gameObject);
+        public void Destroy() {
+            Destroy(gameObject);
+        }
+
+
+        void FixedUpdateBinding() {
+            var fixedUpdate =
+                Observable.EveryUpdate(UnityFrameProvider.FixedUpdate);
+
+            fixedUpdate
+                .Subscribe(_ => {
+                    ApplyVelocity();
+                })
+                .AddTo(this);
+        }
+
+        void ApplyVelocity() {
+            _rigidbody.velocity = _rigidbody.velocity.WithX(_moveSpeed);
+        }
     }
 }

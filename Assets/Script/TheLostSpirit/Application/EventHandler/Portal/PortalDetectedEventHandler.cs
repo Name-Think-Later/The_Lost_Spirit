@@ -19,5 +19,5 @@ namespace TheLostSpirit.Application.EventHandler.Portal
             var viewModel = _portalViewModelStore.GetByID(portalID).AsViewModel();
             viewModel.SetFocus(true);
         }
-    };
+    }
 }

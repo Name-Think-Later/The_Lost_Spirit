@@ -7,8 +7,8 @@ namespace TheLostSpirit.Application.EventHandler.Formula
 {
     public class FormulaAddedCoreNodeEventHandler : DomainEventHandler<FormulaAddedCoreNodeEvent>
     {
-        readonly SkillRepository       _skillRepository;
         readonly FormulaViewModelStore _formulaViewModelStore;
+        readonly SkillRepository       _skillRepository;
 
         public FormulaAddedCoreNodeEventHandler(
             SkillRepository       skillRepository,
