@@ -1,5 +1,5 @@
-﻿using TheLostSpirit.Domain.Port.ReadOnly;
-using TheLostSpirit.Domain.Skill.Manifest.Event;
+﻿using System.Collections.Generic;
+using TheLostSpirit.Domain.Port.ReadOnly;
 using TheLostSpirit.Domain.Skill.Manifest.Manifestation;
 using TheLostSpirit.Identity.EntityID;
 using UnityEngine;
@@ -18,7 +18,7 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
         }
 
         public void Destroy() {
-            Destroy(gameObject);
+            Object.Destroy(gameObject);
         }
     }
 }

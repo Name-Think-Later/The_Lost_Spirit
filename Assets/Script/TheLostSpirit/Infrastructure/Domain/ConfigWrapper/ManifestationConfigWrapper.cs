@@ -10,6 +10,9 @@ namespace TheLostSpirit.Infrastructure.Domain.ConfigWrapper
         [SerializeField, HideLabel]
         ManifestationConfig _config;
 
+        [SerializeField]
+        EventBindableAnimationClip _animationClip;
+
         public ManifestationConfigID ID => _config.ID;
         public ManifestationConfig Inner => _config;
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using LBG;
 using Sirenix.OdinInspector;
 using TheLostSpirit.Identity.ConfigID;
@@ -14,15 +13,11 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
         [SerializeField, HideLabel]
         ManifestationConfigID _id;
 
-        [SerializeReference, SubclassSelector(DrawBoxForListElements = true)]
-        [ListDrawerSettings(ShowIndexLabels = true)]
-        List<Effect> _effects;
-
         public ManifestationConfigID ID => _id;
     }
 
     //separate
-    
+
     [Serializable]
     public abstract class Effect
     {
