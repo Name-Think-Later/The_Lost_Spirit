@@ -15,6 +15,11 @@ public class SimpleConnectionLine : MonoBehaviour, IPointerClickHandler
     public Color lineColor = Color.white;
     public float lineWidth = 4f;
     
+    [Header("線條材質設置")]
+    public Sprite lineSprite;
+    public bool useTiled = true;
+    public float tilesPerUnit = 1f; // 每單位長度的瓷磚數量
+    
     [Header("點擊中斷設置")]
     public Color hoverColor = Color.red;
     private Color originalColor;
@@ -25,6 +30,11 @@ public class SimpleConnectionLine : MonoBehaviour, IPointerClickHandler
     
     // 關聯的連接資料
     private NodeConnection associatedConnection;
+    
+    // 優化更新
+    private Vector3 lastStartPos;
+    private Vector3 lastEndPos;
+    private bool needsUpdate = true;
     
     void Awake()
     {
@@ -37,7 +47,10 @@ public class SimpleConnectionLine : MonoBehaviour, IPointerClickHandler
         if (image == null)
         {
             image = gameObject.AddComponent<Image>();
+            SetupLineSprite();
+            
             image.color = lineColor;
+            
             // 啟用 raycast，允許點擊連線來中斷
             image.raycastTarget = true;
         }
@@ -48,6 +61,11 @@ public class SimpleConnectionLine : MonoBehaviour, IPointerClickHandler
         rectTransform.pivot = new Vector2(0.5f, 0.5f);
     }
     
+    void Start()
+    {
+        originalColor = lineColor;
+    }
+    
     /// <summary>
     /// 設置連接的兩個點
     /// </summary>
@@ -55,6 +73,10 @@ public class SimpleConnectionLine : MonoBehaviour, IPointerClickHandler
     {
         StartPoint = startPoint;
         EndPoint = endPoint;
+        needsUpdate = true;
+        
+        // 重新設置 Sprite（因為 lineSprite 可能在這之前才被設定）
+        SetupLineSprite();
         UpdateLine();
     }
     
@@ -121,10 +143,19 @@ public class SimpleConnectionLine : MonoBehaviour, IPointerClickHandler
     
     void Update()
     {
-        // 每幀更新線條位置（可以優化為只在需要時更新）
+        // 優化：只在節點位置改變時更新線條
         if (StartPoint != null && EndPoint != null)
         {
-            UpdateLine();
+            Vector3 startPos = StartPoint.GetWorldPosition();
+            Vector3 endPos = EndPoint.GetWorldPosition();
+            
+            if (needsUpdate || startPos != lastStartPos || endPos != lastEndPos)
+            {
+                lastStartPos = startPos;
+                lastEndPos = endPos;
+                needsUpdate = false;
+                UpdateLine();
+            }
         }
         else if (manualStartPos != Vector3.zero || manualEndPos != Vector3.zero)
         {
@@ -193,6 +224,12 @@ public class SimpleConnectionLine : MonoBehaviour, IPointerClickHandler
             rectTransform.anchoredPosition = center;
             rectTransform.sizeDelta = new Vector2(distance, lineWidth);
             rectTransform.rotation = Quaternion.Euler(0, 0, angle);
+            
+            // 確保 Sprite 已正確設置
+            if (image != null && image.sprite == null)
+            {
+                SetupLineSprite();
+            }
         }
     }
     
@@ -216,6 +253,96 @@ public class SimpleConnectionLine : MonoBehaviour, IPointerClickHandler
         UpdateLine();
     }
     
+    /// <summary>
+    /// 設置線條 Sprite 和 Tiled 模式
+    /// </summary>
+    public void SetLineSprite(Sprite sprite, bool tiled = false, float tilesPerUnit = 1f)
+    {
+        lineSprite = sprite;
+        useTiled = tiled;
+        this.tilesPerUnit = tilesPerUnit;
+        SetupLineSprite();
+    }
+    
+    /// <summary>
+    /// 設置線條的 Sprite 和模式
+    /// </summary>
+    private void SetupLineSprite()
+    {
+        if (image == null) return;
+        
+        // 如果有自定義 Sprite，使用它
+        if (lineSprite != null)
+        {
+            image.sprite = lineSprite;
+            Debug.Log($"SimpleConnectionLine: Using custom sprite: {lineSprite.name}");
+        }
+        else
+        {
+            // 創建有圖案的 Texture2D 用於 Tiled 效果
+            if (useTiled)
+            {
+                // 創建 4x4 的虛線圖案
+                Texture2D dashedTexture = new Texture2D(8, 4);
+                for (int x = 0; x < 8; x++)
+                {
+                    for (int y = 0; y < 4; y++)
+                    {
+                        // 創建虛線圖案：前4個像素白色，後4個像素透明
+                        if (x < 4)
+                            dashedTexture.SetPixel(x, y, Color.white);
+                        else
+                            dashedTexture.SetPixel(x, y, Color.clear);
+                    }
+                }
+                dashedTexture.Apply();
+                image.sprite = Sprite.Create(dashedTexture, new Rect(0, 0, 8, 4), new Vector2(0.5f, 0.5f));
+            }
+            else
+            {
+                // 非 Tiled 模式使用純白色
+                Texture2D whiteTexture = new Texture2D(1, 1);
+                whiteTexture.SetPixel(0, 0, Color.white);
+                whiteTexture.Apply();
+                image.sprite = Sprite.Create(whiteTexture, new Rect(0, 0, 1, 1), new Vector2(0.5f, 0.5f));
+            }
+        }
+        
+        // 設置 Image 類型
+            if (useTiled)
+        {
+            image.type = Image.Type.Tiled;
+            image.pixelsPerUnitMultiplier = tilesPerUnit;
+        }
+        else
+        {
+            image.type = Image.Type.Sliced;
+        }
+        
+
+    }
+
+#if UNITY_EDITOR
+    /// <summary>
+    /// 編輯器中屬性變更時自動更新
+    /// </summary>
+    private void OnValidate()
+    {
+        if (Application.isPlaying && image != null)
+        {
+            SetupLineSprite();
+        }
+    }
+#endif
+    
+    /// <summary>
+    /// 動態更新 Sprite（當在 Inspector 中修改 lineSprite 時調用）
+    /// </summary>
+    public void RefreshSprite()
+    {
+        SetupLineSprite();
+    }
+
     /// <summary>
     /// 處理滑鼠點擊事件
     /// </summary>

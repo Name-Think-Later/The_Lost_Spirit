@@ -16,6 +16,12 @@ public class NodeConnectionManager : MonoBehaviour
     public float defaultLineWidth = 5f;
     public AnimationCurve lineWidthCurve = AnimationCurve.Linear(0, 1, 1, 1);
     
+    [Header("連接線材質設定")]
+    public Sprite defaultLineSprite; // 預設連接線 Sprite
+    public bool useDefaultTiled = true; // 預設是否使用 Tiled 模式
+    public float defaultTilesPerUnit = 1f; // 預設瓷磚密度
+    public bool autoAdjustToSpriteRatio = true; // 自動根據 Sprite 比例調整
+    
     [Header("連接預覽設定")]
     public bool showConnectionPreview = true;
     public float previewAnimationSpeed = 2f;
@@ -135,6 +141,58 @@ public class NodeConnectionManager : MonoBehaviour
         connectionLine.lineColor = defaultLineColor;
         connectionLine.lineWidth = defaultLineWidth;
         
+        // 設置 Sprite 相關屬性
+        if (defaultLineSprite != null)
+        {
+            connectionLine.lineSprite = defaultLineSprite;
+            Debug.Log($"NodeConnectionManager: Setting sprite to {defaultLineSprite.name} for connection {connection.ConnectionId}");
+            
+            // 自動調整瓷磚密度以適應正常線條寬度
+            if (autoAdjustToSpriteRatio)
+            {
+                float spriteWidth = defaultLineSprite.rect.width;
+                float spriteHeight = defaultLineSprite.rect.height;
+                
+                // 保持正常線條寬度
+                connectionLine.lineWidth = defaultLineWidth;
+                
+                // 讓圖片保持原始比例，一格一格排列
+                if (spriteHeight > 0 && spriteWidth > 0)
+                {
+                    // 使用 pixelsPerUnit 來正確計算實際尺寸
+                    float pixelsPerUnit = defaultLineSprite.pixelsPerUnit;
+                    float actualWidth = spriteWidth / pixelsPerUnit;
+                    float actualHeight = spriteHeight / pixelsPerUnit;
+                    
+                    // 計算縮放比例讓圖片高度匹配線條寬度
+                    float heightScale = defaultLineWidth / actualHeight;
+                    float scaledWidth = actualWidth * heightScale;
+                    
+                    // 設定合適的 tilesPerUnit 讓圖案重複
+                    // 根據線條寬度調整：線條越細，圖案應該越小（tilesPerUnit 越大）
+                    connectionLine.tilesPerUnit = defaultLineWidth / actualHeight;
+                    
+                    Debug.Log($"Sprite actual size: {actualWidth}x{actualHeight}, pixelsPerUnit: {pixelsPerUnit}, scaledWidth: {scaledWidth}, tilesPerUnit: {connectionLine.tilesPerUnit}");
+                }
+                else
+                {
+                    connectionLine.tilesPerUnit = defaultTilesPerUnit;
+                }
+                
+                Debug.Log($"Sprite size: {spriteWidth}x{spriteHeight}, Scale ratio: {defaultLineWidth / spriteHeight}, tilesPerUnit: {connectionLine.tilesPerUnit}");
+            }
+            else
+            {
+                connectionLine.tilesPerUnit = defaultTilesPerUnit;
+            }
+        }
+        else
+        {
+            Debug.Log($"NodeConnectionManager: defaultLineSprite is null for connection {connection.ConnectionId}");
+            connectionLine.tilesPerUnit = defaultTilesPerUnit;
+        }
+        connectionLine.useTiled = useDefaultTiled;
+        
         // 設置連接
         connectionLine.SetConnection(connection.OutputPoint, connection.InputPoint);
         
@@ -193,6 +251,35 @@ public class NodeConnectionManager : MonoBehaviour
         registeredNodes.Remove(node);
         nodeConnections.Remove(node);
         Debug.Log($"Node unregistered: {node.nodeName}");
+    }
+
+    /// <summary>
+    /// 刷新所有現有連接線的 Sprite 設定
+    /// </summary>
+    [ContextMenu("Refresh All Connection Sprites")]
+    public void RefreshAllConnectionSprites()
+    {
+        foreach (var connection in allConnections)
+        {
+            if (connection.ConnectionLine != null)
+            {
+                SimpleConnectionLine simpleLine = connection.ConnectionLine.GetComponent<SimpleConnectionLine>();
+                if (simpleLine != null)
+                {
+                    // 應用當前的預設設定
+                    if (defaultLineSprite != null)
+                    {
+                        simpleLine.lineSprite = defaultLineSprite;
+                    }
+                    simpleLine.useTiled = useDefaultTiled;
+                    simpleLine.tilesPerUnit = defaultTilesPerUnit;
+                    
+                    // 強制刷新 Sprite
+                    simpleLine.RefreshSprite();
+                }
+            }
+        }
+        Debug.Log($"Refreshed sprites for {allConnections.Count} connections");
     }
     
     /// <summary>
@@ -583,6 +670,48 @@ public class NodeConnectionManager : MonoBehaviour
         SimpleConnectionLine previewLine = dragPreviewLine.AddComponent<SimpleConnectionLine>();
         previewLine.lineColor = previewLineColor;
         previewLine.lineWidth = defaultLineWidth * 0.8f; // 稍微細一點
+        
+        // 設置預覽線的 Sprite 屬性
+        if (defaultLineSprite != null)
+        {
+            previewLine.lineSprite = defaultLineSprite;
+            Debug.Log($"NodeConnectionManager: Setting preview sprite to {defaultLineSprite.name}");
+            
+            // 自動調整預覽線的尺寸
+            if (autoAdjustToSpriteRatio)
+            {
+                float spriteWidth = defaultLineSprite.rect.width;
+                float spriteHeight = defaultLineSprite.rect.height;
+                
+                // 預覽線稍微細一點
+                previewLine.lineWidth = defaultLineWidth * 0.8f;
+                
+                // 使用相同的縮放邏輯
+                if (spriteHeight > 0 && spriteWidth > 0)
+                {
+                    float pixelsPerUnit = defaultLineSprite.pixelsPerUnit;
+                    float actualWidth = spriteWidth / pixelsPerUnit;
+                    float actualHeight = spriteHeight / pixelsPerUnit;
+                    
+                    float previewWidth = defaultLineWidth * 0.8f;
+                    float heightScale = previewWidth / actualHeight;
+                    float scaledWidth = actualWidth * heightScale;
+                    previewLine.tilesPerUnit = (defaultLineWidth * 0.8f) / actualHeight;
+                }
+                else
+                {
+                    previewLine.tilesPerUnit = defaultTilesPerUnit;
+                }
+            }
+            else
+            {
+                previewLine.tilesPerUnit = defaultTilesPerUnit;
+            }
+        }
+        previewLine.useTiled = useDefaultTiled;
+        
+        // 重新設置 Sprite（確保使用剛設定的 lineSprite）
+        previewLine.RefreshSprite();
         
         // 重要：禁用預覽線條的 raycast，避免干擾連接檢測
         UnityEngine.UI.Image previewImage = dragPreviewLine.GetComponent<UnityEngine.UI.Image>();
