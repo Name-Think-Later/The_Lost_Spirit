@@ -554,6 +554,10 @@ public class EventBindableAnimationClipDrawer : PropertyDrawer
 
         // [New] Centralized Save Logic for Odin
         void SaveEventData() {
+            var evt = Event.current;
+
+            if (!GUI.changed && evt.type is EventType.Repaint or EventType.Layout) return;
+
             var base64    = EventDataSerializer.Serialize(_currentEventData);
             var allEvents = AnimationUtility.GetAnimationEvents(_currentClip);
 
@@ -631,15 +635,13 @@ public class EventBindableAnimationClipDrawer : PropertyDrawer
 
         void UpdateDurationVisuals() {
             _durationBar.style.display = DisplayStyle.None;
-
             if (_selectedEventIndex == -1 || _currentEventData == null) {
                 return;
             }
 
+            if (_currentEventData.CantInspectDuration) return;
             var selectedIdx = _currentEventData.SelectedIndex;
-
-            if (selectedIdx == -1) return;
-            var action = _currentEventData.Actions[selectedIdx];
+            var action      = _currentEventData._actions[selectedIdx];
 
             var frames          = action.DurationFrames;
             var durationSeconds = TimelineMath.FrameToTime(frames, _currentClip.frameRate);
@@ -659,9 +661,9 @@ public class EventBindableAnimationClipDrawer : PropertyDrawer
             var currentJson = evt.stringParameter;
             _currentEventData = EventDataSerializer.Deserialize(currentJson);
 
-            _currentEventData.SelectedIndex = -1;
             _odinTree?.Dispose();
             _odinTree = PropertyTree.Create(_currentEventData);
+            _currentEventData.ResetSelection();
 
             var odinContainer = new IMGUIContainer(() => {
                 _odinTree.BeginDraw(false);

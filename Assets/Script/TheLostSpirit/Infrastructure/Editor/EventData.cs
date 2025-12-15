@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Sirenix.OdinInspector;
-
-#if UNITY_EDITOR
-using UnityEditor;
-using TheLostSpirit.Infrastructure.Editor; // 請確認有引用您的 Helper namespace
-#endif
 
 namespace TheLostSpirit.Infrastructure
 {
@@ -15,29 +11,18 @@ namespace TheLostSpirit.Infrastructure
     {
         [ListDrawerSettings(
             ShowIndexLabels = true,
-            OnBeginListElementGUI = nameof(OnBeginListElement),
-            OnEndListElementGUI = nameof(OnEndListElement),
             DraggableItems = false
         )]
-        public List<CombatAction> Actions = new List<CombatAction>();
+        [ListItemSelector(nameof(UpdateSelection))]
+        public List<CombatAction> _actions = new List<CombatAction>();
 
-        // 這是存檔用的索引 (外部 Timeline 認這個)
 
-        public int SelectedIndex = -1;
+        public int SelectedIndex { get; private set; }
 
-#if UNITY_EDITOR
+        public bool CantInspectDuration => !_actions.Any() || SelectedIndex < 0;
 
-        private void OnBeginListElement(int index) {
-            EventListDrawerHelper.BeginElementGUI();
-        }
-
-        private void OnEndListElement(int index) {
-            EventListDrawerHelper.EndElementGUI(
-                index,
-                ref SelectedIndex
-            );
-        }
-#endif
+        void UpdateSelection(int index) => SelectedIndex = index;
+        public void ResetSelection() => SelectedIndex = -1;
     }
 
     [Serializable]
