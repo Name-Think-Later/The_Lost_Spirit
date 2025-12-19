@@ -41,13 +41,26 @@ public class NodeDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // 檢查是否點擊的是連接點，如果是則不進行節點拖拽
+        // 檢查是否點擊的是連接點或其子物件，如果是則不進行節點拖拽
         if (eventData.pointerPressRaycast.gameObject != null)
         {
-            NodeConnectionPoint connectionPoint = eventData.pointerPressRaycast.gameObject.GetComponent<NodeConnectionPoint>();
+            GameObject clickedObject = eventData.pointerPressRaycast.gameObject;
+            
+            // 檢查點擊的物件本身是否是連接點
+            NodeConnectionPoint connectionPoint = clickedObject.GetComponent<NodeConnectionPoint>();
             if (connectionPoint != null)
             {
                 // 如果點擊的是連接點，不進行節點拖拽
+                Debug.Log($"Clicked on connection point, preventing node drag: {clickedObject.name}");
+                return;
+            }
+            
+            // 檢查點擊的物件的父物件是否是連接點
+            connectionPoint = clickedObject.GetComponentInParent<NodeConnectionPoint>();
+            if (connectionPoint != null && connectionPoint.transform != transform)
+            {
+                // 如果點擊的是連接點的子物件，也不進行節點拖拽
+                Debug.Log($"Clicked on connection point child, preventing node drag: {clickedObject.name}");
                 return;
             }
         }
@@ -78,6 +91,13 @@ public class NodeDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     
     public void OnDrag(PointerEventData eventData)
     {
+        // 檢查是否是有效的拖拽（不是連接點觸發的）
+        if (canvasGroup != null && canvasGroup.blocksRaycasts == true)
+        {
+            // 如果 blocksRaycasts 還是 true，表示 OnBeginDrag 中檢測到了連接點並返回了
+            return;
+        }
+        
         // 更新節點位置
         Vector2 localMousePos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -93,6 +113,13 @@ public class NodeDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     
     public void OnEndDrag(PointerEventData eventData)
     {
+        // 檢查是否是有效的拖拽結束
+        if (canvasGroup.blocksRaycasts == true)
+        {
+            // 如果 blocksRaycasts 還是 true，表示拖拽從未開始（連接點被點擊）
+            return;
+        }
+        
         // 恢復拖拽狀態
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1f;
