@@ -6,7 +6,7 @@ using UnityEngine;
 public class BackpackToggle : MonoBehaviour
 {
     [Header("背包Canvas設定")]
-    public GameObject backpackCanvas; // 拖拽 BackPackCanvas 物件到這裡
+    public GameObject backpackCanvas; // 拖拽 BackPackUI 物件到這裡
     
     [Header("快捷鍵設定")]
     public KeyCode toggleKey = KeyCode.B; // 開關快捷鍵
@@ -15,10 +15,10 @@ public class BackpackToggle : MonoBehaviour
 
     void Start()
     {
-        // 自動尋找 BackPackCanvas 如果沒有手動指定
+        // 自動尋找 BackPackUI 如果沒有手動指定
         if (backpackCanvas == null)
         {
-            backpackCanvas = GameObject.Find("BackPackCanvas");
+            backpackCanvas = GameObject.Find("BackPackUI");
         }
         
         // 記錄初始狀態
@@ -28,7 +28,7 @@ public class BackpackToggle : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("BackpackToggle: 找不到 BackPackCanvas 物件！");
+            Debug.LogWarning("BackpackToggle: 找不到 BackPackUI 物件！");
         }
     }
 
@@ -55,7 +55,7 @@ public class BackpackToggle : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("BackpackToggle: BackPackCanvas 物件未設定！");
+            Debug.LogWarning("BackpackToggle: BackPackUI 物件未設定！");
         }
     }
 
