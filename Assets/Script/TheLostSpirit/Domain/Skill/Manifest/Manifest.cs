@@ -1,4 +1,4 @@
-﻿using TheLostSpirit.Identity.ConfigID;
+﻿using TheLostSpirit.Identity.SpecificationID;
 
 namespace TheLostSpirit.Domain.Skill.Manifest
 {
@@ -10,6 +10,6 @@ namespace TheLostSpirit.Domain.Skill.Manifest
             _config = config;
         }
 
-        public ManifestationConfigID Manifestation => _config.ManifestationConfigID;
+        public ManifestationSpecificationID Manifestation => _config.ManifestationSpecificationID;
     }
 }

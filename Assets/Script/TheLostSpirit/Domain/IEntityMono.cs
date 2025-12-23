@@ -3,11 +3,17 @@ using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Domain
 {
-    public interface IEntityMono<T> : IEntity<T> where T : IRuntimeID
+    public interface IEntityMono<T> : IEntityMono where T : IRuntimeID
     {
-        IReadOnlyTransform ReadOnlyTransform { get; }
-        public void Initialize(T id);
+        public new T ID { get; }
 
+        public void Initialize(T id);
+    }
+
+    public interface IEntityMono
+    {
+        IRuntimeID ID { get; }
+        IReadOnlyTransform ReadOnlyTransform { get; }
         public void Destroy();
     }
 }

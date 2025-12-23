@@ -1,7 +1,5 @@
-﻿using TheLostSpirit.Domain.Skill.Manifest.Event;
-using TheLostSpirit.Domain.Skill.Manifest.Manifestation;
-using TheLostSpirit.Identity.ConfigID;
-using TheLostSpirit.Infrastructure.Domain.ConfigWrapper;
+﻿using TheLostSpirit.Identity.SpecificationID;
+using TheLostSpirit.Infrastructure.Domain.Specification;
 using UnityEngine;
 
 namespace TheLostSpirit.Infrastructure.Database
@@ -9,6 +7,6 @@ namespace TheLostSpirit.Infrastructure.Database
     [CreateAssetMenu(fileName = "Manifestation Database",
                      menuName = "The Lost Spirits/DataBase/Manifestation DataBase")]
     public class ManifestationDatabase
-        : GenericDatabase<ManifestationConfigID, ManifestationConfig, ManifestationConfigWrapper>
+        : GenericDatabase<ManifestationSpecificationID, ManifestationSpecification>
     { }
 }

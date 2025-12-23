@@ -1,19 +1,19 @@
 ﻿using Cysharp.Threading.Tasks;
 using TheLostSpirit.Domain.Formula;
 using TheLostSpirit.Domain.Port.EventBus;
-using TheLostSpirit.Identity.ConfigID;
+using TheLostSpirit.Identity.SpecificationID;
 
 namespace TheLostSpirit.Domain.Skill.Manifest.Event
 {
     public record AsyncManifestActivatedEvent(
-        ManifestationConfigID ManifestationConfigID,
+        ManifestationSpecificationID ManifestationSpecificationID,
         FormulaPayload        Payload
     ) : IAsyncDomainEvent
     {
         readonly UniTaskCompletionSource _completion = new UniTaskCompletionSource();
 
         public FormulaPayload Payload { get; } = Payload;
-        public ManifestationConfigID ManifestationConfigID { get; } = ManifestationConfigID;
+        public ManifestationSpecificationID ManifestationSpecificationID { get; } = ManifestationSpecificationID;
 
         public void Complete() {
             _completion.TrySetResult();

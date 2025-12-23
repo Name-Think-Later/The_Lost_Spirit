@@ -1,7 +1,7 @@
 ﻿using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Domain.Skill;
-using TheLostSpirit.Identity.ConfigID;
 using TheLostSpirit.Identity.EntityID;
+using TheLostSpirit.Identity.SpecificationID;
 
 namespace TheLostSpirit.Application.UseCase.Formula
 {
@@ -25,7 +25,7 @@ namespace TheLostSpirit.Application.UseCase.Formula
             return new Output(skillEntity.ID);
         }
 
-        public record struct Input(SkillConfigID Id) : IInput;
+        public record struct Input(SkillSpecificationID Id) : IInput;
 
         public record struct Output(ISkillID SkillID) : IOutput;
     }

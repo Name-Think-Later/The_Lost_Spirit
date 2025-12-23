@@ -1,11 +1,16 @@
 ﻿using TheLostSpirit.Application.Port.InstanceContext.InstanceContext;
 using TheLostSpirit.Domain.Formula;
-using TheLostSpirit.Identity.ConfigID;
+using TheLostSpirit.Domain.Port.ReadOnly;
+using TheLostSpirit.Identity.SpecificationID;
 
 namespace TheLostSpirit.Application.Port.InstanceContext.InstanceFactory
 {
     public interface IManifestationInstanceFactory
     {
-        IManifestationInstanceContext Create(ManifestationConfigID configID, FormulaPayload payload);
+        IManifestationInstanceContext Create(
+            ManifestationSpecificationID specificationID,
+            FormulaPayload               payload,
+            IReadOnlyTransform           anchorTransform
+        );
     }
 }

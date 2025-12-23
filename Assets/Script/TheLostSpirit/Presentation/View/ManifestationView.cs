@@ -10,21 +10,29 @@ namespace TheLostSpirit.Presentation.View
         [SerializeField, Required, ChildGameObjectsOnly]
         Animator _animator;
 
-
         ManifestationViewModel _viewModel;
 
         public void Bind(ManifestationViewModel viewModel) {
             _viewModel = viewModel;
+
+            //編輯器會卡Animator 短期解決方案
+            _animator.enabled = true;
         }
 
         public void Unbind() { }
 
 
         public void AnimationEventCallBack(AnimationEvent animationEvent) {
-            var clip         = animationEvent.animatorClipInfo.clip;                   //动画片段名称
-            var currentFrame = Mathf.FloorToInt(clip.frameRate * animationEvent.time); //动画片段当前帧 向下取整
+            var clip         = animationEvent.animatorClipInfo.clip;
+            var currentFrame = Mathf.RoundToInt(clip.frameRate * animationEvent.time);
 
-            _viewModel.TriggerEffect(0);
+            _viewModel.OnFrame(currentFrame);
+
+            var isFinish = currentFrame == Mathf.RoundToInt(clip.frameRate * clip.length);
+
+            if (!isFinish) return;
+
+            _viewModel.OnFinish();
         }
     }
 }

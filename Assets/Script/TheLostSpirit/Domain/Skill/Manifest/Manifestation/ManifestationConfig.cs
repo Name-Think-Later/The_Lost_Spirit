@@ -1,45 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using LBG;
-using Sirenix.OdinInspector;
-using TheLostSpirit.Identity.ConfigID;
+using Sirenix.Serialization;
 using UnityEngine;
 
 namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
 {
     [Serializable]
-    public class ManifestationConfig : IConfig<ManifestationConfigID>
+    public class ManifestationConfig
     {
-        [SerializeField, HideLabel]
-        ManifestationConfigID _id;
+        [OdinSerialize, HideInInspector]
+        public FrameActions FrameActions { get; private set; }
 
-        public ManifestationConfigID ID => _id;
-    }
 
-    //separate
-
-    [Serializable]
-    public abstract class Effect
-    {
-        [SerializeReference, SubclassSelector]
-        ITargetSelector _targetSelector;
-    }
-
-    public class InstantDamage : Effect
-    {
-        [SerializeField]
-        float _elementalDamage;
-    }
-
-    public interface ITargetSelector
-    {
-        public List<GameObject> GetTarget(Transform transform);
-    }
-
-    public class SelfSelector : ITargetSelector
-    {
-        public List<GameObject> GetTarget(Transform transform) {
-            return new List<GameObject>();
+#if UNITY_EDITOR
+        public void SetCombatActions(FrameActions frameActions) {
+            FrameActions = frameActions;
         }
+#endif
     }
 }

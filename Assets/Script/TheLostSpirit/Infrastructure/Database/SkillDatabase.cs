@@ -1,17 +1,17 @@
 using TheLostSpirit.Domain.Skill;
-using TheLostSpirit.Identity.ConfigID;
-using TheLostSpirit.Infrastructure.Domain.ConfigWrapper;
+using TheLostSpirit.Identity.SpecificationID;
+using TheLostSpirit.Infrastructure.Domain.Specification;
 using UnityEngine;
 
 namespace TheLostSpirit.Infrastructure.Database
 {
     [CreateAssetMenu(fileName = "Skill Database", menuName = "The Lost Spirits/DataBase/Skill DataBase")]
     public class SkillDatabase
-        : GenericDatabase<SkillConfigID, SkillConfig, SkillConfigWrapper>,
+        : GenericDatabase<SkillSpecificationID, SkillSpecification>,
           ISkillDatabase
     {
-        SkillConfig ISkillDatabase.GetByID(SkillConfigID id) {
-            return GetByID(id).Inner;
+        SkillConfig ISkillDatabase.GetByID(SkillSpecificationID id) {
+            return GetByID(id).Config;
         }
     }
 }

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c61c60917fd77439dcb3c829eb1261, type: 3}
   m_Name: Core config
   m_EditorClassIdentifier: 
+  _id:
+    _value: 001
   _coreConfig:
-    _id:
-      _value: 001
-    name: 
+    name: First
     handleCap: 0
     recoverAmount: 0
     recoverInterval: 0

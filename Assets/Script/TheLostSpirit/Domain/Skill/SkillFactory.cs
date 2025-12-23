@@ -1,7 +1,7 @@
 ﻿using TheLostSpirit.Domain.Skill.Core;
 using TheLostSpirit.Domain.Skill.Manifest;
-using TheLostSpirit.Identity.ConfigID;
 using TheLostSpirit.Identity.EntityID;
+using TheLostSpirit.Identity.SpecificationID;
 
 namespace TheLostSpirit.Domain.Skill
 {
@@ -13,8 +13,8 @@ namespace TheLostSpirit.Domain.Skill
             _skillDatabase = skillDatabase;
         }
 
-        public SkillEntity Create(SkillConfigID configId) {
-            var skillConfig = _skillDatabase.GetByID(configId);
+        public SkillEntity Create(SkillSpecificationID specificationID) {
+            var skillConfig = _skillDatabase.GetByID(specificationID);
 
             return skillConfig switch {
                 CoreConfig config     => new CoreEntity(CoreID.New(), config),

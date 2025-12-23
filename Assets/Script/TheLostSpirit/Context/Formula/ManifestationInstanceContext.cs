@@ -1,10 +1,12 @@
+using MoreLinq;
 using Sirenix.OdinInspector;
 using TheLostSpirit.Application.Port.InstanceContext.InstanceContext;
+using TheLostSpirit.Application.UseCase.Formula;
 using TheLostSpirit.Domain.Formula;
 using TheLostSpirit.Domain.Skill.Manifest.Manifestation;
 using TheLostSpirit.Identity.EntityID;
-using TheLostSpirit.Infrastructure.Domain.ConfigWrapper;
 using TheLostSpirit.Infrastructure.Domain.EntityMono;
+using TheLostSpirit.Infrastructure.Domain.Specification;
 using TheLostSpirit.Presentation.View;
 using TheLostSpirit.Presentation.ViewModel;
 using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
@@ -15,7 +17,7 @@ namespace TheLostSpirit.Context.Formula
     public class ManifestationInstanceContext : MonoBehaviour, IManifestationInstanceContext
     {
         [SerializeField, Required, ChildGameObjectsOnly]
-        ManifestationConfigWrapper _configWrapper;
+        ManifestationSpecification _specification;
 
         [SerializeField, Required, ChildGameObjectsOnly]
         ManifestationMono _mono;
@@ -26,12 +28,21 @@ namespace TheLostSpirit.Context.Formula
         public ManifestationEntity Entity { get; private set; }
         public IViewModelReference<ManifestationID> ViewModelReference { get; private set; }
 
-        public ManifestationInstanceContext Construct(FormulaPayload payload) {
+        public ManifestationInstanceContext Construct(
+            FormulaPayload                     payload,
+            ManifestationDoFrameActionsUseCase manifestationDoFrameActionsUseCase,
+            ManifestationFinishUseCase         manifestationFinishUseCase
+        ) {
             var manifestationID = ManifestationID.New();
 
-            Entity = new ManifestationEntity(manifestationID, _mono);
+            Entity = new ManifestationEntity(manifestationID, _specification.Config, _mono);
 
-            var viewModel = new ManifestationViewModel(manifestationID);
+            var viewModel =
+                new ManifestationViewModel(
+                    manifestationID,
+                    manifestationDoFrameActionsUseCase,
+                    manifestationFinishUseCase
+                );
 
             ViewModelReference = viewModel;
 

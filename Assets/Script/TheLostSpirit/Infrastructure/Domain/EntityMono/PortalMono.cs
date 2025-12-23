@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using TheLostSpirit.Domain;
 using TheLostSpirit.Domain.Interactable;
 using TheLostSpirit.Domain.Port.EventBus;
 using TheLostSpirit.Domain.Port.ReadOnly;
 using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Domain.Portal.Event;
+using TheLostSpirit.Domain.Skill.Manifest.Manifestation;
 using TheLostSpirit.Identity.EntityID;
 using UnityEngine;
 
@@ -33,6 +35,7 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
         }
 
         public PortalID ID { get; private set; }
+        IRuntimeID IEntityMono.ID => ID;
 
         public IReadOnlyTransform ReadOnlyTransform { get; private set; }
 

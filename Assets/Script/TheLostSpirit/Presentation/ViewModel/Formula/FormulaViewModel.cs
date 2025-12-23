@@ -44,7 +44,6 @@ namespace TheLostSpirit.Presentation.ViewModel.Formula
         }
 
         public void FormulaInput() {
-            Debug.Log("Formula");
             var traverseNodeInput = new TraverseFormulaUseCase.Input(ID);
             _traverseFormulaUseCase.Execute(traverseNodeInput);
         }

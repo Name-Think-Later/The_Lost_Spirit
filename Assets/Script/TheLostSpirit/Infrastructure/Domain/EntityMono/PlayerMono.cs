@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using R3;
 using Sirenix.OdinInspector;
 using TheLostSpirit.Domain;
@@ -28,6 +29,7 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
 
 
         public PlayerID ID { get; private set; }
+        IRuntimeID IEntityMono.ID => ID;
         public IReadOnlyTransform ReadOnlyTransform { get; private set; }
 
         public void Initialize(PlayerID id) {
@@ -40,7 +42,6 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
 
             _detector.Initialize();
         }
-
 
         public void SetMoveSpeed(float speed) {
             _moveSpeed = speed;
@@ -65,6 +66,7 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
         public void Interact() {
             _detector.Target?.Interacted();
         }
+
 
         public void Destroy() {
             Destroy(gameObject);

@@ -3,8 +3,8 @@ using TheLostSpirit.Application.Port.InstanceContext.InstanceContext;
 using TheLostSpirit.Domain;
 using TheLostSpirit.Domain.Player;
 using TheLostSpirit.Identity.EntityID;
-using TheLostSpirit.Infrastructure.Domain.ConfigWrapper;
 using TheLostSpirit.Infrastructure.Domain.EntityMono;
+using TheLostSpirit.Infrastructure.Domain.Specification;
 using TheLostSpirit.Presentation.ViewModel.Player;
 using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
 using UnityEngine;
@@ -16,7 +16,7 @@ namespace TheLostSpirit.Context.Player
           IInstanceContext<PlayerID, PlayerEntity, IViewModelReference<PlayerID>>
     {
         [SerializeField, InlineEditor]
-        PlayerConfigWrapper _playerConfigWrapper;
+        PlayerSpecification _playerSpecification;
 
         [SerializeField, ChildGameObjectsOnly]
         PlayerMono _mono;
@@ -31,7 +31,7 @@ namespace TheLostSpirit.Context.Player
         ) {
             var playerID = PlayerID.New();
 
-            Entity = PlayerEntity.Construct(playerID, _playerConfigWrapper.Inner, _mono, AppScope.EventBus);
+            Entity = PlayerEntity.Construct(playerID, _playerSpecification.Config, _mono, AppScope.EventBus);
 
             var viewModel =
                 PlayerViewModel.Construct(

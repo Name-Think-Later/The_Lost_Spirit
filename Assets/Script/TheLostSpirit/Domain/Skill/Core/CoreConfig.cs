@@ -1,6 +1,5 @@
 ﻿using System;
 using LBG;
-using TheLostSpirit.Identity.ConfigID;
 using UnityEngine;
 
 namespace TheLostSpirit.Domain.Skill.Core
@@ -25,7 +24,5 @@ namespace TheLostSpirit.Domain.Skill.Core
 
         [SerializeReference, SubclassSelector]
         public IOutputPolicy outputPolicy;
-
-        public CoreConfig(SkillConfigID id) : base(id) { }
     }
 }

@@ -1,7 +1,9 @@
-﻿using TheLostSpirit.Domain;
+﻿using System.Collections.Generic;
+using TheLostSpirit.Domain;
 using TheLostSpirit.Domain.Port.EventBus;
 using TheLostSpirit.Domain.Port.ReadOnly;
 using TheLostSpirit.Domain.Skill.Anchor;
+using TheLostSpirit.Domain.Skill.Manifest.Manifestation;
 using TheLostSpirit.Identity.EntityID;
 using UnityEngine;
 
@@ -14,6 +16,7 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
         public Transform Transform => transform;
 
         public AnchorID ID { get; private set; }
+        IRuntimeID IEntityMono.ID => ID;
         public IReadOnlyTransform ReadOnlyTransform { get; private set; }
 
         public void Initialize(AnchorID id) {

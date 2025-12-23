@@ -1,10 +1,13 @@
 ﻿using System;
 
-public class ListItemSelectorAttribute : Attribute
+namespace TheLostSpirit.Infrastructure.Editor
 {
-    public string SetSelectedMethod;
+    public class ListItemSelectorAttribute : Attribute
+    {
+        public string SetSelectedMethod;
 
-    public ListItemSelectorAttribute(string setSelectedMethod) {
-        this.SetSelectedMethod = setSelectedMethod;
+        public ListItemSelectorAttribute(string setSelectedMethod) {
+            this.SetSelectedMethod = setSelectedMethod;
+        }
     }
 }

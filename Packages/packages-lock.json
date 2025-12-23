@@ -57,11 +57,18 @@
       "hash": "8042b29ff87dd5506d7aad72bd6d8d7405985f27"
     },
     "com.cysharp.zlinq": {
-      "version": "https://github.com/Cysharp/ZLinq.git?path=src/ZLinq.Unity/Assets/ZLinq.Unity/#1.5.3",
+      "version": "https://github.com/Cysharp/ZLinq.git?path=src/ZLinq.Unity/Assets/ZLinq.Unity/#main",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "c3d18e4e99f9848e019ef50d0ae2d94f7a7cc820"
+      "hash": "c6d15be4efecc0afca628fd194f8f62ee0b4bb15"
+    },
+    "com.dcfa_pixels.debugx": {
+      "version": "https://github.com/DCFApixels/Unity-DebugX.git#main",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "d4339eca973a926b42222c0e339859545964f807"
     },
     "com.github-glitchenzo.nugetforunity": {
       "version": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=src/NuGetForUnity/#v4.5.0",
@@ -78,14 +85,14 @@
       "hash": "bc44c417df76cb730c53f80211d9f5ed06b85741"
     },
     "com.singularitygroup.hotreload": {
-      "version": "https://gitlab.hotreload.net/root/hot-reload-releases.git#1.13.12",
+      "version": "git+https://gitlab.hotreload.net/root/hot-reload-releases.git#1.13.13",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.ugui": "1.0.0",
         "com.unity.modules.unitywebrequest": "1.0.0"
       },
-      "hash": "d07c0137505f543a8e010ef9aa67635251f8cee0"
+      "hash": "6d739b195401e25df8e7a21f6ed4939febc2e30e"
     },
     "com.unity.2d.animation": {
       "version": "9.2.0",

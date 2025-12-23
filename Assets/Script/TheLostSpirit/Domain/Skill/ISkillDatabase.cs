@@ -1,11 +1,11 @@
-﻿using TheLostSpirit.Identity.ConfigID;
+﻿using TheLostSpirit.Identity.SpecificationID;
 
 namespace TheLostSpirit.Domain.Skill
 {
     public interface ISkillDatabase
     {
-        public SkillConfig GetByID(SkillConfigID id);
+        public SkillConfig GetByID(SkillSpecificationID id);
 
-        public bool HasID(SkillConfigID id);
+        public bool HasID(SkillSpecificationID id);
     }
 }

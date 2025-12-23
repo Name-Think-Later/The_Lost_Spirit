@@ -1,5 +1,4 @@
-﻿using TheLostSpirit.Domain.Skill.Manifest.Event;
-using TheLostSpirit.Domain.Skill.Manifest.Manifestation;
+﻿using TheLostSpirit.Domain.Skill.Manifest.Manifestation;
 using TheLostSpirit.Identity.EntityID;
 using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
 

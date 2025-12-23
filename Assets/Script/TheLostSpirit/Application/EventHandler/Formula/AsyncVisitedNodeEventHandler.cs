@@ -24,8 +24,8 @@ namespace TheLostSpirit.Application.EventHandler.Formula
             var nodeID  = domainEvent.NodeID;
             var payload = domainEvent.Payload;
 
-            Debug.Log(nodeID);
-            payload.AddRoute(nodeID);
+            // Debug.Log(nodeID);
+            payload.AddDebugRoute(nodeID);
 
             var nodeEntity = _nodeRepository.GetByID(nodeID);
 
