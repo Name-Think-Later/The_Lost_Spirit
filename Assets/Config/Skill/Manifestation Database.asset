@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Manifestation Database
   m_EditorClassIdentifier: 
   _database:
-  - {fileID: 2077428241080283706, guid: fc05a980edac76645a79dfd47a269696, type: 3}
+  - {fileID: 4504169318626028359, guid: fc05a980edac76645a79dfd47a269696, type: 3}

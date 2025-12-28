@@ -7,7 +7,7 @@ namespace TheLostSpirit.Identity.SpecificationID
     [Serializable, HideLabel]
     public record SkillSpecificationID : ISpecificationID
     {
-        [SerializeField, LabelText("Id")]
+        [SerializeField, LabelText("Id"), Required]
         string _value;
 
         public SkillSpecificationID(string value) {

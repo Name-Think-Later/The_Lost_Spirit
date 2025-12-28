@@ -8,5 +8,9 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
         public void Initialize(Transform transform);
 
         public IEnumerable<IEntityMono> GetTargets();
+
+#if UNITY_EDITOR
+        void DebugDrawRange(Vector2 pivot);
+#endif
     }
 }

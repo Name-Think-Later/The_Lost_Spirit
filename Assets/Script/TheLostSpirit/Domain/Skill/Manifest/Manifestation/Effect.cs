@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
 {
     [Serializable]

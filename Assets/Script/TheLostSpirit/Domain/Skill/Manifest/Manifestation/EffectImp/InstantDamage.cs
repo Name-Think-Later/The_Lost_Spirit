@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
+namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp
 {
     public class InstantDamage : Effect
     {

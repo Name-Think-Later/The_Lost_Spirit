@@ -1,7 +1,7 @@
 ﻿using DCFApixels;
 using UnityEngine;
 
-namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
+namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectRangeImp
 {
     public class BoxRange : EffectRange
     {

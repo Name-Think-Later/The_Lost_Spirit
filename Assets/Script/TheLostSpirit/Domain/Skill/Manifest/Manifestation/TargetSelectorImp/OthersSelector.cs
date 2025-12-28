@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using LBG;
 using TheLostSpirit.Extension.Linq;
 using UnityEngine;
 
-namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
+namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.TargetSelectorImp
 {
     public class OthersSelector : ITargetSelector
     {
@@ -21,5 +20,11 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
                     .Overlap()
                     .SelectComponent<IEntityMono>();
         }
+
+#if UNITY_EDITOR
+        public void DebugDrawRange(Vector2 pivot) {
+            _effectRange?.DebugDraw(pivot);
+        }
+#endif
     }
 }

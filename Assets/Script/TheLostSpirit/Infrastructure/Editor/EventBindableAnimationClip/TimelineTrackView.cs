@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TheLostSpirit.Domain.Skill.Manifest.Manifestation;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
@@ -12,8 +13,11 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
         readonly VisualElement       _markerContainer;
         readonly Label               _noClipLabel;
         readonly VisualElement       _rulerLayer;
-        AnimationClip                _clip;
-        VisualElement                _playHeadLine;
+
+        AnimationClip _clip;
+        GameObject    _characterTarget;
+        CombatStep    _selectedCombatStep;
+        VisualElement _playHeadLine;
 
         public TimelineTrackView(ITimelineController controller) {
             _controller = controller;
@@ -70,6 +74,10 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             }
         }
 
+        public void SetCharacterTarget(GameObject target) {
+            _characterTarget = target;
+        }
+
         void SetLayersVisible(bool isVisible) {
             var display = isVisible ? DisplayStyle.Flex : DisplayStyle.None;
             _clipBar.style.display         = display;
@@ -80,6 +88,7 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
 
         public void UpdateDurationVisuals(EventData eventData, int selectedEventIndex, float eventTime) {
             _durationBar.style.display = DisplayStyle.None;
+            _selectedCombatStep        = null; // Clear by default
 
             if (_clip == null || selectedEventIndex == -1 || eventData == null) {
                 return;
@@ -89,9 +98,14 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
                 return;
             }
 
-            var selectedIdx     = eventData.selectedIndex;
-            var action          = eventData.combatSteps[selectedIdx];
-            var frames          = action.DurationFrames;
+            // Check if a CombatStep is actually selected
+            var selectedIdx = eventData.selectedIndex;
+            if (selectedIdx < 0 || selectedIdx >= eventData.combatSteps.Count) {
+                return; // No CombatStep selected, debug draw will be cleared
+            }
+
+            var step            = eventData.combatSteps[selectedIdx];
+            var frames          = step.DurationFrames;
             var durationSeconds = TimelineMath.FrameToTime(frames, _clip.frameRate);
 
             var startTime  = eventTime;
@@ -102,11 +116,27 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             _durationBar.style.width   = Length.Percent(widthRatio * 100f);
             _durationBar.style.display = DisplayStyle.Flex;
             _durationBar.tooltip       = $"{frames} frames ({durationSeconds:F2}s)";
+
+            _selectedCombatStep = step;
         }
 
         public void HideDurationBar() {
             _durationBar.style.display = DisplayStyle.None;
+            _selectedCombatStep        = null;
         }
+
+#if UNITY_EDITOR
+        public bool DrawDebugRange() {
+            if (_selectedCombatStep == null || _characterTarget == null) {
+                return false; // No drawing
+            }
+
+            var pivot = (Vector2)_characterTarget.transform.position;
+            _selectedCombatStep.DebugDrawRange(pivot);
+
+            return true; // Drawing occurred
+        }
+#endif
 
         public void SetPlayHead(float time) {
             if (!_clip) {

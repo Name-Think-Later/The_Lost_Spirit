@@ -4,6 +4,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using LBG;
 using Sirenix.OdinInspector;
+using TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp;
 using TheLostSpirit.Extension.General;
 using TheLostSpirit.Extension.Linq;
 using UnityEngine;
@@ -51,6 +52,10 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
 
 #if UNITY_EDITOR
         public int DurationFrames => _durationFrames;
+
+        public void DebugDrawRange(Vector2 pivot) {
+            _targetSelector?.DebugDrawRange(pivot);
+        }
 #endif
     }
 }

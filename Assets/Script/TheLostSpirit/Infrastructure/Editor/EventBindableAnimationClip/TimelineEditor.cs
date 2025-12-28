@@ -35,6 +35,7 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             _ownerProperty = ownerProp;
             _clipProperty  = clipProp;
 
+            InitializePreviewTarget();
             BuildUI();
             BindLifeCycle();
             Refresh();
@@ -98,6 +99,11 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
                     );
                 data.ResetSelection();
                 _trackView.UpdateDurationVisuals(data, index, events[index].time);
+
+                // Set character target for debug draw
+                if (_previewTarget != null) {
+                    _trackView.SetCharacterTarget(_previewTarget);
+                }
             }
         }
 
@@ -180,6 +186,15 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             });
         }
 
+        void InitializePreviewTarget() {
+            var targetObj = _ownerProperty.serializedObject.targetObject;
+            _previewTarget = targetObj switch {
+                Component component => component.gameObject,
+                GameObject go       => go,
+                _                   => null
+            };
+        }
+
         public void Refresh() {
             _currentClip = _clipProperty.objectReferenceValue as AnimationClip;
             _trackView.SetClip(_currentClip);
@@ -205,6 +220,11 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
         }
 
         void OnEditorUpdate() {
+            // Per-frame debug draw with forced SceneView repaint
+            if (_trackView?.DrawDebugRange() == true) {
+                SceneView.RepaintAll(); // Force SceneView to redraw
+            }
+
             if (!_currentClip) {
                 return;
             }
@@ -239,6 +259,7 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             }
         }
 
+
         void OnPlayModeStateChanged(PlayModeStateChange state) {
             var isPlaying = Application.isPlaying || EditorApplication.isPlayingOrWillChangePlaymode;
 
@@ -260,22 +281,16 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
                 return;
             }
 
-            if (!_previewTarget) {
-                var targetObj = _ownerProperty.serializedObject.targetObject;
-
-                _previewTarget = targetObj switch {
-                    Component component => component.gameObject,
-                    GameObject go       => go,
-                    _                   => _previewTarget
-                };
-            }
-            else {
+            if (_previewTarget) {
                 if (!AnimationMode.InAnimationMode()) {
                     AnimationMode.StartAnimationMode();
                 }
 
                 AnimationMode.SampleAnimationClip(_previewTarget, _currentClip, _currentTime);
                 SceneView.RepaintAll();
+
+                // Update character target for debug draw
+                _trackView.SetCharacterTarget(_previewTarget);
             }
         }
 

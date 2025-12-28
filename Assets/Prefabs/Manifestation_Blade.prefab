@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &841873947200059269
+--- !u!1 &471237000905803790
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,13 +8,13 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3622636325451701191}
-  - component: {fileID: 2077428241080283706}
-  - component: {fileID: 51167593259486421}
-  - component: {fileID: 1503590920041793274}
-  - component: {fileID: 1929247350002331479}
-  - component: {fileID: 4537656095046598878}
-  - component: {fileID: 6939534945982713613}
+  - component: {fileID: 4369862499391211204}
+  - component: {fileID: 4504169318626028359}
+  - component: {fileID: 1018417828352636728}
+  - component: {fileID: 6196818307271425088}
+  - component: {fileID: 692751537590274086}
+  - component: {fileID: 5355217447602230803}
+  - component: {fileID: 6565499858067069352}
   m_Layer: 0
   m_Name: Manifestation_Blade
   m_TagString: Untagged
@@ -22,13 +22,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3622636325451701191
+--- !u!4 &4369862499391211204
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 841873947200059269}
+  m_GameObject: {fileID: 471237000905803790}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -37,13 +37,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2077428241080283706
+--- !u!114 &4504169318626028359
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 841873947200059269}
+  m_GameObject: {fileID: 471237000905803790}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fcbf0fa0699416e4fb55b15cda5f81df, type: 3}
@@ -114,7 +114,7 @@ MonoBehaviour:
         TheLostSpirits.Domain]], mscorlib]], mscorlib
     - Name: 
       Entry: 3
-      Data: 20
+      Data: 27
     - Name: 
       Entry: 7
       Data: 4|System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
@@ -130,10 +130,12 @@ MonoBehaviour:
       Data: 10
     - Name: _targetSelector
       Entry: 7
-      Data: 6|TheLostSpirit.Domain.Skill.Manifest.Manifestation.OthersSelector, TheLostSpirits.Domain
+      Data: 6|TheLostSpirit.Domain.Skill.Manifest.Manifestation.TargetSelectorImp.OthersSelector,
+        TheLostSpirits.Domain
     - Name: _effectRange
       Entry: 7
-      Data: 7|TheLostSpirit.Domain.Skill.Manifest.Manifestation.BoxRange, TheLostSpirits.Domain
+      Data: 7|TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectRangeImp.BoxRange,
+        TheLostSpirits.Domain
     - Name: layerMask
       Entry: 7
       Data: UnityEngine.LayerMask, UnityEngine.CoreModule
@@ -148,13 +150,13 @@ MonoBehaviour:
       Data: UnityEngine.Rect, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 0.2
     - Name: 
       Entry: 4
       Data: 0
     - Name: 
       Entry: 4
-      Data: 3
+      Data: 3.5
     - Name: 
       Entry: 4
       Data: 3
@@ -173,16 +175,7 @@ MonoBehaviour:
         TheLostSpirits.Domain]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 9|TheLostSpirit.Domain.Skill.Manifest.Manifestation.InstantDamage, TheLostSpirits.Domain
-    - Name: _elementalDamage
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 0
     - Name: 
       Entry: 13
       Data: 
@@ -207,10 +200,10 @@ MonoBehaviour:
         TheLostSpirits.Domain]], mscorlib]], mscorlib
     - Name: 
       Entry: 3
-      Data: 32
+      Data: 51
     - Name: 
       Entry: 7
-      Data: 10|System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
+      Data: 9|System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
         TheLostSpirits.Domain]], mscorlib
     - Name: 
       Entry: 12
@@ -242,58 +235,58 @@ MonoBehaviour:
   _id:
     _value: 001
   _refactor:
-    animationClip: {fileID: 7400000, guid: ce6adcfec0bba654b985eceb7a04b1a5, type: 2}
---- !u!114 &51167593259486421
+    animationClip: {fileID: 7400000, guid: 6bf9dae34651da147b703f2f9cece566, type: 2}
+--- !u!114 &1018417828352636728
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 841873947200059269}
+  m_GameObject: {fileID: 471237000905803790}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d84586fbab35375499cd6b1a9dd79be7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _specification: {fileID: 2077428241080283706}
-  _mono: {fileID: 1503590920041793274}
-  _view: {fileID: 1929247350002331479}
---- !u!114 &1503590920041793274
+  _specification: {fileID: 4504169318626028359}
+  _mono: {fileID: 6196818307271425088}
+  _view: {fileID: 692751537590274086}
+--- !u!114 &6196818307271425088
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 841873947200059269}
+  m_GameObject: {fileID: 471237000905803790}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb48ea1c211d4f858c9185c1899214de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1929247350002331479
+--- !u!114 &692751537590274086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 841873947200059269}
+  m_GameObject: {fileID: 471237000905803790}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eda9e9f6fe9a4c489d37e2e8394360bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 4537656095046598878}
---- !u!95 &4537656095046598878
+  _animator: {fileID: 5355217447602230803}
+--- !u!95 &5355217447602230803
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 841873947200059269}
-  m_Enabled: 0
+  m_GameObject: {fileID: 471237000905803790}
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 05977c58f6730364394fc90d7c134653, type: 2}
+  m_Controller: {fileID: 9100000, guid: e9eb0db84f3008846babbab5c3159f5d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -304,13 +297,13 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!212 &6939534945982713613
+--- !u!212 &6565499858067069352
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 841873947200059269}
+  m_GameObject: {fileID: 471237000905803790}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -345,7 +338,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -305248461, guid: 8bdceb6ea7d82504b9d30a807c914638, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -353,6 +346,6 @@ SpriteRenderer:
   m_Size: {x: 3, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
