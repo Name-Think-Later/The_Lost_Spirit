@@ -5,88 +5,87 @@ using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
 
-namespace TheLostSpirit.Infrastructure.Editor
+namespace Script.TheLostSpirit.Infrastructure.Editor
 {
-    [DrawerPriority(0.01, 0, 0)]
+    [DrawerPriority(0.01)]
     public class ListItemSelectorAttributeDrawer : OdinAttributeDrawer<ListItemSelectorAttribute>
     {
-        private static Color                              selectedColor = new Color(0.301f, 0.563f, 1f, 0.1f);
-        private        bool                               isListElement;
-        private        InspectorProperty                  baseMemberProperty;
-        private        PropertyContext<InspectorProperty> globalSelectedProperty;
-        private        InspectorProperty                  selectedProperty;
-        private        Action<object, int>                selectedIndexSetter;
+        static readonly Color              selectedColor = new Color(0.301f, 0.563f, 1f, 0.1f);
+        InspectorProperty                  baseMemberProperty;
+        PropertyContext<InspectorProperty> globalSelectedProperty;
+        bool                               isListElement;
+        Action<object, int>                selectedIndexSetter;
+        InspectorProperty                  selectedProperty;
 
         protected override void Initialize() {
-            this.isListElement =
-                this.Property.Parent != null && this.Property.Parent.ChildResolver is IOrderedCollectionResolver;
-            var isList       = !this.isListElement;
-            var listProperty = isList ? this.Property : this.Property.Parent;
-            this.baseMemberProperty = listProperty.FindParent(x => x.Info.PropertyType == PropertyType.Value, true);
+            isListElement =
+                Property.Parent != null && Property.Parent.ChildResolver is IOrderedCollectionResolver;
+            var isList       = !isListElement;
+            var listProperty = isList ? Property : Property.Parent;
+            baseMemberProperty = listProperty.FindParent(x => x.Info.PropertyType == PropertyType.Value, true);
 
-            this.globalSelectedProperty =
-                this.baseMemberProperty.Context.GetGlobal("selectedIndex" + this.baseMemberProperty.GetHashCode(),
-                                                          (InspectorProperty)null);
+            globalSelectedProperty =
+                baseMemberProperty.Context.GetGlobal("selectedIndex" + baseMemberProperty.GetHashCode(),
+                                                     (InspectorProperty)null);
 
             if (isList) {
-                var parentType = this.baseMemberProperty.ParentValues[0].GetType();
-                this.selectedIndexSetter =
+                var parentType = baseMemberProperty.ParentValues[0].GetType();
+                selectedIndexSetter =
                     EmitUtilities.CreateWeakInstanceMethodCaller<int>(
-                        parentType.GetMethod(this.Attribute.SetSelectedMethod, Flags.AllMembers));
+                        parentType.GetMethod(Attribute.SetSelectedMethod, Flags.AllMembers));
             }
         }
 
         protected override void DrawPropertyLayout(GUIContent label) {
             var t = Event.current.type;
 
-            if (this.isListElement) {
+            if (isListElement) {
                 if (t == EventType.Layout) {
-                    this.CallNextDrawer(label);
+                    CallNextDrawer(label);
                 }
                 else {
                     var rect       = GUIHelper.GetCurrentLayoutRect();
-                    var isSelected = this.globalSelectedProperty.Value == this.Property;
+                    var isSelected = globalSelectedProperty.Value == Property;
 
                     if (t == EventType.Repaint && isSelected) {
                         EditorGUI.DrawRect(rect, selectedColor);
                     }
                     else if (t == EventType.MouseDown && rect.Contains(Event.current.mousePosition)) {
-                        this.globalSelectedProperty.Value = this.Property;
+                        globalSelectedProperty.Value = Property;
                     }
 
-                    this.CallNextDrawer(label);
+                    CallNextDrawer(label);
                 }
             }
             else {
-                this.CallNextDrawer(label);
+                CallNextDrawer(label);
 
                 if (Event.current.type != EventType.Layout) {
-                    var sel = this.globalSelectedProperty.Value;
+                    var sel = globalSelectedProperty.Value;
 
                     // Select
-                    if (sel != null && sel != this.selectedProperty) {
-                        this.selectedProperty = sel;
-                        this.Select(this.selectedProperty.Index);
+                    if (sel != null && sel != selectedProperty) {
+                        selectedProperty = sel;
+                        Select(selectedProperty.Index);
                     }
                     // Deselect when destroyed
-                    else if (this.selectedProperty != null &&
-                             this.selectedProperty.Index < this.Property.Children.Count &&
-                             this.selectedProperty != this.Property.Children[this.selectedProperty.Index]) {
+                    else if (selectedProperty != null &&
+                             selectedProperty.Index < Property.Children.Count &&
+                             selectedProperty != Property.Children[selectedProperty.Index]) {
                         var index = -1;
-                        this.Select(index);
-                        this.selectedProperty             = null;
-                        this.globalSelectedProperty.Value = null;
+                        Select(index);
+                        selectedProperty             = null;
+                        globalSelectedProperty.Value = null;
                     }
                 }
             }
         }
 
-        private void Select(int index) {
+        void Select(int index) {
             GUIHelper.RequestRepaint();
-            this.Property.Tree.DelayAction(() => {
-                for (int i = 0; i < this.baseMemberProperty.ParentValues.Count; i++) {
-                    this.selectedIndexSetter(this.baseMemberProperty.ParentValues[i], index);
-                }
+            Property.Tree.DelayAction(() => {
+                for (var i = 0; i < baseMemberProperty.ParentValues.Count; i++)
+                    selectedIndexSetter(baseMemberProperty.ParentValues[i], index);
             });
         }
     }

@@ -114,7 +114,7 @@ MonoBehaviour:
         TheLostSpirits.Domain]], mscorlib]], mscorlib
     - Name: 
       Entry: 3
-      Data: 27
+      Data: 20
     - Name: 
       Entry: 7
       Data: 4|System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
@@ -173,22 +173,13 @@ MonoBehaviour:
         TheLostSpirits.Domain]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
       Data: 9|TheLostSpirit.Domain.Skill.Manifest.Manifestation.InstantDamage, TheLostSpirits.Domain
     - Name: _elementalDamage
       Entry: 4
       Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 10|TheLostSpirit.Domain.Skill.Manifest.Manifestation.InstantDamage, TheLostSpirits.Domain
-    - Name: _elementalDamage
-      Entry: 4
-      Data: 5
     - Name: 
       Entry: 8
       Data: 
@@ -216,10 +207,10 @@ MonoBehaviour:
         TheLostSpirits.Domain]], mscorlib]], mscorlib
     - Name: 
       Entry: 3
-      Data: 51
+      Data: 32
     - Name: 
       Entry: 7
-      Data: 11|System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
+      Data: 10|System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
         TheLostSpirits.Domain]], mscorlib
     - Name: 
       Entry: 12
@@ -250,8 +241,8 @@ MonoBehaviour:
       Data: 
   _id:
     _value: 001
-  _eventBindableAnimationClip:
-    animationClip: {fileID: 7400000, guid: 6bf9dae34651da147b703f2f9cece566, type: 2}
+  _refactor:
+    animationClip: {fileID: 7400000, guid: ce6adcfec0bba654b985eceb7a04b1a5, type: 2}
 --- !u!114 &51167593259486421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,7 +293,7 @@ Animator:
   m_GameObject: {fileID: 841873947200059269}
   m_Enabled: 0
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e9eb0db84f3008846babbab5c3159f5d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 05977c58f6730364394fc90d7c134653, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -354,7 +345,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1950407617, guid: 8bdceb6ea7d82504b9d30a807c914638, type: 3}
+  m_Sprite: {fileID: -305248461, guid: 8bdceb6ea7d82504b9d30a807c914638, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

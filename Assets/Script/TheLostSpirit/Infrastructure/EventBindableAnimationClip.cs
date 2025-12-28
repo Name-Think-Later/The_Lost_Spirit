@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using TheLostSpirit.Domain.Skill.Manifest.Manifestation;
 using UnityEngine;
@@ -29,7 +27,7 @@ namespace TheLostSpirit.Infrastructure
                             e =>
                                 EventDataSerializer
                                     .Deserialize(e.stringParameter)
-                                    .combatActions
+                                    .combatSteps
                         );
 
                 return new FrameActions(dictionary);

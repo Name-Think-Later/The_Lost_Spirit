@@ -5,7 +5,8 @@ namespace TheLostSpirit.Domain.Formula
 {
     public class Formula
     {
-        public Formula() {
+        public Formula()
+        {
             Nodes = new List<NodeID>();
         }
 

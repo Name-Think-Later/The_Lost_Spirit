@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "E:/Local/Program/UNITY/The_Lost_Spirit"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.asset": "yaml",
+			"*.meta": "yaml",
+			"*.prefab": "yaml",
+			"*.unity": "yaml"
+		},
+		"dotnet.defaultSolution": "LOST SPIRIT.sln"
+	}
+}

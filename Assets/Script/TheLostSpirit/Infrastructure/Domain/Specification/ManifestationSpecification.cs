@@ -19,8 +19,11 @@ namespace TheLostSpirit.Infrastructure.Domain.Specification
         [OdinSerialize, HideReferenceObjectPicker]
         ManifestationConfig _config;
 
+        // [SerializeField]
+        // EventBindableAnimationClip _eventBindableAnimationClip;
+
         [SerializeField]
-        EventBindableAnimationClip _eventBindableAnimationClip;
+        EventBindableAnimationClip _refactor;
 
         public ManifestationSpecificationID ID => _id;
 
@@ -28,7 +31,7 @@ namespace TheLostSpirit.Infrastructure.Domain.Specification
 
 #if UNITY_EDITOR
         void OnValidate() {
-            var frameActions = _eventBindableAnimationClip.FrameActions;
+            var frameActions = _refactor.FrameActions;
             _config.SetCombatActions(frameActions);
         }
 
