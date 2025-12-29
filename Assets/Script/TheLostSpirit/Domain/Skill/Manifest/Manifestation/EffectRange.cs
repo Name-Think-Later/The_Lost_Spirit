@@ -1,25 +1,32 @@
-﻿using UnityEngine;
+﻿using System;
+using TheLostSpirit.Domain.Formula;
+using UnityEngine;
 
 namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
 {
     public abstract class EffectRange
     {
         [SerializeField]
-        protected Color debugColor;
+        protected Color debugColor = Color.white;
 
         [SerializeField]
-        protected LayerMask layerMask;
+        protected LayerMask layerMask = 0;
 
-        protected Transform transform;
+        [SerializeField]
+        Vector2 _offset;
 
-        public void Initialize(Transform transform) {
-            this.transform = transform;
-        }
+        protected Transform pivot;
+
+        protected Vector2 Position => (Vector2)pivot.position + _offset;
 
         public abstract Collider2D[] Overlap();
 
+        public void SetOwner(Transform owner) {
+            pivot = owner;
+        }
+
 #if UNITY_EDITOR
-        public abstract void DebugDraw(Vector2 pivot);
+        public abstract void DebugDraw();
 #endif
     }
 }

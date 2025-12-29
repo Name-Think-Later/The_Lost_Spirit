@@ -35,7 +35,7 @@ namespace TheLostSpirit.Context.Formula
         ) {
             var manifestationID = ManifestationID.New();
 
-            Entity = new ManifestationEntity(manifestationID, _specification.Config, _mono);
+            Entity = new ManifestationEntity(manifestationID, _specification.Config, _mono, payload);
 
             var viewModel =
                 new ManifestationViewModel(

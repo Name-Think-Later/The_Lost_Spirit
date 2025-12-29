@@ -1,5 +1,5 @@
 ﻿using DCFApixels;
-using DCFApixels.DebugXCore;
+using TheLostSpirit.Domain.Formula;
 using UnityEngine;
 
 namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectRangeImp
@@ -7,27 +7,23 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectRangeImp
     public class CircleRange : EffectRange
     {
         [SerializeField]
-        Vector2 _center;
+        float _elementalRadius;
 
-        [SerializeField]
-        float _radius;
+        float Radius => Mathf.Max(pivot.localScale.x, pivot.localScale.y) * _elementalRadius;
 
         public override Collider2D[] Overlap() {
-            var position = (Vector2)transform.position + _center;
-            var result   = Physics2D.OverlapCircleAll(position, _radius, layerMask);
+            var result = Physics2D.OverlapCircleAll(Position, Radius, layerMask);
 #if UNITY_EDITOR
-            DebugDraw(transform.position);
+            DebugDraw();
 #endif
             return result;
         }
-        
-#if UNITY_EDITOR
-        public override void DebugDraw(Vector2 pivot) {
-            var position = pivot + _center;
 
+#if UNITY_EDITOR
+        public override void DebugDraw() {
             DebugX
                 .Draw(debugColor)
-                .Circle(position, Quaternion.identity, _radius);
+                .Circle(Position, Quaternion.identity, Radius);
         }
     }
 #endif

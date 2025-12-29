@@ -14,6 +14,9 @@ namespace TheLostSpirit.Domain.Formula
         public List<AnchorID> LastAnchors { get; private set; }
         public List<AnchorID> NewAnchors { get; private set; }
 
+        //forTest
+        public float testFactor = 5;
+
 
         public FormulaPayload() {
             _nodeRoute  = new NodeID[1];

@@ -131,8 +131,7 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
                 return false; // No drawing
             }
 
-            var pivot = (Vector2)_characterTarget.transform.position;
-            _selectedCombatStep.DebugDrawRange(pivot);
+            _selectedCombatStep.DebugDrawRange();
 
             return true; // Drawing occurred
         }

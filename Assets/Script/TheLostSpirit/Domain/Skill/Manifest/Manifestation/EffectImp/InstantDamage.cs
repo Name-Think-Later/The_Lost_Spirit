@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TheLostSpirit.Domain.Formula;
+using UnityEngine;
 
 namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp
 {
@@ -7,12 +8,13 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp
         [SerializeField]
         float _elementalDamage;
 
-        public override void Apply(IEntityMono entityMono) {
-            if (entityMono is not IDamageableComponent damageable) {
+        public override void Apply(IEntityMono target, FormulaPayload payload) {
+            if (target is not IDamageableComponent damageable) {
                 return;
             }
 
-            damageable.DealDamage(_elementalDamage);
+            var finalDamage = _elementalDamage + payload.testFactor;
+            damageable.DealDamage(finalDamage);
         }
     }
 }

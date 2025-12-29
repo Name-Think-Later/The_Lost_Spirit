@@ -1,4 +1,5 @@
-﻿using TheLostSpirit.Identity.EntityID;
+﻿using TheLostSpirit.Domain.Formula;
+using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
 {
@@ -6,7 +7,8 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
     {
         public void Initialize(
             ManifestationID id,
-            FrameActions    combatAction
+            FrameActions    combatAction,
+            FormulaPayload  payload
         );
 
         public void DoFrameActions(int index);

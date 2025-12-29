@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using TheLostSpirit.Application.Port.InstanceContext.InstanceFactory;
 using TheLostSpirit.Application.Repository;
@@ -35,14 +36,13 @@ namespace TheLostSpirit.Application.EventHandler.Formula
 
             var entities = CreateManyAndRegister(specificationID, payload);
 
-            await UniTask.WhenAny(entities.Select(entity => entity.IsFinish.WaitAsync()));
-
-            DestroyManyAndDeregister(entities);
+            var entitiesFinish = entities.Select(entity => entity.IsFinish.WaitAsync());
+            await UniTask.WhenAll(entitiesFinish);
 
             if (payload.IsLastChild) ClearAnchor(payload);
         }
 
-        ManifestationEntity[] CreateManyAndRegister(
+        IEnumerable<ManifestationEntity> CreateManyAndRegister(
             ManifestationSpecificationID specificationID,
             FormulaPayload               payload
         ) {
@@ -66,19 +66,7 @@ namespace TheLostSpirit.Application.EventHandler.Formula
                         _manifestationViewModelStore.Save(viewModelReference);
 
                         return entity;
-                    })
-                    .ToArray();
-        }
-
-
-        void DestroyManyAndDeregister(ManifestationEntity[] entities) {
-            foreach (var entity in entities) {
-                var id = entity.ID;
-                _manifestationRepository.Remove(id);
-                _manifestationViewModelStore.Remove(id);
-
-                entity.Destroy();
-            }
+                    });
         }
 
         void ClearAnchor(FormulaPayload payload) {

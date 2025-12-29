@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using TheLostSpirit.Domain;
+using TheLostSpirit.Domain.Formula;
 using TheLostSpirit.Domain.Port.ReadOnly;
 using TheLostSpirit.Domain.Skill.Manifest.Manifestation;
 using TheLostSpirit.Identity.EntityID;
@@ -10,7 +11,8 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
 {
     public class ManifestationMono : MonoBehaviour, IManifestationMono
     {
-        FrameActions _frameActions;
+        FrameActions   _frameActions;
+        FormulaPayload _payload;
 
         public ManifestationID ID { get; private set; }
         IRuntimeID IEntityMono.ID => ID;
@@ -23,20 +25,22 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
 
         public void Initialize(
             ManifestationID id,
-            FrameActions    frameActions
+            FrameActions    frameActions,
+            FormulaPayload  payload
         ) {
             this.Initialize(id);
             _frameActions = frameActions;
-
-            var combatSteps = _frameActions.Values.SelectMany(steps => steps);
-            foreach (var combatStep in combatSteps) {
-                combatStep.Initialize(transform);
+            _payload      = payload;
+            foreach (var action in frameActions.Values) {
+                foreach (var combatStep in action) {
+                    combatStep.SetOwner(transform);
+                }
             }
         }
 
         public void DoFrameActions(int index) {
             foreach (var combatStep in _frameActions[index]) {
-                combatStep.Do().Forget();
+                combatStep.Do(_payload).Forget();
             }
         }
 

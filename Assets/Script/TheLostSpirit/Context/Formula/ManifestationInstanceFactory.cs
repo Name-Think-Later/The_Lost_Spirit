@@ -35,13 +35,12 @@ namespace TheLostSpirit.Context.Formula
             var instance =
                 Object
                     .Instantiate(specification, anchorTransform.Position, Quaternion.identity)
-                    .GetComponent<ManifestationInstanceContext>();
-            instance
-                .Construct(
-                    payload,
-                    _manifestationDoFrameActionsUseCase,
-                    _manifestationFinishUseCase
-                );
+                    .GetComponent<ManifestationInstanceContext>()
+                    .Construct(
+                        payload,
+                        _manifestationDoFrameActionsUseCase,
+                        _manifestationFinishUseCase
+                    );
 
             return instance;
         }

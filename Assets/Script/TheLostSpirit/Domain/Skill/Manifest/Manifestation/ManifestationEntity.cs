@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using TheLostSpirit.Domain.Formula;
 using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
@@ -14,12 +15,13 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
         public ManifestationEntity(
             ManifestationID     id,
             ManifestationConfig config,
-            IManifestationMono  manifestationMono
+            IManifestationMono  manifestationMono,
+            FormulaPayload      payload
         ) {
             ID                 = id;
             _manifestation     = new Manifestation(config);
             _manifestationMono = manifestationMono;
-            _manifestationMono.Initialize(ID, config.FrameActions);
+            _manifestationMono.Initialize(ID, config.FrameActions, payload);
         }
 
         public void DoFrameActions(int index) {

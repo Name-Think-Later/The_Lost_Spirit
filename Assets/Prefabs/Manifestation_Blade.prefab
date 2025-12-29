@@ -136,6 +136,24 @@ MonoBehaviour:
       Entry: 7
       Data: 7|TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectRangeImp.BoxRange,
         TheLostSpirits.Domain
+    - Name: debugColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.6679245
+    - Name: 
+      Entry: 4
+      Data: 0.028985329
+    - Name: 
+      Entry: 4
+      Data: 0.028985329
+    - Name: 
+      Entry: 4
+      Data: 0.5529412
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: layerMask
       Entry: 7
       Data: UnityEngine.LayerMask, UnityEngine.CoreModule
@@ -145,18 +163,24 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: _rect
+    - Name: _offset
       Entry: 7
-      Data: UnityEngine.Rect, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0.2
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
       Data: 0
     - Name: 
       Entry: 4
-      Data: 3.5
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _elementalSize
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 3
     - Name: 
       Entry: 4
       Data: 3
@@ -182,7 +206,7 @@ MonoBehaviour:
         TheLostSpirits.Domain
     - Name: _elementalDamage
       Entry: 4
-      Data: 5
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -217,7 +241,32 @@ MonoBehaviour:
         TheLostSpirits.Domain]], mscorlib
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 11|TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep, TheLostSpirits.Domain
+    - Name: _durationFrames
+      Entry: 3
       Data: 0
+    - Name: _targetSelector
+      Entry: 6
+      Data: 
+    - Name: _effects
+      Entry: 7
+      Data: 12|System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.Effect,
+        TheLostSpirits.Domain]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 

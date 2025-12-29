@@ -8,16 +8,17 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
 {
     public class OdinInspectorView : VisualElement, IDisposable
     {
-        Button       _btnDelete;
-        Button       _btnNext;
-        Button       _btnPrev;
-        EventData    _data;
+        Button _btnDelete;
+        Button _btnNext;
+        Button _btnPrev;
+        EventData _data;
         IntegerField _frameField;
-        Label        _infoLabel;
-        string       _lastSerializedData;
+        Label _infoLabel;
+        string _lastSerializedData;
         PropertyTree _tree;
 
-        public OdinInspectorView() {
+        public OdinInspectorView()
+        {
             StyleSetting();
 
             Add(NavigationHeader());
@@ -27,7 +28,8 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             Add(Footer());
         }
 
-        public void Dispose() {
+        public void Dispose()
+        {
             _tree?.Dispose();
         }
 
@@ -36,25 +38,28 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
         public event Action<int> onDelete;
         public event Action<int> onFrameChanged;
 
-        void StyleSetting() {
-            style.paddingTop        = Layout.Padding;
-            style.paddingBottom     = Layout.Padding;
-            style.paddingLeft       = Layout.Padding;
-            style.paddingRight      = Layout.Padding;
-            style.backgroundColor   = Styles.InspectorBg;
-            style.borderTopWidth    = 1;
+        void StyleSetting()
+        {
+            style.paddingTop = Layout.Padding;
+            style.paddingBottom = Layout.Padding;
+            style.paddingLeft = Layout.Padding;
+            style.paddingRight = Layout.Padding;
+            style.backgroundColor = Styles.InspectorBg;
+            style.borderTopWidth = 1;
             style.borderBottomWidth = 1;
-            style.borderLeftWidth   = 1;
-            style.borderRightWidth  = 1;
-            style.borderTopColor    = Styles.Border;
+            style.borderLeftWidth = 1;
+            style.borderRightWidth = 1;
+            style.borderTopColor = Styles.Border;
             style.borderBottomColor = Styles.Border;
-            style.borderLeftColor   = Styles.Border;
-            style.borderRightColor  = Styles.Border;
-            style.display           = DisplayStyle.None;
+            style.borderLeftColor = Styles.Border;
+            style.borderRightColor = Styles.Border;
+            style.display = DisplayStyle.None;
         }
 
-        VisualElement NavigationHeader() {
-            var navGroup = new VisualElement {
+        VisualElement NavigationHeader()
+        {
+            var navGroup = new VisualElement
+            {
                 style = {
                     flexDirection  = FlexDirection.Row,
                     justifyContent = Justify.SpaceBetween,
@@ -63,27 +68,32 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
                 }
             };
 
-            _btnPrev = new Button(() => onNavigate?.Invoke(-1)) {
-                text  = "◄",
+            _btnPrev = new Button(() => onNavigate?.Invoke(-1))
+            {
+                text = "◄",
                 style = { width = Layout.NavButtonWidth }
             };
-            _btnNext = new Button(() => onNavigate?.Invoke(1)) {
-                text  = "►",
+            _btnNext = new Button(() => onNavigate?.Invoke(1))
+            {
+                text = "►",
                 style = { width = Layout.NavButtonWidth }
             };
 
-            var centerGroup = new VisualElement {
+            var centerGroup = new VisualElement
+            {
                 style = { flexDirection = FlexDirection.Row, alignItems = Align.Center }
             };
-            _infoLabel = new Label {
+            _infoLabel = new Label
+            {
                 style = {
                     marginRight             = Layout.MarginBottom,
                     unityFontStyleAndWeight = FontStyle.Bold
                 }
             };
-            _frameField = new IntegerField {
+            _frameField = new IntegerField
+            {
                 isDelayed = true,
-                style     = { width = Layout.FrameFieldWidth }
+                style = { width = Layout.FrameFieldWidth }
             };
             _frameField.RegisterValueChangedCallback(e => onFrameChanged?.Invoke(e.newValue));
 
@@ -98,8 +108,10 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             return navGroup;
         }
 
-        VisualElement OdinContainer() {
-            var box = new VisualElement {
+        VisualElement OdinContainer()
+        {
+            var box = new VisualElement
+            {
                 style = {
                     backgroundColor = Styles.InspectorBox,
                     paddingTop      = Layout.Padding,
@@ -115,8 +127,10 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             return box;
         }
 
-        VisualElement Footer() {
-            var footerGroup = new VisualElement {
+        VisualElement Footer()
+        {
+            var footerGroup = new VisualElement
+            {
                 style = {
                     flexDirection  = FlexDirection.Row,
                     justifyContent = Justify.FlexEnd,
@@ -124,7 +138,8 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
                 }
             };
 
-            _btnDelete = new Button(() => onDelete?.Invoke(0)) {
+            _btnDelete = new Button(() => onDelete?.Invoke(0))
+            {
                 text = "Delete",
                 style = {
                     width           = Layout.DeleteButtonWidth,
@@ -138,8 +153,10 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             return footerGroup;
         }
 
-        static VisualElement Separator() {
-            return new VisualElement {
+        static VisualElement Separator()
+        {
+            return new VisualElement
+            {
                 style = {
                     height          = Layout.SeparatorHeight,
                     backgroundColor = Styles.Border,
@@ -151,13 +168,16 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
 
         public void SetData(
             EventData data,
-            float     time,
-            float     frameRate,
-            int       index,
-            int       totalCount,
-            bool      forceRefresh = false
-        ) {
-            if (data == null) {
+            float time,
+            float frameRate,
+            int index,
+            int totalCount,
+            GameObject owner = null,
+            bool forceRefresh = false
+        )
+        {
+            if (data == null)
+            {
                 HideInspector();
 
                 return;
@@ -165,18 +185,25 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
 
             style.display = DisplayStyle.Flex;
 
+            // Inject owner for editor preview
+            if (owner != null) {
+                data.SetOwner(owner.transform);
+            }
+
             UpdateNavigationInfo(time, frameRate, index, totalCount);
             RefreshPropertyTree(data, forceRefresh);
         }
 
-        void HideInspector() {
+        void HideInspector()
+        {
             style.display = DisplayStyle.None;
-            _data         = null;
+            _data = null;
             _tree?.Dispose();
             _tree = null;
         }
 
-        void UpdateNavigationInfo(float time, float frameRate, int index, int totalCount) {
+        void UpdateNavigationInfo(float time, float frameRate, int index, int totalCount)
+        {
             // Update time and frame display
             _infoLabel.text = $"{time:F2}s  /";
             var currentFrame = TimelineMath.TimeToFrame(time, frameRate);
@@ -187,19 +214,23 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             _btnNext.SetEnabled(index < totalCount - 1);
         }
 
-        void RefreshPropertyTree(EventData data, bool forceRefresh) {
-            if (_data == data && !forceRefresh) {
+        void RefreshPropertyTree(EventData data, bool forceRefresh)
+        {
+            if (_data == data && !forceRefresh)
+            {
                 return;
             }
 
-            _data               = data;
+            _data = data;
             _lastSerializedData = EventDataSerializer.Serialize(_data); // Initialize cache
             _tree?.Dispose();
             _tree = PropertyTree.Create(_data);
         }
 
-        void OnGUI() {
-            if (_tree == null) {
+        void OnGUI()
+        {
+            if (_tree == null)
+            {
                 return;
             }
 
@@ -207,7 +238,8 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             _tree.Draw(false);
 
             // Defer save until end of frame to ensure all changes are captured
-            if (Event.current.type != EventType.Repaint) {
+            if (Event.current.type != EventType.Repaint)
+            {
                 return;
             }
 
@@ -216,10 +248,12 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
         }
 
 
-        void DeferredSave() {
+        void DeferredSave()
+        {
             // Only save if data actually changed
             var currentSerialized = EventDataSerializer.Serialize(_data);
-            if (currentSerialized == _lastSerializedData) {
+            if (currentSerialized == _lastSerializedData)
+            {
                 return;
             }
 
@@ -229,19 +263,19 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
 
         static class Layout
         {
-            public const float Padding           = 5f;
-            public const float MarginBottom      = 5f;
-            public const float NavButtonWidth    = 30f;
-            public const float FrameFieldWidth   = 50f;
+            public const float Padding = 5f;
+            public const float MarginBottom = 5f;
+            public const float NavButtonWidth = 30f;
+            public const float FrameFieldWidth = 50f;
             public const float DeleteButtonWidth = 80f;
-            public const float SeparatorHeight   = 1f;
+            public const float SeparatorHeight = 1f;
         }
 
         static class Styles
         {
-            public static readonly Color InspectorBg  = new Color(0.2f, 0.2f, 0.2f);
+            public static readonly Color InspectorBg = new Color(0.2f, 0.2f, 0.2f);
             public static readonly Color InspectorBox = new Color(0.25f, 0.25f, 0.25f);
-            public static readonly Color Border       = new Color(0.1f, 0.1f, 0.1f);
+            public static readonly Color Border = new Color(0.1f, 0.1f, 0.1f);
             public static readonly Color DeleteButton = new Color(0.6f, 0.2f, 0.2f);
         }
     }
