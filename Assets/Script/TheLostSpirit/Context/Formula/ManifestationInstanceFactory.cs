@@ -11,36 +11,40 @@ namespace TheLostSpirit.Context.Formula
 {
     public class ManifestationInstanceFactory : IManifestationInstanceFactory
     {
-        readonly ManifestationDatabase              _manifestationDatabase;
+        readonly ManifestationDatabase _manifestationDatabase;
         readonly ManifestationDoFrameActionsUseCase _manifestationDoFrameActionsUseCase;
-        readonly ManifestationFinishUseCase         _manifestationFinishUseCase;
+        readonly ManifestationFinishUseCase _manifestationFinishUseCase;
 
         public ManifestationInstanceFactory(
-            ManifestationDatabase              manifestationDatabase,
+            ManifestationDatabase manifestationDatabase,
             ManifestationDoFrameActionsUseCase manifestationDoFrameActionsUseCase,
-            ManifestationFinishUseCase         manifestationFinishUseCase
-        ) {
-            _manifestationDatabase              = manifestationDatabase;
+            ManifestationFinishUseCase manifestationFinishUseCase
+        )
+        {
+            _manifestationDatabase = manifestationDatabase;
             _manifestationDoFrameActionsUseCase = manifestationDoFrameActionsUseCase;
-            _manifestationFinishUseCase         = manifestationFinishUseCase;
+            _manifestationFinishUseCase = manifestationFinishUseCase;
         }
 
 
         public IManifestationInstanceContext Create(
             ManifestationSpecificationID specificationID,
-            FormulaPayload               payload,
-            IReadOnlyTransform           anchorTransform
-        ) {
+            FormulaPayload payload,
+            IReadOnlyTransform anchorTransform
+        )
+        {
             var specification = _manifestationDatabase.GetByID(specificationID);
             var instance =
                 Object
-                    .Instantiate(specification, anchorTransform.Position, Quaternion.identity)
+                    .Instantiate(specification)
                     .GetComponent<ManifestationInstanceContext>()
                     .Construct(
                         payload,
                         _manifestationDoFrameActionsUseCase,
                         _manifestationFinishUseCase
                     );
+
+            instance.transform.position = anchorTransform.Position;
 
             return instance;
         }

@@ -12,9 +12,9 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
         protected LayerMask layerMask = 0;
 
         [SerializeField]
-        protected Vector2 _offset;
+        protected Vector2 offset = Vector2.zero;
 
-        protected Vector2 GetPosition(ManifestationSubject subject) => (Vector2)subject.Transform.position + _offset;
+        protected Vector2 GetPosition(ManifestationSubject subject) => (Vector2)subject.Transform.position + offset;
 
         public abstract Collider2D[] Overlap(ManifestationSubject subject);
 

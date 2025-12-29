@@ -23,7 +23,7 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectRangeImp
 
 #if UNITY_EDITOR
         public override void DebugDraw(Transform previewSubject) {
-            var position = (Vector2)previewSubject.position + _offset;
+            var position = (Vector2)previewSubject.position + offset;
             var radius   = Mathf.Max(previewSubject.localScale.x, previewSubject.localScale.y) * _elementalRadius;
 
             DebugX
