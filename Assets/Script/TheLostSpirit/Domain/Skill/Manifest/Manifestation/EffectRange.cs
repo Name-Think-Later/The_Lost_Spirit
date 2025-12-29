@@ -5,7 +5,10 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
     public abstract class EffectRange
     {
         [SerializeField]
-        protected LayerMask layerMask ;
+        protected Color debugColor;
+
+        [SerializeField]
+        protected LayerMask layerMask;
 
         protected Transform transform;
 
