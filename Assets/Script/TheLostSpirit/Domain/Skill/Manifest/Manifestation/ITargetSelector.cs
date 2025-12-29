@@ -5,11 +5,10 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
 {
     public interface ITargetSelector
     {
-        public IEnumerable<IEntityMono> GetTargets();
-        public void SetOwner(Transform owner); // Needed for editor callback
+        public IEnumerable<IEntityMono> GetTargets(ManifestationSubject subject);
 
 #if UNITY_EDITOR
-        public void DebugDrawRange();
+        public void DebugDrawRange(Transform previewSubject);
 #endif
     }
 }

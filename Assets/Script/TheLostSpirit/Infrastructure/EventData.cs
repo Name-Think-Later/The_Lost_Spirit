@@ -13,12 +13,9 @@ namespace TheLostSpirit.Infrastructure
     {
         [ListDrawerSettings(
              ShowIndexLabels = true,
-             DraggableItems = false,
-             OnBeginListElementGUI = nameof(InjectOwner)),
+             DraggableItems = false),
          ListItemSelector(nameof(UpdateSelection))]
         public List<CombatStep> combatSteps = new List<CombatStep>();
-
-        Transform _owner;
 
         [HideInInspector]
         public int selectedIndex = -1;
@@ -26,28 +23,14 @@ namespace TheLostSpirit.Infrastructure
         public bool CantInspectDuration =>
             !combatSteps.Any() || selectedIndex < 0 || selectedIndex >= combatSteps.Count;
 
-        public void UpdateSelection(int index) {
+        public void UpdateSelection(int index)
+        {
             selectedIndex = index;
         }
 
-        public void ResetSelection() {
+        public void ResetSelection()
+        {
             selectedIndex = -1;
-        }
-
-        // Public method for injecting owner from TimelineEditor
-        public void SetOwner(Transform ownerTransform) {
-            _owner = ownerTransform;
-            // Inject into all existing CombatSteps
-            foreach (var step in combatSteps) {
-                step.SetOwner(_owner);
-            }
-        }
-
-        // Auto-inject owner when list elements are drawn
-        void InjectOwner(int index) {
-            if (_owner != null && index >= 0 && index < combatSteps.Count) {
-                combatSteps[index].SetOwner(_owner);
-            }
         }
     }
 }

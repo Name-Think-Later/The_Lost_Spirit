@@ -83,7 +83,7 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
 
             if (index == -1)
             {
-                _inspectorView.SetData(null, 0, 0, -1, 0, _previewTarget);
+                _inspectorView.SetData(null, 0, 0, -1, 0);
                 _trackView.HideDurationBar();
 
                 return;
@@ -94,7 +94,7 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             {
                 var data = EventDataSerializer.Deserialize(events[index].stringParameter);
                 _inspectorView.SetData(data, events[index].time, _currentClip.frameRate, index, events.Length,
-                                       _previewTarget, forceRefreshOdin);
+                                       forceRefreshOdin);
                 data.ResetSelection();
                 _trackView.UpdateDurationVisuals(data, index, events[index].time);
 
@@ -211,7 +211,7 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             if (_currentClip == null)
             {
                 _toolbar.style.display = DisplayStyle.None;
-                _inspectorView.SetData(null, 0, 0, -1, 0, _previewTarget);
+                _inspectorView.SetData(null, 0, 0, -1, 0);
 
                 return;
             }

@@ -8,12 +8,12 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp
         [SerializeField]
         float _elementalDamage;
 
-        public override void Apply(IEntityMono target, FormulaPayload payload) {
+        public override void Apply(IEntityMono target, ManifestationSubject subject) {
             if (target is not IDamageableComponent damageable) {
                 return;
             }
 
-            var finalDamage = _elementalDamage + payload.testFactor;
+            var finalDamage = _elementalDamage + subject.Payload.testFactor;
             damageable.DealDamage(finalDamage);
         }
     }

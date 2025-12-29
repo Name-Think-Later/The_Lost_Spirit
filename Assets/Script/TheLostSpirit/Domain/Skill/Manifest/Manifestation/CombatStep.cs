@@ -19,20 +19,18 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
         [SerializeField]
         int _durationFrames;
 
-        [SerializeReference, SubclassSelector, OnValueChanged(nameof(OnTargetSelectorChange))]
+        [SerializeReference, SubclassSelector]
         ITargetSelector _targetSelector;
 
         [SerializeReference, SubclassSelector(DrawDropdownForListElements = true)]
         [PropertySpace(SpaceAfter = 20)]
         List<Effect> _effects = new List<Effect>();
 
-        Transform _owner;
-
-        public async UniTaskVoid Do(FormulaPayload payload) {
+        public async UniTaskVoid Do(ManifestationSubject subject) {
             var hashset = HashSetPool<IEntityMono>.Get();
 
             for (var i = 0; i < _durationFrames; i++) {
-                var targets = _targetSelector.GetTargets();
+                var targets = _targetSelector.GetTargets(subject);
                 foreach (var target in targets) {
                     var isNewTarget = hashset.Add(target);
 
@@ -40,7 +38,7 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
 
                     Debug.Log($"{target}".Colored(new Color(1f, 0.8f, 0.4f)) + " Got Detected");
                     foreach (var effect in _effects) {
-                        effect.Apply(target, payload);
+                        effect.Apply(target, subject);
                     }
                 }
 
@@ -50,22 +48,11 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
             HashSetPool<IEntityMono>.Release(hashset);
         }
 
-        // Public method for EventData to inject owner
-        public void SetOwner(Transform owner) {
-            _owner = owner;
-            _targetSelector?.SetOwner(owner); // Propagate to TargetSelector → EffectRange
-        }
-
-        // Editor callback to auto-assign Transform when TargetSelector changes
-        void OnTargetSelectorChange() {
-            _targetSelector?.SetOwner(_owner);
-        }
-
 #if UNITY_EDITOR
         public int DurationFrames => _durationFrames;
 
-        public void DebugDrawRange() {
-            _targetSelector?.DebugDrawRange();
+        public void DebugDrawRange(Transform previewSubject) {
+            _targetSelector?.DebugDrawRange(previewSubject);
         }
 #endif
     }

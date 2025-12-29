@@ -1,5 +1,4 @@
 ﻿using DCFApixels;
-using TheLostSpirit.Domain.Formula;
 using UnityEngine;
 
 namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectRangeImp
@@ -9,22 +8,28 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectRangeImp
         [SerializeField]
         float _elementalRadius;
 
-        float Radius => Mathf.Max(pivot.localScale.x, pivot.localScale.y) * _elementalRadius;
+        float GetRadius(ManifestationSubject subject) =>
+            Mathf.Max(subject.Transform.localScale.x, subject.Transform.localScale.y) * _elementalRadius;
 
-        public override Collider2D[] Overlap() {
-            var result = Physics2D.OverlapCircleAll(Position, Radius, layerMask);
+        public override Collider2D[] Overlap(ManifestationSubject subject) {
+            var position = GetPosition(subject);
+            var radius   = GetRadius(subject);
+            var result   = Physics2D.OverlapCircleAll(position, radius, layerMask);
 #if UNITY_EDITOR
-            DebugDraw();
+            DebugDraw(subject.Transform);
 #endif
             return result;
         }
 
 #if UNITY_EDITOR
-        public override void DebugDraw() {
+        public override void DebugDraw(Transform previewSubject) {
+            var position = (Vector2)previewSubject.position + _offset;
+            var radius   = Mathf.Max(previewSubject.localScale.x, previewSubject.localScale.y) * _elementalRadius;
+
             DebugX
                 .Draw(debugColor)
-                .Circle(Position, Quaternion.identity, Radius);
+                .Circle(position, Quaternion.identity, radius);
         }
-    }
 #endif
+    }
 }

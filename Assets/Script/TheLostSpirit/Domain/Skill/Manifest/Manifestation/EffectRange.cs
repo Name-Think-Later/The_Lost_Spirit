@@ -1,5 +1,4 @@
 ﻿using System;
-using TheLostSpirit.Domain.Formula;
 using UnityEngine;
 
 namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
@@ -13,20 +12,14 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
         protected LayerMask layerMask = 0;
 
         [SerializeField]
-        Vector2 _offset;
+        protected Vector2 _offset;
 
-        protected Transform pivot;
+        protected Vector2 GetPosition(ManifestationSubject subject) => (Vector2)subject.Transform.position + _offset;
 
-        protected Vector2 Position => (Vector2)pivot.position + _offset;
-
-        public abstract Collider2D[] Overlap();
-
-        public void SetOwner(Transform owner) {
-            pivot = owner;
-        }
+        public abstract Collider2D[] Overlap(ManifestationSubject subject);
 
 #if UNITY_EDITOR
-        public abstract void DebugDraw();
+        public abstract void DebugDraw(Transform previewSubject);
 #endif
     }
 }

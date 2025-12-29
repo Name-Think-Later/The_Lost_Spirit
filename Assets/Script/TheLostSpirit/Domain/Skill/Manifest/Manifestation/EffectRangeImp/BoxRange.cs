@@ -1,6 +1,6 @@
 ﻿using DCFApixels;
-using TheLostSpirit.Domain.Formula;
 using UnityEngine;
+using TheLostSpirit.Domain.Skill.Manifest.Manifestation;
 
 namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectRangeImp
 {
@@ -9,21 +9,26 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectRangeImp
         [SerializeField]
         Vector2 _elementalSize;
 
-        Vector2 Size => pivot.localScale * _elementalSize;
+        Vector2 GetSize(ManifestationSubject subject) => subject.Transform.localScale * _elementalSize;
 
-        public override Collider2D[] Overlap() {
-            var result = Physics2D.OverlapBoxAll(Position, Size, 0, layerMask);
+        public override Collider2D[] Overlap(ManifestationSubject subject) {
+            var position = GetPosition(subject);
+            var size     = GetSize(subject);
+            var result   = Physics2D.OverlapBoxAll(position, size, 0, layerMask);
 #if UNITY_EDITOR
-            DebugDraw();
+            DebugDraw(subject.Transform);
 #endif
             return result;
         }
 
 #if UNITY_EDITOR
-        public override void DebugDraw() {
+        public override void DebugDraw(Transform previewSubject) {
+            var position = (Vector2)previewSubject.position + _offset;
+            var size     = previewSubject.localScale * _elementalSize;
+            
             DebugX
                 .Draw(debugColor)
-                .Cube(Position, Quaternion.identity, Size);
+                .Cube(position, Quaternion.identity, size);
         }
 #endif
     }

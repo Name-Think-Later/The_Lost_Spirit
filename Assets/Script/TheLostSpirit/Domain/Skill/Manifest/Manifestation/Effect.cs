@@ -6,6 +6,6 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
     [Serializable]
     public abstract class Effect
     {
-        public abstract void Apply(IEntityMono target, FormulaPayload payload);
+        public abstract void Apply(IEntityMono target, ManifestationSubject subject);
     }
 }

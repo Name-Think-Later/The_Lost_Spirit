@@ -11,8 +11,8 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
 {
     public class ManifestationMono : MonoBehaviour, IManifestationMono
     {
-        FrameActions   _frameActions;
-        FormulaPayload _payload;
+        FrameActions         _frameActions;
+        ManifestationSubject _subject;
 
         public ManifestationID ID { get; private set; }
         IRuntimeID IEntityMono.ID => ID;
@@ -23,24 +23,15 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
             ReadOnlyTransform = transform.ToReadOnly();
         }
 
-        public void Initialize(
-            ManifestationID id,
-            FrameActions    frameActions,
-            FormulaPayload  payload
-        ) {
+        public void Initialize(ManifestationID id, FrameActions frameActions, FormulaPayload payload) {
             this.Initialize(id);
             _frameActions = frameActions;
-            _payload      = payload;
-            foreach (var action in frameActions.Values) {
-                foreach (var combatStep in action) {
-                    combatStep.SetOwner(transform);
-                }
-            }
+            _subject      = new ManifestationSubject(transform, payload);
         }
 
         public void DoFrameActions(int index) {
             foreach (var combatStep in _frameActions[index]) {
-                combatStep.Do(_payload).Forget();
+                combatStep.Do(_subject).Forget();
             }
         }
 

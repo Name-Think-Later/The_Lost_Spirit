@@ -8,35 +8,21 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.TargetSelectorImp
 {
     public class OthersSelector : ITargetSelector
     {
-        [SerializeReference, SubclassSelector, OnValueChanged(nameof(OnEffectRangeChange))]
+        [SerializeReference, SubclassSelector]
         EffectRange _effectRange;
 
-        Transform _owner;
-
-        public IEnumerable<IEntityMono> GetTargets()
+        public IEnumerable<IEntityMono> GetTargets(ManifestationSubject subject)
         {
             return
                 _effectRange
-                    .Overlap()
+                    .Overlap(subject)
                     .SelectComponent<IEntityMono>();
         }
 
-        public void SetOwner(Transform owner)
-        {
-            _owner = owner;
-            _effectRange?.SetOwner(owner); // Immediately propagate to EffectRange
-        }
-
-        // Editor callback to auto-assign owner when EffectRange changes
-        void OnEffectRangeChange()
-        {
-            _effectRange?.SetOwner(_owner);
-        }
-
 #if UNITY_EDITOR
-        public void DebugDrawRange()
+        public void DebugDrawRange(Transform previewSubject)
         {
-            _effectRange?.DebugDraw();
+            _effectRange?.DebugDraw(previewSubject);
         }
 #endif
     }

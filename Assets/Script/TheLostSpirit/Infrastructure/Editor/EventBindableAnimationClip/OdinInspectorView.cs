@@ -172,7 +172,6 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             float frameRate,
             int index,
             int totalCount,
-            GameObject owner = null,
             bool forceRefresh = false
         )
         {
@@ -184,11 +183,6 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             }
 
             style.display = DisplayStyle.Flex;
-
-            // Inject owner for editor preview
-            if (owner != null) {
-                data.SetOwner(owner.transform);
-            }
 
             UpdateNavigationInfo(time, frameRate, index, totalCount);
             RefreshPropertyTree(data, forceRefresh);
