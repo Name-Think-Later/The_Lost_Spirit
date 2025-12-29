@@ -38,7 +38,6 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
 
                     if (!isNewTarget) continue;
 
-
                     Debug.Log($"{target}".Colored(new Color(1f, 0.8f, 0.4f)) + " Got Detected");
                     foreach (var effect in _effects) {
                         effect.Apply(target, payload);

@@ -14,9 +14,6 @@ namespace TheLostSpirit.Presentation.View
 
         public void Bind(ManifestationViewModel viewModel) {
             _viewModel = viewModel;
-
-            //編輯器會卡Animator 短期解決方案
-            _animator.enabled = true;
         }
 
         public void Unbind() { }

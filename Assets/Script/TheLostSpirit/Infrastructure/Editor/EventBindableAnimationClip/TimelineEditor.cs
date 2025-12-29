@@ -26,11 +26,7 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
 
         TimelineTrackView _trackView;
 
-        public TimelineEditor(
-            VisualElement      root,
-            SerializedProperty ownerProp,
-            SerializedProperty clipProp
-        ) {
+        public TimelineEditor(VisualElement root, SerializedProperty ownerProp, SerializedProperty clipProp) {
             _root          = root;
             _ownerProperty = ownerProp;
             _clipProperty  = clipProp;
@@ -88,16 +84,8 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             var events = AnimationUtility.GetAnimationEvents(_currentClip);
             if (index >= 0 && index < events.Length) {
                 var data = EventDataSerializer.Deserialize(events[index].stringParameter);
-                _inspectorView
-                    .SetData(
-                        data,
-                        events[index].time,
-                        _currentClip.frameRate,
-                        index,
-                        events.Length,
-                        _previewTarget,
-                        forceRefreshOdin
-                    );
+                _inspectorView.SetData(data, events[index].time, _currentClip.frameRate, index, events.Length,
+                                       _previewTarget, forceRefreshOdin);
                 data.ResetSelection();
                 _trackView.UpdateDurationVisuals(data, index, events[index].time);
 
@@ -134,11 +122,8 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             var newIndex =
                 Array.IndexOf(
                     events,
-                    events
-                        .First(e =>
-                                   Mathf.Approximately(e.time, newTime) &&
-                                   e.functionName == events[index].functionName)
-                );
+                    events.First(e => Mathf.Approximately(e.time, newTime) &&
+                                      e.functionName == events[index].functionName));
 
             _selectedEventIndex = newIndex;
             ReloadMarkers();
@@ -244,11 +229,7 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             Refresh();
         }
 
-        void OnClipModified(
-            AnimationClip                      clip,
-            EditorCurveBinding                 binding,
-            AnimationUtility.CurveModifiedType type
-        ) {
+        void OnClipModified(AnimationClip clip, EditorCurveBinding binding, AnimationUtility.CurveModifiedType type) {
             if (_isUpdatingFromCode) {
                 _isUpdatingFromCode = false;
 
@@ -262,6 +243,20 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
 
 
         void OnPlayModeStateChanged(PlayModeStateChange state) {
+            // CRITICAL: Stop AnimationMode IMMEDIATELY when entering PlayMode
+            if (state is PlayModeStateChange.ExitingEditMode or PlayModeStateChange.EnteredPlayMode) {
+                if (AnimationMode.InAnimationMode()) {
+                    // Re-enable Animator before stopping
+                    if (_previewTarget != null) {
+                        var animator                           = _previewTarget.GetComponent<Animator>();
+                        if (animator != null) animator.enabled = true;
+                    }
+
+                    Debug.Log("[TimelineEditor] Stopping AnimationMode for PlayMode");
+                    AnimationMode.StopAnimationMode();
+                }
+            }
+
             var isPlaying = Application.isPlaying || EditorApplication.isPlayingOrWillChangePlaymode;
 
             // Disable UI during play mode
@@ -276,8 +271,15 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
 
 
         void SampleAnimation() {
-            if (Application.isPlaying) {
-                Debug.Log("[SampleAnimation] Skipped: Application is playing");
+            // CRITICAL: Never sample in PlayMode
+            if (Application.isPlaying || EditorApplication.isPlayingOrWillChangePlaymode) {
+                Debug.Log("[SampleAnimation] Skipped: PlayMode active");
+
+                // Force stop AnimationMode if somehow still active
+                if (AnimationMode.InAnimationMode()) {
+                    Debug.LogWarning("[SampleAnimation] Force stopping AnimationMode in PlayMode!");
+                    AnimationMode.StopAnimationMode();
+                }
 
                 return;
             }
@@ -374,6 +376,15 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             }
 
             if (AnimationMode.InAnimationMode()) {
+                // CRITICAL: Re-enable Animator before stopping AnimationMode
+                if (_previewTarget != null) {
+                    var animator = _previewTarget.GetComponent<Animator>();
+                    if (animator != null) {
+                        animator.enabled = true;
+                        Debug.Log($"[Cleanup] Re-enabled Animator on {_previewTarget.name}");
+                    }
+                }
+
                 AnimationMode.StopAnimationMode();
             }
         }
