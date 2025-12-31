@@ -1,11 +1,10 @@
 ﻿using Sirenix.OdinInspector;
 using TheLostSpirit.Domain.Component;
-using TheLostSpirit.Domain.Formula;
 using UnityEngine;
 
 namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp
 {
-    public class Force : Effect
+    public class DirectionForce : Effect
     {
         [SerializeField, EnumToggleButtons]
         DirectionMode _directionMode;
@@ -21,7 +20,6 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp
                 return;
             }
 
-
             var finalAngle = _directionMode switch {
                 DirectionMode.Absolute => _angle,
                 DirectionMode.Relative => subject.Transform.eulerAngles.z + _angle,
@@ -30,16 +28,10 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp
 
             var rad       = finalAngle * Mathf.Deg2Rad;
             var direction = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
-
-            Debug.Log(subject.Transform.eulerAngles);
-            Debug.Log(direction);
-
-            var force = direction * _elementalStrength;
-
+            var force     = direction * _elementalStrength;
             forceApplying.ApplyForce(force);
         }
     }
-
 
     public enum DirectionMode
     {

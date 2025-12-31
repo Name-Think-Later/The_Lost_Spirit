@@ -1,8 +1,10 @@
+using System;
 using TheLostSpirit.Domain;
 using TheLostSpirit.Domain.Component;
 using TheLostSpirit.Domain.Port.ReadOnly;
 using TheLostSpirit.Extension.General;
 using TheLostSpirit.Identity.EntityID;
+using TheLostSpirit.Infrastructure.Domain;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -14,7 +16,11 @@ public class DummyMono
     Rigidbody2D _rigidbody;
 
     public IRuntimeID ID { get; }
-    public IReadOnlyTransform ReadOnlyTransform { get; }
+    public IReadOnlyTransform ReadOnlyTransform { get; private set; }
+
+    void Awake() {
+        ReadOnlyTransform = transform.ToReadOnly();
+    }
 
     public void Destroy() {
         Object.Destroy(gameObject);
