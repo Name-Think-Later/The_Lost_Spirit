@@ -1,13 +1,15 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
 {
     public abstract class EffectRange
     {
+        [HorizontalGroup("Column",MarginLeft = 2)]
         [SerializeField]
         protected Color debugColor = Color.white;
 
+        [HorizontalGroup("Column", MarginLeft = 20)]
         [SerializeField]
         protected LayerMask layerMask = 0;
 

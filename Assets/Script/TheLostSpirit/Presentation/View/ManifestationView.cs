@@ -1,16 +1,24 @@
-﻿using Sirenix.OdinInspector;
+﻿using Animancer;
+using Animancer.FSM;
+using Sirenix.OdinInspector;
 using TheLostSpirit.Identity.EntityID;
 using TheLostSpirit.Presentation.ViewModel;
+using UnityEditorInternal;
 using UnityEngine;
+using State = Animancer.FSM.State;
 
 namespace TheLostSpirit.Presentation.View
 {
     public class ManifestationView : MonoBehaviour, IView<ManifestationID, ManifestationViewModel>
     {
         [SerializeField, Required, ChildGameObjectsOnly]
-        Animator _animator;
+        AnimancerComponent _animator;
 
         ManifestationViewModel _viewModel;
+
+        public ManifestationView Initialize(AnimationClip clip) {
+            return this;
+        }
 
         public void Bind(ManifestationViewModel viewModel) {
             _viewModel = viewModel;

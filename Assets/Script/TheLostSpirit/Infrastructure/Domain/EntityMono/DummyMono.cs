@@ -26,8 +26,8 @@ public class DummyMono
         Object.Destroy(gameObject);
     }
 
-    public void DealDamage(float amount) {
-        Debug.Log($"{name} Got Damage: {amount}".Colored(new Color(0.8f, 0.2f, 0.2f)));
+    public void DealDamage(float damage) {
+        Debug.Log($"{name} Got Damage: {damage}".Colored(new Color(0.8f, 0.2f, 0.2f)));
     }
 
     public void ApplyForce(Vector2 force) {

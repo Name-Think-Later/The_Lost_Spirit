@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using MoreLinq;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using TheLostSpirit.Domain;
 using TheLostSpirit.Domain.Skill.Manifest.Manifestation;
@@ -19,19 +16,18 @@ namespace TheLostSpirit.Infrastructure.Domain.Specification
         [OdinSerialize, HideReferenceObjectPicker]
         ManifestationConfig _config;
 
-        // [SerializeField]
-        // EventBindableAnimationClip _eventBindableAnimationClip;
-
         [SerializeField]
-        EventBindableAnimationClip _refactor;
+        EventBindableAnimationClip _animationClip;
 
         public ManifestationSpecificationID ID => _id;
 
         public ManifestationConfig Config => _config;
 
+        public AnimationClip AnimationClip => _animationClip.inner;
+
 #if UNITY_EDITOR
         void OnValidate() {
-            var frameActions = _refactor.FrameActions;
+            var frameActions = _animationClip.FrameActions;
             _config.SetCombatActions(frameActions);
         }
 

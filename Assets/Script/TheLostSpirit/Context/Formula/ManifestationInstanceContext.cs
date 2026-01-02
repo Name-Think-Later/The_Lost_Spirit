@@ -46,7 +46,7 @@ namespace TheLostSpirit.Context.Formula
 
             ViewModelReference = viewModel;
 
-            _view.Bind(viewModel);
+            _view.Initialize(_specification.AnimationClip).Bind(viewModel);
 
             return this;
         }

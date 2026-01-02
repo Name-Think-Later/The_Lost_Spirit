@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using LBG;
-using Sirenix.OdinInspector;
 using TheLostSpirit.Extension.Linq;
 using UnityEngine;
 

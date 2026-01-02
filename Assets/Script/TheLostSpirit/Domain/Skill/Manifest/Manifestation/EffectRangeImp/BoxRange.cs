@@ -1,16 +1,15 @@
 ﻿using DCFApixels;
 using UnityEngine;
-using TheLostSpirit.Domain.Skill.Manifest.Manifestation;
 
 namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectRangeImp
 {
     public class BoxRange : EffectRange
     {
-        [SerializeField, Range(0, 360)]
-        float _elementalRotation;
-
         [SerializeField]
         Vector2 _elementalSize;
+
+        [SerializeField, Range(0, 360)]
+        float _elementalRotation;
 
         Vector2 GetSize(ManifestationSubject subject) => subject.Transform.localScale * _elementalSize;
 
@@ -22,16 +21,21 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectRangeImp
             var rotation = GetRotation(subject);
             var result   = Physics2D.OverlapBoxAll(position, size, rotation, layerMask);
 #if UNITY_EDITOR
-            DebugDraw(subject.Transform);
+            DrawBox(position, size, rotation);
 #endif
             return result;
         }
 
 #if UNITY_EDITOR
         public override void DebugDraw(Transform previewSubject) {
-            var position   = (Vector2)previewSubject.position + offset;
-            var size       = previewSubject.localScale * _elementalSize;
-            var rotation   = previewSubject.eulerAngles.z + _elementalRotation;
+            var position = (Vector2)previewSubject.position + offset;
+            var size     = previewSubject.localScale * _elementalSize;
+            var rotation = previewSubject.eulerAngles.z + _elementalRotation;
+
+            DrawBox(position, size, rotation);
+        }
+
+        void DrawBox(Vector2 position, Vector2 size, float rotation) {
             var quaternion = Quaternion.AngleAxis(rotation, Vector3.forward);
 
             DebugX

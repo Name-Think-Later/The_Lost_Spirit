@@ -15,7 +15,7 @@ namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
             var root = new VisualElement();
 
             // 1. Draw default Clip field
-            var animationClipProp  = property.FindPropertyRelative(nameof(TheLostSpirit.Infrastructure.EventBindableAnimationClip.animationClip));
+            var animationClipProp  = property.FindPropertyRelative(nameof(TheLostSpirit.Infrastructure.EventBindableAnimationClip.inner));
             var animationClipField = new PropertyField(animationClipProp, "Animation Clip");
             root.Add(animationClipField);
 

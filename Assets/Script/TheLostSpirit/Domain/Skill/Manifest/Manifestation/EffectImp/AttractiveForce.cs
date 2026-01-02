@@ -17,14 +17,16 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp
                 return;
             }
 
-            var vector   = (Vector2)subject.Transform.position - (Vector2)target.ReadOnlyTransform.Position;
+            var vector   = (Vector2)(subject.Transform.position - target.ReadOnlyTransform.Position);
             var distance = vector.magnitude;
 
             if (Mathf.Approximately(0, distance)) return;
 
             var direction = vector.normalized;
-
-            var forceMagnitude = _useFalloff ? _elementalStrength / (distance * distance) : _elementalStrength;
+            var forceMagnitude =
+                _useFalloff ?
+                    _elementalStrength / (distance * distance) :
+                    _elementalStrength;
 
             forceApplying.ApplyForce(direction * forceMagnitude);
         }

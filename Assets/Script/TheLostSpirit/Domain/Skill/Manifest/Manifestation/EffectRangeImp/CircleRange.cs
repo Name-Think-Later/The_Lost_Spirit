@@ -16,7 +16,7 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectRangeImp
             var radius   = GetRadius(subject);
             var result   = Physics2D.OverlapCircleAll(position, radius, layerMask);
 #if UNITY_EDITOR
-            DebugDraw(subject.Transform);
+            DrawCircle(position, radius);
 #endif
             return result;
         }
@@ -26,6 +26,10 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectRangeImp
             var position = (Vector2)previewSubject.position + offset;
             var radius   = Mathf.Max(previewSubject.localScale.x, previewSubject.localScale.y) * _elementalRadius;
 
+            DrawCircle(position, radius);
+        }
+
+        void DrawCircle(Vector2 position, float radius) {
             DebugX
                 .Draw(debugColor)
                 .Circle(position, Quaternion.identity, radius);

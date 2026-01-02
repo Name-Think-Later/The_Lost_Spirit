@@ -7,9 +7,6 @@ namespace TheLostSpirit.Domain.Skill.Manifest
     [Serializable]
     public class ManifestConfig : SkillConfig
     {
-        [ShowInInspector, HideReferenceObjectPicker]
-        [ReadOnly, LabelText("Debug Manifestation Config")]
-
         public ManifestationSpecificationID ManifestationSpecificationID { get; private set; }
 
 #if UNITY_EDITOR

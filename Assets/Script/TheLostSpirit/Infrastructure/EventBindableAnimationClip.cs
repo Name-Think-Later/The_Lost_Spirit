@@ -9,14 +9,14 @@ namespace TheLostSpirit.Infrastructure
     public class EventBindableAnimationClip
     {
         [SerializeField]
-        public AnimationClip animationClip;
+        public AnimationClip inner;
 
         public FrameActions FrameActions {
             get {
-                if (!animationClip) return null;
+                if (!inner) return null;
 
-                var events = animationClip.events;
-                var rate   = animationClip.frameRate;
+                var events = inner.events;
+                var rate   = inner.frameRate;
 
 
                 var dictionary =
