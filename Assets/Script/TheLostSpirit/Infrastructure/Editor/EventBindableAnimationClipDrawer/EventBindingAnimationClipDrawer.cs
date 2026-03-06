@@ -6,16 +6,16 @@ using UnityEngine.UIElements;
 // [Entry Point] PropertyDrawer for RefactoringEvent BindableAnimationClip
 // ##################################################################
 
-namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
+namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClipDrawer
 {
-    [CustomPropertyDrawer(typeof(global::TheLostSpirit.Infrastructure.EventBindableAnimationClip))]
+    [CustomPropertyDrawer(typeof(EventBindableAnimationClip))]
     public class RefactoringEventBindableAnimationClipDrawer : PropertyDrawer
     {
         public override VisualElement CreatePropertyGUI(SerializedProperty property) {
             var root = new VisualElement();
 
             // 1. Draw default Clip field
-            var animationClipProp  = property.FindPropertyRelative(nameof(TheLostSpirit.Infrastructure.EventBindableAnimationClip.inner));
+            var animationClipProp  = property.FindPropertyRelative(nameof(EventBindableAnimationClip.inner));
             var animationClipField = new PropertyField(animationClipProp, "Animation Clip");
             root.Add(animationClipField);
 

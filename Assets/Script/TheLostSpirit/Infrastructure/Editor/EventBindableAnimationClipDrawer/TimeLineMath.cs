@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
+namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClipDrawer
 {
     static class TimelineMath
     {

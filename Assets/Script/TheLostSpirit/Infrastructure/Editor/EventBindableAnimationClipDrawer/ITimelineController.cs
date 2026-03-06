@@ -1,4 +1,4 @@
-namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
+namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClipDrawer
 {
     public interface ITimelineController : IMarkerController, IScrubberController
     { }

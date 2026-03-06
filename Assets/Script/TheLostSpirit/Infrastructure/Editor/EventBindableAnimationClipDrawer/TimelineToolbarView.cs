@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClip
+namespace TheLostSpirit.Infrastructure.Editor.EventBindableAnimationClipDrawer
 {
     public class TimelineToolbarView : VisualElement
     {
