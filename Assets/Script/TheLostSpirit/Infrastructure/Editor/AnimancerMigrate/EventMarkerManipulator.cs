@@ -14,15 +14,15 @@ namespace TheLostSpirit.Infrastructure.Editor.AnimancerMigrate
     public class EventMarkerManipulator : Manipulator
     {
         readonly ITimelineViewerController _controller;
-        readonly VisualElement             _track;
-        readonly int                       _eventIndex;
+        readonly VisualElement _track;
+        readonly int _eventIndex;
 
         bool _isDragging;
 
         public EventMarkerManipulator(ITimelineViewerController controller, VisualElement track, int eventIndex)
         {
             _controller = controller;
-            _track      = track;
+            _track = track;
             _eventIndex = eventIndex;
         }
 
@@ -54,6 +54,7 @@ namespace TheLostSpirit.Infrastructure.Editor.AnimancerMigrate
 
             _isDragging = true;
             target.CapturePointer(evt.pointerId);
+            _controller.OnBeginDrag(); // ★ 通知 Viewer 暫停 Reload，防止 DOM 被中途清除
             evt.StopPropagation();
         }
 
@@ -61,10 +62,9 @@ namespace TheLostSpirit.Infrastructure.Editor.AnimancerMigrate
         {
             if (!_isDragging || !target.HasPointerCapture(evt.pointerId)) return;
 
-            // 換算成相對 track 寬度的 ratio
             var trackLocal = _track.WorldToLocal(evt.position);
-            var w          = _track.contentRect.width;
-            var ratio      = w > 0 ? Mathf.Clamp01(trackLocal.x / w) : 0f;
+            var w = _track.contentRect.width;
+            var ratio = w > 0 ? Mathf.Clamp01(trackLocal.x / w) : 0f;
 
             // 即時更新 Marker 視覺位置（不寫入 SP，避免頻繁序列化）
             target.style.left = Length.Percent(ratio * 100f);
@@ -76,12 +76,14 @@ namespace TheLostSpirit.Infrastructure.Editor.AnimancerMigrate
             if (!_isDragging || !target.HasPointerCapture(evt.pointerId)) return;
 
             _isDragging = false;
-            target.ReleasePointer(evt.pointerId);
 
-            // 確認最終位置並寫入 SerializedProperty
+            // ★ 先 release pointer，再 EndDrag，最後才寫入 SP（觸發 Reload）
+            target.ReleasePointer(evt.pointerId);
+            _controller.OnEndDrag(); // 解除 Reload 抑制
+
             var trackLocal = _track.WorldToLocal(evt.position);
-            var w          = _track.contentRect.width;
-            var ratio      = w > 0 ? Mathf.Clamp01(trackLocal.x / w) : 0f;
+            var w = _track.contentRect.width;
+            var ratio = w > 0 ? Mathf.Clamp01(trackLocal.x / w) : 0f;
 
             _controller.OnMoveEvent(_eventIndex, ratio);
             evt.StopPropagation();

@@ -16,5 +16,11 @@ namespace TheLostSpirit.Infrastructure.Editor.AnimancerMigrate
 
         /// <summary>刪除第 eventIndex 個事件。</summary>
         void OnRequestDeleteEvent(int eventIndex);
+
+        /// <summary>Marker 開始被拖動，Viewer 暫停 Reload 以避免 DOM 被中途清除。</summary>
+        void OnBeginDrag();
+
+        /// <summary>Marker 拖動結束，Viewer 恢復 Reload 並立即執行待辦的 Reload。</summary>
+        void OnEndDrag();
     }
 }

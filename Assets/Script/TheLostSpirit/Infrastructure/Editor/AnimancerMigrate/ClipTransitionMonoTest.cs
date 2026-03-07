@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace TheLostSpirit.Infrastructure.Editor.AnimancerMigrate
 {
-    public class ClipTrasitionMonoTest : MonoBehaviour
+    public class ClipTransitionMonoTest : MonoBehaviour
     {
         [SerializeField]
         AnimancerClipEvent _animancerClipEvent;
+        
     }
 }
