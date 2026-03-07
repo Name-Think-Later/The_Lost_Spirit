@@ -1,143 +1,124 @@
 using UnityEngine;
 using Pathfinding;
+using System.Collections;
 
-[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Seeker))]
-public class SimpleAIPlatformer : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Collider2D))] // 建議使用膠囊碰撞器有利於避開卡死
+public class MoveByScan : MonoBehaviour
 {
     [Header("目標設定")]
-    public Transform target;
+    public Transform target; // 玩家
 
-    [Header("移動參數")]
-    public float speed = 5f;
-    public float jumpForce = 16f;
+    [Header("移動與跳躍參數")]
+    public float walkSpeed = 5f; // 平地移動速度
+    public float jumpForce = 12f; // 跳躍的瞬間脈衝力 (這個值通常需要比較大)
+    public float nextWaypointDistance = 0.5f; // 節點判定距離
 
-    [Header("尋路設定")]
-    // ★關鍵修改：這個數值越小，移動越精確，建議設 0.2 ~ 0.5
-    public float nextWaypointDistance = 0.5f;
+    [Header("地面偵測 (必須設定)")]
+    public LayerMask groundLayer; // 地板的 Layer (要在 Inspector 中選取)
+    public Transform groundCheck; // 在敵人腳下的空物件 (用來偵測地面)
+    public float groundCheckRadius = 0.2f; // 地面偵測半徑
 
-    // 跳躍判斷的高度差 (建議 0.4，避免平地亂跳)
-    public float jumpNodeHeightRequirement = 0.4f;
-
-    [Header("物理與地面")]
-    public Transform groundCheck;
-    public float groundCheckRadius = 0.2f; // ★關鍵修改：不要太大，0.2 剛好
-    public LayerMask groundLayer;
-
-    private Path path;
-    private int currentWaypoint = 0;
-    private bool isGrounded;
-    private Seeker seeker;
-    private Rigidbody2D rb;
+    private Seeker _seeker;
+    private Rigidbody2D _rb;
+    private Path _path;
+    private int _currentWaypoint = 0;
+    private bool _isGrounded = false;
+    private bool _isJumping = false;
 
     void Start()
     {
-        seeker = GetComponent<Seeker>();
-        rb = GetComponent<Rigidbody2D>();
+        _seeker = GetComponent<Seeker>();
+        _rb = GetComponent<Rigidbody2D>();
 
-        // ★關鍵修改：開啟插值，讓移動畫面看起來更絲滑
-        rb.interpolation = RigidbodyInterpolation2D.Interpolate;
-        rb.gravityScale = 3f;
-        rb.freezeRotation = true;
+        // 重要物理設定
+        _rb.freezeRotation = true; // 防止敵人跌倒
+        _rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous; // 防止穿牆
 
-        InvokeRepeating(nameof(UpdatePath), 0f, 0.2f); // 加快路徑更新頻率
+        InvokeRepeating(nameof(UpdatePath), 0f, 0.5f);
     }
 
     void UpdatePath()
     {
-        if (seeker.IsDone() && target != null)
-            seeker.StartPath(rb.position, target.position, OnPathComplete);
+        if (_seeker.IsDone() && target != null)
+        {
+            _seeker.StartPath(transform.position, target.position, OnPathComplete);
+        }
     }
 
     void OnPathComplete(Path p)
     {
         if (!p.error)
         {
-            path = p;
-            currentWaypoint = 0;
+            _path = p;
+            _currentWaypoint = 0;
+        }
+    }
+
+    void Update()
+    {
+        // 每幀檢查地面
+        bool prevGrounded = _isGrounded;
+        _isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+        // 如果剛落地，重置跳躍狀態
+        if (_isGrounded && !prevGrounded)
+        {
+            _isJumping = false;
         }
     }
 
     void FixedUpdate()
     {
-        // 1. 地面偵測
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        if (_path == null) return;
+        if (_currentWaypoint >= _path.vectorPath.Count) return;
 
-        if (path == null || currentWaypoint >= path.vectorPath.Count) return;
+        // 計算前往下個節點的方向
+        Vector2 targetWaypoint = _path.vectorPath[_currentWaypoint];
+        Vector2 currentPosition = (Vector2)transform.position;
+        Vector2 direction = (targetWaypoint - currentPosition).normalized;
 
-        // 2. 取得路徑資訊
-        Vector2 currentPos = rb.position;
-        Vector2 nextPoint = path.vectorPath[currentWaypoint];
-
-        // 算出方向 (Normalize 讓數值保持在 -1 ~ 1 之間)
-        Vector2 direction = (nextPoint - currentPos).normalized;
-        float distance = Vector2.Distance(currentPos, nextPoint);
-
-        // ==========================================================
-        // ★ 絲滑跳躍邏輯 ★
-        // ==========================================================
-
-        // 判斷條件 1: 目標點比我高 (需要跳)
-        bool targetIsHigh = nextPoint.y > currentPos.y + jumpNodeHeightRequirement;
-
-        // 判斷條件 2: 垂直爬牆判定 (目標在正頭頂，X 軸差異很小)
-        bool isVerticalPath = Mathf.Abs(nextPoint.x - currentPos.x) < 0.3f && nextPoint.y > currentPos.y;
-
-        // 執行跳躍
-        if (isGrounded)
+        // 【關鍵修改 1：空中掉落移動】
+        // 如果我們在空中 (掉落中，你在 image_0 遇到的情況)
+        if (!_isGrounded)
         {
-            // 如果遇到高處，或者路徑點就在正頭頂，就跳
-            if (targetIsHigh || isVerticalPath)
+            // 如果目標點高於自己，且我們不是在跳躍中，我們不控制垂直速度，垂直交給 Unity 的重力自然落下。
+            // 我們只給予水平移動速度 (`velocity.x`)，讓它左右飄過去。
+            _rb.velocity = new Vector2(direction.x * walkSpeed, _rb.velocity.y);
+        }
+        else // 我們在平台上 (平地移動)
+        {
+            // 如果我們不是在跳躍狀態下落，我們只控制水平速度 (`velocity.x`)。
+            _rb.velocity = new Vector2(direction.x * walkSpeed, _rb.velocity.y);
+
+            // 【關鍵修改 2：跳躍邏輯】
+            // 當下一個節點「明顯高於自己」，且我們在地面，且還沒跳過
+            float verticalDistance = targetWaypoint.y - currentPosition.y;
+            if (verticalDistance > 0.3f && !_isJumping)
             {
-                // 給予一個向上的力，同時保留一點點原本的慣性
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                // 執行跳躍脈衝
+                // 我們把 Y 軸速度歸零後立即加上脈衝，確保跳躍力完整
+                _rb.velocity = new Vector2(_rb.velocity.x, 0f);
+                _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                _isJumping = true; // 鎖定狀態避免連跳
             }
         }
 
-        // ==========================================================
-        // ★ 絲滑移動邏輯 ★
-        // ==========================================================
-
-        float targetX = 0;
-
-        // 只有當需要移動的距離夠大時才移動，避免在原地抖動
-        if (Mathf.Abs(nextPoint.x - currentPos.x) > 0.1f)
-        {
-            targetX = direction.x > 0 ? speed : -speed;
-        }
-
-        // 空中移動優化：如果在空中，不要完全失去控制，但也不要能瞬間轉向 (手感較好)
-        if (!isGrounded)
-        {
-            // 簡單版：空中也可以全速移動 (類似瑪利歐)
-            // 如果你想要空中難控制一點，可以用 Mathf.Lerp
-            targetX = direction.x > 0 ? speed : -speed;
-        }
-
-        // 套用速度
-        rb.velocity = new Vector2(targetX, rb.velocity.y);
-
-        // ==========================================================
-        // ★ 路徑點切換 ★
-        // ==========================================================
-
-        // 如果距離夠近，就切換到下一個點
+        // 判定距離
+        float distance = Vector2.Distance(transform.position, targetWaypoint);
         if (distance < nextWaypointDistance)
         {
-            currentWaypoint++;
-        }
-        // 特殊情況：如果已經跳過頭了 (Y軸超過目標)，且 X 軸很接近，也切換
-        else if (currentPos.y > nextPoint.y && Mathf.Abs(currentPos.x - nextPoint.x) < 0.5f)
-        {
-            currentWaypoint++;
+            _currentWaypoint++;
         }
     }
 
-    void OnDrawGizmos()
+    // 畫出地面偵測範圍方便檢查
+    void OnDrawGizmosSelected()
     {
         if (groundCheck != null)
         {
-            Gizmos.color = Color.red;
+            Gizmos.color = Color.magenta;
             Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         }
     }

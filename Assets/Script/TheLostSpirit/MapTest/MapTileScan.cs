@@ -4,137 +4,103 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-// 確保 CellType 定義存在
-// 如果你有獨立的 CellType.cs 檔案，這裡可以不用重複定義
-// 如果沒有，請將 enum 放在 namespace 外面
-
-public class Platformer2DPathfinder : MonoBehaviour
+public class MapTileScan : MonoBehaviour
 {
+
     public Dictionary<PointNode, CellType> _points = new Dictionary<PointNode, CellType>();
 
     Tilemap _tilemap;
     PointGraph _pointGraph;
     GridGraph _gridGraph;
     BoundsInt _localBounds;
+    Bounds _worldBounds;
     NNConstraint _constraint;
 
-    [Header("參數設定")]
-    public int _jumpHeight = 3;
-    public int _jumpDistance = 4;
-    public float nodeSize = 0.5f;
+    readonly int _jumpHeight = 3;
+    readonly int _jumpDistance = 4;
 
-    [Header("體積偵測")]
-    public LayerMask obstacleLayer;
-    // 技巧：將寬度設窄一點 (0.5f)，讓 AI 比較容易判定可以通過窄路
-    public Vector2 agentSize = new Vector2(0.5f, 0.7f);
+    float nodeSize = 0.5f;
 
     void Awake()
     {
-        AstarPath.active.maxNearestNodeDistance = 10;
+        AstarPath.active.maxNearestNodeDistance = 5;
         _constraint = new NNConstraint { constrainDistance = true };
 
         _tilemap = GetComponent<Tilemap>();
         _localBounds = _tilemap.cellBounds;
 
-        _pointGraph = AstarPath.active.graphs[0] as PointGraph;
-        _gridGraph = AstarPath.active.graphs[1] as GridGraph;
+        Vector3 worldCenter = _tilemap.CellToWorld(Vector3Int.CeilToInt(_localBounds.center));
+        Vector3 worldSize = Vector3Int.CeilToInt((Vector3)_localBounds.size * _tilemap.cellSize.x * (1 / nodeSize));
+        _worldBounds = new Bounds(worldCenter, worldSize);
+
+        _pointGraph = AstarPath.active.graphs[1] as PointGraph;
+        _gridGraph = AstarPath.active.graphs[2] as GridGraph;
 
         MapScan();
         JumpNodeConnect();
+
+        Debug.Log(_points.Count);
+        Debug.Log(_pointGraph.nodeCount);
     }
 
     void MapScan()
     {
         PointNode prevNode = null;
-        _points.Clear();
         foreach (var tilePosition in _localBounds.allPositionsWithin)
         {
             if (!_tilemap.HasTile(tilePosition)) continue;
+
             var above = tilePosition + Vector3Int.up;
+
             if (_tilemap.HasTile(above)) continue;
 
+
             CellType cellType = GetCellType(above);
+
             var pos = CellToWorld(above);
-            // 節點抬高 0.2
-            Vector3 finalPos = pos + Vector3.up * 0.2f;
 
             AstarPath.active.AddWorkItem(new AstarWorkItem(ctx => {
-                _pointGraph.AddNode((Int3)finalPos);
+                _pointGraph.AddNode((Int3)pos);
             }));
             AstarPath.active.FlushWorkItems();
 
-            var node = _pointGraph.GetNearest(finalPos, _constraint).node as PointNode;
-            if (node == null || _points.ContainsKey(node)) continue;
+            var node = _pointGraph.GetNearest(pos, _constraint).node as PointNode;
             _points.Add(node, cellType);
 
-            // 水平連線 (這裡不做體積檢查，假設地面是平的就能走)
+
             if (prevNode != null)
+            {
                 GraphNode.Connect(prevNode, node, (uint)(prevNode.position - node.position).costMagnitude);
+            }
 
-            prevNode = (cellType.HasFlag(CellType.RightWall) || cellType.HasFlag(CellType.RightEdge)) ? null : node;
+            prevNode =
+                cellType.HasFlag(CellType.RightWall) || cellType.HasFlag(CellType.RightEdge) ? null : node;
 
-            if (cellType.HasFlag(CellType.LeftEdge)) Dig(tilePosition, Vector3Int.left, node);
-            if (cellType.HasFlag(CellType.RightEdge)) Dig(tilePosition, Vector3Int.right, node);
-        }
-    }
+            if (cellType.HasFlag(CellType.LeftEdge))
+                Dig(tilePosition, Vector3Int.left);
+            if (cellType.HasFlag(CellType.RightEdge))
+                Dig(tilePosition, Vector3Int.right);
 
-    void Dig(Vector3Int tilePos, Vector3Int direction, PointNode node)
-    {
-        Vector3Int ray = tilePos + direction;
-        while (ray.y > _localBounds.yMin)
-        {
-            if (_tilemap.HasTile(ray + Vector3Int.down)) break;
-            ray += Vector3Int.down;
-        }
-        if (!_tilemap.HasTile(ray + Vector3Int.down)) return;
+            void Dig(Vector3Int ray, Vector3Int edgeDirection)
+            {
+                ray += edgeDirection * 2;
+                if (!_tilemap.HasTile(ray + Vector3Int.down))
+                {
+                    while (ray.y > _localBounds.yMin)
+                    {
+                        if (_tilemap.HasTile(ray + Vector3Int.down)) break;
+                        ray += Vector3Int.down;
+                    }
+                }
 
-        var rayPos = CellToWorld(ray) + Vector3.up * 0.2f;
-        var rayNode = _pointGraph.GetNearest(rayPos, _constraint).node as PointNode;
-        if (rayNode == null) return;
+                var rayPos = CellToWorld(ray);
+                var rayNode = _pointGraph.GetNearest(rayPos, _constraint).node as PointNode;
 
-        if (_points.ContainsKey(rayNode)) _points[rayNode] |= CellType.Drop;
+                if (rayNode == null) return;
+                _points[rayNode] |= CellType.Drop;
 
-        // --- 除錯版 L 型偵測 ---
-        Vector3 start = (Vector3)node.position;
-        Vector3 end = (Vector3)rayNode.position;
-        Vector3 dirHorizontal = direction.x > 0 ? Vector3.right : Vector3.left;
-
-        // 1. 水平檢查
-        Vector3 edgePos = start + dirHorizontal * 0.6f;
-
-        // 視覺化：黃色線代表水平偵測
-        Debug.DrawLine(start, edgePos, Color.yellow, 2f);
-
-        // 注意：這裡將高度設為 0.1 (極扁)，避免撞到天花板
-        RaycastHit2D hitHead = Physics2D.BoxCast(start, new Vector2(0.1f, 0.1f), 0f, dirHorizontal, 0.6f, obstacleLayer);
-
-        if (hitHead.collider != null)
-        {
-            Debug.LogError($"掉落失敗(水平擋住): {hitHead.collider.name} 在 {hitHead.point}");
-            return;
-        }
-
-        // 2. 垂直檢查
-        float dropHeight = start.y - end.y;
-
-        // 視覺化：洋紅色代表垂直掉落偵測
-        Debug.DrawLine(edgePos, edgePos + Vector3.down * dropHeight, Color.magenta, 2f);
-
-        // 注意：這裡將寬度設為 0.2 (極細)，先確保能通再說
-        RaycastHit2D hitBody = Physics2D.BoxCast(edgePos, new Vector2(0.2f, agentSize.y), 0f, Vector2.down, dropHeight - 0.2f, obstacleLayer);
-
-        if (hitBody.collider == null)
-        {
-            // 成功！畫綠線
-            Debug.DrawLine(start, end, Color.green, 5f);
-            uint cost = (uint)(node.position - rayNode.position).costMagnitude;
-            node.AddPartialConnection(rayNode, cost, true, false);
-        }
-        else
-        {
-            // 失敗！畫紅線並報錯
-            Debug.LogError($"掉落失敗(垂直擋住): {hitBody.collider.name} 位於 {hitBody.point}");
-            Debug.DrawLine(edgePos, hitBody.point, Color.red, 2f);
+                GraphNode.Connect(node, rayNode, (uint)(node.position - rayNode.position).costMagnitude);
+            }
         }
     }
 
@@ -142,72 +108,144 @@ public class Platformer2DPathfinder : MonoBehaviour
     {
         foreach (var (point, type) in _points)
         {
-            if (type.HasFlag(CellType.RightEdge)) SideScan(point, CellType.LeftEdge);
-            if (type.HasFlag(CellType.LeftEdge)) SideScan(point, CellType.RightEdge);
+            if (type.HasFlag(CellType.RightEdge))
+            {
+                SideScan(point, CellType.LeftEdge);
+            }
+            if (type.HasFlag(CellType.LeftEdge))
+            {
+                SideScan(point, CellType.RightEdge);
+            }
+        }
+
+        void SideScan(PointNode node, CellType cellType)
+        {
+            int inverse = cellType == CellType.LeftEdge ? 1 : -1;
+
+            for (int y = 0; y < _jumpHeight; y++)
+            {
+                for (int x = 0; x < _jumpDistance - y; x++)
+                {
+                    Vector3 vector = new Vector3(x + 2, y + 1) * inverse;
+                    CheckNode(vector);
+                }
+            }
+
+            for (int x = 0; x < _jumpDistance; x++)
+            {
+                Vector3 vector = new Vector3(x + 2, 0) * inverse;
+                CheckNode(vector);
+            }
+
+            for (int y = 0; y > -_jumpHeight; y--)
+            {
+                for (int x = 0; x < _jumpDistance + y; x++)
+                {
+                    Vector3 vector = new Vector3(x + 2, y - 1) * inverse;
+                    CheckNode(vector);
+                }
+            }
+
+            void CheckNode(Vector3 offset)
+            {
+                offset.Scale(_tilemap.cellSize);
+                Vector3 position = (Vector3)node.position + offset;
+                var otherNode = _pointGraph.GetNearest(position, _constraint).node as PointNode;
+
+                if (otherNode == null) return;
+                if ((Vector3)otherNode.position != position) return;
+                if (!_points[otherNode].HasFlag(cellType)) return;
+
+                GraphNode.Connect(node, otherNode, (uint)(node.position - otherNode.position).costMagnitude);
+            }
         }
     }
-
-    void SideScan(PointNode node, CellType targetType)
+    void OnDrawGizmos()
     {
-        int inverse = (targetType == CellType.LeftEdge) ? 1 : -1;
-        for (int y = -_jumpHeight; y <= _jumpHeight; y++)
+        if (_points == null || _points.Count == 0) return;
+
+        foreach (var kvp in _points)
         {
-            for (int x = 1; x <= _jumpDistance; x++)
+            PointNode node = kvp.Key;
+            CellType type = kvp.Value;
+         
+            Gizmos.color = GetColorForCellType(type);
+            Vector3 worldPos = (Vector3)node.position;
+            Gizmos.DrawSphere(worldPos, 0.15f);
+
+            if (node.connections != null)
             {
-                Vector3 offset = new Vector3(x, y) * inverse;
-                CheckJump(node, offset, targetType);
+                foreach (var connection in node.connections)
+                {
+                    Gizmos.color = Color.green; 
+
+                    if (Vector3.Distance(worldPos, (Vector3)connection.node.position) > 1.2f)
+                    {
+                        Gizmos.color = Color.cyan; 
+                    }
+
+                    Gizmos.DrawLine(worldPos, (Vector3)connection.node.position);
+                }
             }
         }
     }
 
-    void CheckJump(PointNode node, Vector3 offset, CellType targetType)
+    
+    Color GetColorForCellType(CellType type)
     {
-        offset.Scale(_tilemap.cellSize);
-        Vector3 start = (Vector3)node.position;
-        Vector3 end = start + offset;
-
-        // 跳躍依舊維持斜向檢查，但稍微寬容一點 (-0.2f 距離)
-        RaycastHit2D hit = Physics2D.BoxCast(start, new Vector2(agentSize.x * 0.8f, agentSize.y), 0f, (end - start).normalized, Vector3.Distance(start, end) - 0.2f, obstacleLayer);
-
-        if (hit.collider != null) return;
-
-        var otherNode = _pointGraph.GetNearest(end, _constraint).node as PointNode;
-        if (otherNode == null || Vector3.Distance((Vector3)otherNode.position, end) > 0.3f) return;
-        if (!_points.ContainsKey(otherNode) || !_points[otherNode].HasFlag(targetType)) return;
-
-        node.AddPartialConnection(otherNode, (uint)(node.position - otherNode.position).costMagnitude, true, false);
+        if (type.HasFlag(CellType.LeftEdge) || type.HasFlag(CellType.RightEdge)) return Color.red; 
+        if (type.HasFlag(CellType.Drop)) return Color.yellow; 
+        return Color.white; 
     }
 
     CellType GetCellType(Vector3Int position)
     {
+
         CellType cellType = CellType.Normal;
-        if (_tilemap.HasTile(position + Vector3Int.left)) cellType |= CellType.LeftWall;
-        if (!_tilemap.HasTile(position + Vector3Int.left + Vector3Int.down)) cellType |= CellType.LeftEdge;
-        if (_tilemap.HasTile(position + Vector3Int.right)) cellType |= CellType.RightWall;
-        if (!_tilemap.HasTile(position + Vector3Int.right + Vector3Int.down)) cellType |= CellType.RightEdge;
+
+        var left = position + Vector3Int.left;
+        if (_tilemap.HasTile(left)) cellType |= CellType.LeftWall;
+
+        var leftBelow = left + Vector3Int.down;
+        if (!_tilemap.HasTile(leftBelow)) cellType |= CellType.LeftEdge;
+
+        var right = position + Vector3Int.right;
+        if (_tilemap.HasTile(right)) cellType |= CellType.RightWall;
+
+        var rightBelow = right + Vector3Int.down;
+        if (!_tilemap.HasTile(rightBelow)) cellType |= CellType.RightEdge;
+
         return cellType;
     }
 
-    Vector3 CellToWorld(Vector3Int cell) => _tilemap.CellToWorld(cell) + _tilemap.cellSize / 2;
-
-    void OnDrawGizmos()
+    Vector3 CellToWorld(Vector3Int cell)
     {
-        if (_points == null) return;
-        foreach (var pair in _points)
-        {
-            if (pair.Value.HasFlag(CellType.LeftEdge)) Gizmos.color = Color.red;
-            else if (pair.Value.HasFlag(CellType.RightEdge)) Gizmos.color = Color.blue;
-            else if (pair.Value.HasFlag(CellType.Drop)) Gizmos.color = Color.cyan;
-            else Gizmos.color = Color.white;
-            Gizmos.DrawSphere((Vector3)pair.Key.position, 0.1f);
-
-            if (pair.Key.connections == null) continue;
-            Gizmos.color = new Color(0.5f, 0.5f, 0.5f, 0.3f);
-            foreach (var c in pair.Key.connections)
-            {
-                Gizmos.DrawLine((Vector3)pair.Key.position, (Vector3)c.node.position);
-                Gizmos.DrawSphere(Vector3.Lerp((Vector3)pair.Key.position, (Vector3)c.node.position, 0.2f), 0.04f);
-            }
-        }
+        return _tilemap.CellToWorld(cell) + _tilemap.cellSize / 2;
     }
+
+    public void Scan()
+    {
+        _gridGraph.center = _worldBounds.center;
+        _gridGraph.SetDimensions((int)_worldBounds.size.x, (int)_worldBounds.size.y, nodeSize);
+        _gridGraph.Scan();
+        Debug.Log($"worldCenter: {_worldBounds.center}, worldSize: {_worldBounds.size}");
+    }
+
+    public void OnEnterRoom(object sender, EventArgs args)
+    {
+        Scan();
+    }
+}
+
+
+
+
+public enum CellType
+{
+    Normal = 0x0,  //00000
+    Drop = 0x1,  //00001
+    LeftEdge = 0x2,  //00010
+    LeftWall = 0x4,  //00100
+    RightEdge = 0x8,  //01000
+    RightWall = 0x10, //10000
 }
