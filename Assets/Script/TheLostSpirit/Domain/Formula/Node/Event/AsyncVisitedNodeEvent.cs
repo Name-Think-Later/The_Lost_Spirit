@@ -1,18 +1,18 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using TheLostSpirit.Domain.Port.EventBus;
 using TheLostSpirit.Identity.EntityID;
 using UnityEngine;
 
 namespace TheLostSpirit.Domain.Formula.Node.Event
 {
-    public record AsyncVisitedNodeEvent(NodeID NodeID, FormulaPayload Payload) : IAsyncDomainEvent
+    public record AsyncVisitedNodeEvent(NodeID NodeID, Guid SequentID, bool IsLastChild) : IAsyncDomainEvent
     {
         readonly UniTaskCompletionSource _completion = new UniTaskCompletionSource();
 
-        public AsyncVisitedNodeEvent(NodeID NodeID) : this(NodeID, new FormulaPayload()) { }
-
         public NodeID NodeID { get; } = NodeID;
-        public FormulaPayload Payload { get; } = Payload;
+        public Guid SequentID { get; } = SequentID;
+        public bool IsLastChild { get; } = IsLastChild;
 
         public void Complete() {
             _completion.TrySetResult();

@@ -13,7 +13,7 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp
                 return;
             }
 
-            var finalDamage = _elementalDamage + subject.Payload.testFactor;
+            var finalDamage = _elementalDamage;
             damageable.DealDamage(finalDamage);
         }
     }

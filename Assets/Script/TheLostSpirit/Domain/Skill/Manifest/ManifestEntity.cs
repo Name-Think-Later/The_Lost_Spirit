@@ -21,8 +21,12 @@ namespace TheLostSpirit.Domain.Skill.Manifest
 
 
         public override async UniTask Activate(FormulaPayload payload) {
-            var manifestActivated = new AsyncManifestActivatedEvent(_manifest.Manifestation, payload);
+            if (payload.AnchorConsumed) return;
+
+            var manifestActivated = new AsyncManifestActivatedEvent(_manifest.Manifestation, payload.SequentID);
             await _eventBus.PublishAsync(manifestActivated);
+
+            payload.AnchorConsumed = true;
         }
     }
 }

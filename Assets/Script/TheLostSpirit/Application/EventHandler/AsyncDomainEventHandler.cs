@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using R3;
 using TheLostSpirit.Domain;
@@ -9,23 +11,28 @@ namespace TheLostSpirit.Application.EventHandler
     public abstract class AsyncDomainEventHandler<TEvent> : IAsyncDomainEventHandler<TEvent>
         where TEvent : IAsyncDomainEvent
     {
-        protected AsyncDomainEventHandler() {
-            var token = CancellationToken.None;
+        readonly IDisposable _disposable;
 
+        protected AsyncDomainEventHandler() {
             //AwaitOperation.Sequential is FIFO
             //Recursion will conflict the rule
-            AppScope
-                .EventBus
-                .ObservableEvent<TEvent>()
-                .SubscribeAwait(
-                    async (domainEvent, token) => {
-                        await Handle(domainEvent);
-                        domainEvent.Complete();
-                    },
-                    AwaitOperation.Parallel
-                );
+            _disposable =
+                AppScope
+                    .EventBus
+                    .ObservableEvent<TEvent>()
+                    .SubscribeAwait(
+                        async (domainEvent, token) => {
+                            await Handle(domainEvent);
+                            domainEvent.Complete();
+                        },
+                        AwaitOperation.Parallel
+                    );
         }
 
         public abstract UniTask Handle(TEvent domainEvent);
+
+        public void Dispose() {
+            _disposable.Dispose();
+        }
     }
 }

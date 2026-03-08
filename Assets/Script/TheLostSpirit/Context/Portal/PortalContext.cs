@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using R3;
+using Sirenix.OdinInspector;
 using TheLostSpirit.Application.EventHandler.Portal;
 using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Portal;
@@ -24,10 +25,10 @@ namespace TheLostSpirit.Context.Portal
             PortalRepository     = new PortalRepository();
             PortalViewModelStore = new PortalViewModelStore();
 
-            _ = new PortalDetectedEventHandler(PortalViewModelStore);
-            _ = new PortalUndetectedEventHandler(PortalViewModelStore);
-            _ = new PortalInteractedEventHandler(PortalRepository);
-            _ = new PortalConnectedEventHandler(PortalRepository, PortalViewModelStore);
+            _ = new PortalDetectedEventHandler(PortalViewModelStore).AddTo(this);
+            _ = new PortalUndetectedEventHandler(PortalViewModelStore).AddTo(this);
+            _ = new PortalInteractedEventHandler(PortalRepository).AddTo(this);
+            _ = new PortalConnectedEventHandler(PortalRepository, PortalViewModelStore).AddTo(this);
 
             CreateByInstanceUseCase = new CreatePortalByInstanceUseCase(PortalRepository, PortalViewModelStore);
             ConnectUseCase          = new ConnectPortalUseCase(PortalRepository);

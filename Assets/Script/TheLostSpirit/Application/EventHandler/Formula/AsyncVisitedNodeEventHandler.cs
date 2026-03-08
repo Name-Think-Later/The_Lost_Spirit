@@ -3,7 +3,6 @@ using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Formula;
 using TheLostSpirit.Domain.Formula.Node;
 using TheLostSpirit.Domain.Formula.Node.Event;
-using UnityEngine;
 
 namespace TheLostSpirit.Application.EventHandler.Formula
 {
@@ -21,18 +20,18 @@ namespace TheLostSpirit.Application.EventHandler.Formula
         }
 
         public override async UniTask Handle(AsyncVisitedNodeEvent domainEvent) {
-            var nodeID  = domainEvent.NodeID;
-            var payload = domainEvent.Payload;
-
-            // Debug.Log(nodeID);
-            payload.AddDebugRoute(nodeID);
-
-            var nodeEntity = _nodeRepository.GetByID(nodeID);
-
-            var activeSkillInput = new ActiveSkillUseCase.Input(nodeEntity.Skill, payload);
-            await _activeSkillUseCase.Execute(activeSkillInput);
-
-            await nodeEntity.MoveNext(payload, TraversalPolicy.Parallel);
+            // var nodeID  = domainEvent.NodeID;
+            // var payload = domainEvent.Payload;
+            //
+            // // Debug.Log(nodeID);
+            // payload.AddDebugRoute(nodeID);
+            //
+            // var nodeEntity = _nodeRepository.GetByID(nodeID);
+            //
+            // var activeSkillInput = new ActiveSkillUseCase.Input(nodeEntity.SkillID, payload);
+            // await _activeSkillUseCase.Execute(activeSkillInput);
+            //
+            // await nodeEntity.MoveNext(payload, TraversalPolicy.Parallel);
         }
     }
 }

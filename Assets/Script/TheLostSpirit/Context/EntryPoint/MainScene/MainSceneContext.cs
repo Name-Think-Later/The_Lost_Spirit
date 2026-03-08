@@ -28,7 +28,6 @@ namespace TheLostSpirit.Context.EntryPoint.MainScene
         PortalContext _portalContext;
 
         ClearMapUseCase _clearMapUseCase;
-
         GenerateMapUseCase _generateMapUseCase;
 
         void Awake() {

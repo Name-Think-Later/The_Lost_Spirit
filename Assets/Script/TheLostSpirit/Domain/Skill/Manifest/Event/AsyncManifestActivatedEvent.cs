@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using TheLostSpirit.Domain.Formula;
 using TheLostSpirit.Domain.Port.EventBus;
 using TheLostSpirit.Identity.SpecificationID;
@@ -7,13 +8,13 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Event
 {
     public record AsyncManifestActivatedEvent(
         ManifestationSpecificationID ManifestationSpecificationID,
-        FormulaPayload               Payload
+        Guid                         SequentID
     ) : IAsyncDomainEvent
     {
         readonly UniTaskCompletionSource _completion = new UniTaskCompletionSource();
 
-        public FormulaPayload Payload { get; } = Payload;
         public ManifestationSpecificationID ManifestationSpecificationID { get; } = ManifestationSpecificationID;
+        public Guid SequentID { get; } = SequentID;
 
         public void Complete() {
             _completion.TrySetResult();

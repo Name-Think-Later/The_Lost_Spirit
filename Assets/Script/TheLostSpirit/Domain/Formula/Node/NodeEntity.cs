@@ -23,7 +23,7 @@ namespace TheLostSpirit.Domain.Formula.Node
             _eventBus = AppScope.EventBus;
         }
 
-        public ISkillID Skill {
+        public ISkillID SkillID {
             get => _node.Skill;
             set => _node.Skill = value;
         }
@@ -58,19 +58,20 @@ namespace TheLostSpirit.Domain.Formula.Node
         }
 
 
-        public UniTask MoveNext(
+        public async UniTask<bool> MoveNext(
             FormulaPayload  payload,
             TraversalPolicy traversalPolicy = TraversalPolicy.Sequential
         ) {
             var count = OutNeighbors.Count();
+
+            if (count == 0) return false;
+
             var tasks =
                 OutNeighbors
                     .Select((neighbor, index) => {
-                        var clone = payload.Clone();
-                        clone.IsLastChild = count - 1 == index;
-                        // Debug.Log(clone.IsLastChild);
-                        
-                        var visitedNode = new AsyncVisitedNodeEvent(neighbor.ID, clone);
+                        var isLastChild = index == count - 1;
+                        var visitedNode =
+                            new AsyncVisitedNodeEvent(neighbor.ID, payload.SequentID, isLastChild);
 
                         return _eventBus.PublishAsync(visitedNode);
                     });
@@ -87,7 +88,9 @@ namespace TheLostSpirit.Domain.Formula.Node
                     _                        => UniTask.CompletedTask
                 };
 
-            return moveNextEventAwait;
+            await moveNextEventAwait;
+
+            return true;
         }
     }
 }

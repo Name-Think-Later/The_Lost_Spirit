@@ -41,24 +41,24 @@ namespace TheLostSpirit.Application.EventHandler.Formula
         }
 
         public override async UniTask Handle(AsyncManifestActivatedEvent domainEvent) {
-            var payload         = domainEvent.Payload;
-            var specificationID = domainEvent.ManifestationSpecificationID;
-
-            var manifestationsFinish = new List<UniTask>();
-            foreach (var lastAnchorID in payload.LastAnchors) {
-                var manifestationEntity = CreateManifestationAndRegistry(lastAnchorID, specificationID, payload);
-                manifestationsFinish.Add(manifestationEntity.IsFinish.WaitAsync());
-
-                var manifestationPosition = manifestationEntity.ReadOnlyTransform.Position;
-                var input                 = new CreateAnchorUseCase.Input(manifestationPosition, Vector2.zero);
-                var output                = _createAnchorUseCase.Execute(input);
-
-                payload.NewAnchors.Add(output.AnchorID);
-            }
-
-            await UniTask.WhenAll(manifestationsFinish);
-
-            if (payload.IsLastChild) ClearLastAnchor(payload);
+            // var payload         = domainEvent.Payload;
+            // var specificationID = domainEvent.ManifestationSpecificationID;
+            //
+            // var manifestationsFinish = new List<UniTask>();
+            // foreach (var lastAnchorID in payload.LastAnchors) {
+            //     var manifestationEntity = CreateManifestationAndRegistry(lastAnchorID, specificationID, payload);
+            //     manifestationsFinish.Add(manifestationEntity.IsFinish.WaitAsync());
+            //
+            //     var manifestationPosition = manifestationEntity.ReadOnlyTransform.Position;
+            //     var input                 = new CreateAnchorUseCase.Input(manifestationPosition, Vector2.zero);
+            //     var output                = _createAnchorUseCase.Execute(input);
+            //
+            //     payload.NewAnchors.Add(output.AnchorID);
+            // }
+            //
+            // await UniTask.WhenAll(manifestationsFinish);
+            //
+            // if (payload.IsLastChild) ClearLastAnchor(payload);
         }
 
         ManifestationEntity CreateManifestationAndRegistry(
@@ -84,12 +84,12 @@ namespace TheLostSpirit.Application.EventHandler.Formula
         }
 
         void ClearLastAnchor(FormulaPayload payload) {
-            foreach (var anchorID in payload.LastAnchors) {
+            foreach (var anchorID in payload.Anchors) {
                 var anchorEntity = _anchorRepository.TakeByID(anchorID);
                 anchorEntity.Destroy();
             }
 
-            payload.LastAnchors.Clear();
+            payload.Anchors.Clear();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace TheLostSpirit.Context.Formula
             ConnectNodeUseCase      = new ConnectNodeUseCase(NodeRepository);
             NodeContainSkillUseCase = new NodeContainSkillUseCase(NodeRepository);
 
-            _ = new AsyncVisitedNodeEventHandler(NodeRepository, skillContext.ActiveSkillUseCase);
+            // _ = new AsyncVisitedNodeEventHandler(NodeRepository, skillContext.ActiveSkillUseCase);
 
             return this;
         }

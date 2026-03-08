@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using Cysharp.Threading.Tasks;
 using TheLostSpirit.Domain.Formula.Event;
@@ -49,7 +50,7 @@ namespace TheLostSpirit.Domain.Formula
         }
 
         public async UniTaskVoid Traverse() {
-            await _eventBus.PublishAsync(new AsyncVisitedNodeEvent(CoreNodeID));
+            await _eventBus.PublishAsync(new AsyncVisitedNodeEvent(CoreNodeID, Guid.NewGuid(), true));
             //TraverCompleteEvent - clear anchor
         }
     }

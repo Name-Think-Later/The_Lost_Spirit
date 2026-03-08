@@ -1,4 +1,5 @@
-﻿using TheLostSpirit.Application.EventHandler.Formula;
+﻿using R3;
+using TheLostSpirit.Application.EventHandler.Formula;
 using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Formula;
 using TheLostSpirit.Application.ViewModelStore;
@@ -36,8 +37,17 @@ namespace TheLostSpirit.Context.Formula
             FormulaTraverseUseCase = new TraverseFormulaUseCase(FormulaRepository);
             FormulaAddNodeUseCase  = new FormulaAddNodeUseCase(FormulaRepository, nodeContext.NodeRepository);
 
-            _ = new FormulaAddedCoreNodeEventHandler(skillContext.SkillRepository, FormulaViewModelStore);
-
+            _ = new FormulaAddedCoreNodeEventHandler(skillContext.SkillRepository, FormulaViewModelStore).AddTo(this);
+            _ = new AsyncFormulaActivatedSaga(
+                nodeContext.NodeRepository,
+                skillContext.AnchorRepository,
+                skillContext.manifestationContext.ManifestationRepository,
+                skillContext.manifestationContext.ManifestationViewModelStore,
+                skillContext.manifestationContext.ManifestationInstanceFactory,
+                skillContext.ActiveSkillUseCase,
+                skillContext.CreateAnchorUseCase
+            );
+            
             var formulaInputViews = userInputContext.GeneralInputView.Formulas;
 
             for (var i = 0; i < _formulaCount; i++) {

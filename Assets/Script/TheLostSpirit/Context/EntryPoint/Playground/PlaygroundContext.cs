@@ -114,9 +114,10 @@ namespace TheLostSpirit.Context.EntryPoint.Playground
             _formulaContext.FormulaAddNodeUseCase.Execute(new FormulaAddNodeUseCase.Input(formulaID, n1));
 
 
-            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n1, 1), (n2, 0)));
+            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n1, 0), (n2, 1)));
             _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n2, 1), (n3, 0)));
             _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n3, 1), (n4, 0)));
+            
             // _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n2, 2), (n5, 0)));
             // _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n5, 1), (n6, 0)));
             // _formulaContext.ConnectNodeUseCase.Execute(new(From: (n3, 1), To: (n7, 0)));

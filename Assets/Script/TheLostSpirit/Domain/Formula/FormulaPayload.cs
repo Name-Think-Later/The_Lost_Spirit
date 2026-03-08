@@ -8,50 +8,44 @@ namespace TheLostSpirit.Domain.Formula
 {
     public class FormulaPayload
     {
-        readonly NodeID[] _nodeRoute;
-
-        public bool IsLastChild { get; set; }
-        public List<AnchorID> LastAnchors { get; private set; }
-        public List<AnchorID> NewAnchors { get; private set; }
-
-        //forTest
-        public float testFactor = 5;
+        public Guid SequentID { get; }
+        public List<NodeID> NodeRoute { get; private set; }
+        public List<AnchorID> Anchors { get; private set; }
+        public List<AnchorID> CandidateAnchors { get; private set; }
+        public bool AnchorConsumed { get; set; }
 
 
         public FormulaPayload() {
-            _nodeRoute  = new NodeID[1];
-            LastAnchors = new List<AnchorID>();
-            NewAnchors  = new List<AnchorID>();
-        }
-
-
-        FormulaPayload(FormulaPayload origin) {
-            var newNodeRoute = origin._nodeRoute;
-            Array.Resize(ref newNodeRoute, newNodeRoute.Length + 1);
-            _nodeRoute = newNodeRoute;
-
-            LastAnchors = new List<AnchorID>(origin.LastAnchors);
-            NewAnchors  = new List<AnchorID>(origin.NewAnchors);
+            SequentID        = Guid.NewGuid();
+            NodeRoute        = new List<NodeID>();
+            Anchors          = new List<AnchorID>();
+            CandidateAnchors = new List<AnchorID>();
+            AnchorConsumed   = false;
         }
 
         public void PushAnchors() {
-            (LastAnchors, NewAnchors) = (NewAnchors, LastAnchors);
-            NewAnchors.Clear();
+            (Anchors, CandidateAnchors) = (CandidateAnchors, Anchors);
+            CandidateAnchors.Clear();
         }
 
         public FormulaPayload Clone() {
-            return new FormulaPayload(this);
+            var clone = new FormulaPayload();
+
+            clone.NodeRoute.AddRange(NodeRoute);
+            clone.Anchors.AddRange(Anchors);
+            clone.CandidateAnchors.AddRange(CandidateAnchors);
+            clone.AnchorConsumed = AnchorConsumed;
+
+            return clone;
         }
 
 
         public void AddDebugRoute(NodeID nodeID) {
-            _nodeRoute[^1] = nodeID;
+            NodeRoute.Add(nodeID);
         }
 
         public void ShowRoute() {
-            Debug.Log(_nodeRoute.ToDelimitedString("\n"));
+            Debug.Log(NodeRoute.ToDelimitedString("\n"));
         }
     }
-
-    public record PayloadSeq : RuntimeID<PayloadSeq>;
 }

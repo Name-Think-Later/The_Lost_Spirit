@@ -13,7 +13,7 @@ namespace TheLostSpirit.Application.UseCase.Formula
 
         public Void Execute(Input input) {
             var nodeEntity = _nodeRepository.GetByID(input.NodeID);
-            nodeEntity.Skill = input.SkillID;
+            nodeEntity.SkillID = input.SkillID;
 
             return Void.Default;
         }

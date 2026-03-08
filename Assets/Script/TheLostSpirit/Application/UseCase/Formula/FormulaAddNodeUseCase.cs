@@ -21,7 +21,7 @@ namespace TheLostSpirit.Application.UseCase.Formula
             var formulaEntity = _formulaRepository.GetByID(input.FormulaID);
             var nodeEntity    = _nodeRepository.GetByID(nodeID);
 
-            formulaEntity.AddNode(nodeID, nodeEntity.Skill);
+            formulaEntity.AddNode(nodeID, nodeEntity.SkillID);
 
             return Void.Default;
         }
