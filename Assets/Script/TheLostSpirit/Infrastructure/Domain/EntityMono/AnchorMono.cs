@@ -30,6 +30,14 @@ namespace TheLostSpirit.Infrastructure.Domain.EntityMono
             transform.position = position;
         }
 
+        public void SetRotation(Vector2 rotation) {
+            transform.rotation = Quaternion.Euler(rotation);
+        }
+
+        public void SetActive(bool active) {
+            gameObject.SetActive(active);
+        }
+
 
         public void Destroy() {
             Destroy(gameObject);

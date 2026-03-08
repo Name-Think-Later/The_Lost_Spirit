@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using TheLostSpirit.Domain.Formula;
+using TheLostSpirit.Domain.Port.ReadOnly;
 using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
@@ -9,6 +10,8 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation
         readonly Manifestation      _manifestation;
         readonly IManifestationMono _manifestationMono;
         public ManifestationID ID { get; }
+
+        public IReadOnlyTransform ReadOnlyTransform => _manifestationMono.ReadOnlyTransform;
 
         public AsyncReactiveProperty<bool> IsFinish => _manifestation.isFinish;
 

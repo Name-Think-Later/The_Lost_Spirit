@@ -7,6 +7,7 @@ using TheLostSpirit.Domain.Formula.Node.Event;
 using TheLostSpirit.Domain.Port.EventBus;
 using TheLostSpirit.Extension.General;
 using TheLostSpirit.Identity.EntityID;
+using UnityEngine;
 
 namespace TheLostSpirit.Domain.Formula.Node
 {
@@ -67,7 +68,8 @@ namespace TheLostSpirit.Domain.Formula.Node
                     .Select((neighbor, index) => {
                         var clone = payload.Clone();
                         clone.IsLastChild = count - 1 == index;
-
+                        Debug.Log(clone.IsLastChild);
+                        
                         var visitedNode = new AsyncVisitedNodeEvent(neighbor.ID, clone);
 
                         return _eventBus.PublishAsync(visitedNode);

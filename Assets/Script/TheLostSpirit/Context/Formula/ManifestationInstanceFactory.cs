@@ -45,6 +45,7 @@ namespace TheLostSpirit.Context.Formula
                     );
 
             instance.transform.position = anchorTransform.Position;
+            instance.transform.rotation = anchorTransform.Rotation;
 
             return instance;
         }

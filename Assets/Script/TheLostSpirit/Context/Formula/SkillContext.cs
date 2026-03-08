@@ -60,7 +60,8 @@ namespace TheLostSpirit.Context.Formula
                     AnchorRepository,
                     manifestationContext.ManifestationRepository,
                     manifestationContext.ManifestationViewModelStore,
-                    manifestationContext.ManifestationInstanceFactory
+                    manifestationContext.ManifestationInstanceFactory,
+                    CreateAnchorUseCase
                 );
 
             return this;

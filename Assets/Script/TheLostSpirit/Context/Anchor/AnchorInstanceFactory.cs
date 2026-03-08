@@ -12,8 +12,8 @@ namespace TheLostSpirit.Context.Anchor
             _original = original;
         }
 
-        public IAnchorInstanceContext Create() {
-            var instance = Object.Instantiate(_original);
+        public IAnchorInstanceContext Create(Vector2 position, Vector2 rotation) {
+            var instance = Object.Instantiate(_original, position, Quaternion.Euler(rotation));
             instance.Construct();
 
             return instance;

@@ -4,6 +4,7 @@ using TheLostSpirit.Application.UseCase;
 using TheLostSpirit.Application.UseCase.Formula;
 using TheLostSpirit.Domain.Player;
 using TheLostSpirit.Domain.Skill.Core.Event;
+using UnityEngine;
 
 namespace TheLostSpirit.Application.EventHandler.Formula
 {
@@ -23,13 +24,13 @@ namespace TheLostSpirit.Application.EventHandler.Formula
         protected override UniTask Handle(AsyncCoreActivatedEvent domainEvent) {
             var payload = domainEvent.Payload;
 
-            var output       = _createAnchorUseCase.Execute();
-            var anchorEntity = _anchorRepository.GetByID(output.AnchorID);
-
             var playerPosition = PlayerEntity.Get().ReadOnlyTransform.Position;
-            anchorEntity.SetPosition(playerPosition);
+            var input          = new CreateAnchorUseCase.Input(playerPosition, Vector2.zero);
+            var output         = _createAnchorUseCase.Execute(input);
+            var anchorEntity   = _anchorRepository.GetByID(output.AnchorID);
 
-            payload.NewAnchors.Add(output.AnchorID);
+            payload.LastAnchors.Add(anchorEntity.ID);
+            anchorEntity.SetActive(true);
 
             return UniTask.CompletedTask;
         }

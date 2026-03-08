@@ -9,8 +9,8 @@ namespace TheLostSpirit.Application.EventHandler.Formula
 {
     public class AsyncVisitedNodeEventHandler : AsyncDomainEventHandler<AsyncVisitedNodeEvent>
     {
-        readonly ActiveSkillUseCase _activeSkillUseCase;
         readonly NodeRepository     _nodeRepository;
+        readonly ActiveSkillUseCase _activeSkillUseCase;
 
         public AsyncVisitedNodeEventHandler(
             NodeRepository     nodeRepository,
@@ -31,8 +31,6 @@ namespace TheLostSpirit.Application.EventHandler.Formula
 
             var activeSkillInput = new ActiveSkillUseCase.Input(nodeEntity.Skill, payload);
             await _activeSkillUseCase.Execute(activeSkillInput);
-
-            payload.PushAnchors();
 
             await nodeEntity.MoveNext(payload, TraversalPolicy.Parallel);
         }

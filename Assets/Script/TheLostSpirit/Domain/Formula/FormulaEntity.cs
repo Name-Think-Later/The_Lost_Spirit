@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using Cysharp.Threading.Tasks;
 using TheLostSpirit.Domain.Formula.Event;
 using TheLostSpirit.Domain.Formula.Node.Event;
 using TheLostSpirit.Domain.Port.EventBus;
@@ -21,7 +22,7 @@ namespace TheLostSpirit.Domain.Formula
 
         public IEnumerable<NodeID> Nodes => _formula.Nodes;
 
-        public NodeID CoreNode => _formula.CoreNode;
+        public NodeID CoreNodeID => _formula.CoreNode;
         public FormulaID ID { get; }
 
         public void AddNode(NodeID node, ISkillID skill) {
@@ -47,8 +48,9 @@ namespace TheLostSpirit.Domain.Formula
             _formula.Nodes.Clear();
         }
 
-        public void Traverse() {
-            _eventBus.Publish(new AsyncVisitedNodeEvent(CoreNode));
+        public async UniTaskVoid Traverse() {
+            await _eventBus.PublishAsync(new AsyncVisitedNodeEvent(CoreNodeID));
+            //TraverCompleteEvent - clear anchor
         }
     }
 }

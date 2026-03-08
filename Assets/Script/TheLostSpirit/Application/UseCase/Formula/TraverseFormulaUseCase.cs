@@ -13,7 +13,7 @@ namespace TheLostSpirit.Application.UseCase.Formula
 
         public Void Execute(Input input) {
             var formulaEntity = _formulaRepository.GetByID(input.FormulaID);
-            formulaEntity.Traverse();
+            formulaEntity.Traverse().Forget();
 
             return Void.Default;
         }

@@ -26,6 +26,14 @@ namespace TheLostSpirit.Domain.Skill.Anchor
             _anchorMono.SetPosition(position);
         }
 
+        public void SetRotation(Vector2 rotation) {
+            _anchorMono.SetRotation(rotation);
+        }
+
+        public void SetActive(bool active) {
+            _anchorMono.SetActive(active);
+        }
+
         public void Destroy() {
             _anchorMono.Destroy();
         }

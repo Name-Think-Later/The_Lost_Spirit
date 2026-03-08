@@ -73,28 +73,29 @@ namespace TheLostSpirit.Context.EntryPoint.Playground
 
             var formulaID = _formulaContext.FormulaViewModelStore[0].ID;
 
-            var first  = new SkillSpecificationID("001");
-            var second = new SkillSpecificationID("002");
+            var core     = new SkillSpecificationID("001");
+            var manifest = new SkillSpecificationID("002");
+            var weave    = new SkillSpecificationID("003");
 
             var n1 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new CreateNodeUseCase.Input(3)).NodeID;
-            var s1 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new CreateSkillUseCase.Input(first))
+            var s1 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new CreateSkillUseCase.Input(core))
                                     .SkillID;
             _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new NodeContainSkillUseCase.Input(n1, s1));
 
             var n2 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new CreateNodeUseCase.Input(3)).NodeID;
-            var s2 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new CreateSkillUseCase.Input(second))
+            var s2 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new CreateSkillUseCase.Input(manifest))
                                     .SkillID;
             _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new NodeContainSkillUseCase.Input(n2, s2));
-            //
-            // var n3 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new CreateNodeUseCase.Input(3)).NodeID;
-            // var s3 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new CreateSkillUseCase.Input(second))
-            //                         .SkillID;
-            // _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new NodeContainSkillUseCase.Input(n3, s3));
-            //
-            // var n4 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new CreateNodeUseCase.Input(3)).NodeID;
-            // var s4 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new CreateSkillUseCase.Input(second))
-            //                         .SkillID;
-            // _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new NodeContainSkillUseCase.Input(n4, s4));
+
+            var n3 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new CreateNodeUseCase.Input(3)).NodeID;
+            var s3 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new CreateSkillUseCase.Input(weave))
+                                    .SkillID;
+            _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new NodeContainSkillUseCase.Input(n3, s3));
+
+            var n4 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new CreateNodeUseCase.Input(3)).NodeID;
+            var s4 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new CreateSkillUseCase.Input(manifest))
+                                    .SkillID;
+            _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new NodeContainSkillUseCase.Input(n4, s4));
             //
             // var n5 = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new CreateNodeUseCase.Input(3)).NodeID;
             // var s5 = _formulaContext.skillContext.CreateSkillUseCase.Execute(new CreateSkillUseCase.Input(second))
@@ -113,9 +114,9 @@ namespace TheLostSpirit.Context.EntryPoint.Playground
             _formulaContext.FormulaAddNodeUseCase.Execute(new FormulaAddNodeUseCase.Input(formulaID, n1));
 
 
-            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n1, 0), (n2, 0)));
-            // _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n1, 1), (n3, 0)));
-            // _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n2, 1), (n4, 0)));
+            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n1, 1), (n2, 0)));
+            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n2, 1), (n3, 0)));
+            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n3, 1), (n4, 0)));
             // _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n2, 2), (n5, 0)));
             // _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n5, 1), (n6, 0)));
             // _formulaContext.ConnectNodeUseCase.Execute(new(From: (n3, 1), To: (n7, 0)));

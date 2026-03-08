@@ -10,6 +10,7 @@ namespace TheLostSpirit.Domain.Skill.Manifest
     {
         readonly IEventBus _eventBus;
         readonly Manifest  _manifest;
+        public new ManifestID ID { get; }
 
         public ManifestEntity(ManifestID id, ManifestConfig config) : base(id) {
             ID = id;
@@ -18,7 +19,6 @@ namespace TheLostSpirit.Domain.Skill.Manifest
             _manifest = new Manifest(config);
         }
 
-        public new ManifestID ID { get; }
 
         public override async UniTask Activate(FormulaPayload payload) {
             var manifestActivated = new AsyncManifestActivatedEvent(_manifest.Manifestation, payload);

@@ -1,5 +1,8 @@
-﻿using TheLostSpirit.Domain.Skill.Core;
+﻿using System;
+using TheLostSpirit.Domain.Skill.Core;
 using TheLostSpirit.Domain.Skill.Manifest;
+using TheLostSpirit.Domain.Skill.Weave;
+using TheLostSpirit.Exception;
 using TheLostSpirit.Identity.EntityID;
 using TheLostSpirit.Identity.SpecificationID;
 
@@ -19,7 +22,8 @@ namespace TheLostSpirit.Domain.Skill
             return skillConfig switch {
                 CoreConfig config     => new CoreEntity(CoreID.New(), config),
                 ManifestConfig config => new ManifestEntity(ManifestID.New(), config),
-                _                     => null
+                WeaveConfig config    => new WeaveEntity(WeaveID.New(), config),
+                _                     => throw new UndefinedSkillTypeException()
             };
         }
     }

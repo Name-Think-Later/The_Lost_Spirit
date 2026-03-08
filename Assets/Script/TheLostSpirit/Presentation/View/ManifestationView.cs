@@ -17,6 +17,9 @@ namespace TheLostSpirit.Presentation.View
         ManifestationViewModel _viewModel;
 
         public ManifestationView Initialize(AnimationClip clip) {
+            _animator.Animator.enabled = true;
+            _animator.Play(clip);
+
             return this;
         }
 
