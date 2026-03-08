@@ -4,7 +4,7 @@ using TheLostSpirit.Domain.Port.EventBus;
 
 namespace TheLostSpirit.Application.EventHandler
 {
-    public abstract class DomainEventHandler<TEvent> where TEvent : IDomainEvent
+    public abstract class DomainEventHandler<TEvent> : IDomainEventHandler<TEvent> where TEvent : IDomainEvent
     {
         protected DomainEventHandler() {
             AppScope
@@ -13,6 +13,6 @@ namespace TheLostSpirit.Application.EventHandler
                 .Subscribe(Handle);
         }
 
-        protected abstract void Handle(TEvent domainEvent);
+        public abstract void Handle(TEvent domainEvent);
     }
 }

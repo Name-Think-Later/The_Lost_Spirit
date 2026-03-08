@@ -4,6 +4,7 @@ using TheLostSpirit.Domain.Port.EventBus;
 using TheLostSpirit.Domain.Port.FormulaIOPolicy;
 using TheLostSpirit.Domain.Skill.Core.Event;
 using TheLostSpirit.Identity.EntityID;
+using UnityEngine;
 
 namespace TheLostSpirit.Domain.Skill.Core
 {

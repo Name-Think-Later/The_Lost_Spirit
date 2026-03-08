@@ -18,7 +18,7 @@ namespace TheLostSpirit.Application.EventHandler.Formula
             _formulaViewModelStore = formulaViewModelStore;
         }
 
-        protected override void Handle(FormulaAddedCoreNodeEvent domainEvent) {
+        public override void Handle(FormulaAddedCoreNodeEvent domainEvent) {
             var formulaViewModel = _formulaViewModelStore.GetByID(domainEvent.FormulaID).AsViewModel();
             var coreEntity       = _skillRepository.GetByID(domainEvent.CoreID);
             formulaViewModel.WithIOPolicy(coreEntity.FormulaIOPolicy);

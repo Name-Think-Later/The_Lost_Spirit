@@ -7,7 +7,7 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Event
 {
     public record AsyncManifestActivatedEvent(
         ManifestationSpecificationID ManifestationSpecificationID,
-        FormulaPayload        Payload
+        FormulaPayload               Payload
     ) : IAsyncDomainEvent
     {
         readonly UniTaskCompletionSource _completion = new UniTaskCompletionSource();

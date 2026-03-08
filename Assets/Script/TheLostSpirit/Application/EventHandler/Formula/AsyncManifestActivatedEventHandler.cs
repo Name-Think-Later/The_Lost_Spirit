@@ -40,7 +40,7 @@ namespace TheLostSpirit.Application.EventHandler.Formula
             _createAnchorUseCase          = createAnchorUseCase;
         }
 
-        protected override async UniTask Handle(AsyncManifestActivatedEvent domainEvent) {
+        public override async UniTask Handle(AsyncManifestActivatedEvent domainEvent) {
             var payload         = domainEvent.Payload;
             var specificationID = domainEvent.ManifestationSpecificationID;
 

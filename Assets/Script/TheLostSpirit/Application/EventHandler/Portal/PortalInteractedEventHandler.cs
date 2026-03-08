@@ -12,7 +12,7 @@ namespace TheLostSpirit.Application.EventHandler.Portal
             _portalRepository = portalRepository;
         }
 
-        protected override void Handle(PortalInteractedEvent domainEvent) {
+        public override void Handle(PortalInteractedEvent domainEvent) {
             var portalId     = domainEvent.PortalID;
             var portalEntity = _portalRepository.GetByID(portalId);
             var playerEntity = PlayerEntity.Get();

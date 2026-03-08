@@ -20,7 +20,7 @@ namespace TheLostSpirit.Application.EventHandler.Formula
             _activeSkillUseCase = activeSkillUseCase;
         }
 
-        protected override async UniTask Handle(AsyncVisitedNodeEvent domainEvent) {
+        public override async UniTask Handle(AsyncVisitedNodeEvent domainEvent) {
             var nodeID  = domainEvent.NodeID;
             var payload = domainEvent.Payload;
 

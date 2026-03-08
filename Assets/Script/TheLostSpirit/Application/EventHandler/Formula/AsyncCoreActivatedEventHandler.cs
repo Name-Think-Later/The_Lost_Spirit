@@ -21,7 +21,7 @@ namespace TheLostSpirit.Application.EventHandler.Formula
             _anchorRepository    = anchorRepository;
         }
 
-        protected override UniTask Handle(AsyncCoreActivatedEvent domainEvent) {
+        public override UniTask Handle(AsyncCoreActivatedEvent domainEvent) {
             var payload = domainEvent.Payload;
 
             var playerPosition = PlayerEntity.Get().ReadOnlyTransform.Position;

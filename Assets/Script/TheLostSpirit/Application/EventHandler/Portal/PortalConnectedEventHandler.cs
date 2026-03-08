@@ -19,7 +19,7 @@ namespace TheLostSpirit.Application.EventHandler.Portal
         }
 
 
-        protected override void Handle(PortalConnectedEvent domainEvent) {
+        public override void Handle(PortalConnectedEvent domainEvent) {
             var leftID  = domainEvent.LeftID;
             var rightID = domainEvent.RightID;
 
