@@ -6,6 +6,7 @@ using TheLostSpirit.Domain.Formula.Event;
 using TheLostSpirit.Domain.Formula.Node.Event;
 using TheLostSpirit.Domain.Port.EventBus;
 using TheLostSpirit.Identity.EntityID;
+using UnityEngine;
 
 namespace TheLostSpirit.Domain.Formula
 {

@@ -98,43 +98,40 @@ namespace TheLostSpirit.Application.EventHandler.Formula
         }
 
         public async UniTask Handle(AsyncVisitedNodeEvent domainEvent) {
-            var nodeID      = domainEvent.NodeID;
-            var sequentID   = domainEvent.SequentID;
-            var isLastChild = domainEvent.IsLastChild;
+            var nodeID       = domainEvent.NodeID;
+            var oldSequentID = domainEvent.SequentID;
+            var isLastChild  = domainEvent.IsLastChild;
 
             var nodeEntity = _nodeRepository.GetByID(nodeID);
 
             Debug.Log(nodeID.Index);
 
-            var gotPayload = _payloads.TryGetValue(sequentID, out var origin);
-            var payload    = gotPayload ? origin.Clone() : new FormulaPayload();
-            _payloads.Add(payload.SequentID, payload);
+            var gotPayload = _payloads.TryGetValue(oldSequentID, out var oldPayload);
+            var newPayload = gotPayload ? oldPayload.Clone() : new FormulaPayload();
+            _payloads.Add(newPayload.SequentID, newPayload);
 
-            var activeSkillInput = new ActiveSkillUseCase.Input(nodeEntity.SkillID, payload);
+            var activeSkillInput = new ActiveSkillUseCase.Input(nodeEntity.SkillID, newPayload);
             await _activeSkillUseCase.Execute(activeSkillInput);
 
-            payload.AddDebugRoute(nodeID);
+            newPayload.AddDebugRoute(nodeID);
 
-            if (isLastChild) {
-                _payloads.Remove(sequentID);
-                if (payload.AnchorConsumed) {
-                    foreach (var anchorID in payload.Anchors) {
-                        var anchorEntity = _anchorRepository.TakeByID(anchorID);
-                        anchorEntity.Destroy();
-                    }
+            var isLeafNode = !await nodeEntity.MoveNext(newPayload, TraversalPolicy.Parallel);
 
-                    payload.Anchors.Clear();
-                }
-            }
+            if (isLeafNode) DestroyAnchors(newPayload.CandidateAnchors);
 
-            var canMoveNext = await nodeEntity.MoveNext(payload, TraversalPolicy.Parallel);
+            var shouldDestroyAnchors = (isLastChild && newPayload.AnchorConsumed) || (!isLastChild && isLeafNode);
+            if (shouldDestroyAnchors) DestroyAnchors(newPayload.Anchors);
 
-            if (canMoveNext) return;
+            _payloads.Remove(newPayload.SequentID);
+        }
 
-            foreach (var anchorID in payload.CandidateAnchors) {
+        void DestroyAnchors(List<AnchorID> anchors) {
+            foreach (var anchorID in anchors) {
                 var anchorEntity = _anchorRepository.TakeByID(anchorID);
                 anchorEntity.Destroy();
             }
+
+            anchors.Clear();
         }
 
         public UniTask Handle(AsyncCoreActivatedEvent domainEvent) {
