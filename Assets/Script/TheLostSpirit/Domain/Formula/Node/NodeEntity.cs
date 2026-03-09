@@ -69,9 +69,11 @@ namespace TheLostSpirit.Domain.Formula.Node
             var tasks =
                 OutNeighbors
                     .Select((neighbor, index) => {
+                        var clone       = payload.Clone();
                         var isLastChild = index == count - 1;
-                        var visitedNode =
-                            new AsyncVisitedNodeEvent(neighbor.ID, payload.SequentID, isLastChild);
+                        clone.IsLastChild = isLastChild;
+
+                        var visitedNode = new AsyncVisitedNodeEvent(neighbor.ID, clone);
 
                         return _eventBus.PublishAsync(visitedNode);
                     });

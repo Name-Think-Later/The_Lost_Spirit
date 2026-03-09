@@ -8,13 +8,12 @@ namespace TheLostSpirit.Domain.Skill.Manifest.Event
 {
     public record AsyncManifestActivatedEvent(
         ManifestationSpecificationID ManifestationSpecificationID,
-        Guid                         SequentID
+        FormulaPayload               Payload
     ) : IAsyncDomainEvent
     {
         readonly UniTaskCompletionSource _completion = new UniTaskCompletionSource();
-
         public ManifestationSpecificationID ManifestationSpecificationID { get; } = ManifestationSpecificationID;
-        public Guid SequentID { get; } = SequentID;
+        public FormulaPayload Payload { get; } = Payload;
 
         public void Complete() {
             _completion.TrySetResult();

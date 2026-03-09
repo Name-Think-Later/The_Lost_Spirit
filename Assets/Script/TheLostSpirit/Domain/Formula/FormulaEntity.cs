@@ -51,8 +51,7 @@ namespace TheLostSpirit.Domain.Formula
         }
 
         public async UniTaskVoid Traverse() {
-            await _eventBus.PublishAsync(new AsyncVisitedNodeEvent(CoreNodeID, Guid.NewGuid(), true));
-            //TraverCompleteEvent - clear anchor
+            await _eventBus.PublishAsync(new AsyncVisitedNodeEvent(CoreNodeID, new FormulaPayload()));
         }
     }
 }

@@ -22,15 +22,15 @@ namespace TheLostSpirit.Application.EventHandler.Formula
         }
 
         public override UniTask Handle(AsyncCoreActivatedEvent domainEvent) {
-            // var payload = domainEvent.Payload;
-            //
-            // var playerPosition = PlayerEntity.Get().ReadOnlyTransform.Position;
-            // var input          = new CreateAnchorUseCase.Input(playerPosition, Vector2.zero);
-            // var output         = _createAnchorUseCase.Execute(input);
-            // var anchorEntity   = _anchorRepository.GetByID(output.AnchorID);
-            //
-            // payload.LastAnchors.Add(anchorEntity.ID);
-            // anchorEntity.SetActive(true);
+            var payload = domainEvent.Payload;
+
+            var playerPosition = PlayerEntity.Get().ReadOnlyTransform.Position;
+            var input          = new CreateAnchorUseCase.Input(playerPosition, Vector2.zero);
+            var output         = _createAnchorUseCase.Execute(input);
+            var anchorEntity   = _anchorRepository.GetByID(output.AnchorID);
+
+            payload.Anchors.Add(anchorEntity.ID);
+            anchorEntity.SetActive(true);
 
             return UniTask.CompletedTask;
         }

@@ -86,7 +86,7 @@ namespace TheLostSpirit.Presentation.View.Input
                     .Select(_ => {
                             var holdingTimer = Observable.Timer(holdingTime);
 
-                            return Observable.Amb(holdingTimer, unitRelease);
+                            return Observable.Race(holdingTimer, unitRelease);
                         }
                     )
                     .Switch();

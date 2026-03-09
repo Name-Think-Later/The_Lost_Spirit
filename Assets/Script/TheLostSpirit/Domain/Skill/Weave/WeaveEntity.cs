@@ -19,14 +19,14 @@ namespace TheLostSpirit.Domain.Skill.Weave
         }
 
         public override UniTask Activate(FormulaPayload payload) {
-            var hasLastAnchor = payload.Anchors.Any();
+            var hasAnchor = payload.Anchors.Any();
 
-            if (hasLastAnchor) return UniTask.CompletedTask;
+            if (hasAnchor) return UniTask.CompletedTask;
 
             //Domain: Weaved Condition
 
-            payload.PushAnchors();
-            payload.AnchorConsumed = false;
+            payload.PromoteCandidateAnchors();
+            // payload.AnchorConsumed = false;
 
             return UniTask.CompletedTask;
         }

@@ -6,13 +6,15 @@ using UnityEngine;
 
 namespace TheLostSpirit.Domain.Formula.Node.Event
 {
-    public record AsyncVisitedNodeEvent(NodeID NodeID, Guid SequentID, bool IsLastChild) : IAsyncDomainEvent
+    public record AsyncVisitedNodeEvent(
+        NodeID         NodeID,
+        FormulaPayload Payload
+    ) : IAsyncDomainEvent
     {
         readonly UniTaskCompletionSource _completion = new UniTaskCompletionSource();
 
         public NodeID NodeID { get; } = NodeID;
-        public Guid SequentID { get; } = SequentID;
-        public bool IsLastChild { get; } = IsLastChild;
+        public FormulaPayload Payload { get; } = Payload;
 
         public void Complete() {
             _completion.TrySetResult();

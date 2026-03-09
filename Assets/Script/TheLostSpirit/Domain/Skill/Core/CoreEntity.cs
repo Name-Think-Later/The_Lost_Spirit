@@ -26,9 +26,8 @@ namespace TheLostSpirit.Domain.Skill.Core
 
         public override async UniTask Activate(FormulaPayload payload) {
             //Domain: give status for payload
-            payload.AnchorConsumed = false;
 
-            var coreActivated = new AsyncCoreActivatedEvent(payload.SequentID);
+            var coreActivated = new AsyncCoreActivatedEvent(payload);
             await _eventBus.PublishAsync(coreActivated);
         }
     }
