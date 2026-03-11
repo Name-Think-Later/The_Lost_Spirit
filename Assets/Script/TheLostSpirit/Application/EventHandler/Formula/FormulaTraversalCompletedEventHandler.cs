@@ -1,5 +1,6 @@
-﻿using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Domain.Formula;
+﻿using TheLostSpirit.Domain.Formula;
+using TheLostSpirit.Domain.Formula.Event;
+using TheLostSpirit.Domain.Repository;
 
 namespace TheLostSpirit.Application.EventHandler.Formula
 {

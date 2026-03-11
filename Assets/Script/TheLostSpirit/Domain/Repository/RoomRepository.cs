@@ -1,7 +1,7 @@
 ﻿using TheLostSpirit.Domain.Room;
 using TheLostSpirit.Identity.EntityID;
 
-namespace TheLostSpirit.Application.Repository
+namespace TheLostSpirit.Domain.Repository
 {
     public class RoomRepository : GenericRepository<RoomID, RoomEntity>
     { }

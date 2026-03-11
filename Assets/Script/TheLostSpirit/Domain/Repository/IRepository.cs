@@ -1,7 +1,6 @@
-﻿using TheLostSpirit.Domain;
-using TheLostSpirit.Identity.EntityID;
+﻿using TheLostSpirit.Identity.EntityID;
 
-namespace TheLostSpirit.Application.Repository
+namespace TheLostSpirit.Domain.Repository
 {
     public interface IRepository<in T, U>
         where U : IEntity<T> where T : IRuntimeID

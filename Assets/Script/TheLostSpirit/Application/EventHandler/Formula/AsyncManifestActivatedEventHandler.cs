@@ -3,16 +3,17 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using MoreLinq;
 using TheLostSpirit.Application.Port.InstanceContext.InstanceFactory;
-using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase;
 using TheLostSpirit.Application.UseCase.Formula;
-using TheLostSpirit.Application.ViewModelStore;
 using TheLostSpirit.Domain.Formula;
+using TheLostSpirit.Domain.Repository;
 using TheLostSpirit.Domain.Skill.Anchor;
 using TheLostSpirit.Domain.Skill.Manifest.Event;
 using TheLostSpirit.Domain.Skill.Manifest.Manifestation;
 using TheLostSpirit.Identity.EntityID;
 using TheLostSpirit.Identity.SpecificationID;
+using TheLostSpirit.Presentation.ViewModel;
+using TheLostSpirit.Presentation.ViewModel.ViewModelReference.ViewModelStore;
 using UnityEngine;
 
 namespace TheLostSpirit.Application.EventHandler.Formula

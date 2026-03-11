@@ -1,8 +1,8 @@
 ﻿using Cysharp.Threading.Tasks;
-using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase;
 using TheLostSpirit.Application.UseCase.Formula;
 using TheLostSpirit.Domain.Player;
+using TheLostSpirit.Domain.Repository;
 using TheLostSpirit.Domain.Skill.Core.Event;
 using UnityEngine;
 

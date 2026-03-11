@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Script.TheLostSpirit.Infrastructure.Editor;
 using Sirenix.OdinInspector;
 using TheLostSpirit.Domain.Skill.Manifest.Manifestation;
+using TheLostSpirit.Infrastructure.Editor;
 using UnityEngine;
 
 namespace TheLostSpirit.Infrastructure

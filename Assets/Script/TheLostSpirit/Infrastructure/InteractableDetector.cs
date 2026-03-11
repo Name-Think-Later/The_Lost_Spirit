@@ -4,7 +4,7 @@ using MoreLinq.Extensions;
 using R3;
 using R3.Triggers;
 using Sirenix.OdinInspector;
-using TheLostSpirit.Domain.Interactable;
+using TheLostSpirit.Domain.Component;
 using UnityEngine;
 
 namespace TheLostSpirit.Infrastructure

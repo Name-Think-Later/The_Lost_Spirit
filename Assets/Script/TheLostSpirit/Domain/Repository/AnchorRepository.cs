@@ -4,7 +4,7 @@ using System.Linq;
 using TheLostSpirit.Domain.Skill.Anchor;
 using TheLostSpirit.Identity.EntityID;
 
-namespace TheLostSpirit.Application.Repository
+namespace TheLostSpirit.Domain.Repository
 {
     public class AnchorRepository : GenericRepository<AnchorID, AnchorEntity>
     {

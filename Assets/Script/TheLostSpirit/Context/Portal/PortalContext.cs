@@ -1,10 +1,11 @@
 ﻿using R3;
 using Sirenix.OdinInspector;
 using TheLostSpirit.Application.EventHandler.Portal;
-using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Portal;
-using TheLostSpirit.Application.ViewModelStore;
 using TheLostSpirit.Context.Player;
+using TheLostSpirit.Domain.Repository;
+using TheLostSpirit.Presentation.ViewModel;
+using TheLostSpirit.Presentation.ViewModel.ViewModelReference.ViewModelStore;
 using UnityEngine;
 
 namespace TheLostSpirit.Context.Portal

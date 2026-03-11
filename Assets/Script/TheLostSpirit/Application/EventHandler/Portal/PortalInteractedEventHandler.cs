@@ -1,6 +1,6 @@
-﻿using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Domain.Player;
+﻿using TheLostSpirit.Domain.Player;
 using TheLostSpirit.Domain.Portal.Event;
+using TheLostSpirit.Domain.Repository;
 
 namespace TheLostSpirit.Application.EventHandler.Portal
 {

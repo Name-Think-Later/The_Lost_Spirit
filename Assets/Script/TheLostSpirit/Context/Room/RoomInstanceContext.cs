@@ -6,8 +6,9 @@ using TheLostSpirit.Context.Portal;
 using TheLostSpirit.Domain.Room;
 using TheLostSpirit.Identity.EntityID;
 using TheLostSpirit.Infrastructure.Domain.EntityMono;
-using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
+using TheLostSpirit.Presentation.ViewModel;
 using TheLostSpirit.Presentation.ViewModel.Room;
+using TheLostSpirit.Presentation.ViewModel.ViewModelReference;
 using UnityEngine;
 using ZLinq;
 

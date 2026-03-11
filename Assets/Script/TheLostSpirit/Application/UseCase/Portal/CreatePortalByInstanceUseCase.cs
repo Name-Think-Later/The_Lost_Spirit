@@ -1,7 +1,8 @@
 ﻿using TheLostSpirit.Application.Port.InstanceContext.InstanceContext;
-using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Application.ViewModelStore;
+using TheLostSpirit.Domain.Repository;
 using TheLostSpirit.Identity.EntityID;
+using TheLostSpirit.Presentation.ViewModel;
+using TheLostSpirit.Presentation.ViewModel.ViewModelReference.ViewModelStore;
 
 namespace TheLostSpirit.Application.UseCase.Portal
 {

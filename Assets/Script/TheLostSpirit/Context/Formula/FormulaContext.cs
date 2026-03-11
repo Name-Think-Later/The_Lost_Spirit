@@ -1,11 +1,12 @@
 ﻿using R3;
 using TheLostSpirit.Application.EventHandler.Formula;
-using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Formula;
-using TheLostSpirit.Application.ViewModelStore;
 using TheLostSpirit.Domain.Formula;
+using TheLostSpirit.Domain.Repository;
 using TheLostSpirit.Identity.EntityID;
+using TheLostSpirit.Presentation.ViewModel;
 using TheLostSpirit.Presentation.ViewModel.Formula;
+using TheLostSpirit.Presentation.ViewModel.ViewModelReference.ViewModelStore;
 using UnityEngine;
 
 namespace TheLostSpirit.Context.Formula

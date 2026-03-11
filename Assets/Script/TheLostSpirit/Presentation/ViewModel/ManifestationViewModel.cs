@@ -1,7 +1,5 @@
-﻿using TheLostSpirit.Application.UseCase;
-using TheLostSpirit.Application.UseCase.Formula;
+﻿using TheLostSpirit.Application.UseCase.Formula;
 using TheLostSpirit.Identity.EntityID;
-using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
 
 namespace TheLostSpirit.Presentation.ViewModel
 {

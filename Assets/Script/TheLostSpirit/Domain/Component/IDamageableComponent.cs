@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace TheLostSpirit.Domain
+﻿namespace TheLostSpirit.Domain.Component
 {
     public interface IDamageableComponent
     {

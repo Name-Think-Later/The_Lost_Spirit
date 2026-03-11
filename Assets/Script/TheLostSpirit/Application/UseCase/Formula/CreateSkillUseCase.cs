@@ -1,4 +1,4 @@
-﻿using TheLostSpirit.Application.Repository;
+﻿using TheLostSpirit.Domain.Repository;
 using TheLostSpirit.Domain.Skill;
 using TheLostSpirit.Identity.EntityID;
 using TheLostSpirit.Identity.SpecificationID;

@@ -1,8 +1,9 @@
 {
-  "name": "TheLostSpirits.Presentation.ViewModel.Port.ViewModelReference",
+  "name": "TheLostSpirits.Presentation.ViewModel.ViewModelReference.ViewModelStore",
   "rootNamespace": "",
   "references": [
-    "GUID:62821c2b73a8cc3449e7bf3de409d4e5"
+    "GUID:62821c2b73a8cc3449e7bf3de409d4e5",
+    "GUID:21d51f2f164aab542be2ce806247fd0d"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

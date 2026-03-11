@@ -1,8 +1,9 @@
 ﻿using System;
 using TheLostSpirit.Application.Port.InstanceContext.InstanceFactory;
-using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Application.ViewModelStore;
+using TheLostSpirit.Domain.Repository;
 using TheLostSpirit.Identity.EntityID;
+using TheLostSpirit.Presentation.ViewModel;
+using TheLostSpirit.Presentation.ViewModel.ViewModelReference.ViewModelStore;
 using UnityEngine;
 
 namespace TheLostSpirit.Application.UseCase.Formula

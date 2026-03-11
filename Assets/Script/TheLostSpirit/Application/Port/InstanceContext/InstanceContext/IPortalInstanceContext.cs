@@ -1,6 +1,6 @@
 ﻿using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Identity.EntityID;
-using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
+using TheLostSpirit.Presentation.ViewModel;
 
 namespace TheLostSpirit.Application.Port.InstanceContext.InstanceContext
 {

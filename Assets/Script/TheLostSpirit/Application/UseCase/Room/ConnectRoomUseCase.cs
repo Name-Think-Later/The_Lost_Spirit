@@ -1,5 +1,5 @@
-﻿using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Application.UseCase.Portal;
+﻿using TheLostSpirit.Application.UseCase.Portal;
+using TheLostSpirit.Domain.Repository;
 using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Application.UseCase.Room

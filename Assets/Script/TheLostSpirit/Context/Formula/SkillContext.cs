@@ -1,12 +1,13 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using TheLostSpirit.Application.EventHandler.Formula;
-using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Formula;
-using TheLostSpirit.Application.ViewModelStore;
 using TheLostSpirit.Context.Anchor;
+using TheLostSpirit.Domain.Repository;
 using TheLostSpirit.Domain.Skill;
 using TheLostSpirit.Infrastructure.Database;
+using TheLostSpirit.Presentation.ViewModel;
+using TheLostSpirit.Presentation.ViewModel.ViewModelReference.ViewModelStore;
 using UnityEngine;
 
 namespace TheLostSpirit.Context.Formula

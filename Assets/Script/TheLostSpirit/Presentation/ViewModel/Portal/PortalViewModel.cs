@@ -1,7 +1,6 @@
 ﻿using R3;
 using TheLostSpirit.Domain.Port.ReadOnly;
 using TheLostSpirit.Identity.EntityID;
-using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
 using UnityEngine;
 
 namespace TheLostSpirit.Presentation.ViewModel.Portal

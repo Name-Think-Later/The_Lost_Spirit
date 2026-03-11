@@ -1,11 +1,8 @@
 ﻿using Animancer;
-using Animancer.FSM;
 using Sirenix.OdinInspector;
 using TheLostSpirit.Identity.EntityID;
 using TheLostSpirit.Presentation.ViewModel;
-using UnityEditorInternal;
 using UnityEngine;
-using State = Animancer.FSM.State;
 
 namespace TheLostSpirit.Presentation.View
 {

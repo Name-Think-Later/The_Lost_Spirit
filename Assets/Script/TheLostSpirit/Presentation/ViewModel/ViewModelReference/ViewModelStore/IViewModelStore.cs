@@ -1,7 +1,6 @@
 ﻿using TheLostSpirit.Identity.EntityID;
-using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
 
-namespace TheLostSpirit.Application.ViewModelStore
+namespace TheLostSpirit.Presentation.ViewModel
 {
     public interface IViewModelStore<TId>
         where TId : IRuntimeID

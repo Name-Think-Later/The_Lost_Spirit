@@ -2,7 +2,7 @@
 using TheLostSpirit.Domain.Skill.Core;
 using TheLostSpirit.Identity.EntityID;
 
-namespace TheLostSpirit.Application.Repository
+namespace TheLostSpirit.Domain.Repository
 {
     public class SkillRepository : GenericRepository<ISkillID, SkillEntity>
     {

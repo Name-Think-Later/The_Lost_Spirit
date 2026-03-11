@@ -1,7 +1,8 @@
-﻿using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Application.ViewModelStore;
-using TheLostSpirit.Domain.Formula.Event;
+﻿using TheLostSpirit.Domain.Formula.Event;
+using TheLostSpirit.Domain.Repository;
+using TheLostSpirit.Presentation.ViewModel;
 using TheLostSpirit.Presentation.ViewModel.Formula;
+using TheLostSpirit.Presentation.ViewModel.ViewModelReference.ViewModelStore;
 
 namespace TheLostSpirit.Application.EventHandler.Formula
 {

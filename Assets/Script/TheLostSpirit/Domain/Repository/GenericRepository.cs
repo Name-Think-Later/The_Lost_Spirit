@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using TheLostSpirit.Domain;
 using TheLostSpirit.Identity.EntityID;
 
-namespace TheLostSpirit.Application.Repository
+namespace TheLostSpirit.Domain.Repository
 {
     public abstract class GenericRepository<TId, TEntity> : IRepository<TId, TEntity>, IEnumerable<TEntity>
         where TId : IRuntimeID

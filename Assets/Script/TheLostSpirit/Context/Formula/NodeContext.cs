@@ -1,8 +1,8 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using TheLostSpirit.Application.EventHandler.Formula;
-using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Formula;
+using TheLostSpirit.Domain.Repository;
 
 namespace TheLostSpirit.Context.Formula
 {

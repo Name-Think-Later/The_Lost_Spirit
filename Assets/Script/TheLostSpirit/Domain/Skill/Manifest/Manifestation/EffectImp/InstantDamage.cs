@@ -1,4 +1,5 @@
-﻿using TheLostSpirit.Domain.Formula;
+﻿using TheLostSpirit.Domain.Component;
+using TheLostSpirit.Domain.Formula;
 using UnityEngine;
 
 namespace TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp

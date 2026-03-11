@@ -1,5 +1,4 @@
 ﻿using TheLostSpirit.Identity.EntityID;
-using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
 
 namespace TheLostSpirit.Presentation.ViewModel.Formula
 {

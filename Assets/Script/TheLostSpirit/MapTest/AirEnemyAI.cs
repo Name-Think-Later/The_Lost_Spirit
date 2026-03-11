@@ -1,41 +1,46 @@
+using Pathfinding;
 using UnityEngine;
-using Pathfinding; // °È¥²¤Þ¥Î A* ©R¦WªÅ¶¡
 
-public class AirEnemyAI : MonoBehaviour
+// ï¿½È¥ï¿½ï¿½Þ¥ï¿½ A* ï¿½Rï¿½Wï¿½Å¶ï¿½
+
+namespace TheLostSpirit.MapTest
 {
-    [Header("¥Ø¼Ð³]©w")]
-    public Transform target;
-    public float activateDistance = 10f; // ·PÀ³¶ZÂ÷
-
-    private Seeker seeker;
-    private AIPath aiPath;
-
-    void Start()
+    public class AirEnemyAI : MonoBehaviour
     {
-        seeker = GetComponent<Seeker>();
-        aiPath = GetComponent<AIPath>();
+        [Header("ï¿½Ø¼Ð³]ï¿½w")]
+        public Transform target;
+        public float activateDistance = 10f; // ï¿½Pï¿½ï¿½ï¿½Zï¿½ï¿½
 
-        // ½T«O­è¶}©l¤£²¾°Ê
-        aiPath.canMove = false;
-    }
+        private Seeker seeker;
+        private AIPath aiPath;
 
-    void Update()
-    {
-        if (target == null) return;
-
-        float distanceToTarget = Vector2.Distance(transform.position, target.position);
-
-        // ·íª±®a¶i¤J½d³ò¤º¡A¶}±Ò²¾°Ê
-        if (distanceToTarget < activateDistance)
+        void Start()
         {
-            aiPath.canMove = true;
-            // §ó·s¥Øªº¦a
-            aiPath.destination = target.position;
-        }
-        else
-        {
-            // ª±®a¶]¤Ó»·¡A°±¤î°l³v
+            seeker = GetComponent<Seeker>();
+            aiPath = GetComponent<AIPath>();
+
+            // ï¿½Tï¿½Oï¿½ï¿½}ï¿½lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             aiPath.canMove = false;
+        }
+
+        void Update()
+        {
+            if (target == null) return;
+
+            float distanceToTarget = Vector2.Distance(transform.position, target.position);
+
+            // ï¿½ï¿½ï¿½ï¿½ï¿½aï¿½iï¿½Jï¿½dï¿½ò¤º¡Aï¿½}ï¿½Ò²ï¿½ï¿½ï¿½
+            if (distanceToTarget < activateDistance)
+            {
+                aiPath.canMove = true;
+                // ï¿½ï¿½sï¿½Øªï¿½ï¿½a
+                aiPath.destination = target.position;
+            }
+            else
+            {
+                // ï¿½ï¿½ï¿½aï¿½]ï¿½Ó»ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½lï¿½v
+                aiPath.canMove = false;
+            }
         }
     }
 }

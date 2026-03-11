@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Script.TheLostSpirit.Infrastructure.Editor
+namespace TheLostSpirit.Infrastructure.Editor
 {
     public class ListItemSelectorAttribute : Attribute
     {

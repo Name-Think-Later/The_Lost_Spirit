@@ -1,7 +1,8 @@
-﻿using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Application.ViewModelStore;
-using TheLostSpirit.Domain.Portal.Event;
+﻿using TheLostSpirit.Domain.Portal.Event;
+using TheLostSpirit.Domain.Repository;
+using TheLostSpirit.Presentation.ViewModel;
 using TheLostSpirit.Presentation.ViewModel.Portal;
+using TheLostSpirit.Presentation.ViewModel.ViewModelReference.ViewModelStore;
 
 namespace TheLostSpirit.Application.EventHandler.Portal
 {

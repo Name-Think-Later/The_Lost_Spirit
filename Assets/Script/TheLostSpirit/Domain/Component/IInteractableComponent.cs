@@ -1,6 +1,6 @@
 ﻿using TheLostSpirit.Domain.Port.ReadOnly;
 
-namespace TheLostSpirit.Domain.Interactable
+namespace TheLostSpirit.Domain.Component
 {
     public interface IInteractableComponent
     {

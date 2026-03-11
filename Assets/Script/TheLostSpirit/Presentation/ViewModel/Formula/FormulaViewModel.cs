@@ -2,8 +2,6 @@
 using TheLostSpirit.Application.UseCase.Formula;
 using TheLostSpirit.Domain.Port.FormulaIOPolicy;
 using TheLostSpirit.Identity.EntityID;
-using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
-using UnityEngine;
 
 namespace TheLostSpirit.Presentation.ViewModel.Formula
 {

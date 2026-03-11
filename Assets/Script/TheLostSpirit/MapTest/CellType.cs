@@ -1,13 +1,16 @@
 using System;
 
-// ¿W¥ßªº Enum ÀÉ®×¡A½T«O©Ò¦³¸}¥»³£¯àÅª¨ú¨ì¥¦
-[Flags]
-public enum CellType
+// ï¿½Wï¿½ßªï¿½ Enum ï¿½É®×¡Aï¿½Tï¿½Oï¿½Ò¦ï¿½ï¿½}ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åªï¿½ï¿½ï¿½ì¥¦
+namespace TheLostSpirit.MapTest
 {
-    Normal = 0,
-    Drop = 1 << 0, // 1
-    LeftEdge = 1 << 1, // 2
-    LeftWall = 1 << 2, // 4
-    RightEdge = 1 << 3, // 8
-    RightWall = 1 << 4, // 16
+    [Flags]
+    public enum CellType
+    {
+        Normal    = 0,
+        Drop      = 1 << 0, // 1
+        LeftEdge  = 1 << 1, // 2
+        LeftWall  = 1 << 2, // 4
+        RightEdge = 1 << 3, // 8
+        RightWall = 1 << 4, // 16
+    }
 }

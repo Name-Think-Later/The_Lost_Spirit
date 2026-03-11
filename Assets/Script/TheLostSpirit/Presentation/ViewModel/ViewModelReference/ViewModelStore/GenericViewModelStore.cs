@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TheLostSpirit.Identity.EntityID;
-using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
 
-namespace TheLostSpirit.Application.ViewModelStore
+namespace TheLostSpirit.Presentation.ViewModel.ViewModelReference.ViewModelStore
 {
     public abstract class GenericViewModelStore<TId>
         : IViewModelStore<TId>, IEnumerable<IViewModelReference<TId>> where TId : IRuntimeID

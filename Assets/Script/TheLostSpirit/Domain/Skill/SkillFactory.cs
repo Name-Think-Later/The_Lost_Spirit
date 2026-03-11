@@ -1,8 +1,8 @@
 ﻿using System;
+using Script.TheLostSpirit.Exception;
 using TheLostSpirit.Domain.Skill.Core;
 using TheLostSpirit.Domain.Skill.Manifest;
 using TheLostSpirit.Domain.Skill.Weave;
-using TheLostSpirit.Exception;
 using TheLostSpirit.Identity.EntityID;
 using TheLostSpirit.Identity.SpecificationID;
 

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using TheLostSpirit.Domain;
-using TheLostSpirit.Domain.Interactable;
+using TheLostSpirit.Domain.Component;
 using TheLostSpirit.Domain.Port.EventBus;
 using TheLostSpirit.Domain.Port.ReadOnly;
 using TheLostSpirit.Domain.Portal;

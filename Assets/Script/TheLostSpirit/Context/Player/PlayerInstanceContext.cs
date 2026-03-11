@@ -5,8 +5,9 @@ using TheLostSpirit.Domain.Player;
 using TheLostSpirit.Identity.EntityID;
 using TheLostSpirit.Infrastructure.Domain.EntityMono;
 using TheLostSpirit.Infrastructure.Domain.Specification;
+using TheLostSpirit.Presentation.ViewModel;
 using TheLostSpirit.Presentation.ViewModel.Player;
-using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
+using TheLostSpirit.Presentation.ViewModel.ViewModelReference;
 using UnityEngine;
 
 namespace TheLostSpirit.Context.Player

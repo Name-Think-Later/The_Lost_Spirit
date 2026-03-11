@@ -1,7 +1,8 @@
 ﻿using MoreLinq;
 using TheLostSpirit.Application.Port.InstanceContext.InstanceFactory;
-using TheLostSpirit.Application.Repository;
-using TheLostSpirit.Application.ViewModelStore;
+using TheLostSpirit.Domain.Repository;
+using TheLostSpirit.Presentation.ViewModel;
+using TheLostSpirit.Presentation.ViewModel.ViewModelReference.ViewModelStore;
 
 namespace TheLostSpirit.Application.UseCase.Map
 {

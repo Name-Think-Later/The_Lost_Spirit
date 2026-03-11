@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
-using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Domain.Formula;
+using TheLostSpirit.Domain.Repository;
 using TheLostSpirit.Identity.EntityID;
 
 namespace TheLostSpirit.Application.UseCase.Formula

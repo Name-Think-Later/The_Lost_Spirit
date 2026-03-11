@@ -5,7 +5,7 @@ using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
 
-namespace Script.TheLostSpirit.Infrastructure.Editor
+namespace TheLostSpirit.Infrastructure.Editor
 {
     [DrawerPriority(0.01)]
     public class ListItemSelectorAttributeDrawer : OdinAttributeDrawer<ListItemSelectorAttribute>

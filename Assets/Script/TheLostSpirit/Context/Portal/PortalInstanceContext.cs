@@ -3,8 +3,9 @@ using TheLostSpirit.Domain.Portal;
 using TheLostSpirit.Identity.EntityID;
 using TheLostSpirit.Infrastructure.Domain.EntityMono;
 using TheLostSpirit.Presentation.View;
-using TheLostSpirit.Presentation.ViewModel.Port.ViewModelReference;
+using TheLostSpirit.Presentation.ViewModel;
 using TheLostSpirit.Presentation.ViewModel.Portal;
+using TheLostSpirit.Presentation.ViewModel.ViewModelReference;
 using UnityEngine;
 
 namespace TheLostSpirit.Context.Portal
