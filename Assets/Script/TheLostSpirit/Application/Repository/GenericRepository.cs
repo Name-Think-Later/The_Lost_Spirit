@@ -41,6 +41,10 @@ namespace TheLostSpirit.Application.Repository
             dictionary.Clear();
         }
 
+        public bool TryGetByID(TId id, out TEntity item) {
+            return dictionary.TryGetValue(id, out item);
+        }
+
         public TEntity TakeByID(TId id) {
             var item = GetByID(id);
             Remove(id);

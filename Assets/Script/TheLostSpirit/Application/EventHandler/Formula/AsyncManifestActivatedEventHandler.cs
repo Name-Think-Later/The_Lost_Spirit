@@ -45,28 +45,26 @@ namespace TheLostSpirit.Application.EventHandler.Formula
             var specificationID = domainEvent.ManifestationSpecificationID;
 
             var manifestationsFinish = new List<UniTask>();
-            foreach (var lastAnchorID in payload.Anchors) {
-                var manifestationEntity = CreateManifestationAndRegistry(lastAnchorID, specificationID, payload);
+            foreach (var anchorID in payload.Anchors) {
+                var manifestationEntity = CreateManifestationAndRegistry(anchorID, specificationID, payload);
                 manifestationsFinish.Add(manifestationEntity.IsFinish.WaitAsync());
 
                 var manifestationPosition = manifestationEntity.ReadOnlyTransform.Position;
-                var input                 = new CreateAnchorUseCase.Input(manifestationPosition, Vector2.zero);
-                var output                = _createAnchorUseCase.Execute(input);
+                var input = new CreateAnchorUseCase.Input(manifestationPosition, Vector2.zero, payload.FormulaStreamID);
+                var output = _createAnchorUseCase.Execute(input);
 
                 payload.CandidateAnchors.Add(output.AnchorID);
             }
 
             await UniTask.WhenAll(manifestationsFinish);
-
-            if (payload.IsLastChild) DestroyAnchors(payload);
         }
 
         ManifestationEntity CreateManifestationAndRegistry(
-            AnchorID                     lastAnchorID,
+            AnchorID                     anchorID,
             ManifestationSpecificationID specificationID,
             FormulaPayload               payload
         ) {
-            var anchorEntity = _anchorRepository.GetByID(lastAnchorID);
+            var anchorEntity = _anchorRepository.GetByID(anchorID);
             var instanceContext =
                 _manifestationInstanceFactory
                     .Create(
@@ -81,15 +79,6 @@ namespace TheLostSpirit.Application.EventHandler.Formula
             _manifestationViewModelStore.Save(viewModelReference);
 
             return entity;
-        }
-
-        void DestroyAnchors(FormulaPayload payload) {
-            foreach (var anchorID in payload.Anchors) {
-                var anchorEntity = _anchorRepository.TakeByID(anchorID);
-                anchorEntity.Destroy();
-            }
-
-            payload.Anchors.Clear();
         }
     }
 }

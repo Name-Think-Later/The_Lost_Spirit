@@ -1,4 +1,5 @@
-﻿using TheLostSpirit.Application.Port.InstanceContext.InstanceFactory;
+﻿using System;
+using TheLostSpirit.Application.Port.InstanceContext.InstanceFactory;
 using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.ViewModelStore;
 using TheLostSpirit.Identity.EntityID;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace TheLostSpirit.Application.UseCase.Formula
 {
-    public class CreateAnchorUseCase : IUseCase<CreateAnchorUseCase.Output, Void>
+    public class CreateAnchorUseCase : IUseCase<CreateAnchorUseCase.Output, CreateAnchorUseCase.Input>
     {
         readonly IAnchorInstanceFactory _anchorInstanceFactory;
         readonly AnchorRepository       _anchorRepository;
@@ -22,14 +23,8 @@ namespace TheLostSpirit.Application.UseCase.Formula
             _anchorViewModelStore  = anchorViewModelStore;
         }
 
-        public Output Execute(Void input) {
-            var defaultInput = new Input(Vector2.zero, Vector2.zero);
-
-            return Execute(defaultInput);
-        }
-
         public Output Execute(Input input) {
-            var instance = _anchorInstanceFactory.Create(input.Position, input.Rotation);
+            var instance = _anchorInstanceFactory.Create(input.Position, input.Rotation, input.FormulaStreamID);
             _anchorRepository.Save(instance.Entity);
             _anchorViewModelStore.Save(instance.ViewModelReference);
 
@@ -38,7 +33,7 @@ namespace TheLostSpirit.Application.UseCase.Formula
             return new Output(anchorID);
         }
 
-        public record struct Input(Vector2 Position, Vector2 Rotation) : IInput;
+        public record struct Input(Vector2 Position, Vector2 Rotation, Guid FormulaStreamID) : IInput;
 
         public record struct Output(AnchorID AnchorID) : IOutput;
     }

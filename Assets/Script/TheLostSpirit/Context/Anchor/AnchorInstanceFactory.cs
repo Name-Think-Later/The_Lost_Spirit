@@ -1,6 +1,8 @@
-﻿using TheLostSpirit.Application.Port.InstanceContext.InstanceContext;
+﻿using System;
+using TheLostSpirit.Application.Port.InstanceContext.InstanceContext;
 using TheLostSpirit.Application.Port.InstanceContext.InstanceFactory;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace TheLostSpirit.Context.Anchor
 {
@@ -12,9 +14,9 @@ namespace TheLostSpirit.Context.Anchor
             _original = original;
         }
 
-        public IAnchorInstanceContext Create(Vector2 position, Vector2 rotation) {
+        public IAnchorInstanceContext Create(Vector2 position, Vector2 rotation, Guid formulaStreamID) {
             var instance = Object.Instantiate(_original, position, Quaternion.Euler(rotation));
-            instance.Construct();
+            instance.Construct(formulaStreamID);
 
             return instance;
         }

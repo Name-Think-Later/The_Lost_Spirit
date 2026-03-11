@@ -38,16 +38,8 @@ namespace TheLostSpirit.Context.Formula
             FormulaAddNodeUseCase  = new FormulaAddNodeUseCase(FormulaRepository, nodeContext.NodeRepository);
 
             _ = new FormulaAddedCoreNodeEventHandler(skillContext.SkillRepository, FormulaViewModelStore).AddTo(this);
-            // _ = new AsyncFormulaActivatedSaga(
-            //     nodeContext.NodeRepository,
-            //     skillContext.AnchorRepository,
-            //     skillContext.manifestationContext.ManifestationRepository,
-            //     skillContext.manifestationContext.ManifestationViewModelStore,
-            //     skillContext.manifestationContext.ManifestationInstanceFactory,
-            //     skillContext.ActiveSkillUseCase,
-            //     skillContext.CreateAnchorUseCase
-            // );
-            
+            _ = new FormulaTraversalCompletedEventHandler(skillContext.AnchorRepository);
+
             var formulaInputViews = userInputContext.GeneralInputView.Formulas;
 
             for (var i = 0; i < _formulaCount; i++) {

@@ -1,4 +1,5 @@
-﻿using TheLostSpirit.Application.Port.InstanceContext.InstanceContext;
+﻿using System;
+using TheLostSpirit.Application.Port.InstanceContext.InstanceContext;
 using TheLostSpirit.Domain.Skill.Anchor;
 using TheLostSpirit.Identity.EntityID;
 using TheLostSpirit.Infrastructure.Domain.EntityMono;
@@ -20,10 +21,10 @@ namespace TheLostSpirit.Context.Anchor
         public AnchorEntity Entity { get; private set; }
         public IViewModelReference<AnchorID> ViewModelReference { get; private set; }
 
-        public AnchorInstanceContext Construct() {
+        public AnchorInstanceContext Construct(Guid formulaStreamID) {
             var anchorID = AnchorID.New();
 
-            Entity = new AnchorEntity(anchorID, _mono);
+            Entity = new AnchorEntity(anchorID, _mono, formulaStreamID);
 
             var viewModel = new AnchorViewModel(anchorID);
 

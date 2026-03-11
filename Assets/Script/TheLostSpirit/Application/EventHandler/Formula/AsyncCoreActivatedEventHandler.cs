@@ -25,7 +25,7 @@ namespace TheLostSpirit.Application.EventHandler.Formula
             var payload = domainEvent.Payload;
 
             var playerPosition = PlayerEntity.Get().ReadOnlyTransform.Position;
-            var input          = new CreateAnchorUseCase.Input(playerPosition, Vector2.zero);
+            var input          = new CreateAnchorUseCase.Input(playerPosition, Vector2.zero, payload.FormulaStreamID);
             var output         = _createAnchorUseCase.Execute(input);
             var anchorEntity   = _anchorRepository.GetByID(output.AnchorID);
 

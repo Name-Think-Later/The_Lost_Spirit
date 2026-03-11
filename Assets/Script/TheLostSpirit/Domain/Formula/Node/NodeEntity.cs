@@ -58,13 +58,11 @@ namespace TheLostSpirit.Domain.Formula.Node
         }
 
 
-        public async UniTask<bool> MoveNext(
+        public async UniTask MoveNext(
             FormulaPayload  payload,
             TraversalPolicy traversalPolicy = TraversalPolicy.Sequential
         ) {
             var count = OutNeighbors.Count();
-
-            if (count == 0) return false;
 
             var tasks =
                 OutNeighbors
@@ -91,8 +89,6 @@ namespace TheLostSpirit.Domain.Formula.Node
                 };
 
             await moveNextEventAwait;
-
-            return true;
         }
     }
 }

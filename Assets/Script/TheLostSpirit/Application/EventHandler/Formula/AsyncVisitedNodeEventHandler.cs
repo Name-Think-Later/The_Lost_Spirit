@@ -1,9 +1,13 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Linq;
+using Cysharp.Threading.Tasks;
+using MoreLinq;
 using TheLostSpirit.Application.Repository;
 using TheLostSpirit.Application.UseCase.Formula;
 using TheLostSpirit.Domain.Formula;
 using TheLostSpirit.Domain.Formula.Node;
 using TheLostSpirit.Domain.Formula.Node.Event;
+using TheLostSpirit.Domain.Skill.Anchor;
+using UnityEngine;
 
 namespace TheLostSpirit.Application.EventHandler.Formula
 {
@@ -27,38 +31,15 @@ namespace TheLostSpirit.Application.EventHandler.Formula
             var nodeID  = domainEvent.NodeID;
             var payload = domainEvent.Payload;
 
-            // Debug.Log(nodeID);
-            payload.AddDebugRoute(nodeID);
+            Debug.Log(nodeID.Index);
+            payload.AddRoute(nodeID);
 
             var nodeEntity = _nodeRepository.GetByID(nodeID);
 
             var activeSkillInput = new ActiveSkillUseCase.Input(nodeEntity.SkillID, payload);
             await _activeSkillUseCase.Execute(activeSkillInput);
 
-            var notLeafNode = await nodeEntity.MoveNext(payload, TraversalPolicy.Parallel);
-
-            if (notLeafNode) return;
-
-            DestroyAnchors(payload);
-            DestroyCandidateAnchors(payload);
-        }
-
-        void DestroyAnchors(FormulaPayload payload) {
-            foreach (var anchorID in payload.Anchors) {
-                var anchorEntity = _anchorRepository.TakeByID(anchorID);
-                anchorEntity.Destroy();
-            }
-
-            payload.Anchors.Clear();
-        }
-
-        void DestroyCandidateAnchors(FormulaPayload payload) {
-            foreach (var anchorID in payload.CandidateAnchors) {
-                var anchorEntity = _anchorRepository.TakeByID(anchorID);
-                anchorEntity.Destroy();
-            }
-
-            payload.CandidateAnchors.Clear();
+            await nodeEntity.MoveNext(payload, TraversalPolicy.Sequential);
         }
     }
 }
