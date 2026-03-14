@@ -56,14 +56,15 @@ namespace TheLostSpirit.Context.Formula
 
             _ = new AsyncCoreActivatedEventHandler(CreateAnchorUseCase, AnchorRepository);
 
-            _ =
-                new AsyncManifestActivatedEventHandler(
-                    AnchorRepository,
-                    manifestationContext.ManifestationRepository,
-                    manifestationContext.ManifestationViewModelStore,
-                    manifestationContext.ManifestationInstanceFactory,
-                    CreateAnchorUseCase
-                );
+            _ = new AsyncManifestActivatedEventHandler(
+                AnchorRepository,
+                manifestationContext.ManifestationRepository,
+                manifestationContext.ManifestationViewModelStore,
+                manifestationContext.ManifestationInstanceFactory,
+                CreateAnchorUseCase
+            );
+
+            _ = new WeaveActivatedEventHandler(AnchorRepository);
 
             return this;
         }

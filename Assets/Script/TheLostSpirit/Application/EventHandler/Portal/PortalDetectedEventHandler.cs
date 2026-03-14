@@ -1,7 +1,6 @@
 ﻿using TheLostSpirit.Domain.Portal.Event;
 using TheLostSpirit.Presentation.ViewModel;
 using TheLostSpirit.Presentation.ViewModel.Portal;
-using TheLostSpirit.Presentation.ViewModel.ViewModelReference.ViewModelStore;
 
 namespace TheLostSpirit.Application.EventHandler.Portal
 {

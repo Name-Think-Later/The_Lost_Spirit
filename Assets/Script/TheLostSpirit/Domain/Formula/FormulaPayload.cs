@@ -25,13 +25,13 @@ namespace TheLostSpirit.Domain.Formula
         }
 
         public void PromoteCandidateAnchors() {
-            (Anchors, CandidateAnchors) = (CandidateAnchors, Anchors);
+            Anchors.Clear();
+            Anchors.AddRange(CandidateAnchors);
             CandidateAnchors.Clear();
         }
 
         public FormulaPayload Clone() {
             var clone = new FormulaPayload(FormulaStreamID);
-            
             clone.NodeRoute.AddRange(NodeRoute);
             clone.Anchors.AddRange(Anchors);
             clone.CandidateAnchors.AddRange(CandidateAnchors);

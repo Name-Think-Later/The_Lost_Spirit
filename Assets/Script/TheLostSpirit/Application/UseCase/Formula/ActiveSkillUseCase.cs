@@ -16,7 +16,6 @@ namespace TheLostSpirit.Application.UseCase.Formula
         public async UniTask<Void> Execute(Input input) {
             var skillEntity = _skillRepository.GetByID(input.SkillID);
             await skillEntity.Activate(input.Payload);
-
             return Void.Default;
         }
 
