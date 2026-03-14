@@ -15,4 +15,9 @@ MonoBehaviour:
   _id:
     _value: 003
   _weaveConfig:
-    name: 
+    name: Next
+    _traversalPolicy: 0
+    _gate:
+      _useGate: 0
+      _blockThreshold: 0
+      _passThreshold: 0

@@ -1,13 +1,24 @@
 ﻿using System;
+using UnityEngine;
 
 namespace TheLostSpirit.Domain.Player
 {
     [Serializable]
     public class PlayerConfig
     {
-        public float baseSpeed = 10;
+        [SerializeField]
+        float baseSpeed = 10;
 
-        public float baseJumpForce       = 10;
-        public float jumpingGravityScale = 0.33f;
+        [SerializeField]
+        float baseJumpForce = 10;
+
+        [SerializeField]
+        float jumpingGravityScale = 0.33f;
+
+        public float BaseSpeed => baseSpeed;
+
+        public float BaseJumpForce => baseJumpForce;
+
+        public float JumpingGravityScale => jumpingGravityScale;
     }
 }

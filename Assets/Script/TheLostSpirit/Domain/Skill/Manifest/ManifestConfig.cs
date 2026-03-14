@@ -1,5 +1,4 @@
 ﻿using System;
-using Sirenix.OdinInspector;
 using TheLostSpirit.Identity.SpecificationID;
 
 namespace TheLostSpirit.Domain.Skill.Manifest

@@ -18,7 +18,7 @@ namespace TheLostSpirit.Infrastructure.Domain.Specification
 #if UNITY_EDITOR
         public bool IsMatch(string searchString) {
             var matchId   = !string.IsNullOrEmpty(ID.Value) && ID.Value.Contains(searchString);
-            var matchName = !string.IsNullOrEmpty(Config.name) && Config.name.Contains(searchString);
+            var matchName = !string.IsNullOrEmpty(Config.Name) && Config.Name.Contains(searchString);
 
             return matchId || matchName;
         }

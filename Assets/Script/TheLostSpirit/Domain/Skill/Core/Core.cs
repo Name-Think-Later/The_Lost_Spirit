@@ -8,7 +8,7 @@
             _config = config;
         }
 
-        public IInputPolicy InputPolicy => _config.inputPolicy;
-        public IOutputPolicy OutputPolicy => _config.outputPolicy;
+        public IInputPolicy InputPolicy => _config.InputPolicy;
+        public IOutputPolicy OutputPolicy => _config.OutputPolicy;
     }
 }

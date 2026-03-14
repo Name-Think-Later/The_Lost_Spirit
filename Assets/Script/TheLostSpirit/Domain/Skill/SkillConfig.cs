@@ -8,6 +8,7 @@ namespace TheLostSpirit.Domain.Skill
     {
         [SerializeField]
         public string name;
-        
+
+        public string Name => name;
     }
 }
