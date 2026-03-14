@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MoreLinq;
+using TheLostSpirit.Domain.Formula.Node;
 using TheLostSpirit.Identity.EntityID;
 using UnityEngine;
 
@@ -9,19 +10,18 @@ namespace TheLostSpirit.Domain.Formula
     public class FormulaPayload
     {
         public Guid FormulaStreamID { get; private set; }
-        public bool IsLastChild { get; set; }
-
         public List<NodeID> NodeRoute { get; private set; }
         public List<AnchorID> Anchors { get; private set; }
         public List<AnchorID> CandidateAnchors { get; private set; }
+        public TraversalPolicy TraversalPolicy { get; set; }
 
 
         public FormulaPayload(Guid formulaStreamID) {
             FormulaStreamID  = formulaStreamID;
-            IsLastChild      = false;
             NodeRoute        = new List<NodeID>();
             Anchors          = new List<AnchorID>();
             CandidateAnchors = new List<AnchorID>();
+            TraversalPolicy  = TraversalPolicy.Sequential;
         }
 
         public void PromoteCandidateAnchors() {
@@ -35,6 +35,7 @@ namespace TheLostSpirit.Domain.Formula
             clone.NodeRoute.AddRange(NodeRoute);
             clone.Anchors.AddRange(Anchors);
             clone.CandidateAnchors.AddRange(CandidateAnchors);
+            clone.TraversalPolicy = TraversalPolicy;
 
             return clone;
         }

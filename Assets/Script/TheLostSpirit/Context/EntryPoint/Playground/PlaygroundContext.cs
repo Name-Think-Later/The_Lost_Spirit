@@ -78,30 +78,31 @@ namespace TheLostSpirit.Context.EntryPoint.Playground
             var manifest = new SkillSpecificationID("002");
             var weave    = new SkillSpecificationID("003");
 
-            var (c, s1)  = SkillWithNode(core);
-            var (m1, s2) = SkillWithNode(manifest);
-            var (m2, s3) = SkillWithNode(manifest);
-            var (w1, s4) = SkillWithNode(weave);
-            var (w2, s5) = SkillWithNode(weave);
-            var (w3, _) = SkillWithNode(weave);
-            var (m3, s6) = SkillWithNode(manifest);
-            var (m4, s7) = SkillWithNode(manifest);
-            var (m5, _) = SkillWithNode(manifest);
+            var c = SkillWithNode(core);
 
+            var m1 = SkillWithNode(manifest);
+            var m2 = SkillWithNode(manifest);
+            var m3 = SkillWithNode(manifest);
+            var m4 = SkillWithNode(manifest);
+            var m5 = SkillWithNode(manifest);
+
+            var w1 = SkillWithNode(weave);
+            var w2 = SkillWithNode(weave);
+            var w3 = SkillWithNode(weave);
 
 
             _formulaContext.FormulaAddNodeUseCase.Execute(new FormulaAddNodeUseCase.Input(formulaID, c));
 
             _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((c, 0), (m1, 0)));
-            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((c, 1), (m2, 0)));
             _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((m1, 1), (w1, 0)));
-            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((m1, 2), (w2, 0)));
+            _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((w1, 2), (m2, 0)));
             _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((w1, 1), (m3, 0)));
             // _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((m3, 1), (w2, 0)));
             // _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((w2, 1), (m5, 0)));
             // _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((m5, 1), (w3, 0)));
             // _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((w3, 1), (m4, 0)));
             // _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((w1, 2), (m4, 0)));
+
 
             // _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n2, 2), (n5, 0)));
             // _formulaContext.nodeContext.ConnectNodeUseCase.Execute(new ConnectNodeUseCase.Input((n5, 1), (n6, 0)));
@@ -113,13 +114,13 @@ namespace TheLostSpirit.Context.EntryPoint.Playground
             //BFS 123456
         }
 
-        (NodeID, ISkillID) SkillWithNode(SkillSpecificationID id) {
+        NodeID SkillWithNode(SkillSpecificationID id) {
             var node = _formulaContext.nodeContext.CreateNodeUseCase.Execute(new CreateNodeUseCase.Input(3)).NodeID;
             var skill = _formulaContext.skillContext.CreateSkillUseCase.Execute(new CreateSkillUseCase.Input(id))
                                        .SkillID;
             _formulaContext.nodeContext.NodeContainSkillUseCase.Execute(new NodeContainSkillUseCase.Input(node, skill));
 
-            return (node, skill);
+            return node;
         }
     }
 }

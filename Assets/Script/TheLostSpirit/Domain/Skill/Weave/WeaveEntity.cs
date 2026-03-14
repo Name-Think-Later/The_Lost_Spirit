@@ -1,10 +1,8 @@
 ﻿using System.Linq;
 using Cysharp.Threading.Tasks;
-using MoreLinq;
 using TheLostSpirit.Domain.Formula;
 using TheLostSpirit.Domain.Port.EventBus;
 using TheLostSpirit.Identity.EntityID;
-using UnityEngine;
 
 namespace TheLostSpirit.Domain.Skill.Weave
 {
@@ -22,13 +20,15 @@ namespace TheLostSpirit.Domain.Skill.Weave
 
         public override UniTask Activate(FormulaPayload payload) {
             var hasAnchor = payload.Anchors.Any();
-            Debug.Log($"Weave has Anchor?: {hasAnchor} ");
 
             if (hasAnchor) return UniTask.CompletedTask;
 
             //Domain: Weaved Condition
+            if (!_weave.Verify()) return UniTask.CompletedTask;
+
             payload.PromoteCandidateAnchors();
-            
+            payload.TraversalPolicy = _weave.TraversalPolicy;
+
             var weaveActivatedEvent = new WeaveActivatedEvent(payload);
             _eventBus.Publish(weaveActivatedEvent);
 

@@ -6,6 +6,7 @@ using TheLostSpirit.Domain.Formula;
 using TheLostSpirit.Domain.Formula.Node;
 using TheLostSpirit.Domain.Formula.Node.Event;
 using TheLostSpirit.Domain.Repository;
+using UnityEngine;
 
 namespace TheLostSpirit.Application.EventHandler.Formula
 {
@@ -29,7 +30,6 @@ namespace TheLostSpirit.Application.EventHandler.Formula
             var nodeID  = domainEvent.NodeID;
             var payload = domainEvent.Payload;
 
-
             payload.AddRoute(nodeID);
 
             var nodeEntity = _nodeRepository.GetByID(nodeID);
@@ -37,7 +37,8 @@ namespace TheLostSpirit.Application.EventHandler.Formula
             var activeSkillInput = new ActiveSkillUseCase.Input(nodeEntity.SkillID, payload);
             await _activeSkillUseCase.Execute(activeSkillInput);
 
-
+            var traversalPolicy = payload.TraversalPolicy;
+            await nodeEntity.MoveNext(payload, traversalPolicy);
         }
     }
 }

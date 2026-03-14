@@ -24,14 +24,21 @@ namespace TheLostSpirit.Domain.Skill.Weave
     {
         [ToggleGroup(nameof(_useGate), "Gate")]
         [SerializeField]
-        bool _useGate;
+        bool _useGate = false;
 
         [ToggleGroup(nameof(_useGate))]
-        [SerializeField]
-        int _blockThreshold;
+        [SerializeField, MinValue(1)]
+        int _passTime = 1;
 
         [ToggleGroup(nameof(_useGate))]
-        [SerializeField]
-        int _passThreshold;
+        [SerializeField, MinValue(1)]
+        int _blockTime = 1;
+
+
+        public Gate() { }
+
+        public bool Use => _useGate && _passTime > 0 && _blockTime > 0;
+        public int PassTime => _passTime;
+        public int BlockTime => _blockTime;
     }
 }
