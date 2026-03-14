@@ -74,7 +74,7 @@ MonoBehaviour:
       Data: System.Int32, mscorlib
     - Name: Version
       Entry: 3
-      Data: 2
+      Data: 8
     - Name: type
       Entry: 1
       Data: System.Collections.Generic.IEqualityComparer`1[[System.Int32, mscorlib]],
@@ -91,7 +91,7 @@ MonoBehaviour:
       Data: System.Int32, mscorlib
     - Name: HashSize
       Entry: 3
-      Data: 3
+      Data: 11
     - Name: type
       Entry: 1
       Data: System.Collections.Generic.KeyValuePair`2[[System.Int32, mscorlib, Version=4.0.0.0,
@@ -108,34 +108,57 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 8
     - Name: 
       Entry: 7
       Data: System.Collections.Generic.KeyValuePair`2[[System.Int32, mscorlib],[System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
         TheLostSpirits.Domain]], mscorlib]], mscorlib
     - Name: 
       Entry: 3
-      Data: 28
+      Data: 20
     - Name: 
       Entry: 7
       Data: 4|System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
         TheLostSpirits.Domain]], mscorlib
     - Name: 
       Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[System.Int32, mscorlib],[System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
+        TheLostSpirits.Domain]], mscorlib]], mscorlib
+    - Name: 
+      Entry: 3
+      Data: 21
+    - Name: 
+      Entry: 7
+      Data: 5|System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
+        TheLostSpirits.Domain]], mscorlib
+    - Name: 
+      Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 5|TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep, TheLostSpirits.Domain
+      Data: 6|TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep, TheLostSpirits.Domain
     - Name: _durationFrames
       Entry: 3
       Data: 10
     - Name: _targetSelector
       Entry: 7
-      Data: 6|TheLostSpirit.Domain.Skill.Manifest.Manifestation.TargetSelectorImp.OthersSelector,
+      Data: 7|TheLostSpirit.Domain.Skill.Manifest.Manifestation.TargetSelectorImp.OthersSelector,
         TheLostSpirits.Domain
     - Name: _effectRange
       Entry: 7
-      Data: 7|TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectRangeImp.BoxRange,
+      Data: 8|TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectRangeImp.BoxRange,
         TheLostSpirits.Domain
     - Name: debugColor
       Entry: 7
@@ -199,14 +222,14 @@ MonoBehaviour:
       Data: 
     - Name: _effects
       Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.Effect,
+      Data: 9|System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.Effect,
         TheLostSpirits.Domain]], mscorlib
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 9|TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp.InstantDamage,
+      Data: 10|TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp.InstantDamage,
         TheLostSpirits.Domain
     - Name: _elementalDamage
       Entry: 4
@@ -216,7 +239,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 10|TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp.AttractiveForce,
+      Data: 11|TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp.AttractiveForce,
         TheLostSpirits.Domain
     - Name: _useFalloff
       Entry: 5
@@ -229,7 +252,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 11|TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp.DirectionForce,
+      Data: 12|TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp.DirectionForce,
         TheLostSpirits.Domain
     - Name: _directionMode
       Entry: 3
@@ -267,10 +290,125 @@ MonoBehaviour:
         TheLostSpirits.Domain]], mscorlib]], mscorlib
     - Name: 
       Entry: 3
-      Data: 51
+      Data: 24
     - Name: 
       Entry: 7
-      Data: 12|System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
+      Data: 13|System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
+        TheLostSpirits.Domain]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[System.Int32, mscorlib],[System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
+        TheLostSpirits.Domain]], mscorlib]], mscorlib
+    - Name: 
+      Entry: 3
+      Data: 26
+    - Name: 
+      Entry: 7
+      Data: 14|System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
+        TheLostSpirits.Domain]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[System.Int32, mscorlib],[System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
+        TheLostSpirits.Domain]], mscorlib]], mscorlib
+    - Name: 
+      Entry: 3
+      Data: 28
+    - Name: 
+      Entry: 7
+      Data: 15|System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
+        TheLostSpirits.Domain]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[System.Int32, mscorlib],[System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
+        TheLostSpirits.Domain]], mscorlib]], mscorlib
+    - Name: 
+      Entry: 3
+      Data: 30
+    - Name: 
+      Entry: 7
+      Data: 16|System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
+        TheLostSpirits.Domain]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[System.Int32, mscorlib],[System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
+        TheLostSpirits.Domain]], mscorlib]], mscorlib
+    - Name: 
+      Entry: 3
+      Data: 33
+    - Name: 
+      Entry: 7
+      Data: 17|System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
+        TheLostSpirits.Domain]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: System.Collections.Generic.KeyValuePair`2[[System.Int32, mscorlib],[System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
+        TheLostSpirits.Domain]], mscorlib]], mscorlib
+    - Name: 
+      Entry: 3
+      Data: 34
+    - Name: 
+      Entry: 7
+      Data: 18|System.Collections.Generic.List`1[[TheLostSpirit.Domain.Skill.Manifest.Manifestation.CombatStep,
         TheLostSpirits.Domain]], mscorlib
     - Name: 
       Entry: 12

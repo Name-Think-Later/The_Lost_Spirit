@@ -53,47 +53,54 @@ MonoBehaviour:
       _Speed: 1
       _Events:
         _NormalizedTimes:
-        - 0.29411763
-        - 0.58823526
+        - 0.37254903
+        - 0.4509804
         - NaN
         _Callbacks: []
         _Names: []
       _Clip: {fileID: 7400000, guid: 6bf9dae34651da147b703f2f9cece566, type: 2}
       _NormalizedStartTime: NaN
     eventDataList:
-    - rid: 3255180186735607822
-    - rid: 3255180186735607826
+    - rid: 3255180365885079555
+    - rid: 3255180365885079554
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 3255180186735607822
+    - rid: 3255180365885079554
       type: {class: EventData, ns: TheLostSpirit.Infrastructure, asm: TheLostSpirits.Infrastructure}
       data:
         combatSteps:
-        - _durationFrames: 0
+        - _durationFrames: 4
+          _targetSelector:
+            rid: 3255180365885079556
+          _effects: []
+        - _durationFrames: 10
           _targetSelector:
             rid: -2
-          _effects:
-          - rid: 3255180186735607823
-          - rid: 3255180186735607825
-        selectedIndex: 0
-    - rid: 3255180186735607823
-      type: {class: InstantDamage, ns: TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp, asm: TheLostSpirits.Domain}
-      data:
-        _elementalDamage: 0
-    - rid: 3255180186735607825
-      type: {class: DirectionForce, ns: TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectImp, asm: TheLostSpirits.Domain}
-      data:
-        _directionMode: 1
-        _angle: 0
-        _elementalStrength: 0
-    - rid: 3255180186735607826
+          _effects: []
+        selectedIndex: 1
+    - rid: 3255180365885079555
       type: {class: EventData, ns: TheLostSpirit.Infrastructure, asm: TheLostSpirits.Infrastructure}
       data:
         combatSteps: []
         selectedIndex: -1
+    - rid: 3255180365885079556
+      type: {class: OthersSelector, ns: TheLostSpirit.Domain.Skill.Manifest.Manifestation.TargetSelectorImp, asm: TheLostSpirits.Domain}
+      data:
+        _effectRange:
+          rid: 3255180365885079557
+    - rid: 3255180365885079557
+      type: {class: BoxRange, ns: TheLostSpirit.Domain.Skill.Manifest.Manifestation.EffectRangeImp, asm: TheLostSpirits.Domain}
+      data:
+        debugColor: {r: 1, g: 0, b: 0, a: 1}
+        layerMask:
+          serializedVersion: 2
+          m_Bits: 128
+        offset: {x: 0.24, y: 0.24}
+        _elementalSize: {x: 5.11, y: 5.11}
+        _elementalRotation: 0
 --- !u!114 &3419608804286348407
 MonoBehaviour:
   m_ObjectHideFlags: 0

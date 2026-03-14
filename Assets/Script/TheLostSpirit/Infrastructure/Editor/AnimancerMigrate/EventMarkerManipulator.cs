@@ -9,20 +9,24 @@ using UnityEngine.UIElements;
 namespace TheLostSpirit.Infrastructure.Editor.AnimancerMigrate
 {
     /// <summary>
-    /// 掛載在單一 Marker VisualElement 上，允許拖動移動事件位置。
+    /// 掛載在 <see cref="AnimancerMarkerElement"/> 上，允許拖動移動事件位置。
+    /// 左鍵點擊 → SelectEvent；左鍵拖動 → 移動；右鍵 → 刪除。
     /// </summary>
     public class EventMarkerManipulator : Manipulator
     {
         readonly ITimelineViewerController _controller;
-        readonly VisualElement _track;
+        readonly TimelineTrackView _trackView;
         readonly int _eventIndex;
 
         bool _isDragging;
 
-        public EventMarkerManipulator(ITimelineViewerController controller, VisualElement track, int eventIndex)
+        public EventMarkerManipulator(
+            ITimelineViewerController controller,
+            TimelineTrackView trackView,
+            int eventIndex)
         {
             _controller = controller;
-            _track = track;
+            _trackView = trackView;
             _eventIndex = eventIndex;
         }
 
@@ -54,6 +58,9 @@ namespace TheLostSpirit.Infrastructure.Editor.AnimancerMigrate
 
             _isDragging = true;
             target.CapturePointer(evt.pointerId);
+
+            // 點擊立即回報選取（拖動開始前就更新 OdinView）
+            _controller.SelectEvent(_eventIndex);
             _controller.OnBeginDrag(); // ★ 通知 Viewer 暫停 Reload，防止 DOM 被中途清除
             evt.StopPropagation();
         }
@@ -62,12 +69,18 @@ namespace TheLostSpirit.Infrastructure.Editor.AnimancerMigrate
         {
             if (!_isDragging || !target.HasPointerCapture(evt.pointerId)) return;
 
-            var trackLocal = _track.WorldToLocal(evt.position);
-            var w = _track.contentRect.width;
-            var ratio = w > 0 ? Mathf.Clamp01(trackLocal.x / w) : 0f;
+            var clip = _controller.GetClip();
+            if (clip != null && clip.length > 0f)
+            {
+                var localX = _trackView.WorldToLocal(evt.position).x;
+                var rawRatio = Mathf.Clamp01(localX / _trackView.contentRect.width);
+                // snap to frame
+                var rawTime = rawRatio * clip.length;
+                var snapped = Mathf.RoundToInt(rawTime * clip.frameRate) / clip.frameRate;
+                var snapRatio = Mathf.Clamp01(snapped / clip.length);
+                target.style.left = Length.Percent(snapRatio * 100f);
+            }
 
-            // 即時更新 Marker 視覺位置（不寫入 SP，避免頻繁序列化）
-            target.style.left = Length.Percent(ratio * 100f);
             evt.StopPropagation();
         }
 
@@ -77,15 +90,30 @@ namespace TheLostSpirit.Infrastructure.Editor.AnimancerMigrate
 
             _isDragging = false;
 
-            // ★ 先 release pointer，再 EndDrag，最後才寫入 SP（觸發 Reload）
+            // ★ 先 release，再 EndDrag，最後寫入 SP（觸發 Reload）
             target.ReleasePointer(evt.pointerId);
             _controller.OnEndDrag(); // 解除 Reload 抑制
 
-            var trackLocal = _track.WorldToLocal(evt.position);
-            var w = _track.contentRect.width;
-            var ratio = w > 0 ? Mathf.Clamp01(trackLocal.x / w) : 0f;
+            var clip = _controller.GetClip();
+            float finalRatio;
 
-            _controller.OnMoveEvent(_eventIndex, ratio);
+            if (clip != null && clip.length > 0f)
+            {
+                var localX = _trackView.WorldToLocal(evt.position).x;
+                var rawRatio = Mathf.Clamp01(localX / _trackView.contentRect.width);
+                var rawTime = rawRatio * clip.length;
+                var snapped = Mathf.RoundToInt(rawTime * clip.frameRate) / clip.frameRate;
+                finalRatio = Mathf.Clamp01(snapped / clip.length);
+            }
+            else
+            {
+                var w = _trackView.contentRect.width;
+                finalRatio = w > 0
+                    ? Mathf.Clamp01(_trackView.WorldToLocal(evt.position).x / w)
+                    : 0f;
+            }
+
+            _controller.OnMoveEvent(_eventIndex, finalRatio);
             evt.StopPropagation();
         }
     }

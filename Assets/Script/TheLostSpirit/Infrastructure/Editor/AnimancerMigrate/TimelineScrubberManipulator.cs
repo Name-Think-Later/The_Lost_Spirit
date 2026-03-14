@@ -3,13 +3,13 @@ using UnityEngine.UIElements;
 
 // ================================================================
 // [AnimancerMigrate] TimelineScrubberManipulator
-// 用途：在 Track 上拖動以移動 Playhead
+// 用途：在 Track 上拖動以移動 Playhead；右鍵在該位置新增事件
 // ================================================================
 
 namespace TheLostSpirit.Infrastructure.Editor.AnimancerMigrate
 {
     /// <summary>
-    /// 掛載在 Track VisualElement 上，拖動時移動 Playhead。
+    /// 掛載在 <see cref="TimelineTrackView"/> 上，拖動時移動 Playhead。
     /// </summary>
     public class TimelineScrubberManipulator : Manipulator
     {
@@ -37,11 +37,9 @@ namespace TheLostSpirit.Infrastructure.Editor.AnimancerMigrate
 
         void OnDown(PointerDownEvent evt)
         {
-            // 右鍵：加入Event
             if (evt.button == 1)
             {
-                var ratio = LocalRatio(evt.localPosition.x);
-                _controller.OnRequestAddEvent(ratio);
+                _controller.OnRequestAddEvent(LocalRatio(evt.localPosition.x));
                 evt.StopPropagation();
                 return;
             }
@@ -50,25 +48,20 @@ namespace TheLostSpirit.Infrastructure.Editor.AnimancerMigrate
 
             _isTracking = true;
             target.CapturePointer(evt.pointerId);
-
-            var n = LocalRatio(evt.localPosition.x);
-            _controller.OnScrub(n);
+            _controller.OnScrub(LocalRatio(evt.localPosition.x));
             evt.StopPropagation();
         }
 
         void OnMove(PointerMoveEvent evt)
         {
             if (!_isTracking || !target.HasPointerCapture(evt.pointerId)) return;
-
-            var n = LocalRatio(evt.localPosition.x);
-            _controller.OnScrub(n);
+            _controller.OnScrub(LocalRatio(evt.localPosition.x));
             evt.StopPropagation();
         }
 
         void OnUp(PointerUpEvent evt)
         {
             if (!_isTracking || !target.HasPointerCapture(evt.pointerId)) return;
-
             _isTracking = false;
             target.ReleasePointer(evt.pointerId);
             evt.StopPropagation();
